@@ -4,14 +4,20 @@ extends Node2D
 var speed := 150
 
 func _process(delta):
+	var direction := Vector2.ZERO
+
 	if Input.is_action_pressed("player_right"):
-		position.x += delta * speed
+		direction.x = 1
 
 	if Input.is_action_pressed("player_down"):
-		position.y += delta * speed
+		direction.y = 1
 
 	if Input.is_action_pressed("player_left"):
-		position.x -= delta * speed
+		direction.x = -1
 
 	if Input.is_action_pressed("player_up"):
-		position.y -= delta * speed
+		direction.y = -1
+
+	if direction.length() > 0:
+		print(str(direction.length()))
+		position += delta * direction.normalized()
