@@ -1,5 +1,8 @@
 extends Node2D
 
+@export
+var sprite: AnimatedSprite2D
+
 @export_range(150, 300)
 var speed := 150
 
@@ -8,6 +11,10 @@ func _process(delta):
 	var y := compute_y()
 
 	if x != 0 or y != 0:
+		var new_anim = compute_animation(x, y)
+		if new_anim.length() > 0:
+			sprite.animation = new_anim
+
 		translate(delta * speed * Vector2(x, y).normalized())
 
 func compute_x() -> int:
@@ -31,3 +38,12 @@ func compute_y() -> int:
 		resultant -= 1
 
 	return resultant
+
+func compute_animation(_x: int, y: int) -> StringName:
+	if y < 0:
+		return "walk_up"
+
+	if y > 0:
+		return "default"
+
+	return ""
