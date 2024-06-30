@@ -48,6 +48,6 @@ func compute_animation(_x: int, y: int) -> StringName:
 		return "walk_up"
 
 	if y > 0:
-		return "default"
+		return "walk_down"
 
 	return ""
