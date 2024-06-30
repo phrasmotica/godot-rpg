@@ -1,26 +1,50 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2s13nanwkocg"]
+[gd_scene load_steps=10 format=3 uid="uid://d2s13nanwkocg"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_f36bm"]
-[ext_resource type="Texture2D" uid="uid://dfaopwqilebir" path="res://assets/sprites/player.png" id="1_s2xll"]
-[ext_resource type="Texture2D" uid="uid://bfa273vl4e3dp" path="res://assets/sprites/player_back.png" id="3_lq2f6"]
+[ext_resource type="Texture2D" uid="uid://cryxhusaiopv8" path="res://assets/sprites/player_walk.png" id="2_777sl"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vw4wm"]
-atlas = ExtResource("3_lq2f6")
-region = Rect2(0, 0, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_utbco"]
+atlas = ExtResource("2_777sl")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2lgh"]
+atlas = ExtResource("2_777sl")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2q7v"]
+atlas = ExtResource("2_777sl")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adpwq"]
+atlas = ExtResource("2_777sl")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ufh1"]
+atlas = ExtResource("2_777sl")
+region = Rect2(64, 64, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0s6ni"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_s2xll")
+"texture": SubResource("AtlasTexture_utbco")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s2lgh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2q7v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adpwq")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vw4wm")
+"texture": SubResource("AtlasTexture_7ufh1")
 }],
 "loop": true,
 "name": &"walk_up",
@@ -36,6 +60,7 @@ sprite = NodePath("Sprite")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0s6ni")
+animation = &"walk_up"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

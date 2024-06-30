@@ -15,7 +15,11 @@ func _process(delta):
 		if new_anim.length() > 0:
 			sprite.animation = new_anim
 
+		sprite.play()
+
 		translate(delta * speed * Vector2(x, y).normalized())
+	else:
+		sprite.stop()
 
 func compute_x() -> int:
 	var resultant := 0
