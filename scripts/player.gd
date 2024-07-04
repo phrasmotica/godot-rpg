@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 
 @export
 var sprite: AnimatedSprite2D
@@ -17,7 +17,9 @@ func _process(delta):
 
 		sprite.play()
 
-		translate(delta * speed * Vector2(x, y).normalized())
+		var translation = delta * speed * Vector2(x, y).normalized()
+
+		move_and_collide(translation)
 	else:
 		sprite.stop()
 
