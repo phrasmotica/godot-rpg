@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=6 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player.tscn" id="1_ia2wv"]
 [ext_resource type="Texture2D" uid="uid://dgf8l1h6aqgr2" path="res://assets/sprites/background_tilemap.png" id="1_l8177"]
+[ext_resource type="PackedScene" uid="uid://dy8j3r4guc6ye" path="res://scenes/bag.tscn" id="3_pc812"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nx22v"]
 texture = ExtResource("1_l8177")
@@ -46,3 +47,7 @@ layer_0/tile_data = PackedInt32Array(0, 1, 0, 65536, 1, 0, 131072, 1, 0, 196608,
 
 [node name="Player" parent="." instance=ExtResource("1_ia2wv")]
 position = Vector2(720, 450)
+
+[node name="UICanvas" type="CanvasLayer" parent="."]
+
+[node name="Bag" parent="UICanvas" instance=ExtResource("3_pc812")]
