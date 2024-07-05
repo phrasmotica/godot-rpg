@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://dy8j3r4guc6ye"]
+[gd_scene load_steps=2 format=3 uid="uid://7nyhh4cif5fr"]
+
+[ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_l8nhx"]
 
 [node name="Bag" type="Control"]
 layout_mode = 3
@@ -8,6 +10,7 @@ anchor_right = 1.0
 offset_left = -400.0
 offset_bottom = 640.0
 grow_horizontal = 0
+theme = ExtResource("1_l8nhx")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -34,10 +37,9 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="EmptyLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 24
 text = "Your bag is empty."
 autowrap_mode = 2
