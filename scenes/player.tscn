@@ -86,8 +86,10 @@ sprite_frames = SubResource("SpriteFrames_0s6ni")
 animation = &"walk_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+editor_description = "This is currently disabled because collision is handled by the RayCast2D in the GridMovement scene; we leave it here to remove the editor warning."
 position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_r62ki")
+disabled = true
 
 [node name="GridMovement" parent="." node_paths=PackedStringArray("self_node") instance=ExtResource("3_co72y")]
 self_node = NodePath("..")

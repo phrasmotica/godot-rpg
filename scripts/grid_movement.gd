@@ -9,9 +9,15 @@ var speed := 0.35
 @export
 var step_size := 80
 
+@onready
+var raycast: RayCast2D = $RayCast2D
+
 var moving_direction := Vector2.ZERO
 
 signal moving_finished
+
+func _ready():
+    raycast.target_position = Vector2.RIGHT * step_size
 
 func get_snapped_position(current_pos: Vector2):
     var snap_pos = current_pos.snapped(Vector2.ONE * step_size)
@@ -31,9 +37,17 @@ func move(direction: Vector2):
         elif direction.x < 0:
             movement = Vector2.LEFT
 
-        moving_direction = movement
+        raycast.target_position = movement * step_size
+        raycast.force_raycast_update()
 
-        animate_move()
+        if not raycast.is_colliding():
+            moving_direction = movement
+
+            animate_move()
+
+            return true
+
+        return false
 
 func animate_move():
     var new_position = self_node.global_position + (moving_direction * step_size)

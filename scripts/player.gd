@@ -11,9 +11,9 @@ func _ready():
 
 func _process(_delta):
 	var direction = Input.get_vector("player_left", "player_right", "player_up", "player_down")
-	grid_movement.move(direction)
+	var did_move = grid_movement.move(direction)
 
-	if direction.length() > 0:
+	if did_move and direction.length() > 0:
 		var new_anim = compute_animation(direction)
 		if new_anim.length() > 0:
 			sprite.animation = new_anim
