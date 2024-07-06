@@ -13,6 +13,11 @@ var moving_direction := Vector2.ZERO
 
 signal moving_finished
 
+func get_snapped_position(current_pos: Vector2):
+    var snap_pos = current_pos.snapped(Vector2.ONE * step_size)
+    snap_pos -= Vector2.ONE * float(step_size) / 2
+    return snap_pos
+
 func move(direction: Vector2):
     if moving_direction.length() == 0 and direction.length() > 0:
         var movement := Vector2.ZERO
