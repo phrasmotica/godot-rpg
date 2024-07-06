@@ -3,53 +3,28 @@ extends CharacterBody2D
 @export
 var sprite: AnimatedSprite2D
 
-@export_range(150, 300)
-var speed := 150
+@onready
+var grid_movement = $GridMovement
 
-func _process(delta):
-	var x := compute_x()
-	var y := compute_y()
+func _process(_delta):
+	var direction = Input.get_vector("player_left", "player_right", "player_up", "player_down")
+	grid_movement.move(direction)
 
-	if x != 0 or y != 0:
-		var new_anim = compute_animation(x, y)
+	if direction.length() > 0:
+		var new_anim = compute_animation(direction)
 		if new_anim.length() > 0:
 			sprite.animation = new_anim
 
 		sprite.play()
 
-		var translation = delta * speed * Vector2(x, y).normalized()
-
-		move_and_collide(translation)
-	else:
-		sprite.stop()
-
-func compute_x() -> int:
-	var resultant := 0
-
-	if Input.is_action_pressed("player_right"):
-		resultant += 1
-
-	if Input.is_action_pressed("player_left"):
-		resultant -= 1
-
-	return resultant
-
-func compute_y() -> int:
-	var resultant := 0
-
-	if Input.is_action_pressed("player_down"):
-		resultant += 1
-
-	if Input.is_action_pressed("player_up"):
-		resultant -= 1
-
-	return resultant
-
-func compute_animation(_x: int, y: int) -> StringName:
-	if y < 0:
+func compute_animation(direction: Vector2) -> StringName:
+	if direction.y < 0:
 		return "walk_up"
 
-	if y > 0:
+	if direction.y > 0:
 		return "walk_down"
 
 	return ""
+
+func _on_grid_movement_moving_finished():
+	sprite.stop()
