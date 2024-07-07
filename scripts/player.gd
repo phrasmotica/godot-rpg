@@ -13,6 +13,8 @@ func _process(_delta):
 	var direction = Input.get_vector("player_left", "player_right", "player_up", "player_down")
 	var did_move = grid_movement.move(direction)
 
+	# TODO: allow "tapping" the arrow key/WASD to face in the given direction without moving
+
 	if did_move and direction.length() > 0:
 		var new_anim = compute_animation(direction)
 		if new_anim.length() > 0:
