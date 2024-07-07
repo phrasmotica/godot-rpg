@@ -21,11 +21,17 @@ func _process(_delta):
 		sprite.play()
 
 func compute_animation(direction: Vector2) -> StringName:
+	if direction.y > 0:
+		return "walk_down"
+
 	if direction.y < 0:
 		return "walk_up"
 
-	if direction.y > 0:
-		return "walk_down"
+	if direction.x > 0:
+		return "walk_right"
+
+	if direction.x < 0:
+		return "walk_left"
 
 	return ""
 
