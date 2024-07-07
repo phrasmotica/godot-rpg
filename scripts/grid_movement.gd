@@ -7,7 +7,7 @@ var self_node: Node2D
 var speed := 0.35
 
 @export
-var step_size := 80
+var step_size := 64
 
 @onready
 var raycast: RayCast2D = $RayCast2D
