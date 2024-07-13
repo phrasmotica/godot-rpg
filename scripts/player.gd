@@ -16,6 +16,7 @@ func _ready():
 	position = grid_movement.get_snapped_position(position)
 
 func _process(_delta):
+	# TODO: set_process(false) while bag menu is open
 	var direction := Input.get_vector("player_left", "player_right", "player_up", "player_down")
 
 	if direction.length() > 0:
