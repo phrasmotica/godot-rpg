@@ -24,6 +24,11 @@ func get_snapped_position(current_pos: Vector2):
     snap_pos -= Vector2.ONE * float(step_size) / 2
     return snap_pos
 
+func face(direction: Vector2):
+    if moving_direction.length() == 0 and direction.length() > 0:
+        raycast.target_position = direction * step_size
+        raycast.force_raycast_update()
+
 func move(direction: Vector2):
     if moving_direction.length() == 0 and direction.length() > 0:
         var movement := Vector2.ZERO
@@ -36,9 +41,6 @@ func move(direction: Vector2):
             movement = Vector2.RIGHT
         elif direction.x < 0:
             movement = Vector2.LEFT
-
-        raycast.target_position = movement * step_size
-        raycast.force_raycast_update()
 
         if not raycast.is_colliding():
             moving_direction = movement
