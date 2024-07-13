@@ -67,7 +67,6 @@ position = Vector2(544, 480)
 script = ExtResource("3_qs36w")
 bag_menu = NodePath("BagMenu")
 
-[node name="BagMenu" parent="UICanvas/UIManager" instance=ExtResource("5_votnq")]
+[node name="BagMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("bag") instance=ExtResource("5_votnq")]
 visible = false
-
-[connection signal="added_item" from="Map/Player/Bag" to="UICanvas/UIManager" method="_on_bag_added_item"]
+bag = NodePath("../../../Map/Player/Bag")

@@ -2,7 +2,7 @@ class_name Bag extends Node
 
 var items: Array[Item] = []
 
-signal added_item(item: Item)
+signal added_item(new_item: Item, items: Array[Item])
 
 func _process(_delta):
     if Input.is_action_just_pressed("pick_up"):
@@ -15,4 +15,4 @@ func add_item():
 
     items.append(new_item)
 
-    added_item.emit(new_item)
+    added_item.emit(new_item, items)
