@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_l8nhx"]
 [ext_resource type="Script" path="res://scripts/bag_menu.gd" id="2_46jpv"]
 
-[node name="BagMenu" type="Control" node_paths=PackedStringArray("empty_label")]
+[node name="BagMenu" type="Control" node_paths=PackedStringArray("item_list", "empty_label")]
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
@@ -13,7 +13,8 @@ offset_bottom = 640.0
 grow_horizontal = 0
 theme = ExtResource("1_l8nhx")
 script = ExtResource("2_46jpv")
-empty_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/EmptyLabel")
+item_list = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer")
+empty_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/EmptyLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -36,13 +37,12 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="EmptyLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="EmptyLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 1, 1)
 text = "Your bag is empty."
 autowrap_mode = 2

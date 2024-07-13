@@ -4,6 +4,9 @@ extends Control
 var bag: Bag
 
 @export
+var item_list: VBoxContainer
+
+@export
 var empty_label: Label
 
 func _ready():
@@ -14,10 +17,9 @@ func _on_bag_added_item(new_item: Item, items: Array[Item]):
 	print("Added " + new_item.name + " to bag")
 
 	var count := len(items)
+	empty_label.visible = count <= 0
 
-	if count > 1:
-		empty_label.text = "Your bag contains " + str(count) + " items."
-	elif count == 1:
-		empty_label.text = "Your bag contains 1 item."
-	else:
-		empty_label.text = "Your bag is empty."
+	var new_label := Label.new()
+	new_label.text = new_item.name
+
+	item_list.add_child(new_label)
