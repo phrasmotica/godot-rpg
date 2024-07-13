@@ -1,45 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://7nyhh4cif5fr"]
+[gd_scene load_steps=2 format=3 uid="uid://wf1bgkchcqs5"]
 
-[ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_l8nhx"]
+[ext_resource type="Script" path="res://scripts/bag.gd" id="1_a5j3q"]
 
-[node name="Bag" type="Control"]
-layout_mode = 3
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -400.0
-offset_bottom = 640.0
-grow_horizontal = 0
-theme = ExtResource("1_l8nhx")
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 400.0
-offset_bottom = 640.0
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="EmptyLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Your bag is empty."
-autowrap_mode = 2
+[node name="Bag" type="Node"]
+script = ExtResource("1_a5j3q")
