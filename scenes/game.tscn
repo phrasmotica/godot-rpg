@@ -70,3 +70,6 @@ bag_menu = NodePath("BagMenu")
 [node name="BagMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("bag") instance=ExtResource("5_votnq")]
 visible = false
 bag = NodePath("../../../Map/Player/Bag")
+
+[connection signal="bag_closed" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_bag_closed"]
+[connection signal="bag_opened" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_bag_opened"]
