@@ -9,8 +9,11 @@ var item_list: VBoxContainer
 @export
 var empty_label: Label
 
-var item_buttons: Array[Control]
-var current_item: Control
+@export
+var item_button_scene: PackedScene
+
+var item_buttons: Array[ItemButton]
+var current_item: ItemButton
 
 func _ready():
 	if bag:
@@ -22,19 +25,18 @@ func _on_bag_added_item(new_item: Item, items: Array[Item]):
 	var count := len(items)
 	empty_label.visible = count <= 0
 
-	var new_button := Button.new()
-	new_button.text = new_item.name
-	new_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	var new_button: ItemButton = item_button_scene.instantiate()
 
-	new_button.focus_entered.connect(
-		func():
-			current_item = new_button
-	)
+	new_button.text = new_item.name
+	new_button.focused.connect(_on_item_button_focused)
 
 	item_list.add_child(new_button)
 	item_buttons.append(new_button)
 
 	new_button.call_deferred("grab_focus")
+
+func _on_item_button_focused(button: ItemButton):
+	current_item = button
 
 func _on_visibility_changed():
 	if not current_item and len(item_buttons) > 0:
