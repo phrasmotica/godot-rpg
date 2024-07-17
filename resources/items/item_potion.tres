@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_xw1cv")
+id = 2
 name = "Potion"
 description = "Heals 10 HP."

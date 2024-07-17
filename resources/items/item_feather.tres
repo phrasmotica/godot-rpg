@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_dkqws")
+id = 1
 name = "Feather"
 description = "Allows running away from a single enemy."
