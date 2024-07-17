@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://8gweefisuilw"]
+
+[ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_nu1o1"]
+[ext_resource type="Script" path="res://scripts/item_stack_button.gd" id="2_0j04q"]
+
+[node name="ItemStackButton" type="Button" node_paths=PackedStringArray("name_label", "amount_label")]
+custom_minimum_size = Vector2(2.08165e-12, 24)
+offset_right = 340.0
+offset_bottom = 24.0
+theme = ExtResource("1_nu1o1")
+alignment = 0
+script = ExtResource("2_0j04q")
+name_label = NodePath("HBoxContainer/Name")
+amount_label = NodePath("HBoxContainer/Amount")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Item Name"
+
+[node name="Amount" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "x0"
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
