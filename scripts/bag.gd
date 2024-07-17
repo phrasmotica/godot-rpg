@@ -5,11 +5,17 @@ var item_pool: ItemPool
 
 var item_stacks: Array[ItemStack] = []
 
-signal added_item(new_item: Item, items: Array[ItemStack])
+signal added_item(new_item: Item, item_stacks: Array[ItemStack])
+signal dropped_item(dropped_item: Item, item_stacks: Array[ItemStack])
+
+signal drop_item
 
 func _process(_delta):
 	if Input.is_action_just_pressed("random_item"):
 		add_random_item()
+
+	if Input.is_action_just_pressed("drop_item"):
+		drop_item.emit()
 
 func add_random_item():
 	var new_item := item_pool.get_random()
@@ -40,3 +46,24 @@ func find_stack(new_item: Item) -> ItemStack:
 	)
 
 	return valid_stacks[0] if valid_stacks.size() > 0 else null
+
+func _on_bag_menu_drop_item(stack_id: int):
+	var valid_stacks := item_stacks.filter(
+		func(stack: ItemStack):
+			return stack.id == stack_id
+	)
+
+	if valid_stacks.size() <= 0:
+		print("Tried to drop from stack ID=" + str(stack_id) + " but no such stack exists!")
+		return
+
+	var drop_stack: ItemStack = valid_stacks[0]
+
+	var just_dropped_item := drop_stack.drop(1)
+	if  not just_dropped_item:
+		print("Tried to drop from stack ID=" + str(stack_id) + " but the stack was empty!")
+		return
+
+	print("Dropping from stack ID=" + str(stack_id))
+
+	dropped_item.emit(just_dropped_item, item_stacks)

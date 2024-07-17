@@ -15,7 +15,7 @@ var stack: ItemStack:
 		var name_text := "<empty stack>"
 		var amount_text := ""
 
-		if stack:
+		if stack and stack.amount > 0:
 			if stack.item:
 				name_text = stack.item.name
 
