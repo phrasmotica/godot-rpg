@@ -27,5 +27,7 @@ var stack: ItemStack:
 		if amount_label:
 			amount_label.text = amount_text
 
+var index := -1
+
 func _on_focus_entered():
 	focused.emit(self)

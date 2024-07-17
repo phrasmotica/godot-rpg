@@ -64,6 +64,12 @@ func _on_bag_menu_drop_item(stack_id: int):
 		print("Tried to drop from stack ID=" + str(stack_id) + " but the stack was empty!")
 		return
 
-	print("Dropping from stack ID=" + str(stack_id))
+	print("Dropped from stack ID=" + str(stack_id))
+
+	# remove empty stacks
+	item_stacks = item_stacks.filter(
+		func(stack: ItemStack):
+			return stack.amount > 0
+	)
 
 	dropped_item.emit(just_dropped_item, item_stacks)

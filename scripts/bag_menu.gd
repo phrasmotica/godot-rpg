@@ -13,7 +13,12 @@ var empty_label: Label
 var item_stack_button_scene: PackedScene
 
 var item_stack_buttons: Array[ItemStackButton]
-var current_item: ItemStackButton
+
+var current_index := -1:
+	set(value):
+		current_index = value
+		if item_stack_buttons.size() > current_index:
+			item_stack_buttons[current_index].call_deferred("grab_focus")
 
 signal drop_item(stack_id: int)
 
@@ -30,10 +35,12 @@ func update_buttons(item_stacks: Array[ItemStack]):
 
 	for i in range(item_stacks.size()):
 		if item_stack_buttons.size() > i:
+			item_stack_buttons[i].show()
 			item_stack_buttons[i].stack = item_stacks[i]
 		else:
 			var new_button: ItemStackButton = item_stack_button_scene.instantiate()
 
+			new_button.index = i
 			new_button.stack = item_stacks[i]
 			new_button.focused.connect(_on_item_button_focused)
 
@@ -42,7 +49,13 @@ func update_buttons(item_stacks: Array[ItemStack]):
 
 			new_button.call_deferred("grab_focus")
 
-	# TODO: account for there being extra unused item stack buttons
+	# clean up any unused buttons
+	for j in range(item_stacks.size(), item_stack_buttons.size()):
+		item_stack_buttons[j].hide()
+
+	# ensure the last item stack is focused
+	while current_index >= item_stacks.size():
+		current_index -= 1
 
 func _on_bag_added_item(new_item: Item, item_stacks: Array[ItemStack]):
 	print("Added " + new_item.name + " to bag")
@@ -55,15 +68,14 @@ func _on_bag_dropped_item(dropped_item: Item, item_stacks: Array[ItemStack]):
 	update_buttons(item_stacks)
 
 func _on_bag_drop_item():
-	if current_item:
+	if current_index > -1:
+		var current_item := item_stack_buttons[current_index]
 		drop_item.emit(current_item.stack.id)
 
 func _on_item_button_focused(button: ItemStackButton):
-	current_item = button
+	current_index = button.index
 
 func _on_visibility_changed():
-	if not current_item and len(item_stack_buttons) > 0:
-		current_item = item_stack_buttons[0]
-
-	if current_item:
-		current_item.grab_focus()
+	# TODO: ensure current stack remains focused after hiding and re-showing the bag menu
+	if current_index < 0 and len(item_stack_buttons) > 0:
+		current_index = 0
