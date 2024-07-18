@@ -28,6 +28,21 @@ func _ready():
 
 		bag.drop_item.connect(_on_bag_drop_item)
 
+func _process(_delta):
+	if Input.is_action_just_pressed("ui_down"):
+		next_item_stack()
+
+	if Input.is_action_just_pressed("ui_up"):
+		previous_item_stack()
+
+func next_item_stack():
+	current_index = (current_index + 1) % item_stack_buttons.size()
+
+func previous_item_stack():
+	# this weird maths ensures we wrap around to the bottom of the bag
+	# if we're currently at the top of it
+	current_index = (current_index + item_stack_buttons.size() - 1) % item_stack_buttons.size()
+
 func update_buttons(item_stacks: Array[ItemStack]):
 	var count := len(item_stacks)
 	empty_label.visible = count <= 0
@@ -41,7 +56,6 @@ func update_buttons(item_stacks: Array[ItemStack]):
 
 			new_button.index = i
 			new_button.stack = item_stacks[i]
-			new_button.focused.connect(_on_item_button_focused)
 
 			item_list.add_child(new_button)
 			item_stack_buttons.append(new_button)
@@ -53,7 +67,7 @@ func update_buttons(item_stacks: Array[ItemStack]):
 	for j in range(item_stacks.size(), item_stack_buttons.size()):
 		item_stack_buttons[j].hide()
 
-	# ensure the last item stack is focused
+	# ensure the last item stack is selected
 	while current_index >= item_stacks.size():
 		current_index -= 1
 
@@ -74,9 +88,6 @@ func _on_bag_drop_item():
 		var current_item := item_stack_buttons[current_index]
 		drop_item.emit(current_item.stack.id)
 
-func _on_item_button_focused(button: ItemStackButton):
-	current_index = button.index
-
 func _on_visibility_changed():
 	select_current()
 
@@ -84,6 +95,5 @@ func select_current():
 	for button in item_stack_buttons:
 		if button.index == current_index:
 			button.select()
-			button.call_deferred("grab_focus")
 		else:
 			button.deselect()
