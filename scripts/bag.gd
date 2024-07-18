@@ -24,10 +24,15 @@ func add_item(new_item: Item):
 
 		existing_stack.push(new_item)
 	else:
-		print("Creaating new stack for " + new_item.name)
+		print("Creating new stack for " + new_item.name)
 
 		var new_stack = ItemStack.new()
-		new_stack.id = item_stacks.size()
+
+		var max_id = item_stacks.map(func(s): return s.id).max()
+		if max_id:
+			new_stack.id = int(max_id) + 1
+		else:
+			new_stack.id = 1
 
 		new_stack.push(new_item)
 		item_stacks.append(new_stack)
