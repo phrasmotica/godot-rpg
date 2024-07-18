@@ -7,4 +7,6 @@ func _on_bag_menu_select(stack_id:int):
 	show()
 
 func _on_cancel():
+	print("Hiding UseItemMenu")
+
 	hide()

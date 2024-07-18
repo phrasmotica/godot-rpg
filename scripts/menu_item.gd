@@ -22,3 +22,6 @@ var selected := false:
 
 		if pointer:
 			pointer.visible = selected
+
+@export
+var is_cancel := false
