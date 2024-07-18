@@ -4,6 +4,9 @@ extends Control
 var bag: Bag
 
 @export
+var use_item_menu: Menu
+
+@export
 var item_list: VBoxContainer
 
 @export
@@ -23,6 +26,8 @@ signal add_random_item
 signal select(stack_id: int)
 signal drop_item(stack_id: int)
 
+signal bag_closed
+
 func _ready():
 	if bag:
 		bag.added_item.connect(_on_bag_added_item)
@@ -39,6 +44,11 @@ func _process(_delta):
 
 	if Input.is_action_just_pressed("ui_up"):
 		previous_item_stack()
+
+	if Input.is_action_just_pressed("ui_cancel"):
+		hide()
+
+		bag_closed.emit()
 
 	if Input.is_action_just_pressed("random_item"):
 		add_random_item.emit()
@@ -129,3 +139,6 @@ func select_current():
 			button.select()
 		else:
 			button.deselect()
+
+func _on_use_item_menu_visibility_changed():
+	set_process(not use_item_menu.visible)

@@ -12,6 +12,7 @@ var current_index := -1:
 		select_current()
 
 signal select(index: int)
+signal cancel
 
 func _ready():
 	set_process(visible)
@@ -28,6 +29,9 @@ func _process(_delta):
 
 	if Input.is_action_just_pressed("ui_up"):
 		previous()
+
+	if Input.is_action_just_pressed("ui_cancel"):
+		cancel.emit()
 
 func next():
 	if buttons.size() <= 0:

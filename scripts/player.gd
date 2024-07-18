@@ -88,5 +88,5 @@ func _on_grid_movement_moving_finished():
 func _on_ui_manager_bag_opened():
 	set_process(false)
 
-func _on_ui_manager_bag_closed():
+func _on_bag_menu_bag_closed():
 	set_process(true)
