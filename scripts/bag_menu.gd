@@ -50,7 +50,6 @@ func update_buttons(item_stacks: Array[ItemStack]):
 
 	for i in range(item_stacks.size()):
 		if item_stack_buttons.size() > i:
-			item_stack_buttons[i].show()
 			item_stack_buttons[i].stack = item_stacks[i]
 		else:
 			var new_button: ItemStackButton = item_stack_button_scene.instantiate()
@@ -65,8 +64,12 @@ func update_buttons(item_stacks: Array[ItemStack]):
 			current_index = 0
 
 	# clean up any unused buttons
-	for j in range(item_stacks.size(), item_stack_buttons.size()):
-		item_stack_buttons[j].hide()
+	if item_stack_buttons.size() > item_stacks.size():
+		for j in range(item_stacks.size(), item_stack_buttons.size()):
+			item_stack_buttons[j].queue_free()
+
+		while item_stack_buttons.size() > item_stacks.size():
+			item_stack_buttons.pop_back()
 
 	# ensure the last item stack is selected
 	while current_index >= item_stacks.size():
