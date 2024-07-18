@@ -27,6 +27,8 @@ func _ready():
 		bag.added_item.connect(_on_bag_added_item)
 		bag.dropped_item.connect(_on_bag_dropped_item)
 
+	set_process(visible)
+
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_down"):
 		next_item_stack()
@@ -98,6 +100,8 @@ func drop_current_item():
 
 func _on_visibility_changed():
 	select_current()
+
+	set_process(visible)
 
 func select_current():
 	for button in item_stack_buttons:
