@@ -63,5 +63,5 @@ text = "Cancel"
 selected = false
 is_cancel = true
 
-[connection signal="select" from="." to="." method="_on_select"]
+[connection signal="select_index" from="." to="." method="_on_select_index"]
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

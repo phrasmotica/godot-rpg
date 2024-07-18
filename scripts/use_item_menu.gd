@@ -6,12 +6,12 @@ signal use_all
 signal drop
 signal drop_all
 
-func _on_bag_menu_select(stack_id: int):
+func _on_bag_menu_select_stack(stack_id: int):
 	print("Showing UseItemMenu for stack ID=" + str(stack_id))
 
 	show()
 
-func _on_select(index: int):
+func _on_select_index(index: int):
 	# TODO: this isn't great - should probably define an enum
 	# for the actions that this menu contains
 	match index:
@@ -34,7 +34,6 @@ func _on_select(index: int):
 			drop_all.emit()
 
 			hide()
-
 
 func _on_cancel():
 	print("Hiding UseItemMenu")

@@ -1,4 +1,5 @@
-extends Control
+@tool
+extends Menu
 
 @export
 var use_item_menu: Menu
@@ -14,44 +15,17 @@ var item_stack_button_scene: PackedScene
 
 var item_stack_buttons: Array[ItemStackButton]
 
-var current_index := -1:
-	set(value):
-		current_index = value
-		select_current()
-
 signal add_random_item
-signal select(stack_id: int)
+signal select_stack(stack_id: int)
 
 signal drop_item(stack_id: int)
 signal drop_stack(stack_id: int)
 
 signal bag_closed
 
-func _ready():
-	set_process(visible)
+## Menu overrides
 
-func _process(_delta):
-	if Input.is_action_just_pressed("ui_select"):
-		select_item()
-
-	if Input.is_action_just_pressed("ui_down"):
-		next_item_stack()
-
-	if Input.is_action_just_pressed("ui_up"):
-		previous_item_stack()
-
-	if Input.is_action_just_pressed("ui_cancel"):
-		hide()
-
-		bag_closed.emit()
-
-	if Input.is_action_just_pressed("random_item"):
-		add_random_item.emit()
-
-	if Input.is_action_just_pressed("drop_item"):
-		drop_current_item()
-
-func select_item():
+func process_select():
 	if current_index < 0 || current_index >= item_stack_buttons.size():
 		return
 
@@ -59,21 +33,45 @@ func select_item():
 
 	print("Selecting the " + button.stack.item.name)
 
-	select.emit(button.stack.id)
+	select_stack.emit(button.stack.id)
 
-func next_item_stack():
+func next():
 	if item_stack_buttons.size() <= 0:
 		return
 
 	current_index = (current_index + 1) % item_stack_buttons.size()
 
-func previous_item_stack():
+func previous():
 	if item_stack_buttons.size() <= 0:
 		return
 
 	# this weird maths ensures we wrap around to the bottom of the bag
 	# if we're currently at the top of it
 	current_index = (current_index + item_stack_buttons.size() - 1) % item_stack_buttons.size()
+
+func cancel_menu():
+	hide()
+
+	bag_closed.emit()
+
+func listen_for_inputs():
+	if Input.is_action_just_pressed("random_item"):
+		add_random_item.emit()
+
+	if Input.is_action_just_pressed("drop_item"):
+		drop_current_item()
+
+func highlight_current():
+	for button in item_stack_buttons:
+		if button.index == current_index:
+			button.select()
+		else:
+			button.deselect()
+
+func get_max_index():
+	return item_stack_buttons.size() - 1
+
+## BagMenu-specific
 
 func update_buttons(item_stacks: Array[ItemStack]):
 	var count := len(item_stacks)
@@ -106,17 +104,7 @@ func update_buttons(item_stacks: Array[ItemStack]):
 	while current_index >= item_stacks.size():
 		current_index -= 1
 
-	select_current()
-
-func _on_bag_added_item(new_item: Item, item_stacks: Array[ItemStack]):
-	print("Added " + new_item.name + " to bag")
-
-	update_buttons(item_stacks)
-
-func _on_bag_dropped_item(dropped_item: Item, item_stacks: Array[ItemStack]):
-	print("Dropped " + dropped_item.name + " from bag")
-
-	update_buttons(item_stacks)
+	highlight_current()
 
 func drop_current_item():
 	if current_index > -1:
@@ -128,17 +116,15 @@ func drop_current_stack():
 		var current_item := item_stack_buttons[current_index]
 		drop_stack.emit(current_item.stack.id)
 
-func _on_visibility_changed():
-	select_current()
+func _on_bag_added_item(new_item: Item, item_stacks: Array[ItemStack]):
+	print("Added " + new_item.name + " to bag")
 
-	set_process(visible)
+	update_buttons(item_stacks)
 
-func select_current():
-	for button in item_stack_buttons:
-		if button.index == current_index:
-			button.select()
-		else:
-			button.deselect()
+func _on_bag_dropped_item(dropped_item: Item, item_stacks: Array[ItemStack]):
+	print("Dropped " + dropped_item.name + " from bag")
+
+	update_buttons(item_stacks)
 
 func _on_use_item_menu_visibility_changed():
 	set_process(not use_item_menu.visible)

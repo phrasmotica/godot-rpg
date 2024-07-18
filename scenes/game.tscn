@@ -97,7 +97,7 @@ offset_bottom = 320.0
 [connection signal="bag_closed" from="UICanvas/UIManager/BagMenu" to="Map/Player" method="_on_bag_menu_bag_closed"]
 [connection signal="drop_item" from="UICanvas/UIManager/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_item"]
 [connection signal="drop_stack" from="UICanvas/UIManager/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_stack"]
-[connection signal="select" from="UICanvas/UIManager/BagMenu" to="UICanvas/UIManager/BagMenu/UseItemMenu" method="_on_bag_menu_select"]
+[connection signal="select_stack" from="UICanvas/UIManager/BagMenu" to="UICanvas/UIManager/BagMenu/UseItemMenu" method="_on_bag_menu_select_stack"]
 [connection signal="cancel" from="UICanvas/UIManager/BagMenu/UseItemMenu" to="UICanvas/UIManager/BagMenu/UseItemMenu" method="_on_cancel"]
 [connection signal="drop" from="UICanvas/UIManager/BagMenu/UseItemMenu" to="UICanvas/UIManager/BagMenu" method="_on_use_item_menu_drop"]
 [connection signal="drop_all" from="UICanvas/UIManager/BagMenu/UseItemMenu" to="UICanvas/UIManager/BagMenu" method="_on_use_item_menu_drop_all"]

@@ -8,10 +8,10 @@ var items: Array[MenuItem] = []
 @export
 var current_index := -1:
 	set(value):
-		current_index = min(max(value, -1), items.size() - 1)
-		select_current()
+		current_index = min(max(value, -1), get_max_index())
+		highlight_current()
 
-signal select(index: int)
+signal select_index(index: int)
 signal cancel
 
 func _ready():
@@ -21,13 +21,11 @@ func _ready():
 		current_index = 0
 
 func _process(_delta):
-	if Input.is_action_just_pressed("ui_select"):
-		var item := items[current_index]
+	if Engine.is_editor_hint():
+		return
 
-		if item.is_cancel:
-			cancel.emit()
-		else:
-			select.emit(current_index)
+	if Input.is_action_just_pressed("ui_select"):
+		process_select()
 
 	if Input.is_action_just_pressed("ui_down"):
 		next()
@@ -36,7 +34,20 @@ func _process(_delta):
 		previous()
 
 	if Input.is_action_just_pressed("ui_cancel"):
-		cancel.emit()
+		cancel_menu()
+
+	listen_for_inputs()
+
+func process_select():
+	var item := items[current_index]
+
+	if item.is_cancel:
+		cancel_menu()
+	else:
+		select_current()
+
+func select_current():
+	select_index.emit(current_index)
 
 func next():
 	if items.size() <= 0:
@@ -48,15 +59,24 @@ func previous():
 	if items.size() <= 0:
 		return
 
-	# this weird maths ensures we wrap around to the bottom of the bag
-	# if we're currently at the top of it
+	# this weird maths ensures we wrap around to the bottom
+	# if we're currently at the top
 	current_index = (current_index + items.size() - 1) % items.size()
 
-func _on_visibility_changed():
-	select_current()
+func cancel_menu():
+	cancel.emit()
 
-	set_process(visible)
+func listen_for_inputs():
+	pass
 
-func select_current():
+func highlight_current():
 	for i in range(items.size()):
 		items[i].selected = i == current_index
+
+func get_max_index():
+	return items.size() - 1
+
+func _on_visibility_changed():
+	highlight_current()
+
+	set_process(visible)
