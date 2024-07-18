@@ -1,6 +1,9 @@
 class_name ItemStackButton extends Button
 
 @export
+var pointer: TextureRect
+
+@export
 var name_label: Label
 
 @export
@@ -28,6 +31,12 @@ var stack: ItemStack:
 			amount_label.text = amount_text
 
 var index := -1
+
+func select():
+	pointer.show()
+
+func deselect():
+	pointer.hide()
 
 func _on_focus_entered():
 	focused.emit(self)

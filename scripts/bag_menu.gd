@@ -17,8 +17,12 @@ var item_stack_buttons: Array[ItemStackButton]
 var current_index := -1:
 	set(value):
 		current_index = value
-		if item_stack_buttons.size() > current_index:
-			item_stack_buttons[current_index].call_deferred("grab_focus")
+
+		for button in item_stack_buttons:
+			if button.index == current_index:
+				button.select()
+			else:
+				button.deselect()
 
 signal drop_item(stack_id: int)
 
