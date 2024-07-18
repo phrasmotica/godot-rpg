@@ -44,8 +44,6 @@ func next():
 
 	current_index = (current_index + 1) % items.size()
 
-	select.emit(current_index)
-
 func previous():
 	if items.size() <= 0:
 		return
@@ -53,8 +51,6 @@ func previous():
 	# this weird maths ensures we wrap around to the bottom of the bag
 	# if we're currently at the top of it
 	current_index = (current_index + items.size() - 1) % items.size()
-
-	select.emit(current_index)
 
 func _on_visibility_changed():
 	select_current()
@@ -64,5 +60,3 @@ func _on_visibility_changed():
 func select_current():
 	for i in range(items.size()):
 		items[i].selected = i == current_index
-
-	select.emit(current_index)

@@ -142,3 +142,6 @@ func select_current():
 
 func _on_use_item_menu_visibility_changed():
 	set_process(not use_item_menu.visible)
+
+func _on_use_item_menu_drop():
+	drop_current_item()
