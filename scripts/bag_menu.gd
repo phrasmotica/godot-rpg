@@ -71,11 +71,19 @@ func highlight_current():
 func get_max_index():
 	return item_stack_buttons.size() - 1
 
+## Menu signals
+
+func _on_current_index_changed(_index: int):
+	print("BagMenu current index changed, hiding UseItemMenu")
+	use_item_menu.hide()
+
 ## BagMenu-specific
 
 func update_buttons(item_stacks: Array[ItemStack]):
-	var count := len(item_stacks)
+	var count := item_stacks.size()
 	empty_label.visible = count <= 0
+
+	var count_changed := count != item_stack_buttons.size()
 
 	for i in range(item_stacks.size()):
 		if item_stack_buttons.size() > i:
@@ -105,6 +113,10 @@ func update_buttons(item_stacks: Array[ItemStack]):
 		current_index -= 1
 
 	highlight_current()
+
+	if count_changed:
+		print("BagMenu stack count changed, hiding UseItemMenu")
+		use_item_menu.hide()
 
 func drop_current_item():
 	if current_index > -1:

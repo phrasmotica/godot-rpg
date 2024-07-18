@@ -23,8 +23,6 @@ func _on_select_index(index: int):
 			print("Using all items")
 			use_all.emit()
 
-			hide()
-
 		2:
 			print("Dropping one item")
 			drop.emit()
@@ -32,8 +30,6 @@ func _on_select_index(index: int):
 		3:
 			print("Dropping all items")
 			drop_all.emit()
-
-			hide()
 
 func _on_cancel():
 	print("Hiding UseItemMenu")

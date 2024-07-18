@@ -8,9 +8,16 @@ var items: Array[MenuItem] = []
 @export
 var current_index := -1:
 	set(value):
-		current_index = min(max(value, -1), get_max_index())
+		var new_index = min(max(value, -1), get_max_index())
+		var is_changed = current_index != value
+
+		current_index = new_index
 		highlight_current()
 
+		if is_changed:
+			current_index_changed.emit(current_index)
+
+signal current_index_changed(index: int)
 signal select_index(index: int)
 signal cancel
 
