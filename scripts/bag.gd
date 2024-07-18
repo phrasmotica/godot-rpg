@@ -8,10 +8,6 @@ var item_stacks: Array[ItemStack] = []
 signal added_item(new_item: Item, item_stacks: Array[ItemStack])
 signal dropped_item(dropped_item: Item, item_stacks: Array[ItemStack])
 
-func _process(_delta):
-	if Input.is_action_just_pressed("random_item"):
-		add_random_item()
-
 func add_random_item():
 	var new_item := item_pool.get_random()
 	add_item(new_item)
@@ -47,7 +43,7 @@ func find_stack(new_item: Item) -> ItemStack:
 
 	return valid_stacks[0] if valid_stacks.size() > 0 else null
 
-func _on_bag_menu_drop_item(stack_id: int):
+func drop_item(stack_id: int):
 	var valid_stacks := item_stacks.filter(
 		func(stack: ItemStack):
 			return stack.id == stack_id
@@ -73,3 +69,9 @@ func _on_bag_menu_drop_item(stack_id: int):
 	)
 
 	dropped_item.emit(just_dropped_item, item_stacks)
+
+func _on_bag_menu_drop_item(stack_id: int):
+	drop_item(stack_id)
+
+func _on_bag_menu_add_random_item():
+	add_random_item()

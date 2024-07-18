@@ -84,4 +84,5 @@ bag = NodePath("../../../Map/Player/Bag")
 
 [connection signal="bag_closed" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_bag_closed"]
 [connection signal="bag_opened" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_bag_opened"]
+[connection signal="add_random_item" from="UICanvas/UIManager/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_add_random_item"]
 [connection signal="drop_item" from="UICanvas/UIManager/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_item"]

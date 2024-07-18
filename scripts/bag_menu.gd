@@ -19,6 +19,7 @@ var current_index := -1:
 		current_index = value
 		select_current()
 
+signal add_random_item
 signal drop_item(stack_id: int)
 
 func _ready():
@@ -32,6 +33,9 @@ func _process(_delta):
 
 	if Input.is_action_just_pressed("ui_up"):
 		previous_item_stack()
+
+	if Input.is_action_just_pressed("random_item"):
+		add_random_item.emit()
 
 	if Input.is_action_just_pressed("drop_item"):
 		drop_current_item()
