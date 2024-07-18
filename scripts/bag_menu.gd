@@ -1,9 +1,6 @@
 extends Control
 
 @export
-var bag: Bag
-
-@export
 var use_item_menu: Menu
 
 @export
@@ -31,10 +28,6 @@ signal drop_stack(stack_id: int)
 signal bag_closed
 
 func _ready():
-	if bag:
-		bag.added_item.connect(_on_bag_added_item)
-		bag.dropped_item.connect(_on_bag_dropped_item)
-
 	set_process(visible)
 
 func _process(_delta):

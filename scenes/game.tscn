@@ -79,9 +79,8 @@ items = {
 script = ExtResource("3_qs36w")
 bag_menu = NodePath("BagMenu")
 
-[node name="BagMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("bag", "use_item_menu") instance=ExtResource("5_votnq")]
+[node name="BagMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("use_item_menu") instance=ExtResource("5_votnq")]
 visible = false
-bag = NodePath("../../../Map/Player/Bag")
 use_item_menu = NodePath("UseItemMenu")
 
 [node name="UseItemMenu" parent="UICanvas/UIManager/BagMenu" instance=ExtResource("9_6coe6")]
@@ -91,6 +90,8 @@ offset_top = 120.0
 offset_right = 168.0
 offset_bottom = 320.0
 
+[connection signal="added_item" from="Map/Player/Bag" to="UICanvas/UIManager/BagMenu" method="_on_bag_added_item"]
+[connection signal="dropped_item" from="Map/Player/Bag" to="UICanvas/UIManager/BagMenu" method="_on_bag_dropped_item"]
 [connection signal="bag_opened" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_bag_opened"]
 [connection signal="add_random_item" from="UICanvas/UIManager/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_add_random_item"]
 [connection signal="bag_closed" from="UICanvas/UIManager/BagMenu" to="Map/Player" method="_on_bag_menu_bag_closed"]
