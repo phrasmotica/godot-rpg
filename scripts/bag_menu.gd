@@ -139,7 +139,18 @@ func _on_bag_dropped_item(dropped_item: Item, item_stacks: Array[ItemStack]):
 	update_buttons(item_stacks)
 
 func _on_use_item_menu_visibility_changed():
-	set_process(not use_item_menu.visible)
+	if use_item_menu.visible:
+		dim()
+		set_process(false)
+	else:
+		undim()
+		set_process(true)
+
+func dim():
+	modulate = Color.GRAY
+
+func undim():
+	modulate = Color.WHITE
 
 func _on_use_item_menu_drop():
 	drop_current_item()
