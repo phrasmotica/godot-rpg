@@ -26,14 +26,15 @@ func _ready():
 		bag.added_item.connect(_on_bag_added_item)
 		bag.dropped_item.connect(_on_bag_dropped_item)
 
-		bag.drop_item.connect(_on_bag_drop_item)
-
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_down"):
 		next_item_stack()
 
 	if Input.is_action_just_pressed("ui_up"):
 		previous_item_stack()
+
+	if Input.is_action_just_pressed("drop_item"):
+		drop_current_item()
 
 func next_item_stack():
 	current_index = (current_index + 1) % item_stack_buttons.size()
@@ -83,7 +84,7 @@ func _on_bag_dropped_item(dropped_item: Item, item_stacks: Array[ItemStack]):
 
 	update_buttons(item_stacks)
 
-func _on_bag_drop_item():
+func drop_current_item():
 	if current_index > -1:
 		var current_item := item_stack_buttons[current_index]
 		drop_item.emit(current_item.stack.id)

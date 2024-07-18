@@ -8,14 +8,9 @@ var item_stacks: Array[ItemStack] = []
 signal added_item(new_item: Item, item_stacks: Array[ItemStack])
 signal dropped_item(dropped_item: Item, item_stacks: Array[ItemStack])
 
-signal drop_item
-
 func _process(_delta):
 	if Input.is_action_just_pressed("random_item"):
 		add_random_item()
-
-	if Input.is_action_just_pressed("drop_item"):
-		drop_item.emit()
 
 func add_random_item():
 	var new_item := item_pool.get_random()
