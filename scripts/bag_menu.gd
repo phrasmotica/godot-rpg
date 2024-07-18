@@ -17,12 +17,7 @@ var item_stack_buttons: Array[ItemStackButton]
 var current_index := -1:
 	set(value):
 		current_index = value
-
-		for button in item_stack_buttons:
-			if button.index == current_index:
-				button.select()
-			else:
-				button.deselect()
+		select_current()
 
 signal drop_item(stack_id: int)
 
@@ -51,7 +46,8 @@ func update_buttons(item_stacks: Array[ItemStack]):
 			item_list.add_child(new_button)
 			item_stack_buttons.append(new_button)
 
-			new_button.call_deferred("grab_focus")
+		if current_index < 0:
+			current_index = 0
 
 	# clean up any unused buttons
 	for j in range(item_stacks.size(), item_stack_buttons.size()):
@@ -60,6 +56,8 @@ func update_buttons(item_stacks: Array[ItemStack]):
 	# ensure the last item stack is focused
 	while current_index >= item_stacks.size():
 		current_index -= 1
+
+	select_current()
 
 func _on_bag_added_item(new_item: Item, item_stacks: Array[ItemStack]):
 	print("Added " + new_item.name + " to bag")
@@ -80,6 +78,12 @@ func _on_item_button_focused(button: ItemStackButton):
 	current_index = button.index
 
 func _on_visibility_changed():
-	# TODO: ensure current stack remains focused after hiding and re-showing the bag menu
-	if current_index < 0 and len(item_stack_buttons) > 0:
-		current_index = 0
+	select_current()
+
+func select_current():
+	for button in item_stack_buttons:
+		if button.index == current_index:
+			button.select()
+			button.call_deferred("grab_focus")
+		else:
+			button.deselect()
