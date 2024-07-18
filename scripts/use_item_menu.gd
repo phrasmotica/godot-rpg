@@ -12,11 +12,29 @@ func _on_bag_menu_select(stack_id: int):
 	show()
 
 func _on_select(index: int):
+	# TODO: this isn't great - should probably define an enum
+	# for the actions that this menu contains
 	match index:
-		0: use.emit()
-		1: use_all.emit()
-		2: drop.emit()
-		3: drop_all.emit()
+		0:
+			print("Using one item")
+			use.emit()
+
+		1:
+			print("Using all items")
+			use_all.emit()
+
+			hide()
+
+		2:
+			print("Dropping one item")
+			drop.emit()
+
+		3:
+			print("Dropping all items")
+			drop_all.emit()
+
+			hide()
+
 
 func _on_cancel():
 	print("Hiding UseItemMenu")
