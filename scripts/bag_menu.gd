@@ -43,9 +43,15 @@ func _process(_delta):
 		drop_current_item()
 
 func next_item_stack():
+	if item_stack_buttons.size() <= 0:
+		return
+
 	current_index = (current_index + 1) % item_stack_buttons.size()
 
 func previous_item_stack():
+	if item_stack_buttons.size() <= 0:
+		return
+
 	# this weird maths ensures we wrap around to the bottom of the bag
 	# if we're currently at the top of it
 	current_index = (current_index + item_stack_buttons.size() - 1) % item_stack_buttons.size()
