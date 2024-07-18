@@ -1,10 +1,17 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://bswmnpr30nbs4"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bswmnpr30nbs4"]
 
 [ext_resource type="FontFile" uid="uid://c6otstnbhgawy" path="res://assets/fonts/PixelOperator8.ttf" id="1_uuyda"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ghspr"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ovxso"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_asakb"]
+
 [resource]
 default_font = ExtResource("1_uuyda")
 ItemStackButton/base_type = &"Button"
 ItemStackButton/styles/focus = SubResource("StyleBoxEmpty_ghspr")
+MenuItemButton/base_type = &"Button"
+MenuItemButton/styles/focus = SubResource("StyleBoxEmpty_ovxso")
+MenuItemButton/styles/hover = SubResource("StyleBoxEmpty_asakb")

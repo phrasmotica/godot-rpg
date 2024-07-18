@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://cy5cot7lqw00f"]
+
+[ext_resource type="Script" path="res://scripts/menu_item.gd" id="1_d2522"]
+[ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_uswix"]
+[ext_resource type="Texture2D" uid="uid://06gn0bussjc3" path="res://assets/sprites/selection_pointer.png" id="2_pq84d"]
+
+[node name="MenuItem" type="Control" node_paths=PackedStringArray("pointer", "name_label")]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 180.0
+offset_bottom = 24.0
+script = ExtResource("1_d2522")
+pointer = NodePath("Button/HBoxContainer/Control/SelectionPointer")
+name_label = NodePath("Button/HBoxContainer/Name")
+text = "Menu Item"
+selected = true
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_uswix")
+theme_type_variation = &"MenuItemButton"
+button_mask = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Control" type="Control" parent="Button/HBoxContainer"]
+custom_minimum_size = Vector2(24, 2.08165e-12)
+layout_mode = 2
+
+[node name="SelectionPointer" type="TextureRect" parent="Button/HBoxContainer/Control"]
+layout_mode = 2
+offset_right = 24.0
+offset_bottom = 24.0
+texture = ExtResource("2_pq84d")
+expand_mode = 2
+
+[node name="Name" type="Label" parent="Button/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Menu Item"
