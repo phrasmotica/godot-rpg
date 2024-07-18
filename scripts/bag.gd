@@ -44,34 +44,64 @@ func find_stack(new_item: Item) -> ItemStack:
 	return valid_stacks[0] if valid_stacks.size() > 0 else null
 
 func drop_item(stack_id: int):
-	var valid_stacks := item_stacks.filter(
-		func(stack: ItemStack):
-			return stack.id == stack_id
-	)
+	var stack := get_stack_with_id(stack_id)
 
-	if valid_stacks.size() <= 0:
+	if not stack:
 		print("Tried to drop from stack ID=" + str(stack_id) + " but no such stack exists!")
 		return
 
-	var drop_stack: ItemStack = valid_stacks[0]
-
-	var just_dropped_item := drop_stack.drop(1)
-	if  not just_dropped_item:
+	var just_dropped_item := stack.drop(1)
+	if not just_dropped_item:
 		print("Tried to drop from stack ID=" + str(stack_id) + " but the stack was empty!")
 		return
 
 	print("Dropped from stack ID=" + str(stack_id))
 
-	# remove empty stacks
+	remove_empty_stacks()
+
+	dropped_item.emit(just_dropped_item, item_stacks)
+
+func drop_stack(stack_id: int):
+	var stack := get_stack_with_id(stack_id)
+
+	if not stack:
+		print("Tried to drop all of stack ID=" + str(stack_id) + " but no such stack exists!")
+		return
+
+	var just_dropped_item := stack.item
+	if not just_dropped_item:
+		print("Tried to drop all of stack ID=" + str(stack_id) + " but the stack was empty!")
+		return
+
+	remove_stack(stack)
+
+	dropped_item.emit(just_dropped_item, item_stacks)
+
+func get_stack_with_id(id: int) -> ItemStack:
+	var valid_stacks := item_stacks.filter(
+		func(stack: ItemStack):
+			return stack.id == id
+	)
+
+	return valid_stacks[0] if valid_stacks.size() > 0 else null
+
+func remove_stack(stack: ItemStack):
+	item_stacks = item_stacks.filter(
+		func(s: ItemStack):
+			return s.id != stack.id
+	)
+
+func remove_empty_stacks():
 	item_stacks = item_stacks.filter(
 		func(stack: ItemStack):
 			return stack.amount > 0
 	)
 
-	dropped_item.emit(just_dropped_item, item_stacks)
-
 func _on_bag_menu_drop_item(stack_id: int):
 	drop_item(stack_id)
+
+func _on_bag_menu_drop_stack(stack_id: int):
+	drop_stack(stack_id)
 
 func _on_bag_menu_add_random_item():
 	add_random_item()

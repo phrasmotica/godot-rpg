@@ -24,7 +24,9 @@ var current_index := -1:
 
 signal add_random_item
 signal select(stack_id: int)
+
 signal drop_item(stack_id: int)
+signal drop_stack(stack_id: int)
 
 signal bag_closed
 
@@ -128,6 +130,11 @@ func drop_current_item():
 		var current_item := item_stack_buttons[current_index]
 		drop_item.emit(current_item.stack.id)
 
+func drop_current_stack():
+	if current_index > -1:
+		var current_item := item_stack_buttons[current_index]
+		drop_stack.emit(current_item.stack.id)
+
 func _on_visibility_changed():
 	select_current()
 
@@ -145,3 +152,6 @@ func _on_use_item_menu_visibility_changed():
 
 func _on_use_item_menu_drop():
 	drop_current_item()
+
+func _on_use_item_menu_drop_all():
+	drop_current_stack()
