@@ -20,6 +20,7 @@ var current_index := -1:
 		select_current()
 
 signal add_random_item
+signal select(stack_id: int)
 signal drop_item(stack_id: int)
 
 func _ready():
@@ -30,6 +31,9 @@ func _ready():
 	set_process(visible)
 
 func _process(_delta):
+	if Input.is_action_just_pressed("ui_select"):
+		select_item()
+
 	if Input.is_action_just_pressed("ui_down"):
 		next_item_stack()
 
@@ -41,6 +45,16 @@ func _process(_delta):
 
 	if Input.is_action_just_pressed("drop_item"):
 		drop_current_item()
+
+func select_item():
+	if current_index < 0 || current_index >= item_stack_buttons.size():
+		return
+
+	var button := item_stack_buttons[current_index]
+
+	print("Selecting the " + button.stack.item.name)
+
+	select.emit(button.stack.id)
 
 func next_item_stack():
 	if item_stack_buttons.size() <= 0:
