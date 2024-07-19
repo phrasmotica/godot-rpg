@@ -1,5 +1,5 @@
 @tool
-class_name MenuItem extends Control
+class_name MenuItem extends VBoxContainer
 
 @export
 var pointer: TextureRect
