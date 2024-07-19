@@ -24,4 +24,12 @@ var selected := false:
 			pointer.visible = selected
 
 @export
-var is_cancel := false
+var is_cancel := false:
+	set(value):
+		is_cancel = value
+
+		if name_label:
+			if is_cancel:
+				name_label.theme_type_variation = "CancelLabel"
+			else:
+				name_label.theme_type_variation = ""

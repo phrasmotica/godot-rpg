@@ -10,6 +10,8 @@
 
 [resource]
 default_font = ExtResource("1_uuyda")
+CancelLabel/base_type = &"Label"
+CancelLabel/colors/font_color = Color(1, 0, 1, 1)
 ItemStackButton/base_type = &"Button"
 ItemStackButton/styles/focus = SubResource("StyleBoxEmpty_ghspr")
 MenuItemButton/base_type = &"Button"
