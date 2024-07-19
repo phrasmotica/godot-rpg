@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=15 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player.tscn" id="1_ia2wv"]
 [ext_resource type="Texture2D" uid="uid://dgf8l1h6aqgr2" path="res://assets/sprites/background_tilemap.png" id="1_l8177"]
@@ -8,7 +8,10 @@
 [ext_resource type="Resource" uid="uid://051773al2ksf" path="res://resources/items/item_potion.tres" id="5_c3sxs"]
 [ext_resource type="PackedScene" uid="uid://7nyhh4cif5fr" path="res://scenes/bag_menu.tscn" id="5_votnq"]
 [ext_resource type="Resource" uid="uid://bq382ory2pvt0" path="res://resources/items/item_feather.tres" id="6_qtd8w"]
+[ext_resource type="Resource" uid="uid://b5hhypvakbuho" path="res://resources/items/item_glass.tres" id="7_dso4j"]
+[ext_resource type="Resource" uid="uid://dc0jtjc1jkqbc" path="res://resources/items/item_rope.tres" id="8_c52p3"]
 [ext_resource type="PackedScene" uid="uid://cbtoj82qvcrwg" path="res://scenes/use_item_menu.tscn" id="9_6coe6"]
+[ext_resource type="Resource" uid="uid://nhyp5rxmoxc8" path="res://resources/items/item_stick.tres" id="9_xym7c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nx22v"]
 texture = ExtResource("1_l8177")
@@ -70,7 +73,10 @@ item_pool = NodePath("ItemPool")
 script = ExtResource("4_ahimj")
 items = {
 "feather": ExtResource("6_qtd8w"),
-"potion": ExtResource("5_c3sxs")
+"glass": ExtResource("7_dso4j"),
+"potion": ExtResource("5_c3sxs"),
+"rope": ExtResource("8_c52p3"),
+"stick": ExtResource("9_xym7c")
 }
 
 [node name="UICanvas" type="CanvasLayer" parent="."]

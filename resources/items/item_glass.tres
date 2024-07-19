@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://b5hhypvakbuho"]
+
+[ext_resource type="Script" path="res://scripts/item.gd" id="1_h3uyv"]
+
+[resource]
+script = ExtResource("1_h3uyv")
+id = 3
+name = "Glass"
+description = "Use while facing water to fill it."
