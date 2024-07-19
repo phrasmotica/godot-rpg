@@ -1,15 +1,21 @@
 @tool
 extends Menu
 
+@export
+var description_label: Label
+
 signal use
 signal use_all
 signal drop
 signal drop_all
 
-func _on_bag_menu_select_stack(stack_id: int):
-	print("Showing UseItemMenu for stack ID=" + str(stack_id))
+func _on_bag_menu_select_stack(stack: ItemStack):
+	print("Showing UseItemMenu for stack ID=" + str(stack.id))
 
 	show()
+
+	if description_label:
+		description_label.text = stack.item.description
 
 func _on_select_index(index: int):
 	# TODO: this isn't great - should probably define an enum

@@ -16,7 +16,7 @@ var item_stack_button_scene: PackedScene
 var item_stack_buttons: Array[ItemStackButton]
 
 signal add_random_item
-signal select_stack(stack_id: int)
+signal select_stack(stack: ItemStack)
 
 signal drop_item(stack_id: int)
 signal drop_stack(stack_id: int)
@@ -33,7 +33,7 @@ func process_select():
 
 	print("Selecting the " + button.stack.item.name)
 
-	select_stack.emit(button.stack.id)
+	select_stack.emit(button.stack)
 
 func next():
 	if item_stack_buttons.size() <= 0:
