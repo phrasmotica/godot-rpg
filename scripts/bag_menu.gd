@@ -5,6 +5,9 @@ extends Menu
 var use_item_menu: Menu
 
 @export
+var scroll_container: ScrollContainer
+
+@export
 var item_list: VBoxContainer
 
 @export
@@ -75,9 +78,14 @@ func get_max_index():
 
 ## Menu signals
 
-func _on_current_index_changed(_index: int):
+func _on_current_index_changed(index: int):
 	print("BagMenu current index changed, hiding UseItemMenu")
 	use_item_menu.hide()
+
+	print("Scrolling to current item")
+
+	# HIGH: compute this 34 from the child item stack buttons
+	scroll_container.scroll_vertical = index * 34
 
 ## BagMenu-specific
 
