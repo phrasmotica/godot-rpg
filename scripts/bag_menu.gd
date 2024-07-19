@@ -54,6 +54,8 @@ func cancel_menu():
 
 	bag_closed.emit()
 
+	print("Hiding BagMenu")
+
 func listen_for_inputs():
 	if Input.is_action_just_pressed("random_item"):
 		add_random_item.emit()

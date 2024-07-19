@@ -7,6 +7,8 @@ signal bag_opened
 
 func _process(_delta):
 	if not bag_menu.visible and Input.is_action_just_pressed("toggle_bag"):
+		print("Showing BagMenu")
+
 		bag_menu.show()
 
 		bag_opened.emit()
