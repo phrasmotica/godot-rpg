@@ -14,10 +14,9 @@ items = [NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/
 current_index = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(200, 2.08165e-12)
-layout_mode = 1
+layout_mode = 0
 offset_right = 200.0
-offset_bottom = 264.0
+offset_bottom = 245.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -25,9 +24,11 @@ theme_override_constants/margin_bottom = 10
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -35,12 +36,12 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 10
 
 [node name="Description" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 2.08165e-12)
 layout_mode = 2
-size_flags_vertical = 3
 text = "<item description goes here>"
 autowrap_mode = 2
 
