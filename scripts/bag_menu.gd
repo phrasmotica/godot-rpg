@@ -83,9 +83,7 @@ func _on_current_index_changed(index: int):
 	use_item_menu.hide()
 
 	print("Scrolling to current item")
-
-	# HIGH: compute this 34 from the child item stack buttons
-	scroll_container.scroll_vertical = index * 34
+	scroll_container.scroll_vertical = int(item_stack_buttons[index].position.y)
 
 ## BagMenu-specific
 
