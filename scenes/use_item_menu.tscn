@@ -46,7 +46,7 @@ text = "<item description goes here>"
 autowrap_mode = 2
 
 [node name="Spacer" type="Control" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 5)
+custom_minimum_size = Vector2(2.08165e-12, 8)
 layout_mode = 2
 
 [node name="Use" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("1_iqlnl")]
