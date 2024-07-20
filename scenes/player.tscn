@@ -107,7 +107,7 @@ sprite = NodePath("Sprite")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0s6ni")
-animation = &"walk_down"
+animation = &"walk_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 editor_description = "This is currently disabled because collision is handled by the RayCast2D in the GridMovement scene; we leave it here to remove the editor warning."
