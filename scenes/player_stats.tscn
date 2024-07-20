@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://pbl172qx88xu"]
+
+[ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_hkmyc"]
+
+[node name="PlayerStats" type="PanelContainer"]
+offset_right = 200.0
+offset_bottom = 150.0
+theme = ExtResource("1_hkmyc")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="HPLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "50/50 HP"
+horizontal_alignment = 2

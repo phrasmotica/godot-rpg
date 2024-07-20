@@ -101,7 +101,7 @@ func check_obstacle():
 	else:
 		not_facing_obstacle.emit()
 
-func _on_ui_manager_bag_opened():
+func _on_ui_manager_menu_opened():
 	set_process(false)
 
 func _on_bag_menu_bag_closed():
