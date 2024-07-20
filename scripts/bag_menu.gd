@@ -21,6 +21,8 @@ var item_stack_menu_items: Array[ItemStackMenuItem]
 signal add_random_item
 signal select_stack(stack: ItemStack)
 
+signal use_item(stack_id: int)
+
 signal drop_item(stack_id: int)
 signal drop_stack(stack_id: int)
 
@@ -132,6 +134,11 @@ func update_buttons(item_stacks: Array[ItemStack]):
 		print("BagMenu stack count changed, hiding UseItemMenu")
 		use_item_menu.hide()
 
+func use_current_item():
+	if current_index > -1:
+		var current_item := item_stack_menu_items[current_index]
+		use_item.emit(current_item.stack.id)
+
 func drop_current_item():
 	if current_index > -1:
 		var current_item := item_stack_menu_items[current_index]
@@ -165,6 +172,9 @@ func dim():
 
 func undim():
 	modulate = Color.WHITE
+
+func _on_use_item_menu_use():
+	use_current_item()
 
 func _on_use_item_menu_drop():
 	drop_current_item()

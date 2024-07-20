@@ -43,6 +43,26 @@ func find_stack(new_item: Item) -> ItemStack:
 
 	return valid_stacks[0] if valid_stacks.size() > 0 else null
 
+func try_use_item(stack_id: int):
+	var stack := get_stack_with_id(stack_id)
+
+	if not stack:
+		print("Tried to use from stack ID=" + str(stack_id) + " but no such stack exists!")
+		return
+
+	# HIGH: verify that the item can be used, then make its effect happen
+
+	var just_dropped_item := stack.drop(1)
+	if not just_dropped_item:
+		print("Tried to use from stack ID=" + str(stack_id) + " but the stack was empty!")
+		return
+
+	print("Used from stack ID=" + str(stack_id))
+
+	remove_empty_stacks()
+
+	dropped_item.emit(just_dropped_item, item_stacks)
+
 func drop_item(stack_id: int):
 	var stack := get_stack_with_id(stack_id)
 
@@ -96,6 +116,9 @@ func remove_empty_stacks():
 		func(stack: ItemStack):
 			return stack.amount > 0
 	)
+
+func _on_bag_menu_use_item(stack_id: int):
+	try_use_item(stack_id)
 
 func _on_bag_menu_drop_item(stack_id: int):
 	drop_item(stack_id)
