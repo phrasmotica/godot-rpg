@@ -8,3 +8,6 @@ var name := ""
 
 @export_multiline
 var description := ""
+
+@export
+var requires_facing_obstacle := false

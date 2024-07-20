@@ -7,3 +7,4 @@ script = ExtResource("1_h3uyv")
 id = 3
 name = "Glass"
 description = "Use while facing water to fill it."
+requires_facing_obstacle = true

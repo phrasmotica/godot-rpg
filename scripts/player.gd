@@ -12,6 +12,9 @@ var tap_threshold_seconds := 0.1
 @onready
 var grid_movement = $GridMovement
 
+signal facing_obstacle
+signal not_facing_obstacle
+
 func _ready():
 	position = grid_movement.get_snapped_position(position)
 
@@ -84,6 +87,14 @@ func compute_animation(direction: Vector2) -> StringName:
 
 func _on_grid_movement_moving_finished():
 	sprite.stop()
+
+	var collider = grid_movement.raycast.get_collider()
+	if collider:
+		# TODO: how to distinguish between the colliders of different tiles?
+		# A glass should only be usable if we're facing the water
+		facing_obstacle.emit()
+	else:
+		not_facing_obstacle.emit()
 
 func _on_ui_manager_bag_opened():
 	set_process(false)

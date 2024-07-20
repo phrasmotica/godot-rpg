@@ -4,12 +4,13 @@
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_eomyo"]
 [ext_resource type="PackedScene" uid="uid://cy5cot7lqw00f" path="res://scenes/menu_item.tscn" id="1_iqlnl"]
 
-[node name="UseItemMenu" type="Control" node_paths=PackedStringArray("description_label", "items")]
+[node name="UseItemMenu" type="Control" node_paths=PackedStringArray("description_label", "use_items", "items")]
 layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("1_eomyo")
 script = ExtResource("1_5yin2")
 description_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Description")
+use_items = [NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Use"), NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/UseAll")]
 items = [NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Use"), NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/UseAll"), NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Drop"), NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/DropAll"), NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Cancel")]
 current_index = 0
 
