@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bm0tlg8mixv85"]
+
+[ext_resource type="Script" path="res://scripts/dimmer.gd" id="1_c8bwl"]
+
+[node name="Dimmer" type="Node"]
+script = ExtResource("1_c8bwl")
