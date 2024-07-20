@@ -62,15 +62,23 @@ func next():
 	if items.size() <= 0:
 		return
 
-	current_index = (current_index + 1) % items.size()
+	var i := 0
+	while i == 0 or items[current_index].disabled:
+		current_index = (current_index + 1) % items.size()
+
+		i += 1
 
 func previous():
 	if items.size() <= 0:
 		return
 
-	# this weird maths ensures we wrap around to the bottom
-	# if we're currently at the top
-	current_index = (current_index + items.size() - 1) % items.size()
+	var i := 0
+	while i == 0 or items[current_index].disabled:
+		# this weird maths ensures we wrap around to the bottom
+		# if we're currently at the top
+		current_index = (current_index + items.size() - 1) % items.size()
+
+		i += 1
 
 func cancel_menu():
 	cancel.emit()
