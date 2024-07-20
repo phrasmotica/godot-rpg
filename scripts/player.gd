@@ -29,13 +29,13 @@ func _process(_delta):
 		set_move_timer(direction)
 
 func face_direction(direction: Vector2):
-	grid_movement.face(direction)
+	var did_change = grid_movement.face(direction)
+	if did_change:
+		check_obstacle()
 
 	var new_anim = compute_animation(direction)
 	if new_anim.length() > 0:
 		sprite.animation = new_anim
-
-	check_obstacle()
 
 func set_move_timer(direction: Vector2):
 	if direction.length() <= 0:

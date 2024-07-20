@@ -13,6 +13,7 @@ var step_size := 64
 var raycast: RayCast2D = $RayCast2D
 
 var moving_direction := Vector2.ZERO
+var facing_direction := Vector2.RIGHT
 
 signal moving_finished
 
@@ -28,6 +29,15 @@ func face(direction: Vector2):
     if moving_direction.length() == 0 and direction.length() > 0:
         raycast.target_position = direction * step_size
         raycast.force_raycast_update()
+
+        var new_facing_direction = direction.normalized()
+        var did_change = facing_direction != new_facing_direction
+
+        facing_direction = new_facing_direction
+
+        return did_change
+
+    return false
 
 func move(direction: Vector2):
     if moving_direction.length() == 0 and direction.length() > 0:
