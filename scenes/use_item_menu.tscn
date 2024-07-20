@@ -53,13 +53,11 @@ layout_mode = 2
 [node name="Use" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("1_iqlnl")]
 layout_mode = 2
 text = "Use"
-disabled = true
 
 [node name="UseAll" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("1_iqlnl")]
 layout_mode = 2
 text = "Use all"
 selected = false
-disabled = true
 
 [node name="Drop" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("1_iqlnl")]
 layout_mode = 2
