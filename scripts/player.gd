@@ -35,6 +35,8 @@ func face_direction(direction: Vector2):
 	if new_anim.length() > 0:
 		sprite.animation = new_anim
 
+	check_obstacle()
+
 func set_move_timer(direction: Vector2):
 	if direction.length() <= 0:
 		return
@@ -88,6 +90,9 @@ func compute_animation(direction: Vector2) -> StringName:
 func _on_grid_movement_moving_finished():
 	sprite.stop()
 
+	check_obstacle()
+
+func check_obstacle():
 	var collider = grid_movement.raycast.get_collider()
 	if collider:
 		# TODO: how to distinguish between the colliders of different tiles?
