@@ -47,6 +47,8 @@ func _process(_delta):
 
 func process_select():
 	var item := items[current_index]
+	if item.disabled:
+		return
 
 	if item.is_cancel:
 		cancel_menu()

@@ -24,6 +24,13 @@ var selected := false:
 			pointer.visible = selected
 
 @export
+var disabled := false:
+	set(value):
+		disabled = value
+
+		name_label.modulate = Color.DARK_GRAY if disabled else Color.WHITE
+
+@export
 var is_cancel := false:
 	set(value):
 		is_cancel = value
