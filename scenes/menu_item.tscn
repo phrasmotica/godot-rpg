@@ -6,8 +6,9 @@
 
 [node name="MenuItem" type="VBoxContainer" node_paths=PackedStringArray("pointer", "name_label")]
 offset_right = 146.0
-offset_bottom = 34.0
+offset_bottom = 28.0
 size_flags_horizontal = 3
+size_flags_vertical = 0
 theme = ExtResource("1_uswix")
 theme_override_constants/separation = 0
 script = ExtResource("1_d2522")
@@ -17,7 +18,7 @@ text = "Menu Item"
 selected = true
 
 [node name="SpaceTop" type="Control" parent="."]
-custom_minimum_size = Vector2(0, 5)
+custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -43,5 +44,5 @@ text = "Menu Item"
 vertical_alignment = 1
 
 [node name="SpaceBottom" type="Control" parent="."]
-custom_minimum_size = Vector2(0, 5)
+custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
