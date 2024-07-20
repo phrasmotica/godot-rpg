@@ -27,6 +27,9 @@ func _ready():
 	if items.size() > 0:
 		current_index = 0
 
+	for x in items:
+		x.on_disabled.connect(next_if_disabled)
+
 func _process(_delta):
 	if Engine.is_editor_hint():
 		return
@@ -67,6 +70,10 @@ func next():
 		current_index = (current_index + 1) % items.size()
 
 		i += 1
+
+func next_if_disabled():
+	while items[current_index].disabled:
+		current_index = (current_index + 1) % items.size()
 
 func previous():
 	if items.size() <= 0:

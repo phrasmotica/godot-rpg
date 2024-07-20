@@ -30,6 +30,11 @@ var disabled := false:
 
 		name_label.modulate = Color.DARK_GRAY if disabled else Color.WHITE
 
+		if disabled:
+			on_disabled.emit()
+		else:
+			on_enabled.emit()
+
 @export
 var is_cancel := false:
 	set(value):
@@ -40,3 +45,6 @@ var is_cancel := false:
 				name_label.theme_type_variation = "CancelLabel"
 			else:
 				name_label.theme_type_variation = ""
+
+signal on_enabled
+signal on_disabled
