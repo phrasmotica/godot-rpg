@@ -1,4 +1,4 @@
-class_name ItemStackButton extends VBoxContainer
+class_name ItemStackMenuItem extends VBoxContainer
 
 @export
 var pointer: TextureRect

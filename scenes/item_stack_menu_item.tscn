@@ -1,19 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://8gweefisuilw"]
 
-[ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_nu1o1"]
-[ext_resource type="Script" path="res://scripts/item_stack_button.gd" id="2_0j04q"]
-[ext_resource type="Texture2D" uid="uid://06gn0bussjc3" path="res://assets/sprites/selection_pointer.png" id="3_sjtir"]
+[ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_cfte1"]
+[ext_resource type="Script" path="res://scripts/item_stack_menu_item.gd" id="2_btrut"]
+[ext_resource type="Texture2D" uid="uid://06gn0bussjc3" path="res://assets/sprites/selection_pointer.png" id="3_ng27b"]
 
-[node name="ItemStackButton" type="VBoxContainer" node_paths=PackedStringArray("pointer", "name_label", "amount_label")]
+[node name="ItemStackMenuItem" type="VBoxContainer" node_paths=PackedStringArray("pointer", "name_label", "amount_label")]
 custom_minimum_size = Vector2(2.08165e-12, 24)
 offset_right = 340.0
 offset_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
-theme = ExtResource("1_nu1o1")
+theme = ExtResource("1_cfte1")
 theme_type_variation = &"ItemStackButton"
 theme_override_constants/separation = 0
-script = ExtResource("2_0j04q")
+script = ExtResource("2_btrut")
 pointer = NodePath("HBoxContainer/Control/SelectionPointer")
 name_label = NodePath("HBoxContainer/Name")
 amount_label = NodePath("HBoxContainer/Amount")
@@ -34,7 +34,7 @@ layout_mode = 2
 layout_mode = 2
 offset_right = 24.0
 offset_bottom = 24.0
-texture = ExtResource("3_sjtir")
+texture = ExtResource("3_ng27b")
 expand_mode = 2
 
 [node name="Name" type="Label" parent="HBoxContainer"]
