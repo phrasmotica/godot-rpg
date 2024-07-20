@@ -24,7 +24,7 @@ func _on_bag_menu_select_stack(stack: ItemStack):
 	selected_item = stack.item
 
 	for x in use_items:
-		x.disabled = not player_facing_obstacle
+		x.disabled = selected_item.requires_facing_obstacle and not player_facing_obstacle
 
 	if description_label:
 		description_label.text = stack.item.description
