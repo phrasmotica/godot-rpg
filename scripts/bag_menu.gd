@@ -83,7 +83,13 @@ func _on_current_index_changed(index: int):
 	use_item_menu.hide()
 
 	print("Scrolling to current item")
-	scroll_container.scroll_vertical = int(item_stack_menu_items[index].position.y)
+
+	var scroll_y := (
+		int(item_stack_menu_items[index].position.y) if current_index > -1
+		else 0
+	)
+
+	scroll_container.scroll_vertical = scroll_y
 
 ## BagMenu-specific
 
