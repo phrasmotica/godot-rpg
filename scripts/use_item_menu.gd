@@ -1,5 +1,5 @@
 @tool
-extends Menu
+extends ListMenu
 
 @export
 var description_label: Label

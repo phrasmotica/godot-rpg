@@ -1,5 +1,5 @@
 @tool
-extends Menu
+extends ListMenu
 
 @export
 var use_item_menu: Menu
@@ -53,6 +53,8 @@ func previous():
 	current_index = (current_index + item_stack_menu_items.size() - 1) % item_stack_menu_items.size()
 
 func listen_for_inputs():
+	super.listen_for_inputs()
+
 	if Input.is_action_just_pressed("random_item"):
 		add_random_item.emit()
 
