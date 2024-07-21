@@ -4,59 +4,46 @@
 [ext_resource type="Script" path="res://scripts/bag_menu.gd" id="2_46jpv"]
 [ext_resource type="PackedScene" uid="uid://8gweefisuilw" path="res://scenes/item_stack_menu_item.tscn" id="3_1sdhg"]
 
-[node name="BagMenu" type="Control" node_paths=PackedStringArray("scroll_container", "item_list", "empty_label")]
-layout_mode = 3
-anchors_preset = 0
+[node name="BagMenu" type="PanelContainer" node_paths=PackedStringArray("scroll_container", "item_list", "empty_label")]
 offset_right = 400.0
-offset_bottom = 150.0
+offset_bottom = 104.0
 theme = ExtResource("1_l8nhx")
 script = ExtResource("2_46jpv")
-scroll_container = NodePath("MarginContainer/PanelContainer/MarginContainer/ScrollContainer")
-item_list = NodePath("MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer")
-empty_label = NodePath("MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/EmptyLabel")
+scroll_container = NodePath("MarginContainer/VBoxContainer/ScrollContainer")
+item_list = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer")
+empty_label = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/EmptyLabel")
 item_stack_menu_item_scene = ExtResource("3_1sdhg")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 400.0
-offset_bottom = 144.0
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="BagHeader" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Bag"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 84)
 layout_mode = 2
 mouse_filter = 2
 follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="BagHeader" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Bag"
-
-[node name="Control" type="Control" parent="MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 4)
-layout_mode = 2
-
-[node name="EmptyLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="EmptyLabel" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 28)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0, 1, 1)
