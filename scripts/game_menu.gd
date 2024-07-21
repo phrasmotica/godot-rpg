@@ -6,6 +6,11 @@ enum MenuFocus { BAG, PLAYER_STATS }
 @export
 var player_stats_dimmer: Dimmer
 
+## TODO: generalise this to any number of child menus that should receive
+## keyboard input priority over this parent menu
+@export
+var bag_menu: Menu
+
 @export
 var bag_menu_dimmer: Dimmer
 
@@ -24,9 +29,28 @@ signal menu_closed
 func _ready():
 	set_process(visible)
 
+	bag_menu.menu_disabled.connect(handle_child_menu_disabled)
+	bag_menu.menu_enabled.connect(handle_child_menu_enabled)
+
 func _process(_delta):
 	if Engine.is_editor_hint():
 		return
 
+	if Input.is_action_just_pressed("ui_cancel"):
+		menu_closed.emit()
+
 	if Input.is_action_just_pressed("game_menu_cycle"):
 		menu_focus = ((menu_focus + 1) % MenuFocus.size()) as MenuFocus
+
+func _on_visibility_changed():
+	set_process(visible)
+
+func handle_child_menu_disabled():
+	set_process(false)
+
+	bag_menu_dimmer.is_dimmed = true
+
+func handle_child_menu_enabled():
+	set_process(true)
+
+	bag_menu_dimmer.is_dimmed = false

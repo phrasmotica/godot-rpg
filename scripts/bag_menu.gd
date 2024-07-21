@@ -152,17 +152,11 @@ func _on_bag_dropped_item(dropped_item: Item, item_stacks: Array[ItemStack]):
 
 func _on_use_item_menu_visibility_changed():
 	if use_item_menu.visible:
-		dim()
 		set_process(false)
+		menu_disabled.emit()
 	else:
-		undim()
 		set_process(true)
-
-func dim():
-	modulate = Color.GRAY
-
-func undim():
-	modulate = Color.WHITE
+		menu_enabled.emit()
 
 func _on_use_item_menu_use():
 	use_current_item()

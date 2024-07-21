@@ -14,6 +14,16 @@ var is_dimmed := false:
         else:
             undim()
 
+func _ready():
+    var m = to_dim as Menu
+    if m:
+        print("Ensuring " + m.name + " does not begin processing after being enabled if it's dimmed...")
+
+        m.menu_enabled.connect(
+            func():
+                m.set_process(not is_dimmed)
+        )
+
 func dim():
     if to_dim:
         to_dim.modulate = Color.DARK_GRAY
