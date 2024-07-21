@@ -6,12 +6,9 @@
 
 [node name="BagMenu" type="Control" node_paths=PackedStringArray("scroll_container", "item_list", "empty_label")]
 layout_mode = 3
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -400.0
-offset_bottom = 640.0
-grow_horizontal = 0
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 150.0
 theme = ExtResource("1_l8nhx")
 script = ExtResource("2_46jpv")
 scroll_container = NodePath("MarginContainer/PanelContainer/MarginContainer/ScrollContainer")
@@ -49,6 +46,15 @@ vertical_scroll_mode = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
+
+[node name="BagHeader" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Bag"
+
+[node name="Control" type="Control" parent="MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
 
 [node name="EmptyLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 28)

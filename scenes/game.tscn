@@ -112,7 +112,7 @@ anchor_right = 1.0
 offset_left = -602.0
 offset_top = 20.0
 offset_right = -402.0
-offset_bottom = 74.0
+offset_bottom = 90.0
 grow_horizontal = 0
 
 [node name="Dimmer" parent="UICanvas/UIManager/Menu/PlayerStats" node_paths=PackedStringArray("to_dim") instance=ExtResource("13_w1m1t")]
@@ -121,6 +121,12 @@ is_dimmed = true
 
 [node name="BagMenu" parent="UICanvas/UIManager/Menu" node_paths=PackedStringArray("use_item_menu") instance=ExtResource("5_votnq")]
 layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -400.0
+offset_right = 0.0
+grow_horizontal = 0
 use_item_menu = NodePath("../UseItemMenu")
 
 [node name="Dimmer" parent="UICanvas/UIManager/Menu/BagMenu" node_paths=PackedStringArray("to_dim") instance=ExtResource("13_w1m1t")]
