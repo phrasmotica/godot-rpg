@@ -46,11 +46,15 @@ func _on_visibility_changed():
 	set_process(visible)
 
 func handle_child_menu_disabled():
+	print("BagMenu disabled, disabling GameMenu")
+
 	set_process(false)
 
 	bag_menu_dimmer.is_dimmed = true
 
 func handle_child_menu_enabled():
+	print("BagMenu enabled, enabling GameMenu")
+
 	set_process(true)
 
 	bag_menu_dimmer.is_dimmed = false
