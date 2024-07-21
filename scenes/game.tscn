@@ -92,16 +92,17 @@ items = {
 script = ExtResource("3_qs36w")
 menu = NodePath("Menu")
 
-[node name="Menu" type="Control" parent="UICanvas/UIManager" node_paths=PackedStringArray("player_stats_dimmer", "bag_menu", "bag_menu_dimmer")]
+[node name="Menu" type="Control" parent="UICanvas/UIManager" node_paths=PackedStringArray("bag_menu", "bag_menu_dimmer", "menu_dimmers")]
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 grow_horizontal = 0
 script = ExtResource("11_wx78d")
-player_stats_dimmer = NodePath("PlayerStats/Dimmer")
 bag_menu = NodePath("BagMenu")
 bag_menu_dimmer = NodePath("BagMenu/Dimmer")
+current_menu_index = 0
+menu_dimmers = [NodePath("BagMenu/Dimmer"), NodePath("PlayerStats/Dimmer")]
 
 [node name="PlayerStats" parent="UICanvas/UIManager/Menu" instance=ExtResource("13_55kbe")]
 modulate = Color(0.662745, 0.662745, 0.662745, 1)
