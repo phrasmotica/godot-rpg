@@ -70,10 +70,16 @@ func get_max_index():
 	return item_stack_menu_items.size() - 1
 
 func after_disable_menu():
+	disable_animations()
+
+func disable_animations():
 	for x in item_stack_menu_items:
 		x.disable_item()
 
 func after_enable_menu():
+	enable_animations()
+
+func enable_animations():
 	for x in item_stack_menu_items:
 		x.enable_item()
 
@@ -166,3 +172,9 @@ func _on_use_item_menu_drop():
 
 func _on_use_item_menu_drop_all():
 	drop_current_stack()
+
+func _on_dimmer_dimmed():
+	disable_animations()
+
+func _on_dimmer_undimmed():
+	enable_animations()

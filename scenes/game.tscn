@@ -165,6 +165,8 @@ grow_horizontal = 0
 [connection signal="drop_stack" from="UICanvas/UIManager/Menu/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_stack"]
 [connection signal="select_stack" from="UICanvas/UIManager/Menu/BagMenu" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_bag_menu_select_stack"]
 [connection signal="use_item" from="UICanvas/UIManager/Menu/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_use_item"]
+[connection signal="dimmed" from="UICanvas/UIManager/Menu/BagMenu/Dimmer" to="UICanvas/UIManager/Menu/BagMenu" method="_on_dimmer_dimmed"]
+[connection signal="undimmed" from="UICanvas/UIManager/Menu/BagMenu/Dimmer" to="UICanvas/UIManager/Menu/BagMenu" method="_on_dimmer_undimmed"]
 [connection signal="cancel" from="UICanvas/UIManager/Menu/UseItemMenu" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_cancel"]
 [connection signal="drop" from="UICanvas/UIManager/Menu/UseItemMenu" to="UICanvas/UIManager/Menu/BagMenu" method="_on_use_item_menu_drop"]
 [connection signal="drop_all" from="UICanvas/UIManager/Menu/UseItemMenu" to="UICanvas/UIManager/Menu/BagMenu" method="_on_use_item_menu_drop_all"]
