@@ -10,16 +10,16 @@ func _ready():
 	menu.hide()
 
 func _process(_delta):
-	if not menu.visible and Input.is_action_just_pressed("toggle_bag"):
-		print("Showing menu")
+	if Input.is_action_just_pressed("toggle_bag"):
+		if not menu.visible:
+			print("Showing menu")
 
-		menu.show()
+			menu.show()
 
-		menu_opened.emit()
+			menu_opened.emit()
+		else:
+			print("Hiding menu")
 
-func _on_bag_menu_bag_closed():
-	print("Hiding menu")
+			menu.hide()
 
-	menu.hide()
-
-	menu_closed.emit()
+			menu_closed.emit()

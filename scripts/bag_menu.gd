@@ -54,13 +54,6 @@ func previous():
 	# if we're currently at the top of it
 	current_index = (current_index + item_stack_menu_items.size() - 1) % item_stack_menu_items.size()
 
-func cancel_menu():
-	hide()
-
-	bag_closed.emit()
-
-	print("Hiding BagMenu")
-
 func listen_for_inputs():
 	if Input.is_action_just_pressed("random_item"):
 		add_random_item.emit()
