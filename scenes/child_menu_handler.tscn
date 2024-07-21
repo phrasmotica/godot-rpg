@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7hj5t3hmye3"]
+
+[ext_resource type="Script" path="res://scripts/child_menu_handler.gd" id="1_pakmd"]
+
+[node name="ChildMenuHandler" type="Node"]
+script = ExtResource("1_pakmd")
