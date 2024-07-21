@@ -1,5 +1,5 @@
 @tool
-extends PanelContainer
+extends Menu
 
 @export
 var hp_label: Label
