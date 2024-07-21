@@ -21,6 +21,9 @@ signal current_index_changed(index: int)
 signal select_index(index: int)
 signal cancel
 
+signal menu_hidden(menu: Menu)
+signal menu_shown(menu: Menu)
+
 signal menu_disabled(menu: Menu)
 signal menu_enabled(menu: Menu)
 
@@ -107,3 +110,8 @@ func _on_visibility_changed():
 	highlight_current()
 
 	set_process(visible)
+
+	if visible:
+		menu_shown.emit(self)
+	else:
+		menu_hidden.emit(self)
