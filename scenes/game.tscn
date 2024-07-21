@@ -124,6 +124,14 @@ to_dim = NodePath("..")
 [node name="UseItemMenu" parent="UICanvas/UIManager/Menu" instance=ExtResource("9_6coe6")]
 visible = false
 layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -432.0
+offset_top = 120.0
+offset_right = -232.0
+offset_bottom = 320.0
+grow_horizontal = 0
 
 [connection signal="facing_obstacle" from="Map/Player" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_player_facing_obstacle"]
 [connection signal="not_facing_obstacle" from="Map/Player" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_player_not_facing_obstacle"]
