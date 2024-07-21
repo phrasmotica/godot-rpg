@@ -26,8 +26,6 @@ signal use_item(stack_id: int)
 signal drop_item(stack_id: int)
 signal drop_stack(stack_id: int)
 
-signal bag_closed
-
 ## Menu overrides
 
 func process_select():

@@ -104,5 +104,5 @@ func check_obstacle():
 func _on_ui_manager_menu_opened():
 	set_process(false)
 
-func _on_bag_menu_bag_closed():
+func _on_ui_manager_menu_closed():
 	set_process(true)
