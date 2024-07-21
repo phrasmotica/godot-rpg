@@ -5,7 +5,7 @@
 
 [node name="PlayerStats" type="PanelContainer" node_paths=PackedStringArray("hp_label")]
 offset_right = 200.0
-offset_bottom = 150.0
+offset_bottom = 104.0
 theme = ExtResource("1_hkmyc")
 script = ExtResource("2_n1jyc")
 hp_label = NodePath("MarginContainer/VBoxContainer/HPLabel")
