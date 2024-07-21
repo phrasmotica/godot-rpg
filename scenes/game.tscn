@@ -157,7 +157,7 @@ grow_horizontal = 0
 [connection signal="dropped_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/BagMenu" method="_on_bag_dropped_item"]
 [connection signal="menu_closed" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_menu_closed"]
 [connection signal="menu_opened" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_menu_opened"]
-[connection signal="menu_closed" from="UICanvas/UIManager/Menu" to="UICanvas/UIManager" method="_on_menu_menu_closed"]
+[connection signal="cancel" from="UICanvas/UIManager/Menu" to="UICanvas/UIManager" method="_on_menu_cancel"]
 [connection signal="visibility_changed" from="UICanvas/UIManager/Menu" to="UICanvas/UIManager/Menu" method="_on_visibility_changed"]
 [connection signal="add_random_item" from="UICanvas/UIManager/Menu/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_add_random_item"]
 [connection signal="current_index_changed" from="UICanvas/UIManager/Menu/BagMenu" to="UICanvas/UIManager/Menu/BagMenu" method="_on_current_index_changed"]

@@ -1,5 +1,5 @@
 @tool
-extends Control
+extends Menu
 
 enum MenuFocus { BAG, PLAYER_STATS }
 
@@ -22,21 +22,11 @@ var menu_focus := MenuFocus.BAG:
 		player_stats_dimmer.is_dimmed = menu_focus == MenuFocus.BAG
 		bag_menu_dimmer.is_dimmed = menu_focus == MenuFocus.PLAYER_STATS
 
-signal menu_closed
-
-func _ready():
-	set_process(visible)
-
+func after_ready():
 	bag_menu.menu_disabled.connect(handle_bag_menu_disabled)
 	bag_menu.menu_enabled.connect(handle_bag_menu_enabled)
 
-func _process(_delta):
-	if Engine.is_editor_hint():
-		return
-
-	if Input.is_action_just_pressed("ui_cancel"):
-		menu_closed.emit()
-
+func listen_for_inputs():
 	if Input.is_action_just_pressed("game_menu_cycle"):
 		menu_focus = ((menu_focus + 1) % MenuFocus.size()) as MenuFocus
 

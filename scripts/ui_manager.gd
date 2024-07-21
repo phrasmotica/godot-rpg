@@ -17,7 +17,7 @@ func _process(_delta):
 
 		menu_opened.emit()
 
-func _on_menu_menu_closed():
+func _on_menu_cancel():
 	print("Hiding menu")
 
 	menu.hide()
