@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=20 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player.tscn" id="1_ia2wv"]
 [ext_resource type="Texture2D" uid="uid://dgf8l1h6aqgr2" path="res://assets/sprites/background_tilemap.png" id="1_l8177"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://scripts/game_menu.gd" id="11_wx78d"]
 [ext_resource type="PackedScene" uid="uid://pbl172qx88xu" path="res://scenes/player_stats.tscn" id="13_55kbe"]
 [ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/dimmer.tscn" id="13_w1m1t"]
+[ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nx22v"]
 texture = ExtResource("1_l8177")
@@ -125,6 +126,10 @@ use_item_menu = NodePath("../UseItemMenu")
 [node name="Dimmer" parent="UICanvas/UIManager/Menu/BagMenu" node_paths=PackedStringArray("to_dim") instance=ExtResource("13_w1m1t")]
 to_dim = NodePath("..")
 
+[node name="ChildMenuHandler" parent="UICanvas/UIManager/Menu/BagMenu" node_paths=PackedStringArray("parent_menu", "child_menus") instance=ExtResource("16_2runr")]
+parent_menu = NodePath("..")
+child_menus = [NodePath("../../UseItemMenu")]
+
 [node name="UseItemMenu" parent="UICanvas/UIManager/Menu" instance=ExtResource("9_6coe6")]
 visible = false
 layout_mode = 1
@@ -156,4 +161,3 @@ grow_horizontal = 0
 [connection signal="drop" from="UICanvas/UIManager/Menu/UseItemMenu" to="UICanvas/UIManager/Menu/BagMenu" method="_on_use_item_menu_drop"]
 [connection signal="drop_all" from="UICanvas/UIManager/Menu/UseItemMenu" to="UICanvas/UIManager/Menu/BagMenu" method="_on_use_item_menu_drop_all"]
 [connection signal="use" from="UICanvas/UIManager/Menu/UseItemMenu" to="UICanvas/UIManager/Menu/BagMenu" method="_on_use_item_menu_use"]
-[connection signal="visibility_changed" from="UICanvas/UIManager/Menu/UseItemMenu" to="UICanvas/UIManager/Menu/BagMenu" method="_on_use_item_menu_visibility_changed"]

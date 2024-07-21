@@ -6,8 +6,7 @@ enum MenuFocus { BAG, PLAYER_STATS }
 @export
 var player_stats_dimmer: Dimmer
 
-## TODO: generalise this to any number of child menus that should receive
-## keyboard input priority over this parent menu
+# TODO: use a ChildMenuHandler instead
 @export
 var bag_menu: Menu
 
@@ -45,14 +44,14 @@ func _process(_delta):
 func _on_visibility_changed():
 	set_process(visible)
 
-func handle_child_menu_disabled():
+func handle_child_menu_disabled(_menu: Menu):
 	print("BagMenu disabled, disabling GameMenu")
 
 	set_process(false)
 
 	bag_menu_dimmer.is_dimmed = true
 
-func handle_child_menu_enabled():
+func handle_child_menu_enabled(_menu: Menu):
 	print("BagMenu enabled, enabling GameMenu")
 
 	set_process(true)

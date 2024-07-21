@@ -17,6 +17,12 @@ var current_index := -1:
 		if is_changed:
 			current_index_changed.emit(current_index)
 
+var inactive := false:
+	set(value):
+		inactive = value
+
+		set_process(not inactive and visible)
+
 signal current_index_changed(index: int)
 signal select_index(index: int)
 signal cancel
@@ -28,7 +34,7 @@ signal menu_disabled(menu: Menu)
 signal menu_enabled(menu: Menu)
 
 func _ready():
-	set_process(visible)
+	set_process(not inactive and visible)
 
 	if items.size() > 0:
 		current_index = 0
@@ -106,10 +112,22 @@ func highlight_current():
 func get_max_index():
 	return items.size() - 1
 
+func disable_menu():
+	print("Disabling menu " + name)
+
+	inactive = true
+	menu_disabled.emit(self)
+
+func enable_menu():
+	print("Enabling menu " + name)
+
+	inactive = false
+	menu_enabled.emit(self)
+
 func _on_visibility_changed():
 	highlight_current()
 
-	set_process(visible)
+	set_process(not inactive and visible)
 
 	if visible:
 		menu_shown.emit(self)
