@@ -6,7 +6,6 @@ enum MenuFocus { BAG, PLAYER_STATS }
 @export
 var player_stats_dimmer: Dimmer
 
-# TODO: use a ChildMenuHandler instead
 @export
 var bag_menu: Menu
 
@@ -28,8 +27,8 @@ signal menu_closed
 func _ready():
 	set_process(visible)
 
-	bag_menu.menu_disabled.connect(handle_child_menu_disabled)
-	bag_menu.menu_enabled.connect(handle_child_menu_enabled)
+	bag_menu.menu_disabled.connect(handle_bag_menu_disabled)
+	bag_menu.menu_enabled.connect(handle_bag_menu_enabled)
 
 func _process(_delta):
 	if Engine.is_editor_hint():
@@ -44,14 +43,14 @@ func _process(_delta):
 func _on_visibility_changed():
 	set_process(visible)
 
-func handle_child_menu_disabled(_menu: Menu):
+func handle_bag_menu_disabled(_menu: Menu):
 	print("BagMenu disabled, disabling GameMenu")
 
 	set_process(false)
 
 	bag_menu_dimmer.is_dimmed = true
 
-func handle_child_menu_enabled(_menu: Menu):
+func handle_bag_menu_enabled(_menu: Menu):
 	print("BagMenu enabled, enabling GameMenu")
 
 	set_process(true)
