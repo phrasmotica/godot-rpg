@@ -38,9 +38,13 @@ func dim():
         to_dim.modulate = Color.DARK_GRAY
         to_dim.set_process(false)
 
+        # MEDIUM: pause menu animations when dimmed
+
 func undim():
     if to_dim:
         print("Undimming " + to_dim.name)
 
         to_dim.modulate = Color.WHITE
         to_dim.set_process(true)
+
+        # MEDIUM: resume menu animations when undimmed

@@ -118,11 +118,21 @@ func disable_menu():
 	inactive = true
 	menu_disabled.emit(self)
 
+	after_disable_menu()
+
+func after_disable_menu():
+	pass
+
 func enable_menu():
 	print("Enabling menu " + name)
 
 	inactive = false
 	menu_enabled.emit(self)
+
+	after_enable_menu()
+
+func after_enable_menu():
+	pass
 
 func _on_visibility_changed():
 	highlight_current()

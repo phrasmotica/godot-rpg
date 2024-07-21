@@ -9,6 +9,9 @@ var name_label: Label
 @export
 var amount_label: Label
 
+@export
+var animation_player: AnimationPlayer
+
 var stack: ItemStack:
 	set(value):
 		stack = value
@@ -35,3 +38,11 @@ func select():
 
 func deselect():
 	pointer.hide()
+
+func disable_item():
+	if animation_player:
+		animation_player.pause()
+
+func enable_item():
+	if animation_player:
+		animation_player.play()

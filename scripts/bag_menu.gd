@@ -69,6 +69,14 @@ func highlight_current():
 func get_max_index():
 	return item_stack_menu_items.size() - 1
 
+func after_disable_menu():
+	for x in item_stack_menu_items:
+		x.disable_item()
+
+func after_enable_menu():
+	for x in item_stack_menu_items:
+		x.enable_item()
+
 ## Menu signals
 
 func _on_current_index_changed(index: int):
