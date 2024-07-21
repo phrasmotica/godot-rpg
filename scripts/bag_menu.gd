@@ -154,11 +154,11 @@ func _on_use_item_menu_visibility_changed():
 	if use_item_menu.visible:
 		print("Item menu shown, disabling BagMenu")
 		set_process(false)
-		menu_disabled.emit()
+		menu_disabled.emit(self)
 	else:
 		print("Item menu hidden, enabling BagMenu")
 		set_process(true)
-		menu_enabled.emit()
+		menu_enabled.emit(self)
 
 func _on_use_item_menu_use():
 	use_current_item()

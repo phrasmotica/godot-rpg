@@ -27,8 +27,8 @@ func _ready():
         print("Ensuring " + m.name + " does not begin processing after being enabled if it's dimmed...")
 
         m.menu_enabled.connect(
-            func():
-                m.set_process(not is_dimmed)
+            func(menu: Menu):
+                menu.set_process(not is_dimmed)
         )
 
 func dim():

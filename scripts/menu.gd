@@ -21,8 +21,8 @@ signal current_index_changed(index: int)
 signal select_index(index: int)
 signal cancel
 
-signal menu_disabled
-signal menu_enabled
+signal menu_disabled(menu: Menu)
+signal menu_enabled(menu: Menu)
 
 func _ready():
 	set_process(visible)
