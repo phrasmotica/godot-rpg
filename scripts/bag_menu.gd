@@ -2,9 +2,6 @@
 extends ListMenu
 
 @export
-var use_item_menu: Menu
-
-@export
 var scroll_container: ScrollContainer
 
 @export
@@ -88,8 +85,9 @@ func enable_animations():
 ## Menu signals
 
 func _on_current_index_changed(index: int):
-	print("BagMenu current index changed, hiding UseItemMenu")
-	use_item_menu.hide()
+	print("BagMenu current index changed, stealing control")
+
+	steal_control.emit(self)
 
 	print("Scrolling to current item")
 
@@ -138,8 +136,9 @@ func update_buttons(item_stacks: Array[ItemStack]):
 	highlight_current()
 
 	if count_changed:
-		print("BagMenu stack count changed, hiding UseItemMenu")
-		use_item_menu.hide()
+		print("BagMenu stack count changed, stealing control")
+
+		steal_control.emit(self)
 
 func use_current_item():
 	if current_index > -1:

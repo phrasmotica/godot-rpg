@@ -15,6 +15,8 @@ signal menu_shown(menu: Menu)
 signal menu_disabled(menu: Menu)
 signal menu_enabled(menu: Menu)
 
+signal steal_control(menu: Menu)
+
 func _ready():
 	set_process(not inactive and visible)
 
