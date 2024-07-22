@@ -69,8 +69,12 @@ layer_0/tile_data = PackedInt32Array(0, 1, 0, 65536, 1, 0, 131072, 1, 0, 196608,
 
 [node name="Items" type="Node2D" parent="Map"]
 
-[node name="ItemPickup" parent="Map/Items" instance=ExtResource("2_24x27")]
+[node name="Feather0" parent="Map/Items" instance=ExtResource("2_24x27")]
 position = Vector2(1184, 672)
+item = ExtResource("6_qtd8w")
+
+[node name="Potion0" parent="Map/Items" instance=ExtResource("2_24x27")]
+position = Vector2(1056, 800)
 
 [node name="Player" parent="Map" instance=ExtResource("1_ia2wv")]
 position = Vector2(1184, 800)
