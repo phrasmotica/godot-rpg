@@ -29,6 +29,8 @@ func after_ready():
 
 func listen_for_inputs():
 	if Input.is_action_just_pressed("ui_select"):
+		# BUG: this still triggers when player picks up item
+		# while game menu is closed
 		process_select()
 
 	if Input.is_action_just_pressed("ui_down"):

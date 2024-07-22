@@ -85,9 +85,11 @@ func enable_animations():
 ## Menu signals
 
 func _on_current_index_changed(index: int):
-	print("BagMenu current index changed, stealing control")
-
-	steal_control.emit(self)
+	if visible:
+		# BUG: this still triggers when player picks up item
+		# while game menu is closed
+		print("BagMenu current index changed, stealing control")
+		steal_control.emit(self)
 
 	print("Scrolling to current item")
 
@@ -135,7 +137,9 @@ func update_buttons(item_stacks: Array[ItemStack]):
 
 	highlight_current()
 
-	if count_changed:
+	if visible and count_changed:
+		# BUG: this still triggers when player picks up item
+		# while game menu is closed
 		print("BagMenu stack count changed, stealing control")
 
 		steal_control.emit(self)

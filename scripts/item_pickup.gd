@@ -1,5 +1,5 @@
 @tool
-extends Node2D
+class_name ItemPickup extends Node2D
 
 @export
 var item: Item:

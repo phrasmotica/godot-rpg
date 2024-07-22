@@ -128,3 +128,10 @@ func _on_bag_menu_drop_stack(stack_id: int):
 
 func _on_bag_menu_add_random_item():
 	add_random_item()
+
+func _on_player_pickup_item(item_id: int):
+	var new_item := item_pool.get_item(item_id)
+
+	print("Player picked up " + new_item.name)
+
+	add_item(new_item)

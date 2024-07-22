@@ -15,6 +15,8 @@ var grid_movement = $GridMovement
 signal facing_obstacle
 signal not_facing_obstacle
 
+signal pickup_item(item_id: int)
+
 func _ready():
 	position = grid_movement.get_snapped_position(position)
 
@@ -27,6 +29,9 @@ func _process(_delta):
 		# TODO: move immediately if player is already
 		# facing in the movement direction
 		set_move_timer(direction)
+
+	if Input.is_action_just_pressed("pick_up"):
+		try_pickup_item()
 
 func face_direction(direction: Vector2):
 	var did_change = grid_movement.face(direction)
@@ -56,6 +61,12 @@ func do_move(direction: Vector2):
 	var did_move = grid_movement.move(direction)
 	if did_move and direction.length() > 0:
 		sprite.play()
+
+func try_pickup_item():
+	var collider = grid_movement.raycast.get_collider()
+	if collider and collider is ItemArea:
+		var item_id := (collider as ItemArea).get_item_id()
+		pickup_item.emit(item_id)
 
 func compute_input_action(direction: Vector2) -> StringName:
 	if direction.y > 0:
