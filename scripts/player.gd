@@ -95,6 +95,9 @@ func _on_grid_movement_moving_finished():
 func check_obstacle():
 	var collider = grid_movement.raycast.get_collider()
 	if collider:
+		if collider is ItemArea:
+			(collider as ItemArea).player_looking()
+
 		# TODO: how to distinguish between the colliders of different tiles?
 		# A glass should only be usable if we're facing the water
 		facing_obstacle.emit()
