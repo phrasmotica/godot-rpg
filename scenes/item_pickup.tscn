@@ -27,5 +27,3 @@ sprite_frames = SubResource("SpriteFrames_xal4v")
 
 [node name="ItemArea" parent="." node_paths=PackedStringArray("pickup") instance=ExtResource("4_skfs5")]
 pickup = NodePath("..")
-
-[connection signal="player_is_looking" from="ItemArea" to="." method="_on_item_area_player_is_looking"]

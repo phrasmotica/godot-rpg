@@ -12,10 +12,3 @@ var item: Item:
 
 @export
 var sprite: AnimatedSprite2D
-
-var _player_looking := false
-
-func _on_item_area_player_is_looking():
-	print("Player is looking at " + item.name)
-
-	_player_looking = true

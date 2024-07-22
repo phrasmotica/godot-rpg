@@ -65,8 +65,11 @@ func do_move(direction: Vector2):
 func try_pickup_item():
 	var collider = grid_movement.raycast.get_collider()
 	if collider and collider is ItemArea:
-		var item_id := (collider as ItemArea).get_item_id()
+		var item_area = collider as ItemArea
+		var item_id := item_area.get_item_id()
 		pickup_item.emit(item_id)
+
+		item_area.dispose()
 
 func compute_input_action(direction: Vector2) -> StringName:
 	if direction.y > 0:
@@ -106,9 +109,6 @@ func _on_grid_movement_moving_finished():
 func check_obstacle():
 	var collider = grid_movement.raycast.get_collider()
 	if collider:
-		if collider is ItemArea:
-			(collider as ItemArea).player_looking()
-
 		# TODO: how to distinguish between the colliders of different tiles?
 		# A glass should only be usable if we're facing the water
 		facing_obstacle.emit()
