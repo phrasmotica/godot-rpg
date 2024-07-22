@@ -5,7 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://woaliyf0saen" path="res://assets/sprites/feather.png" id="3_16lef"]
 [ext_resource type="PackedScene" uid="uid://ctmugr67on1rb" path="res://scenes/item_area.tscn" id="4_skfs5"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_xal4v"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_m5u7r"]
+resource_local_to_scene = true
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -23,7 +24,7 @@ sprite = NodePath("Sprite")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("SpriteFrames_xal4v")
+sprite_frames = SubResource("SpriteFrames_m5u7r")
 
 [node name="ItemArea" parent="." node_paths=PackedStringArray("pickup") instance=ExtResource("4_skfs5")]
 pickup = NodePath("..")
