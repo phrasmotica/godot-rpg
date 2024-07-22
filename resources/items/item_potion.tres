@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://051773al2ksf"]
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://051773al2ksf"]
 
+[ext_resource type="Texture2D" uid="uid://bw83fubq8rrqa" path="res://assets/sprites/potion.png" id="1_352k0"]
 [ext_resource type="Script" path="res://scripts/item.gd" id="1_xw1cv"]
 
 [resource]
@@ -7,3 +8,5 @@ script = ExtResource("1_xw1cv")
 id = 2
 name = "Potion"
 description = "Heals 10 HP."
+icon = ExtResource("1_352k0")
+requires_facing_obstacle = false

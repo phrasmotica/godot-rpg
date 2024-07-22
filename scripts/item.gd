@@ -10,4 +10,7 @@ var name := ""
 var description := ""
 
 @export
+var icon: Texture2D
+
+@export
 var requires_facing_obstacle := false

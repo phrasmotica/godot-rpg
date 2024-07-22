@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://bq382ory2pvt0"]
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bq382ory2pvt0"]
 
+[ext_resource type="Texture2D" uid="uid://woaliyf0saen" path="res://assets/sprites/feather.png" id="1_8bhn0"]
 [ext_resource type="Script" path="res://scripts/item.gd" id="1_dkqws"]
 
 [resource]
@@ -7,3 +8,5 @@ script = ExtResource("1_dkqws")
 id = 1
 name = "Feather"
 description = "Allows running away from a single enemy."
+icon = ExtResource("1_8bhn0")
+requires_facing_obstacle = false
