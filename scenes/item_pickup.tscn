@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://bd0jt41y1i55t"]
+
+[ext_resource type="Script" path="res://scripts/item_pickup.gd" id="1_xbki8"]
+[ext_resource type="Resource" uid="uid://bq382ory2pvt0" path="res://resources/items/item_feather.tres" id="2_ydp68"]
+[ext_resource type="Texture2D" uid="uid://woaliyf0saen" path="res://assets/sprites/feather.png" id="3_16lef"]
+[ext_resource type="PackedScene" uid="uid://ctmugr67on1rb" path="res://scenes/item_area.tscn" id="4_skfs5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xal4v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_16lef")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="ItemPickup" type="Node2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_xbki8")
+item = ExtResource("2_ydp68")
+sprite = NodePath("Sprite")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_xal4v")
+
+[node name="ItemArea" parent="." instance=ExtResource("4_skfs5")]
+
+[connection signal="player_is_looking" from="ItemArea" to="." method="_on_item_area_player_is_looking"]
