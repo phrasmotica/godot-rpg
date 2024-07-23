@@ -15,7 +15,7 @@ var grid_movement = $GridMovement
 signal facing_obstacle
 signal not_facing_obstacle
 
-signal pickup_item(item_id: int)
+signal pickup_item(item: Item)
 
 func _ready():
 	position = grid_movement.get_snapped_position(position)
@@ -66,8 +66,8 @@ func try_pickup_item():
 	var collider = grid_movement.raycast.get_collider()
 	if collider and collider is ItemArea:
 		var item_area = collider as ItemArea
-		var item_id := item_area.get_item_id()
-		pickup_item.emit(item_id)
+		var item := item_area.get_item()
+		pickup_item.emit(item)
 
 		item_area.dispose()
 
