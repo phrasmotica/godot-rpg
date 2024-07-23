@@ -5,7 +5,9 @@ var inactive := false:
 	set(value):
 		inactive = value
 
-		update_process()
+		inactive_changed.emit()
+
+signal inactive_changed
 
 signal cancel
 
@@ -18,7 +20,7 @@ signal menu_enabled(menu: Menu)
 signal steal_control(menu: Menu)
 
 func _ready():
-	update_process()
+	# update_process()
 
 	after_ready()
 
@@ -63,7 +65,7 @@ func after_enable_menu():
 	pass
 
 func _on_visibility_changed():
-	update_process()
+	# update_process()
 
 	if is_visible_in_tree():
 		menu_shown.emit(self)

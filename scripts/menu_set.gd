@@ -25,6 +25,13 @@ var menu_dimmers: Array[Dimmer] = []:
 		menu_dimmers = value
 		update_configuration_warnings()
 
+func start_loading():
+	inactive = true
+
+func finish_loading():
+	inactive = false
+	inactive_changed.connect(update_process)
+
 func after_ready():
 	if menus.size() > 0:
 		current_menu_index = 0
