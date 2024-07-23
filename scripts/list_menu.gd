@@ -32,9 +32,13 @@ func listen_for_inputs():
 		process_select()
 
 	if Input.is_action_just_pressed("menu_down"):
+		print("Moving to next item")
+
 		next()
 
 	if Input.is_action_just_pressed("menu_up"):
+		print("Moving to previous item")
+
 		previous()
 
 func get_max_index():
