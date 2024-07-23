@@ -50,8 +50,6 @@ func previous():
 	current_index = (current_index + item_stack_menu_items.size() - 1) % item_stack_menu_items.size()
 
 func listen_for_inputs():
-	# BUG: this is triggering when we pick up an item, even if this script
-	# is not processing. Find out why!!!
 	super.listen_for_inputs()
 
 	if Input.is_action_just_pressed("random_item"):
@@ -88,8 +86,6 @@ func enable_animations():
 
 func _on_current_index_changed(index: int):
 	if is_visible_in_tree():
-		# BUG: this still triggers when player picks up item
-		# while game menu is closed
 		print("BagMenu current index changed, stealing control")
 		steal_control.emit(self)
 
@@ -122,9 +118,6 @@ func update_buttons(item_stacks: Array[ItemStack]):
 			item_list.add_child(new_button)
 			item_stack_menu_items.append(new_button)
 
-		if current_index < 0:
-			current_index = 0
-
 	# clean up any unused buttons
 	if item_stack_menu_items.size() > item_stacks.size():
 		for j in range(item_stacks.size(), item_stack_menu_items.size()):
@@ -133,15 +126,9 @@ func update_buttons(item_stacks: Array[ItemStack]):
 		while item_stack_menu_items.size() > item_stacks.size():
 			item_stack_menu_items.pop_back()
 
-	# ensure the last item stack is selected
-	while current_index >= item_stacks.size():
-		current_index -= 1
-
 	highlight_current()
 
 	if is_visible_in_tree() and count_changed:
-		# BUG: this still triggers when player picks up item
-		# while game menu is closed
 		print("BagMenu stack count changed, stealing control")
 
 		steal_control.emit(self)

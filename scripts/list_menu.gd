@@ -29,8 +29,6 @@ func after_ready():
 
 func listen_for_inputs():
 	if Input.is_action_just_pressed("ui_select"):
-		# BUG: this still triggers when player picks up item
-		# while game menu is closed
 		process_select()
 
 	if Input.is_action_just_pressed("ui_down"):
@@ -86,4 +84,6 @@ func previous():
 		i += 1
 
 func after_visibility_changed():
+	current_index = clampi(current_index, 0, items.size() - 1)
+
 	highlight_current()
