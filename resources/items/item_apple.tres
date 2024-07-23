@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bsp3wru64i61u"]
+
+[ext_resource type="Texture2D" uid="uid://cxbos6ll7n4gw" path="res://assets/sprites/apple.png" id="1_lfigl"]
+[ext_resource type="Script" path="res://scripts/item.gd" id="1_yflj3"]
+
+[resource]
+script = ExtResource("1_yflj3")
+id = 6
+name = "Apple"
+description = "Heals 3HP."
+icon = ExtResource("1_lfigl")
+requires_facing_obstacle = false
