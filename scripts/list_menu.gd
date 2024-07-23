@@ -31,10 +31,10 @@ func listen_for_inputs():
 	if Input.is_action_just_pressed("ui_select"):
 		process_select()
 
-	if Input.is_action_just_pressed("ui_down"):
+	if Input.is_action_just_pressed("menu_down"):
 		next()
 
-	if Input.is_action_just_pressed("ui_up"):
+	if Input.is_action_just_pressed("menu_up"):
 		previous()
 
 func get_max_index():
