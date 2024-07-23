@@ -30,7 +30,6 @@ func start_loading():
 
 func finish_loading():
 	inactive = false
-	inactive_changed.connect(update_process)
 
 func after_ready():
 	if menus.size() > 0:

@@ -1,6 +1,7 @@
 @tool
 class_name Menu extends Control
 
+# TODO: set this flag when a child menu has control?
 var inactive := false:
 	set(value):
 		inactive = value
@@ -20,8 +21,6 @@ signal menu_enabled(menu: Menu)
 signal steal_control(menu: Menu)
 
 func _ready():
-	# update_process()
-
 	after_ready()
 
 func after_ready():
@@ -31,10 +30,14 @@ func _process(_delta):
 	if Engine.is_editor_hint():
 		return
 
-	if Input.is_action_just_pressed("ui_cancel"):
-		cancel_menu()
+	if can_listen():
+		if Input.is_action_just_pressed("ui_cancel"):
+			cancel_menu()
 
-	listen_for_inputs()
+		listen_for_inputs()
+
+func can_listen():
+	return not inactive and is_visible_in_tree()
 
 func cancel_menu():
 	cancel.emit()
@@ -65,19 +68,12 @@ func after_enable_menu():
 	pass
 
 func _on_visibility_changed():
-	# update_process()
-
 	if is_visible_in_tree():
 		menu_shown.emit(self)
 	else:
 		menu_hidden.emit(self)
 
 	after_visibility_changed()
-
-func update_process():
-	var is_process := not inactive and is_visible_in_tree()
-	print(name + " process " + str(is_process))
-	set_process(is_process)
 
 func after_visibility_changed():
 	pass
