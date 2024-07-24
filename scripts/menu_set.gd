@@ -35,18 +35,12 @@ func after_ready():
 		menu.menu_disabled.connect(
 			func(m):
 				print(m.name + " disabled, disabling " + name)
-
-				set_process(false)
-
 				menu_dimmers[i].is_dimmed = true
 		)
 
 		menu.menu_enabled.connect(
 			func(m):
 				print(m.name + " enabled, enabling " + name)
-
-				set_process(true)
-
 				menu_dimmers[i].is_dimmed = false
 		)
 

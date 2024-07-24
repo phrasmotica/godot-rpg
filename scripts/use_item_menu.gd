@@ -16,6 +16,9 @@ signal use_all
 signal drop
 signal drop_all
 
+func after_ready():
+	disable_menu()
+
 func _on_bag_menu_select_stack(stack: ItemStack):
 	print("Showing UseItemMenu for stack ID=" + str(stack.id))
 
@@ -28,6 +31,8 @@ func _on_bag_menu_select_stack(stack: ItemStack):
 
 	if description_label:
 		description_label.text = stack.item.description
+
+	call_deferred("enable_menu")
 
 func _on_select_index(index: int):
 	# TODO: this isn't great - should probably define an enum
@@ -51,6 +56,8 @@ func _on_select_index(index: int):
 
 func _on_cancel():
 	print("Hiding UseItemMenu")
+
+	disable_menu()
 
 	hide()
 
