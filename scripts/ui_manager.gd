@@ -7,12 +7,11 @@ signal menu_opened
 signal menu_closed
 
 func _ready():
-	menu.start_loading()
-	menu.hide()
-	menu.finish_loading()
+	hide_menu()
 
-	# HIGH: rewrite menu loading/active/inactive/etc logic. Child menus should
-	# be inactive exactly when they are not visible
+func hide_menu():
+	menu.disable_menu()
+	menu.hide()
 
 func _process(_delta):
 	if not menu.visible and Input.is_action_just_pressed("toggle_bag"):
@@ -22,9 +21,12 @@ func _process(_delta):
 
 		menu_opened.emit()
 
+		# ensures the key press doesn't immediately hide the menu
+		menu.call_deferred("enable_menu")
+
 func _on_menu_cancel():
 	print("Hiding menu")
 
-	menu.hide()
+	hide_menu()
 
 	menu_closed.emit()

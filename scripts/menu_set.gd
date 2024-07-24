@@ -25,12 +25,6 @@ var menu_dimmers: Array[Dimmer] = []:
 		menu_dimmers = value
 		update_configuration_warnings()
 
-func start_loading():
-	inactive = true
-
-func finish_loading():
-	inactive = false
-
 func after_ready():
 	if menus.size() > 0:
 		current_menu_index = 0
@@ -41,18 +35,12 @@ func after_ready():
 		menu.menu_disabled.connect(
 			func(m):
 				print(m.name + " disabled, disabling " + name)
-
-				set_process(false)
-
 				menu_dimmers[i].is_dimmed = true
 		)
 
 		menu.menu_enabled.connect(
 			func(m):
 				print(m.name + " enabled, enabling " + name)
-
-				set_process(true)
-
 				menu_dimmers[i].is_dimmed = false
 		)
 

@@ -88,6 +88,7 @@ func previous():
 		i += 1
 
 func after_visibility_changed():
-	current_index = clampi(current_index, 0, items.size() - 1)
+	if items.size() > 0:
+		current_index = clampi(current_index, 0, items.size() - 1)
 
 	highlight_current()

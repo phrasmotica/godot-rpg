@@ -87,7 +87,7 @@ func enable_animations():
 func _on_current_index_changed(index: int):
 	print("BagMenu current index changed " + str(index))
 
-	if is_visible_in_tree():
+	if _inactive and is_visible_in_tree():
 		print("BagMenu current index changed, stealing control")
 		steal_control.emit(self)
 
@@ -127,6 +127,9 @@ func update_buttons(item_stacks: Array[ItemStack]):
 
 		while item_stack_menu_items.size() > item_stacks.size():
 			item_stack_menu_items.pop_back()
+
+	if item_stacks.size() > 0:
+		current_index = clampi(current_index, 0, item_stacks.size() - 1)
 
 	highlight_current()
 

@@ -13,6 +13,7 @@ func _ready():
             print(menu.name + " stole control, hiding " + str(child_menus.size()) + " child menu(s)")
 
             for m in child_menus:
+                m.disable_menu()
                 m.hide()
     )
 

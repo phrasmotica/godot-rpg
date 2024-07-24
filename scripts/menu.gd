@@ -1,14 +1,7 @@
 @tool
 class_name Menu extends Control
 
-# TODO: set this flag when a child menu has control?
-var inactive := false:
-	set(value):
-		inactive = value
-
-		inactive_changed.emit()
-
-signal inactive_changed
+var _inactive := false
 
 signal cancel
 
@@ -37,7 +30,7 @@ func _process(_delta):
 		listen_for_inputs()
 
 func can_listen():
-	return not inactive and is_visible_in_tree()
+	return not _inactive and is_visible_in_tree()
 
 func cancel_menu():
 	cancel.emit()
@@ -48,7 +41,7 @@ func listen_for_inputs():
 func disable_menu():
 	print("Disabling menu " + name)
 
-	inactive = true
+	_inactive = true
 	menu_disabled.emit(self)
 
 	after_disable_menu()
@@ -59,7 +52,7 @@ func after_disable_menu():
 func enable_menu():
 	print("Enabling menu " + name)
 
-	inactive = false
+	_inactive = false
 	menu_enabled.emit(self)
 
 	after_enable_menu()
