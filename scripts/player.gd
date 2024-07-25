@@ -38,9 +38,9 @@ func face_direction(direction: Vector2):
 	if did_change:
 		check_obstacle()
 
-	var new_anim = compute_animation(direction)
-	if new_anim.length() > 0:
-		sprite.animation = new_anim
+		var new_anim = compute_animation(direction)
+		if new_anim.length() > 0:
+			sprite.animation = new_anim
 
 func set_move_timer(direction: Vector2):
 	if direction.length() <= 0:
