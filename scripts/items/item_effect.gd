@@ -5,6 +5,12 @@ signal consume(effect: ItemEffect)
 func apply():
     consume.emit(self)
 
+func get_description():
+    return "item effect"
+
+func can_apply_to_hit_points(_hit_points: HitPoints):
+    return false
+
 func apply_to_hit_points(_hit_points: HitPoints):
     print("Applying item effect to hit points")
 

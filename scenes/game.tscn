@@ -85,6 +85,10 @@ item = ExtResource("4_joh4c")
 [node name="Feather1" parent="Map/Items" instance=ExtResource("2_24x27")]
 position = Vector2(1248, 672)
 
+[node name="Potion1" parent="Map/Items" instance=ExtResource("2_24x27")]
+position = Vector2(1056, 864)
+item = ExtResource("5_c3sxs")
+
 [node name="Player" parent="Map" instance=ExtResource("1_ia2wv")]
 position = Vector2(1184, 800)
 
