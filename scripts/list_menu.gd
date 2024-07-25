@@ -24,9 +24,6 @@ func after_ready():
 	if items.size() > 0:
 		current_index = 0
 
-	for x in items:
-		x.on_disabled.connect(next_if_disabled)
-
 func listen_for_inputs():
 	if Input.is_action_just_pressed("ui_select"):
 		process_select()

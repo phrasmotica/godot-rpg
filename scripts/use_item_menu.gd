@@ -2,6 +2,9 @@
 extends ListMenu
 
 @export
+var item_consumer: ItemConsumer
+
+@export
 var description_label: Label
 
 @export
@@ -26,13 +29,21 @@ func _on_bag_menu_select_stack(stack: ItemStack):
 
 	selected_item = stack.item
 
-	for x in use_items:
-		x.disabled = selected_item.requires_facing_obstacle and not player_facing_obstacle
+	disable_items()
 
 	if description_label:
 		description_label.text = stack.item.description
 
 	call_deferred("enable_menu")
+
+func _on_bag_used_item(_used_item: Item, _item_stacks: Array[ItemStack]):
+	disable_items()
+
+func disable_items():
+	for x in use_items:
+		var should_be_facing_obstacle = selected_item.requires_facing_obstacle and not player_facing_obstacle
+		x.disabled = should_be_facing_obstacle or not item_consumer.can_consume(selected_item)
+		next_if_disabled()
 
 func _on_select_index(index: int):
 	# TODO: this isn't great - should probably define an enum

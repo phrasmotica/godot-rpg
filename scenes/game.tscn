@@ -166,7 +166,7 @@ to_dim = NodePath("..")
 parent_menu = NodePath("..")
 child_menus = [NodePath("../../UseItemMenu")]
 
-[node name="UseItemMenu" parent="UICanvas/UIManager/Menu" instance=ExtResource("9_6coe6")]
+[node name="UseItemMenu" parent="UICanvas/UIManager/Menu" node_paths=PackedStringArray("item_consumer") instance=ExtResource("9_6coe6")]
 visible = false
 layout_mode = 1
 anchors_preset = 1
@@ -177,6 +177,7 @@ offset_top = 120.0
 offset_right = -232.0
 offset_bottom = 320.0
 grow_horizontal = 0
+item_consumer = NodePath("../../../../Map/Player/Bag/ItemConsumer")
 
 [connection signal="facing_obstacle" from="Map/Player" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_player_facing_obstacle"]
 [connection signal="not_facing_obstacle" from="Map/Player" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_player_not_facing_obstacle"]
@@ -185,6 +186,7 @@ grow_horizontal = 0
 [connection signal="added_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/BagMenu" method="_on_bag_added_item"]
 [connection signal="dropped_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/BagMenu" method="_on_bag_dropped_item"]
 [connection signal="used_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/BagMenu" method="_on_bag_used_item"]
+[connection signal="used_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_bag_used_item"]
 [connection signal="menu_closed" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_menu_closed"]
 [connection signal="menu_opened" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_menu_opened"]
 [connection signal="cancel" from="UICanvas/UIManager/Menu" to="UICanvas/UIManager" method="_on_menu_cancel"]
