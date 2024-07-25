@@ -36,6 +36,10 @@ func _on_bag_menu_select_stack(stack: ItemStack):
 
 	call_deferred("enable_menu")
 
+# BUG: having two of a given item, using/dropping one of them and then cancelling
+# the use ite menu causes the entire menu tree to cancel, rather than just the
+# use item menu
+
 func _on_bag_used_item(_used_item: Item, _item_stacks: Array[ItemStack]):
 	disable_items()
 
