@@ -163,6 +163,11 @@ func _on_bag_dropped_item(dropped_item: Item, item_stacks: Array[ItemStack]):
 
 	update_buttons(item_stacks)
 
+func _on_bag_used_item(used_item: Item, item_stacks: Array[ItemStack]):
+	print("Used " + used_item.name + " from bag")
+
+	update_buttons(item_stacks)
+
 func _on_use_item_menu_use():
 	use_current_item()
 

@@ -1,12 +1,16 @@
 class_name Bag extends Node
 
 @export
+var item_consumer: ItemConsumer
+
+@export
 var item_pool: ItemPool
 
 var item_stacks: Array[ItemStack] = []
 
 signal added_item(new_item: Item, item_stacks: Array[ItemStack])
 signal dropped_item(dropped_item: Item, item_stacks: Array[ItemStack])
+signal used_item(used_item: Item, item_stacks: Array[ItemStack])
 
 func add_random_item():
 	var new_item := item_pool.get_random()
@@ -50,18 +54,18 @@ func try_use_item(stack_id: int):
 		print("Tried to use from stack ID=" + str(stack_id) + " but no such stack exists!")
 		return
 
-	# HIGH: verify that the item can be used, then make its effect happen
-
-	var just_dropped_item := stack.drop(1)
-	if not just_dropped_item:
+	if not stack.item or stack.amount < 1:
 		print("Tried to use from stack ID=" + str(stack_id) + " but the stack was empty!")
 		return
 
-	print("Used from stack ID=" + str(stack_id))
+	var did_consume := item_consumer.consume(stack.item)
+	if did_consume:
+		var just_used_item := stack.drop(1)
+		print("Used from stack ID=" + str(stack_id))
 
-	remove_empty_stacks()
+		remove_empty_stacks()
 
-	dropped_item.emit(just_dropped_item, item_stacks)
+		used_item.emit(just_used_item, item_stacks)
 
 func drop_item(stack_id: int):
 	var stack := get_stack_with_id(stack_id)

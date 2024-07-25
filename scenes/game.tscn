@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=23 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player.tscn" id="1_ia2wv"]
 [ext_resource type="Texture2D" uid="uid://dgf8l1h6aqgr2" path="res://assets/sprites/background_tilemap.png" id="1_l8177"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://7nyhh4cif5fr" path="res://scenes/bag_menu.tscn" id="5_votnq"]
 [ext_resource type="Resource" uid="uid://bq382ory2pvt0" path="res://resources/items/item_feather.tres" id="6_qtd8w"]
 [ext_resource type="Resource" uid="uid://b5hhypvakbuho" path="res://resources/items/item_glass.tres" id="7_dso4j"]
+[ext_resource type="PackedScene" uid="uid://ghhfb6xsyy7h" path="res://scenes/items/item_consumer.tscn" id="8_7srcv"]
 [ext_resource type="Resource" uid="uid://dc0jtjc1jkqbc" path="res://resources/items/item_rope.tres" id="8_c52p3"]
 [ext_resource type="PackedScene" uid="uid://cbtoj82qvcrwg" path="res://scenes/use_item_menu.tscn" id="9_6coe6"]
 [ext_resource type="Resource" uid="uid://nhyp5rxmoxc8" path="res://resources/items/item_stick.tres" id="9_xym7c"]
@@ -91,8 +92,11 @@ position = Vector2(1184, 800)
 
 [node name="HitPoints" parent="Map/Player" instance=ExtResource("3_21716")]
 
-[node name="Bag" parent="Map/Player" node_paths=PackedStringArray("item_pool") instance=ExtResource("3_pc812")]
+[node name="Bag" parent="Map/Player" node_paths=PackedStringArray("item_consumer", "item_pool") instance=ExtResource("3_pc812")]
+item_consumer = NodePath("ItemConsumer")
 item_pool = NodePath("ItemPool")
+
+[node name="ItemConsumer" parent="Map/Player/Bag" instance=ExtResource("8_7srcv")]
 
 [node name="ItemPool" type="Node" parent="Map/Player/Bag"]
 script = ExtResource("4_ahimj")
@@ -174,6 +178,7 @@ grow_horizontal = 0
 [connection signal="current_hp_changed" from="Map/Player/HitPoints" to="UICanvas/UIManager/Menu/PlayerStats" method="_on_hit_points_current_hp_changed"]
 [connection signal="added_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/BagMenu" method="_on_bag_added_item"]
 [connection signal="dropped_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/BagMenu" method="_on_bag_dropped_item"]
+[connection signal="used_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/BagMenu" method="_on_bag_used_item"]
 [connection signal="menu_closed" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_menu_closed"]
 [connection signal="menu_opened" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_menu_opened"]
 [connection signal="cancel" from="UICanvas/UIManager/Menu" to="UICanvas/UIManager" method="_on_menu_cancel"]
