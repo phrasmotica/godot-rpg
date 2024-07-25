@@ -1,9 +1,10 @@
 [gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://dc0jtjc1jkqbc"]
 
-[ext_resource type="Script" path="res://scripts/item.gd" id="1_x50mk"]
+[ext_resource type="Script" path="res://scripts/items/item.gd" id="1_x50mk"]
 
 [resource]
 script = ExtResource("1_x50mk")
 id = 4
 name = "Rope"
 description = "Use to ensnare an enemy."
+requires_facing_obstacle = false
