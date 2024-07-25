@@ -14,3 +14,6 @@ var icon: Texture2D
 
 @export
 var requires_facing_obstacle := false
+
+@export
+var external_effects: Array[ItemEffect] = []
