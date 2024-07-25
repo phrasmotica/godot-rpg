@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://pbl172qx88xu"]
 
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_hkmyc"]
-[ext_resource type="Script" path="res://scripts/player_stats.gd" id="2_n1jyc"]
+[ext_resource type="Script" path="res://scripts/menus/player_stats_panel.gd" id="2_ocpfr"]
 
-[node name="PlayerStats" type="PanelContainer" node_paths=PackedStringArray("hp_label")]
+[node name="PlayerStatsPanel" type="PanelContainer" node_paths=PackedStringArray("hp_label")]
 offset_right = 200.0
 offset_bottom = 104.0
 theme = ExtResource("1_hkmyc")
-script = ExtResource("2_n1jyc")
+script = ExtResource("2_ocpfr")
 hp_label = NodePath("MarginContainer/VBoxContainer/HPLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

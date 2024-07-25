@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cbtoj82qvcrwg" path="res://scenes/use_item_menu.tscn" id="9_6coe6"]
 [ext_resource type="Resource" uid="uid://nhyp5rxmoxc8" path="res://resources/items/item_stick.tres" id="9_xym7c"]
 [ext_resource type="Script" path="res://scripts/menu_set.gd" id="12_62p5y"]
-[ext_resource type="PackedScene" uid="uid://pbl172qx88xu" path="res://scenes/player_stats.tscn" id="13_55kbe"]
+[ext_resource type="PackedScene" uid="uid://pbl172qx88xu" path="res://scenes/menus/player_stats_panel.tscn" id="13_55kbe"]
 [ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/dimmer.tscn" id="13_w1m1t"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
 
