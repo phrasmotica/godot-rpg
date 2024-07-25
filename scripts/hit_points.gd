@@ -1,5 +1,5 @@
 @tool
-extends Node
+class_name HitPoints extends Node
 
 @export_range(10, 100)
 var max_hp := 50:
@@ -22,4 +22,4 @@ var current_hp := 50:
 signal current_hp_changed(hp: int, max_hp: int)
 
 func _ready():
-    current_hp = max_hp
+    current_hp_changed.emit(current_hp, max_hp)

@@ -91,12 +91,14 @@ position = Vector2(1184, 800)
 [node name="Camera" type="Camera2D" parent="Map/Player"]
 
 [node name="HitPoints" parent="Map/Player" instance=ExtResource("3_21716")]
+current_hp = 40
 
 [node name="Bag" parent="Map/Player" node_paths=PackedStringArray("item_consumer", "item_pool") instance=ExtResource("3_pc812")]
 item_consumer = NodePath("ItemConsumer")
 item_pool = NodePath("ItemPool")
 
-[node name="ItemConsumer" parent="Map/Player/Bag" instance=ExtResource("8_7srcv")]
+[node name="ItemConsumer" parent="Map/Player/Bag" node_paths=PackedStringArray("hit_points") instance=ExtResource("8_7srcv")]
+hit_points = NodePath("../../HitPoints")
 
 [node name="ItemPool" type="Node" parent="Map/Player/Bag"]
 script = ExtResource("4_ahimj")
