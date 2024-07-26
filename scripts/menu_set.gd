@@ -34,14 +34,18 @@ func after_ready():
 
 		menu.menu_disabled.connect(
 			func(m):
-				print(m.name + " disabled, disabling " + name)
 				menu_dimmers[i].is_dimmed = true
+
+				print(m.name + " disabled, disabling " + name)
+				disable_menu()
 		)
 
 		menu.menu_enabled.connect(
 			func(m):
-				print(m.name + " enabled, enabling " + name)
 				menu_dimmers[i].is_dimmed = false
+
+				print(m.name + " enabled, enabling " + name)
+				enable_menu()
 		)
 
 func listen_for_inputs():
