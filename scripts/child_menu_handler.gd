@@ -25,18 +25,18 @@ func _ready():
         m.menu_enabled.connect(handle_child_menu_enabled)
 
 func handle_child_menu_hidden(menu: Menu):
-    print(menu.name + " hidden, what should happen to " + parent_menu.name)
+    print(menu.name + " hidden")
 
     if child_menus.all(func(m: Menu): return not m.visible):
         parent_menu.enable_menu()
 
 func handle_child_menu_shown(menu: Menu):
-    print(menu.name + " shown, what should happen to " + parent_menu.name)
+    print(menu.name + " shown")
 
     parent_menu.disable_menu()
 
 func handle_child_menu_disabled(menu: Menu):
-    print(menu.name + " disabled, what should happen to " + parent_menu.name)
+    print(menu.name + " disabled")
 
 func handle_child_menu_enabled(menu: Menu):
-    print(menu.name + " enabled, what should happen to " + parent_menu.name)
+    print(menu.name + " enabled")
