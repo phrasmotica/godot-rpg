@@ -11,6 +11,7 @@ var item_stacks: Array[ItemStack] = []
 signal added_item(new_item: Item, item_stacks: Array[ItemStack])
 signal dropped_item(dropped_item: Item, item_stacks: Array[ItemStack])
 signal used_item(used_item: Item, item_stacks: Array[ItemStack])
+signal consumed_item(consumed_item: Item, item_stacks: Array[ItemStack])
 
 func add_random_item():
 	var new_item := item_pool.get_random()
@@ -58,14 +59,26 @@ func try_use_item(stack_id: int):
 		print("Tried to use from stack ID=" + str(stack_id) + " but the stack was empty!")
 		return
 
+	var did_use := item_consumer.use(stack.item)
+	if not did_use:
+		print("Did not use item " + stack.item.name)
+		return
+
+	print("Used " + stack.item.name + " from stack ID=" + str(stack_id))
+
+	used_item.emit(stack.item, item_stacks)
+
 	var did_consume := item_consumer.consume(stack.item)
-	if did_consume:
-		var just_used_item := stack.drop(1)
-		print("Used from stack ID=" + str(stack_id))
+	if not did_consume:
+		print("Did not consume item " + stack.item.name)
+		return
 
-		remove_empty_stacks()
+	var just_consumed_item := stack.drop(1)
+	print("Consumed " + just_consumed_item.name + " from stack ID=" + str(stack_id))
 
-		used_item.emit(just_used_item, item_stacks)
+	remove_empty_stacks()
+
+	consumed_item.emit(just_consumed_item, item_stacks)
 
 func drop_item(stack_id: int):
 	var stack := get_stack_with_id(stack_id)

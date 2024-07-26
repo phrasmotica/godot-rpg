@@ -15,5 +15,6 @@ name = "Apple"
 description = "Heals 3HP. Also tasty."
 icon = ExtResource("1_lfigl")
 requires_facing_obstacle = false
+use_effects = Array[Resource("res://scripts/items/item_effect.gd")]([])
 external_effects = Array[Resource("res://scripts/items/item_effect.gd")]([SubResource("Resource_jp1cl")])
 meta = {}

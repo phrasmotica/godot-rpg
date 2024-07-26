@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/items/item.gd" id="1_h3uyv"]
 [ext_resource type="Texture2D" uid="uid://7nyladrne3g5" path="res://assets/sprites/jar.png" id="2_u3ei4"]
 
-[sub_resource type="Resource" id="Resource_esu2l"]
+[sub_resource type="Resource" id="Resource_1yinw"]
 script = ExtResource("1_ghd45")
 
 [resource]
@@ -14,7 +14,8 @@ name = "Glass"
 description = "Use while facing water to fill it."
 icon = ExtResource("2_u3ei4")
 requires_facing_obstacle = true
-external_effects = Array[Resource("res://scripts/items/item_effect.gd")]([SubResource("Resource_esu2l")])
+use_effects = Array[Resource("res://scripts/items/item_effect.gd")]([SubResource("Resource_1yinw")])
+external_effects = Array[Resource("res://scripts/items/item_effect.gd")]([])
 meta = {
 "is_filled": false
 }

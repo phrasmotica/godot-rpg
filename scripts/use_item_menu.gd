@@ -42,7 +42,7 @@ func _on_bag_used_item(_used_item: Item, _item_stacks: Array[ItemStack]):
 func disable_items():
 	for x in use_items:
 		var should_be_facing_obstacle = selected_item.requires_facing_obstacle and not player_facing_obstacle
-		x.disabled = should_be_facing_obstacle or not item_consumer.can_consume(selected_item)
+		x.disabled = should_be_facing_obstacle or not item_consumer.can_use(selected_item)
 		next_if_disabled()
 
 func _on_select_index(index: int):

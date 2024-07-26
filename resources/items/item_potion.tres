@@ -15,5 +15,6 @@ name = "Potion"
 description = "Heals 10 HP."
 icon = ExtResource("1_352k0")
 requires_facing_obstacle = false
+use_effects = Array[Resource("res://scripts/items/item_effect.gd")]([])
 external_effects = Array[Resource("res://scripts/items/item_effect.gd")]([SubResource("Resource_27lvv")])
 meta = {}
