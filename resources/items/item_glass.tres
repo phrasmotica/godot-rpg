@@ -1,12 +1,14 @@
 [gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://b5hhypvakbuho"]
 
 [ext_resource type="Script" path="res://scripts/items/item.gd" id="1_h3uyv"]
+[ext_resource type="Texture2D" uid="uid://7nyladrne3g5" path="res://assets/sprites/jar.png" id="2_u3ei4"]
 
 [resource]
 script = ExtResource("1_h3uyv")
 id = 3
 name = "Glass"
 description = "Use while facing water to fill it."
+icon = ExtResource("2_u3ei4")
 requires_facing_obstacle = true
 meta = {
 "is_filled": false
