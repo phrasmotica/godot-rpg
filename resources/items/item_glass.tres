@@ -1,7 +1,11 @@
-[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://b5hhypvakbuho"]
+[gd_resource type="Resource" script_class="Item" load_steps=5 format=3 uid="uid://b5hhypvakbuho"]
 
+[ext_resource type="Script" path="res://scripts/items/fill_glass_item_effect.gd" id="1_ghd45"]
 [ext_resource type="Script" path="res://scripts/items/item.gd" id="1_h3uyv"]
 [ext_resource type="Texture2D" uid="uid://7nyladrne3g5" path="res://assets/sprites/jar.png" id="2_u3ei4"]
+
+[sub_resource type="Resource" id="Resource_esu2l"]
+script = ExtResource("1_ghd45")
 
 [resource]
 script = ExtResource("1_h3uyv")
@@ -10,6 +14,7 @@ name = "Glass"
 description = "Use while facing water to fill it."
 icon = ExtResource("2_u3ei4")
 requires_facing_obstacle = true
+external_effects = Array[Resource("res://scripts/items/item_effect.gd")]([SubResource("Resource_esu2l")])
 meta = {
 "is_filled": false
 }
