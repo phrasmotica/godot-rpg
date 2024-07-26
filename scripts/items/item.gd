@@ -30,3 +30,9 @@ var external_effects: Array[ItemEffect] = []
 
 @export
 var meta := {}
+
+func get_display_name() -> String:
+    if meta.has("is_filled") and meta["is_filled"] == true:
+        return name + " (filled)"
+
+    return name

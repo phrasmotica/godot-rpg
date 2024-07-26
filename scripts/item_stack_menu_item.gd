@@ -21,7 +21,7 @@ var stack: ItemStack:
 
 		if stack and stack.amount > 0:
 			if stack.item:
-				name_text = stack.item.name
+				name_text = stack.item.get_display_name()
 
 			amount_text = "x" + str(stack.amount)
 

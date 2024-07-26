@@ -188,6 +188,8 @@ item_consumer = NodePath("../../../../Map/Player/Bag/ItemConsumer")
 [connection signal="pickup_item" from="Map/Player" to="Map/Player/Bag" method="_on_player_pickup_item"]
 [connection signal="current_hp_changed" from="Map/Player/HitPoints" to="UICanvas/UIManager/Menu/PlayerStats" method="_on_hit_points_current_hp_changed"]
 [connection signal="added_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/BagMenu" method="_on_bag_added_item"]
+[connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/BagMenu" method="_on_bag_consumed_item"]
+[connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_bag_consumed_item"]
 [connection signal="dropped_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/BagMenu" method="_on_bag_dropped_item"]
 [connection signal="used_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/BagMenu" method="_on_bag_used_item"]
 [connection signal="used_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_bag_used_item"]

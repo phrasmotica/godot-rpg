@@ -39,6 +39,9 @@ func _on_bag_menu_select_stack(stack: ItemStack):
 func _on_bag_used_item(_used_item: Item, _item_stacks: Array[ItemStack]):
 	disable_items()
 
+func _on_bag_consumed_item(_consumed_item:Item, _item_stacks:Array[ItemStack]):
+	disable_items()
+
 func disable_items():
 	for x in use_items:
 		var should_be_facing_obstacle = selected_item.requires_facing_obstacle and not player_facing_obstacle

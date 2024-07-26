@@ -168,6 +168,11 @@ func _on_bag_used_item(used_item: Item, item_stacks: Array[ItemStack]):
 
 	update_buttons(item_stacks)
 
+func _on_bag_consumed_item(consumed_item:Item, item_stacks:Array[ItemStack]):
+	print("Consumed " + consumed_item.name + " from bag")
+
+	update_buttons(item_stacks)
+
 func _on_use_item_menu_use():
 	use_current_item()
 
