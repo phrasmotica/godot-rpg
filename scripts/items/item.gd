@@ -17,3 +17,6 @@ var requires_facing_obstacle := false
 
 @export
 var external_effects: Array[ItemEffect] = []
+
+@export
+var meta := {}

@@ -9,3 +9,4 @@ name = "Stick"
 description = "It's just a stick..."
 requires_facing_obstacle = false
 external_effects = Array[Resource("res://scripts/items/item_effect.gd")]([])
+meta = {}

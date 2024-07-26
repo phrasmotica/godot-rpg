@@ -8,4 +8,6 @@ id = 3
 name = "Glass"
 description = "Use while facing water to fill it."
 requires_facing_obstacle = true
-external_effects = Array[Resource("res://scripts/items/item_effect.gd")]([])
+meta = {
+"is_filled": false
+}
