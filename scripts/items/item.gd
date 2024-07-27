@@ -13,7 +13,10 @@ var description := ""
 var icon: Texture2D
 
 @export
-var requires_facing_obstacle := false
+var requires_facing_tile_id := -1:
+    set(value):
+        # HIGH: move tile IDs into a global enum
+        requires_facing_tile_id = clamp(value, -1, 3)
 
 ## A list of effects that are applied when the item is used, but do NOT
 ## cause the item to be consumed. If this is non-empty, one of these effects

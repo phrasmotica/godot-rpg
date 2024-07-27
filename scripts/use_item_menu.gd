@@ -45,9 +45,11 @@ func _on_bag_consumed_item(_consumed_item:Item, _item_stacks:Array[ItemStack]):
 	disable_items()
 
 func disable_items():
+	var requires_facing_tile_id := selected_item.requires_facing_tile_id
+
 	for x in use_items:
-		var should_be_facing_obstacle = selected_item.requires_facing_obstacle and player_facing_tile == TileId.NONE
-		x.disabled = should_be_facing_obstacle or not item_consumer.can_use(selected_item)
+		var facing_wrong_tile = requires_facing_tile_id > -1 and player_facing_tile != requires_facing_tile_id
+		x.disabled = facing_wrong_tile or not item_consumer.can_use(selected_item)
 		next_if_disabled()
 
 func _on_select_index(index: int):
