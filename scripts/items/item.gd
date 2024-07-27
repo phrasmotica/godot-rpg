@@ -36,3 +36,12 @@ func get_display_name() -> String:
         return name + " (filled)"
 
     return name
+
+func same_meta_as(other: Item):
+    if meta.size() == 0 and other.meta.size() == 0:
+        return true
+
+    if meta["is_filled"] != other.meta["is_filled"]:
+        return false
+
+    return true

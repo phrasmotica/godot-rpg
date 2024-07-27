@@ -10,7 +10,13 @@ var item: Item
 var amount := 0
 
 func will_accept(new_item: Item):
-	return amount <= 0 || (item and new_item.id == item.id)
+	if amount <= 0:
+		return true
+
+	if item.id != new_item.id:
+		return false
+
+	return item.same_meta_as(new_item)
 
 func push(new_item: Item):
 	if will_accept(new_item):

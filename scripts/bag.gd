@@ -14,10 +14,14 @@ signal used_item(used_item: Item, item_stacks: Array[ItemStack])
 signal consumed_item(consumed_item: Item, item_stacks: Array[ItemStack])
 
 func add_random_item():
-	var new_item := item_pool.get_random()
-	add_item(new_item)
+	var item := item_pool.get_random()
+	add_item(item)
 
-func add_item(new_item: Item):
+func add_item(item: Item):
+	# ensures that changing a meta value on this item does NOT change
+	# said meta value on all other instances of the item
+	var new_item = item.duplicate()
+
 	var existing_stack := find_stack(new_item)
 
 	if existing_stack:
