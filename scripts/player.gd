@@ -13,9 +13,9 @@ var tap_threshold_seconds := 0.1
 var grid_movement = $GridMovement
 
 @onready
-var tile_detection = $TileDetection
+var tile_detection: TileDetection = $TileDetection
 
-signal facing_water
+signal facing_tile(tile_id: int)
 signal facing_obstacle
 signal not_facing_obstacle
 
@@ -127,9 +127,9 @@ func check_obstacle():
 
 	# global position of raycast target
 	var facing_pos := raycast.global_position + raycast.target_position
+	var tile_id := tile_detection.get_tile_id(facing_pos, tile_map)
 
-	if tile_detection.is_water(facing_pos, tile_map):
-		facing_water.emit()
+	facing_tile.emit(tile_id)
 
 func _on_ui_manager_menu_opened():
 	set_process(false)

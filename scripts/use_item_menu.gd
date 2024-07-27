@@ -12,9 +12,9 @@ var use_items: Array[MenuItem]
 
 var selected_item: Item
 
-enum PlayerFacingTile { NONE, OBSTACLE, WATER }
+enum TileId { NONE, OBSTACLE, WATER, SAND }
 
-var player_facing_tile := PlayerFacingTile.NONE
+var player_facing_tile := TileId.NONE
 
 signal use
 signal use_all
@@ -46,7 +46,7 @@ func _on_bag_consumed_item(_consumed_item:Item, _item_stacks:Array[ItemStack]):
 
 func disable_items():
 	for x in use_items:
-		var should_be_facing_obstacle = selected_item.requires_facing_obstacle and player_facing_tile == PlayerFacingTile.NONE
+		var should_be_facing_obstacle = selected_item.requires_facing_obstacle and player_facing_tile == TileId.NONE
 		x.disabled = should_be_facing_obstacle or not item_consumer.can_use(selected_item)
 		next_if_disabled()
 
@@ -79,12 +79,12 @@ func _on_cancel():
 
 func _on_player_facing_obstacle():
 	print("Player is facing obstacle")
-	player_facing_tile = PlayerFacingTile.OBSTACLE
+	player_facing_tile = TileId.OBSTACLE
 
 func _on_player_not_facing_obstacle():
 	print("Player is NOT facing obstacle")
-	player_facing_tile = PlayerFacingTile.NONE
+	player_facing_tile = TileId.NONE
 
-func _on_player_facing_water():
-	print("Player is facing water")
-	player_facing_tile = PlayerFacingTile.WATER
+func _on_player_facing_tile(tile_id: int):
+	print("Player is facing tile ID=" + str(tile_id))
+	player_facing_tile = tile_id as TileId
