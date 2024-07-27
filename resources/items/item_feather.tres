@@ -10,5 +10,6 @@ name = "Feather"
 description = "Allows running away from a single enemy."
 icon = ExtResource("1_8bhn0")
 requires_facing_obstacle = false
+use_effects = Array[Resource("res://scripts/items/item_effect.gd")]([])
 external_effects = Array[Resource("res://scripts/items/item_effect.gd")]([])
 meta = {}

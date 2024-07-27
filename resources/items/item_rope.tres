@@ -8,5 +8,6 @@ id = 4
 name = "Rope"
 description = "Use to ensnare an enemy."
 requires_facing_obstacle = false
+use_effects = Array[Resource("res://scripts/items/item_effect.gd")]([])
 external_effects = Array[Resource("res://scripts/items/item_effect.gd")]([])
 meta = {}
