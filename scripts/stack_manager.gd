@@ -45,7 +45,7 @@ func peek(stack_id: int) -> Item:
 
 	return stack.peek()
 
-func drop_item(stack_id: int) -> Item:
+func drop_item(stack_id: int, cleanup := false) -> Item:
 	var stack := get_stack_with_id(stack_id)
 
 	if not stack:
@@ -59,7 +59,8 @@ func drop_item(stack_id: int) -> Item:
 
 	print("Dropped from stack ID=" + str(stack_id))
 
-	remove_empty_stacks()
+	if cleanup:
+		remove_empty_stacks()
 
 	return just_dropped_item
 

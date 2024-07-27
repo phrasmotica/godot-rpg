@@ -59,7 +59,7 @@ func try_use_item(stack_id: int):
 	consumed_item.emit(item, stack_manager.get_stacks())
 
 func drop_item(stack_id: int):
-	var just_dropped_item := stack_manager.drop_item(stack_id)
+	var just_dropped_item := stack_manager.drop_item(stack_id, true)
 
 	dropped_item.emit(just_dropped_item, stack_manager.get_stacks())
 
