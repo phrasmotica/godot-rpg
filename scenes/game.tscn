@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=23 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="TileSet" uid="uid://bs5kp5aiadcug" path="res://resources/tilesets/game_tile_set.tres" id="1_af0we"]
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player.tscn" id="1_ia2wv"]
+[ext_resource type="Script" path="res://scripts/map.gd" id="1_ksc2i"]
 [ext_resource type="PackedScene" uid="uid://bd0jt41y1i55t" path="res://scenes/item_pickup.tscn" id="2_24x27"]
 [ext_resource type="PackedScene" uid="uid://cbptipoqr4j66" path="res://scenes/hit_points.tscn" id="3_21716"]
 [ext_resource type="PackedScene" uid="uid://wf1bgkchcqs5" path="res://scenes/bag.tscn" id="3_pc812"]
@@ -19,11 +20,17 @@
 [ext_resource type="Script" path="res://scripts/menu_set.gd" id="12_62p5y"]
 [ext_resource type="PackedScene" uid="uid://pbl172qx88xu" path="res://scenes/menus/player_stats_panel.tscn" id="13_55kbe"]
 [ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/dimmer.tscn" id="13_w1m1t"]
+[ext_resource type="PackedScene" uid="uid://uh2ihallkouo" path="res://scenes/tile_detection.tscn" id="15_4thmm"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
 
 [node name="Game" type="Node2D"]
 
-[node name="Map" type="Node2D" parent="."]
+[node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("tile_map", "tile_detection")]
+script = ExtResource("1_ksc2i")
+tile_map = NodePath("TileMap")
+tile_detection = NodePath("TileDetection")
+
+[node name="TileDetection" parent="Map" instance=ExtResource("15_4thmm")]
 
 [node name="TileMap" type="TileMap" parent="Map"]
 tile_set = ExtResource("1_af0we")
@@ -152,10 +159,11 @@ offset_bottom = 320.0
 grow_horizontal = 0
 item_consumer = NodePath("../../../../Map/Player/Bag/ItemConsumer")
 
+[connection signal="player_faced_tile" from="Map" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_map_player_faced_tile"]
 [connection signal="facing_obstacle" from="Map/Player" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_player_facing_obstacle"]
-[connection signal="facing_tile" from="Map/Player" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_player_facing_tile"]
 [connection signal="not_facing_obstacle" from="Map/Player" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_player_not_facing_obstacle"]
 [connection signal="pickup_item" from="Map/Player" to="Map/Player/Bag" method="_on_player_pickup_item"]
+[connection signal="position_faced" from="Map/Player" to="Map" method="_on_player_position_faced"]
 [connection signal="current_hp_changed" from="Map/Player/HitPoints" to="UICanvas/UIManager/Menu/PlayerStats" method="_on_hit_points_current_hp_changed"]
 [connection signal="added_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/BagMenu" method="_on_bag_added_item"]
 [connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/Menu/BagMenu" method="_on_bag_consumed_item"]

@@ -87,6 +87,5 @@ func _on_player_not_facing_obstacle():
 	print("Player is NOT facing obstacle")
 	player_facing_tile = TileId.NONE
 
-func _on_player_facing_tile(tile_id: int):
-	print("Player is facing tile ID=" + str(tile_id))
+func _on_map_player_faced_tile(tile_id:int):
 	player_facing_tile = tile_id as TileId

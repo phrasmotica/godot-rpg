@@ -15,7 +15,8 @@ var grid_movement = $GridMovement
 @onready
 var tile_detection: TileDetection = $TileDetection
 
-signal facing_tile(tile_id: int)
+signal position_faced(pos: Vector2)
+
 signal facing_obstacle
 signal not_facing_obstacle
 
@@ -40,6 +41,7 @@ func _process(_delta):
 func face_direction(direction: Vector2):
 	var did_change = grid_movement.face(direction)
 	if did_change:
+		check_facing_tile()
 		check_obstacle()
 
 		var new_anim = compute_animation(direction)
@@ -108,10 +110,16 @@ func compute_animation(direction: Vector2) -> StringName:
 func _on_grid_movement_moving_finished():
 	sprite.stop()
 
-	# HIGH: always check what tile we're facing, regardless of whether
-	# the raycast is colliding
-
+	check_facing_tile()
 	check_obstacle()
+
+func check_facing_tile():
+	var raycast: RayCast2D = grid_movement.raycast
+
+	# global position of raycast target
+	var facing_pos := raycast.global_position + raycast.target_position
+
+	position_faced.emit(facing_pos)
 
 func check_obstacle():
 	var raycast: RayCast2D = grid_movement.raycast
@@ -126,13 +134,6 @@ func check_obstacle():
 
 	if not tile_map:
 		facing_obstacle.emit()
-		return
-
-	# global position of raycast target
-	var facing_pos := raycast.global_position + raycast.target_position
-	var tile_id := tile_detection.get_tile_id(facing_pos, tile_map)
-
-	facing_tile.emit(tile_id)
 
 func _on_ui_manager_menu_opened():
 	set_process(false)
