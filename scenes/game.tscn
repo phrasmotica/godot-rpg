@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player.tscn" id="1_ia2wv"]
 [ext_resource type="Texture2D" uid="uid://dgf8l1h6aqgr2" path="res://assets/sprites/background_tilemap.png" id="1_l8177"]
-[ext_resource type="PackedScene" path="res://scenes/item_pickup.tscn" id="2_24x27"]
+[ext_resource type="PackedScene" uid="uid://bd0jt41y1i55t" path="res://scenes/item_pickup.tscn" id="2_24x27"]
 [ext_resource type="PackedScene" uid="uid://cbptipoqr4j66" path="res://scenes/hit_points.tscn" id="3_21716"]
 [ext_resource type="PackedScene" uid="uid://wf1bgkchcqs5" path="res://scenes/bag.tscn" id="3_pc812"]
 [ext_resource type="Script" path="res://scripts/ui_manager.gd" id="3_qs36w"]
@@ -91,6 +91,14 @@ item = ExtResource("5_c3sxs")
 
 [node name="Glass0" parent="Map/Items" instance=ExtResource("2_24x27")]
 position = Vector2(1184, 864)
+item = ExtResource("7_dso4j")
+
+[node name="Glass1" parent="Map/Items" instance=ExtResource("2_24x27")]
+position = Vector2(1184, 928)
+item = ExtResource("7_dso4j")
+
+[node name="Glass2" parent="Map/Items" instance=ExtResource("2_24x27")]
+position = Vector2(1184, 992)
 item = ExtResource("7_dso4j")
 
 [node name="Player" parent="Map" instance=ExtResource("1_ia2wv")]
