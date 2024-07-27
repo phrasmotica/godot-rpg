@@ -3,11 +3,11 @@ class_name Bag extends Node
 @export
 var item_consumer: ItemConsumer
 
-@export
-var item_pool: ItemPool
-
 @onready
 var stack_manager: StackManager = %StackManager
+
+@onready
+var item_pool: ItemPool = %ItemPool
 
 signal added_item(new_item: Item, item_stacks: Array[ItemStack])
 signal dropped_item(dropped_item: Item, item_stacks: Array[ItemStack])

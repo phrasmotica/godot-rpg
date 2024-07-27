@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://wf1bgkchcqs5"]
+[gd_scene load_steps=10 format=3 uid="uid://wf1bgkchcqs5"]
 
 [ext_resource type="Script" path="res://scripts/bag.gd" id="1_a5j3q"]
 [ext_resource type="Script" path="res://scripts/stack_manager.gd" id="2_cpolw"]
+[ext_resource type="Script" path="res://scripts/item_pool.gd" id="3_a5are"]
+[ext_resource type="Resource" uid="uid://bsp3wru64i61u" path="res://resources/items/item_apple.tres" id="4_a6mfa"]
+[ext_resource type="Resource" uid="uid://bq382ory2pvt0" path="res://resources/items/item_feather.tres" id="5_rqu8a"]
+[ext_resource type="Resource" uid="uid://b5hhypvakbuho" path="res://resources/items/item_glass.tres" id="6_i8frb"]
+[ext_resource type="Resource" uid="uid://051773al2ksf" path="res://resources/items/item_potion.tres" id="7_wqju0"]
+[ext_resource type="Resource" uid="uid://dc0jtjc1jkqbc" path="res://resources/items/item_rope.tres" id="8_r08aw"]
+[ext_resource type="Resource" uid="uid://nhyp5rxmoxc8" path="res://resources/items/item_stick.tres" id="9_brkox"]
 
 [node name="Bag" type="Node"]
 script = ExtResource("1_a5j3q")
@@ -9,3 +16,15 @@ script = ExtResource("1_a5j3q")
 [node name="StackManager" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_cpolw")
+
+[node name="ItemPool" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_a5are")
+items = {
+"apple": ExtResource("4_a6mfa"),
+"feather": ExtResource("5_rqu8a"),
+"glass": ExtResource("6_i8frb"),
+"potion": ExtResource("7_wqju0"),
+"rope": ExtResource("8_r08aw"),
+"stick": ExtResource("9_brkox")
+}

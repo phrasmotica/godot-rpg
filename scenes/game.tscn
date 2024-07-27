@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=19 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="TileSet" uid="uid://bs5kp5aiadcug" path="res://resources/tilesets/game_tile_set.tres" id="1_af0we"]
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player.tscn" id="1_ia2wv"]
@@ -7,16 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://cbptipoqr4j66" path="res://scenes/hit_points.tscn" id="3_21716"]
 [ext_resource type="PackedScene" uid="uid://wf1bgkchcqs5" path="res://scenes/bag.tscn" id="3_pc812"]
 [ext_resource type="Script" path="res://scripts/ui_manager.gd" id="3_qs36w"]
-[ext_resource type="Script" path="res://scripts/item_pool.gd" id="4_ahimj"]
 [ext_resource type="Resource" uid="uid://bsp3wru64i61u" path="res://resources/items/item_apple.tres" id="4_joh4c"]
 [ext_resource type="Resource" uid="uid://051773al2ksf" path="res://resources/items/item_potion.tres" id="5_c3sxs"]
 [ext_resource type="PackedScene" uid="uid://7nyhh4cif5fr" path="res://scenes/bag_menu.tscn" id="5_votnq"]
-[ext_resource type="Resource" uid="uid://bq382ory2pvt0" path="res://resources/items/item_feather.tres" id="6_qtd8w"]
 [ext_resource type="Resource" uid="uid://b5hhypvakbuho" path="res://resources/items/item_glass.tres" id="7_dso4j"]
 [ext_resource type="PackedScene" uid="uid://ghhfb6xsyy7h" path="res://scenes/items/item_consumer.tscn" id="8_7srcv"]
-[ext_resource type="Resource" uid="uid://dc0jtjc1jkqbc" path="res://resources/items/item_rope.tres" id="8_c52p3"]
 [ext_resource type="PackedScene" uid="uid://cbtoj82qvcrwg" path="res://scenes/use_item_menu.tscn" id="9_6coe6"]
-[ext_resource type="Resource" uid="uid://nhyp5rxmoxc8" path="res://resources/items/item_stick.tres" id="9_xym7c"]
 [ext_resource type="Script" path="res://scripts/menu_set.gd" id="12_62p5y"]
 [ext_resource type="PackedScene" uid="uid://pbl172qx88xu" path="res://scenes/menus/player_stats_panel.tscn" id="13_55kbe"]
 [ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/dimmer.tscn" id="13_w1m1t"]
@@ -77,23 +73,11 @@ position = Vector2(1184, 800)
 [node name="HitPoints" parent="Map/Player" instance=ExtResource("3_21716")]
 current_hp = 40
 
-[node name="Bag" parent="Map/Player" node_paths=PackedStringArray("item_consumer", "item_pool") instance=ExtResource("3_pc812")]
+[node name="Bag" parent="Map/Player" node_paths=PackedStringArray("item_consumer") instance=ExtResource("3_pc812")]
 item_consumer = NodePath("ItemConsumer")
-item_pool = NodePath("ItemPool")
 
 [node name="ItemConsumer" parent="Map/Player/Bag" node_paths=PackedStringArray("hit_points") instance=ExtResource("8_7srcv")]
 hit_points = NodePath("../../HitPoints")
-
-[node name="ItemPool" type="Node" parent="Map/Player/Bag"]
-script = ExtResource("4_ahimj")
-items = {
-"apple": ExtResource("4_joh4c"),
-"feather": ExtResource("6_qtd8w"),
-"glass": ExtResource("7_dso4j"),
-"potion": ExtResource("5_c3sxs"),
-"rope": ExtResource("8_c52p3"),
-"stick": ExtResource("9_xym7c")
-}
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
