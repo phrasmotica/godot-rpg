@@ -8,8 +8,8 @@ var item: Item:
 
 		update_sprite()
 
-@export
-var sprite: AnimatedSprite2D
+@onready
+var sprite: AnimatedSprite2D = %Sprite
 
 func _ready():
 	update_sprite()
