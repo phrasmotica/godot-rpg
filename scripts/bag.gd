@@ -63,6 +63,9 @@ func try_use_item(stack_id: int):
 		print("Tried to use from stack ID=" + str(stack_id) + " but the stack was empty!")
 		return
 
+	# HIGH: take the item off the stack, use it, then put it back in the bag.
+	# It might need to go in a different stack afterwards, e.g. a filled glass
+
 	var did_use := item_consumer.use(stack.item)
 	if not did_use:
 		print("Did not use item " + stack.item.name)
