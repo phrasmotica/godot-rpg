@@ -39,6 +39,9 @@ func _on_bag_menu_select_stack(stack: ItemStack):
 	call_deferred("enable_menu")
 
 func _on_bag_used_item(_used_item: Item, _item_stacks: Array[ItemStack]):
+	# HIGH: update the selected item before calling disable_items(); an item
+	# may have just been used, put back into the bag on the same stack, and
+	# not be usable anymore
 	disable_items()
 
 func _on_bag_consumed_item(_consumed_item:Item, _item_stacks:Array[ItemStack]):

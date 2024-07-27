@@ -18,6 +18,9 @@ func will_accept(new_item: Item):
 
 	return item.same_meta_as(new_item)
 
+func peek():
+	return item.duplicate()
+
 func push(new_item: Item):
 	if will_accept(new_item):
 		item = new_item

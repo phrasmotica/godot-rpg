@@ -63,21 +63,26 @@ func try_use_item(stack_id: int):
 		print("Tried to use from stack ID=" + str(stack_id) + " but the stack was empty!")
 		return
 
-	# HIGH: take the item off the stack, use it, then put it back in the bag.
-	# It might need to go in a different stack afterwards, e.g. a filled glass
+	var item = stack.peek()
 
-	var did_use := item_consumer.use(stack.item)
+	var did_use := item_consumer.use(item)
 	if not did_use:
-		print("Did not use item " + stack.item.name)
+		print("Did not use item " + item.name)
 		return
 
-	print("Used " + stack.item.name + " from stack ID=" + str(stack_id))
+	# take the item off the stack, we might put it back in the bag later
+	stack.drop(1)
+	print("Used " + item.name + " from stack ID=" + str(stack_id))
 
-	used_item.emit(stack.item, item_stacks)
+	used_item.emit(item, item_stacks)
 
-	var did_consume := item_consumer.consume(stack.item)
+	var did_consume := item_consumer.consume(item)
 	if not did_consume:
-		print("Did not consume item " + stack.item.name)
+		# add the item back in its possibly altered state after being used
+		add_item(item)
+		remove_empty_stacks()
+
+		print("Did not consume item " + item.name)
 		return
 
 	var just_consumed_item := stack.drop(1)
