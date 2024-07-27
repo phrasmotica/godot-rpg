@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://wf1bgkchcqs5"]
+[gd_scene load_steps=3 format=3 uid="uid://wf1bgkchcqs5"]
 
 [ext_resource type="Script" path="res://scripts/bag.gd" id="1_a5j3q"]
+[ext_resource type="Script" path="res://scripts/stack_manager.gd" id="2_cpolw"]
 
 [node name="Bag" type="Node"]
 script = ExtResource("1_a5j3q")
+
+[node name="StackManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_cpolw")

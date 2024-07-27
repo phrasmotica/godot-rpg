@@ -6,7 +6,8 @@ var item_consumer: ItemConsumer
 @export
 var item_pool: ItemPool
 
-var item_stacks: Array[ItemStack] = []
+@onready
+var stack_manager: StackManager = %StackManager
 
 signal added_item(new_item: Item, item_stacks: Array[ItemStack])
 signal dropped_item(dropped_item: Item, item_stacks: Array[ItemStack])
@@ -18,52 +19,16 @@ func add_random_item():
 	add_item(item)
 
 func add_item(item: Item):
-	# ensures that changing a meta value on this item does NOT change
-	# said meta value on all other instances of the item
-	var new_item = item.duplicate()
+	var new_item = stack_manager.add_item(item)
 
-	var existing_stack := find_stack(new_item)
-
-	if existing_stack:
-		print("Pushing " + new_item.name + " to stack ID " + str(existing_stack.id))
-
-		existing_stack.push(new_item)
-	else:
-		print("Creating new stack for " + new_item.name)
-
-		var new_stack = ItemStack.new()
-
-		var max_id = item_stacks.map(func(s): return s.id).max()
-		if max_id:
-			new_stack.id = int(max_id) + 1
-		else:
-			new_stack.id = 1
-
-		new_stack.push(new_item)
-		item_stacks.append(new_stack)
-
-	added_item.emit(new_item, item_stacks)
-
-func find_stack(new_item: Item) -> ItemStack:
-	var valid_stacks := item_stacks.filter(
-		func(stack: ItemStack):
-			return stack.will_accept(new_item)
-	)
-
-	return valid_stacks[0] if valid_stacks.size() > 0 else null
+	added_item.emit(new_item, stack_manager.get_stacks())
 
 func try_use_item(stack_id: int):
-	var stack := get_stack_with_id(stack_id)
+	var item := stack_manager.peek(stack_id)
 
-	if not stack:
-		print("Tried to use from stack ID=" + str(stack_id) + " but no such stack exists!")
+	if not item:
+		print("Tried to use from stack ID=" + str(stack_id) + " but no item was found!")
 		return
-
-	if not stack.item or stack.amount < 1:
-		print("Tried to use from stack ID=" + str(stack_id) + " but the stack was empty!")
-		return
-
-	var item = stack.peek()
 
 	var did_use := item_consumer.use(item)
 	if not did_use:
@@ -71,80 +36,37 @@ func try_use_item(stack_id: int):
 		return
 
 	# take the item off the stack, we might put it back in the bag later
-	stack.drop(1)
+	stack_manager.drop_item(stack_id)
 	print("Used " + item.name + " from stack ID=" + str(stack_id))
 
-	used_item.emit(item, item_stacks)
+	used_item.emit(item, stack_manager.get_stacks())
 
 	var did_consume := item_consumer.consume(item)
 	if not did_consume:
 		# add the item back in its possibly altered state after being used
-		add_item(item)
-		remove_empty_stacks()
+		var altered_item := stack_manager.add_item(item)
+		stack_manager.remove_empty_stacks()
+
+		added_item.emit(altered_item, stack_manager.get_stacks())
 
 		print("Did not consume item " + item.name)
 		return
 
-	var just_consumed_item := stack.drop(1)
-	print("Consumed " + just_consumed_item.name + " from stack ID=" + str(stack_id))
+	print("Consumed " + item.name + " from stack ID=" + str(stack_id))
 
-	remove_empty_stacks()
+	stack_manager.remove_empty_stacks()
 
-	consumed_item.emit(just_consumed_item, item_stacks)
+	consumed_item.emit(item, stack_manager.get_stacks())
 
 func drop_item(stack_id: int):
-	var stack := get_stack_with_id(stack_id)
+	var just_dropped_item := stack_manager.drop_item(stack_id)
 
-	if not stack:
-		print("Tried to drop from stack ID=" + str(stack_id) + " but no such stack exists!")
-		return
-
-	var just_dropped_item := stack.drop(1)
-	if not just_dropped_item:
-		print("Tried to drop from stack ID=" + str(stack_id) + " but the stack was empty!")
-		return
-
-	print("Dropped from stack ID=" + str(stack_id))
-
-	remove_empty_stacks()
-
-	dropped_item.emit(just_dropped_item, item_stacks)
+	dropped_item.emit(just_dropped_item, stack_manager.get_stacks())
 
 func drop_stack(stack_id: int):
-	var stack := get_stack_with_id(stack_id)
+	var just_dropped_item := stack_manager.drop_stack(stack_id)
 
-	if not stack:
-		print("Tried to drop all of stack ID=" + str(stack_id) + " but no such stack exists!")
-		return
-
-	var just_dropped_item := stack.item
-	if not just_dropped_item:
-		print("Tried to drop all of stack ID=" + str(stack_id) + " but the stack was empty!")
-		return
-
-	remove_stack(stack)
-
-	dropped_item.emit(just_dropped_item, item_stacks)
-
-func get_stack_with_id(id: int) -> ItemStack:
-	var valid_stacks := item_stacks.filter(
-		func(stack: ItemStack):
-			return stack.id == id
-	)
-
-	return valid_stacks[0] if valid_stacks.size() > 0 else null
-
-func remove_stack(stack: ItemStack):
-	item_stacks = item_stacks.filter(
-		func(s: ItemStack):
-			return s.id != stack.id
-	)
-
-func remove_empty_stacks():
-	item_stacks = item_stacks.filter(
-		func(stack: ItemStack):
-			return stack.amount > 0
-	)
+	dropped_item.emit(just_dropped_item, stack_manager.get_stacks())
 
 func _on_bag_menu_use_item(stack_id: int):
 	try_use_item(stack_id)
