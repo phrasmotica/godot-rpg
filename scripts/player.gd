@@ -12,6 +12,10 @@ var tap_threshold_seconds := 0.1
 @onready
 var grid_movement = $GridMovement
 
+@onready
+var tile_detection = $TileDetection
+
+signal facing_water
 signal facing_obstacle
 signal not_facing_obstacle
 
@@ -107,13 +111,25 @@ func _on_grid_movement_moving_finished():
 	check_obstacle()
 
 func check_obstacle():
-	var collider = grid_movement.raycast.get_collider()
-	if collider:
-		# TODO: how to distinguish between the colliders of different tiles?
-		# A glass should only be usable if we're facing the water
-		facing_obstacle.emit()
-	else:
+	var raycast: RayCast2D = grid_movement.raycast
+
+	var collider := raycast.get_collider()
+
+	if not collider:
 		not_facing_obstacle.emit()
+		return
+
+	var tile_map := collider as TileMap
+
+	if not tile_map:
+		facing_obstacle.emit()
+		return
+
+	# global position of raycast target
+	var facing_pos := raycast.global_position + raycast.target_position
+
+	if tile_detection.is_water(facing_pos, tile_map):
+		facing_water.emit()
 
 func _on_ui_manager_menu_opened():
 	set_process(false)
