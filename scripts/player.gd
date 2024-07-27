@@ -108,6 +108,9 @@ func compute_animation(direction: Vector2) -> StringName:
 func _on_grid_movement_moving_finished():
 	sprite.stop()
 
+	# HIGH: always check what tile we're facing, regardless of whether
+	# the raycast is colliding
+
 	check_obstacle()
 
 func check_obstacle():
