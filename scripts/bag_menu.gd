@@ -135,7 +135,10 @@ func update_buttons(item_stacks: Array[ItemStack]):
 
 	highlight_current()
 
-	var new_item = item_stack_menu_items[current_index].stack.item
+	var new_item: Item = null
+	if current_index < item_stack_menu_items.size():
+		new_item = item_stack_menu_items[current_index].stack.item
+
 	selected_item_changed.emit(new_item)
 
 	if is_visible_in_tree() and count_changed:
