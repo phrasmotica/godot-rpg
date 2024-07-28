@@ -12,9 +12,6 @@ var tap_threshold_seconds := 0.1
 @onready
 var grid_movement = $GridMovement
 
-@onready
-var tile_detection: TileDetection = $TileDetection
-
 signal position_faced(pos: Vector2)
 
 signal facing_obstacle

@@ -1,6 +1,10 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bs5kp5aiadcug"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://bs5kp5aiadcug"]
 
+[ext_resource type="Resource" uid="uid://ciw4lsfrcukdk" path="res://resources/tilesets/tile_water.tres" id="1_1toih"]
+[ext_resource type="Resource" uid="uid://x6g427g30gyx" path="res://resources/tilesets/tile_grass.tres" id="1_8gwp2"]
 [ext_resource type="Texture2D" uid="uid://dgf8l1h6aqgr2" path="res://assets/sprites/background_tilemap.png" id="1_y1bgn"]
+[ext_resource type="Resource" uid="uid://bp3wn6fktt8yy" path="res://resources/tilesets/tile_wall.tres" id="2_ue6m8"]
+[ext_resource type="Resource" uid="uid://c4rdrhlurbl12" path="res://resources/tilesets/tile_sand.tres" id="4_v1oaw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nx22v"]
 texture = ExtResource("1_y1bgn")
@@ -8,40 +12,46 @@ texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/custom_data_0 = ExtResource("1_8gwp2")
 1:0/0 = 0
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/custom_data_0 = ExtResource("1_8gwp2")
 2:0/0 = 0
 2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0/custom_data_0 = ExtResource("1_8gwp2")
 3:0/0 = 0
 3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/0/custom_data_0 = ExtResource("1_8gwp2")
 4:0/0 = 0
 4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 4:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/0/custom_data_0 = ExtResource("1_8gwp2")
 5:0/0 = 0
 5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:0/0/physics_layer_0/angular_velocity = 0.0
+5:0/0/custom_data_0 = ExtResource("1_8gwp2")
 0:1/0 = 0
 0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_0/angular_velocity = 0.0
 0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
-0:1/0/custom_data_0 = 1
+0:1/0/custom_data_0 = ExtResource("2_ue6m8")
 1:1/0 = 0
 1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:1/0/physics_layer_0/angular_velocity = 0.0
 1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
-1:1/0/custom_data_0 = 2
+1:1/0/custom_data_0 = ExtResource("1_1toih")
 2:1/0 = 0
 2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:1/0/physics_layer_0/angular_velocity = 0.0
-2:1/0/custom_data_0 = 3
+2:1/0/custom_data_0 = ExtResource("4_v1oaw")
 
 [resource]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 2
-custom_data_layer_0/name = "tile_id"
-custom_data_layer_0/type = 2
+custom_data_layer_0/name = "tile"
+custom_data_layer_0/type = 24
 sources/1 = SubResource("TileSetAtlasSource_nx22v")
