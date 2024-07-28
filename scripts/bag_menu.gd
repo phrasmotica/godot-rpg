@@ -23,6 +23,8 @@ signal use_item(stack_id: int)
 signal drop_item(stack_id: int)
 signal drop_stack(stack_id: int)
 
+signal selected_item_changed(item: Item)
+
 ## Menu overrides
 
 func process_select():
@@ -132,6 +134,9 @@ func update_buttons(item_stacks: Array[ItemStack]):
 		current_index = clampi(current_index, 0, item_stacks.size() - 1)
 
 	highlight_current()
+
+	var new_item = item_stack_menu_items[current_index].stack.item
+	selected_item_changed.emit(new_item)
 
 	if is_visible_in_tree() and count_changed:
 		print("BagMenu stack count changed, stealing control")
