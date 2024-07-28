@@ -144,8 +144,6 @@ grow_horizontal = 0
 item_consumer = NodePath("../../../../Map/Player/Bag/ItemConsumer")
 
 [connection signal="player_faced_tile" from="Map" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_map_player_faced_tile"]
-[connection signal="facing_obstacle" from="Map/Player" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_player_facing_obstacle"]
-[connection signal="not_facing_obstacle" from="Map/Player" to="UICanvas/UIManager/Menu/UseItemMenu" method="_on_player_not_facing_obstacle"]
 [connection signal="pickup_item" from="Map/Player" to="Map/Player/Bag" method="_on_player_pickup_item"]
 [connection signal="position_faced" from="Map/Player" to="Map" method="_on_player_position_faced"]
 [connection signal="current_hp_changed" from="Map/Player/HitPoints" to="UICanvas/UIManager/Menu/PlayerStats" method="_on_hit_points_current_hp_changed"]

@@ -13,10 +13,6 @@ var tap_threshold_seconds := 0.1
 var grid_movement = $GridMovement
 
 signal position_faced(pos: Vector2)
-
-signal facing_obstacle
-signal not_facing_obstacle
-
 signal pickup_item(item: Item)
 
 func _ready():
@@ -39,7 +35,6 @@ func face_direction(direction: Vector2):
 	var did_change = grid_movement.face(direction)
 	if did_change:
 		check_facing_tile()
-		check_obstacle()
 
 		var new_anim = compute_animation(direction)
 		if new_anim.length() > 0:
@@ -108,7 +103,6 @@ func _on_grid_movement_moving_finished():
 	sprite.stop()
 
 	check_facing_tile()
-	check_obstacle()
 
 func check_facing_tile():
 	var raycast: RayCast2D = grid_movement.raycast
@@ -117,20 +111,6 @@ func check_facing_tile():
 	var facing_pos := raycast.global_position + raycast.target_position
 
 	position_faced.emit(facing_pos)
-
-func check_obstacle():
-	var raycast: RayCast2D = grid_movement.raycast
-
-	var collider := raycast.get_collider()
-
-	if not collider:
-		not_facing_obstacle.emit()
-		return
-
-	var tile_map := collider as TileMap
-
-	if not tile_map:
-		facing_obstacle.emit()
 
 func _on_ui_manager_menu_opened():
 	set_process(false)
