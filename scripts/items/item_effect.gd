@@ -8,6 +8,8 @@ func apply():
 func get_description():
     return "item effect"
 
+# -------- Methods for applying the effect to various parts of the game
+
 func can_apply_to_self(_item: Item):
     return false
 
@@ -19,5 +21,3 @@ func can_apply_to_hit_points(_hit_points: HitPoints):
 
 func apply_to_hit_points(_hit_points: HitPoints):
     print("Applying item effect to hit points")
-
-# TODO: define more methods for applying the effect to other parts of the game

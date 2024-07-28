@@ -15,7 +15,9 @@ var icon: Texture2D
 @export
 var requires_facing_tile_id := -1:
     set(value):
-        # HIGH: move tile IDs into a global enum
+        # HIGH: move tile IDs into a global enum. Also create a resource type
+        # for tile data, and save a resource for each type of tile. Put these
+        # resources in the tile map's custom data layer
         requires_facing_tile_id = clamp(value, -1, 3)
 
 ## A list of effects that are applied when the item is used, but do NOT

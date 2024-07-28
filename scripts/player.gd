@@ -31,7 +31,7 @@ func _process(_delta):
 	if direction.length() > 0:
 		face_direction(direction)
 
-		# TODO: move immediately if player is already
+		# LOW: move immediately if player is already
 		# facing in the movement direction
 		set_move_timer(direction)
 

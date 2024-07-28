@@ -56,7 +56,7 @@ func disable_items():
 		next_if_disabled()
 
 func _on_select_index(index: int):
-	# TODO: this isn't great - should probably define an enum
+	# MEDIUM: this isn't great - should probably define an enum
 	# for the actions that this menu contains
 	match index:
 		0:
