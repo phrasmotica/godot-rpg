@@ -14,6 +14,10 @@ var selected_item: Item
 
 var player_facing_tile: Tile
 
+# MEDIUM: assign values of this enum to the menu items, rather than mapping
+# menu item indexes to these enum values
+enum UseItemAction { USE, USE_ALL, DROP, DROP_ALL, NONE }
+
 signal use
 signal use_all
 signal drop
@@ -63,24 +67,34 @@ func can_use_item(item: Item) -> bool:
 	return facing_correct_tile and can_use
 
 func _on_select_index(index: int):
-	# MEDIUM: this isn't great - should probably define an enum
-	# for the actions that this menu contains
-	match index:
-		0:
+	var action := get_action(index)
+
+	match action:
+		UseItemAction.USE:
 			print("Using one item")
 			use.emit()
 
-		1:
+		UseItemAction.USE_ALL:
 			print("Using all items")
 			use_all.emit()
 
-		2:
+		UseItemAction.DROP:
 			print("Dropping one item")
 			drop.emit()
 
-		3:
+		UseItemAction.DROP_ALL:
 			print("Dropping all items")
 			drop_all.emit()
+
+func get_action(index: int) -> UseItemAction:
+	match index:
+		0: return UseItemAction.USE
+		1: return UseItemAction.USE_ALL
+		2: return UseItemAction.DROP
+		3: return UseItemAction.DROP_ALL
+
+	print("Unknown use item action " + str(index))
+	return UseItemAction.NONE
 
 func _on_cancel():
 	print("Hiding UseItemMenu")
