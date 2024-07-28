@@ -12,9 +12,7 @@ var use_items: Array[MenuItem]
 
 var selected_item: Item
 
-enum TileId { NONE, OBSTACLE, WATER, SAND }
-
-var player_facing_tile := TileId.NONE
+var player_facing_tile: Tile
 
 signal use
 signal use_all
@@ -48,10 +46,10 @@ func _on_bag_consumed_item(_consumed_item:Item, _item_stacks:Array[ItemStack]):
 	disable_items()
 
 func disable_items():
-	var requires_facing_tile_id := selected_item.requires_facing_tile_id
+	var facing_tile := selected_item.facing_tile
 
 	for x in use_items:
-		var facing_wrong_tile = requires_facing_tile_id > -1 and player_facing_tile != requires_facing_tile_id
+		var facing_wrong_tile = facing_tile and player_facing_tile.id != facing_tile.id
 		x.disabled = facing_wrong_tile or not item_consumer.can_use(selected_item)
 		next_if_disabled()
 
@@ -82,5 +80,5 @@ func _on_cancel():
 
 	hide()
 
-func _on_map_player_faced_tile(tile_id:int):
-	player_facing_tile = tile_id as TileId
+func _on_map_player_faced_tile(tile: Tile):
+	player_facing_tile = tile
