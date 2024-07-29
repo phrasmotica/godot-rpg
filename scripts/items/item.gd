@@ -37,6 +37,18 @@ func get_display_name() -> String:
 
     return name
 
+func get_use_text() -> String:
+    if meta.has("is_filled") and meta["is_filled"] == false:
+        return "Fill"
+
+    return "Use"
+
+func get_use_all_text() -> String:
+    if meta.has("is_filled") and meta["is_filled"] == false:
+        return "Fill all"
+
+    return "Use all"
+
 func same_meta_as(other: Item):
     if meta.size() == 0 and other.meta.size() == 0:
         return true

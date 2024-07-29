@@ -8,7 +8,10 @@ var item_consumer: ItemConsumer
 var description_label: Label
 
 @export
-var use_items: Array[MenuItem]
+var use_item: MenuItem
+
+@export
+var use_all_item: MenuItem
 
 var selected_item: Item
 
@@ -33,7 +36,7 @@ func _on_bag_menu_select_stack(stack: ItemStack):
 
 	selected_item = stack.item
 
-	disable_items(selected_item)
+	update_for(selected_item)
 
 	if description_label:
 		description_label.text = stack.item.description
@@ -42,20 +45,24 @@ func _on_bag_menu_select_stack(stack: ItemStack):
 
 func _on_bag_menu_selected_item_changed(item: Item):
 	selected_item = item
-	disable_items(selected_item)
+	update_for(selected_item)
 
 func _on_bag_used_item(_used_item: Item, _item_stacks: Array[ItemStack]):
-	disable_items(selected_item)
+	update_for(selected_item)
 
 func _on_bag_consumed_item(_consumed_item:Item, _item_stacks:Array[ItemStack]):
-	disable_items(selected_item)
+	update_for(selected_item)
 
-func disable_items(item: Item):
+func update_for(item: Item):
 	var cannot_use := not can_use_item(item)
 
-	for x in use_items:
-		x.disabled = cannot_use
-		next_if_disabled()
+	use_item.disabled = cannot_use
+	use_item.text = item.get_use_text() if item else "Use"
+
+	use_all_item.disabled = cannot_use
+	use_all_item.text = item.get_use_all_text() if item else "Use all"
+
+	next_if_disabled()
 
 func can_use_item(item: Item) -> bool:
 	if not item:
