@@ -11,8 +11,8 @@ func _on_hit_points_current_hp_changed(hp: int, max_hp: int):
 	if hp_label:
 		hp_label.text = str(hp) + "/" + str(max_hp) + " HP"
 
-func _on_dimmer_dimmed():
+func hide_content():
 	content.hide()
 
-func _on_dimmer_undimmed():
+func show_content():
 	content.show()

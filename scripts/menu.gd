@@ -1,6 +1,11 @@
 @tool
 class_name Menu extends Control
 
+## Whether the content of this menu should become hidden when
+## this menu is dimmed (content node can be chosen).
+@export
+var dimming_hides_content := false
+
 var _inactive := false
 
 signal cancel
@@ -69,4 +74,27 @@ func _on_visibility_changed():
 	after_visibility_changed()
 
 func after_visibility_changed():
+	pass
+
+func _on_dimmer_dimmed():
+	if dimming_hides_content:
+		hide_content()
+
+	after_dimmed()
+
+func _on_dimmer_undimmed():
+	show_content()
+
+	after_undimmed()
+
+func hide_content():
+	pass
+
+func after_dimmed():
+	pass
+
+func show_content():
+	pass
+
+func after_undimmed():
 	pass

@@ -12,6 +12,7 @@ theme = ExtResource("1_hkmyc")
 script = ExtResource("2_ocpfr")
 content = NodePath("MarginContainer/VBoxContainer/Content")
 hp_label = NodePath("MarginContainer/VBoxContainer/Content/HPLabel")
+dimming_hides_content = null
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

@@ -4,18 +4,18 @@
 [ext_resource type="Script" path="res://scripts/bag_menu.gd" id="2_46jpv"]
 [ext_resource type="PackedScene" uid="uid://8gweefisuilw" path="res://scenes/item_stack_menu_item.tscn" id="3_1sdhg"]
 
-[node name="BagMenu" type="PanelContainer" node_paths=PackedStringArray("content", "scroll_container", "item_list", "empty_label")]
+[node name="BagMenu" type="PanelContainer" node_paths=PackedStringArray("scroll_container", "item_list", "empty_label")]
 custom_minimum_size = Vector2(360, 132)
 offset_right = 360.0
 offset_bottom = 132.0
 size_flags_vertical = 0
 theme = ExtResource("1_l8nhx")
 script = ExtResource("2_46jpv")
-content = NodePath("MarginContainer/VBoxContainer/Content")
 scroll_container = NodePath("MarginContainer/VBoxContainer/Content/ScrollContainer")
 item_list = NodePath("MarginContainer/VBoxContainer/Content/ScrollContainer/VBoxContainer")
 empty_label = NodePath("MarginContainer/VBoxContainer/Content/ScrollContainer/VBoxContainer/EmptyLabel")
 item_stack_menu_item_scene = ExtResource("3_1sdhg")
+dimming_hides_content = null
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

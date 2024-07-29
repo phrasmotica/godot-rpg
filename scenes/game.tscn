@@ -100,11 +100,13 @@ script = ExtResource("12_62p5y")
 current_menu_index = 0
 menus = [NodePath("BagMenu"), NodePath("PlayerStats")]
 menu_dimmers = [NodePath("BagMenu/Dimmer"), NodePath("PlayerStats/Dimmer")]
+dimming_hides_content = null
 
 [node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/Menu" instance=ExtResource("13_55kbe")]
 modulate = Color(0.662745, 0.662745, 0.662745, 1)
 custom_minimum_size = Vector2(200, 2.08165e-12)
 layout_mode = 2
+dimming_hides_content = true
 
 [node name="Dimmer" parent="UICanvas/UIManager/MarginContainer/Menu/PlayerStats" node_paths=PackedStringArray("to_dim") instance=ExtResource("13_w1m1t")]
 to_dim = NodePath("..")
@@ -113,6 +115,7 @@ is_dimmed = true
 [node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/Menu" instance=ExtResource("5_votnq")]
 custom_minimum_size = Vector2(360, 2.08165e-12)
 layout_mode = 2
+dimming_hides_content = null
 
 [node name="Dimmer" parent="UICanvas/UIManager/MarginContainer/Menu/BagMenu" node_paths=PackedStringArray("to_dim") instance=ExtResource("13_w1m1t")]
 to_dim = NodePath("..")
@@ -128,6 +131,7 @@ offset_top = 128.0
 offset_right = 736.0
 offset_bottom = 128.0
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
+dimming_hides_content = null
 
 [connection signal="player_faced_tile" from="Map" to="UICanvas/UIManager/UseItemMenu" method="_on_map_player_faced_tile"]
 [connection signal="pickup_item" from="Map/Player" to="Map/Player/Bag" method="_on_player_pickup_item"]
