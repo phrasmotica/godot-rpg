@@ -4,8 +4,10 @@
 [ext_resource type="Script" path="res://scripts/menus/player_stats_panel.gd" id="2_ocpfr"]
 
 [node name="PlayerStatsPanel" type="PanelContainer" node_paths=PackedStringArray("hp_label")]
+custom_minimum_size = Vector2(200, 104)
 offset_right = 200.0
 offset_bottom = 104.0
+size_flags_vertical = 0
 theme = ExtResource("1_hkmyc")
 script = ExtResource("2_ocpfr")
 hp_label = NodePath("MarginContainer/VBoxContainer/HPLabel")
