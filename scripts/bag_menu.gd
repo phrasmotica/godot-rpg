@@ -2,6 +2,9 @@
 extends ListMenu
 
 @export
+var content: Control
+
+@export
 var scroll_container: ScrollContainer
 
 @export
@@ -191,7 +194,9 @@ func _on_use_item_menu_drop_all():
 	drop_current_stack()
 
 func _on_dimmer_dimmed():
+	content.hide()
 	disable_animations()
 
 func _on_dimmer_undimmed():
 	enable_animations()
+	content.show()
