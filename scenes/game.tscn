@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=20 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="TileSet" uid="uid://bs5kp5aiadcug" path="res://resources/tilesets/game_tile_set.tres" id="1_af0we"]
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player.tscn" id="1_ia2wv"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/dimmer.tscn" id="13_w1m1t"]
 [ext_resource type="PackedScene" uid="uid://uh2ihallkouo" path="res://scenes/tile_detection.tscn" id="15_4thmm"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
+[ext_resource type="PackedScene" uid="uid://dd7od6opdsu1r" path="res://scenes/text_box.tscn" id="19_td07n"]
 
 [node name="Game" type="Node2D"]
 
@@ -129,6 +130,13 @@ offset_top = 128.0
 offset_right = 736.0
 offset_bottom = 128.0
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
+
+[node name="TextBox" parent="UICanvas/UIManager" instance=ExtResource("19_td07n")]
+offset_left = 64.0
+offset_top = 480.0
+offset_right = 1088.0
+offset_bottom = 576.0
+fixed_speed = true
 
 [connection signal="player_faced_tile" from="Map" to="UICanvas/UIManager/UseItemMenu" method="_on_map_player_faced_tile"]
 [connection signal="pickup_item" from="Map/Player" to="Map/Player/Bag" method="_on_player_pickup_item"]
