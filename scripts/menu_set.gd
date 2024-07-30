@@ -52,9 +52,6 @@ func listen_for_inputs():
 	# MEDIUM: allow cycling the positions of each menu in the set
 	# as the selected menu changes
 
-	# MEDIUM: allow hiding the content of each menu in the set
-	# depending on whether it's selected
-
 	if Input.is_action_just_pressed("menu_set_cycle_next"):
 		current_menu_index = ((current_menu_index + 1) % menus.size())
 
