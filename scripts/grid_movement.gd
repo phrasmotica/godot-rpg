@@ -25,8 +25,11 @@ func get_snapped_position(current_pos: Vector2):
     snap_pos -= Vector2.ONE * float(step_size) / 2
     return snap_pos
 
-func face(direction: Vector2):
-    if moving_direction.length() == 0 and direction.length() > 0:
+func can_face(direction: Vector2):
+    return moving_direction.length() == 0 and direction.length() > 0
+
+func face(direction: Vector2) -> bool:
+    if can_face(direction):
         raycast.target_position = direction * step_size
         raycast.force_raycast_update()
 

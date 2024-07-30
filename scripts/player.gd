@@ -12,6 +12,8 @@ var tap_threshold_seconds := 0.1
 @onready
 var grid_movement = $GridMovement
 
+var move_timer_on := false
+
 signal position_faced(pos: Vector2)
 signal pickup_item(item: Item)
 
@@ -19,19 +21,26 @@ func _ready():
 	position = grid_movement.get_snapped_position(position)
 
 func _process(_delta):
-	var direction := Input.get_vector("player_left", "player_right", "player_up", "player_down")
-
-	if direction.length() > 0:
-		face_direction(direction)
-
-		# LOW: move immediately if player is already
-		# facing in the movement direction
-		set_move_timer(direction)
+	process_move()
 
 	if Input.is_action_just_pressed("pick_up"):
 		try_pickup_item()
 
-func face_direction(direction: Vector2):
+func process_move():
+	var direction := Input.get_vector("player_left", "player_right", "player_up", "player_down")
+
+	if direction.length() > 0:
+		if not grid_movement.can_face(direction) or move_timer_on:
+			return
+
+		var did_change := face_direction(direction)
+		if did_change:
+			set_move_timer(direction)
+		else:
+			# no need to wait for the player to face in the movement direction
+			do_move(direction)
+
+func face_direction(direction: Vector2) -> bool:
 	var did_change = grid_movement.face(direction)
 	if did_change:
 		check_facing_tile()
@@ -40,15 +49,20 @@ func face_direction(direction: Vector2):
 		if new_anim.length() > 0:
 			sprite.animation = new_anim
 
+	return did_change
+
 func set_move_timer(direction: Vector2):
 	if direction.length() <= 0:
 		return
 
-	var move_timer = get_tree().create_timer(tap_threshold_seconds)
+	var move_timer := get_tree().create_timer(tap_threshold_seconds)
+	move_timer_on = true
 
 	# only move if the user has held down the key for long enough
 	move_timer.timeout.connect(
 		func():
+			move_timer_on = false
+
 			var action = compute_input_action(direction)
 
 			if Input.is_action_pressed(action):
