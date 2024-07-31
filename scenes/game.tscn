@@ -147,6 +147,7 @@ fixed_speed = true
 [connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_consumed_item"]
 [connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_consumed_item"]
 [connection signal="dropped_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_dropped_item"]
+[connection signal="dropped_item" from="Map/Player/Bag" to="UICanvas/UIManager/TextBox" method="_on_bag_dropped_item"]
 [connection signal="used_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_used_item"]
 [connection signal="used_item" from="Map/Player/Bag" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_used_item"]
 [connection signal="menu_closed" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_menu_closed"]

@@ -66,6 +66,7 @@ func drop_item(stack_id: int):
 func drop_stack(stack_id: int):
 	var just_dropped_item := stack_manager.drop_stack(stack_id)
 
+	# HIGH: emit the number of items that were dropped
 	dropped_item.emit(just_dropped_item, stack_manager.get_stacks())
 
 func _on_bag_menu_use_item(stack_id: int):

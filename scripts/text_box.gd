@@ -31,3 +31,6 @@ func progress_ratio(delta: float):
 
 func _on_bag_added_item(new_item: Item, _item_stacks: Array[ItemStack]):
 	set_text("You picked up the " + new_item.name + ".")
+
+func _on_bag_dropped_item(dropped_item: Item, _item_stacks: Array[ItemStack]):
+	set_text("You dropped the " + dropped_item.name + ".")
