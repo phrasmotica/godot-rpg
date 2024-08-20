@@ -140,7 +140,8 @@ func _on_dialogue_manager_timeline_started():
 	set_process(false)
 
 func _on_dialogue_manager_timeline_ended():
-	# BUG: this is not preventing the same timeline from being reactivated
-	# when the timeline is ended with the spacebar, i.e. when the player is
+	# this is prevents the same timeline from being reactivated
+	# when the timeline is ended with the spacebar, e.g. when the player is
 	# facing a water tile
-	set_process(true)
+	var callable := set_process.bind(true)
+	get_tree().process_frame.connect(callable, CONNECT_ONE_SHOT)
