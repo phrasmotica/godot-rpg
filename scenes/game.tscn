@@ -136,6 +136,8 @@ item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
 [connection signal="timeline_ended" from="DialogueManager" to="Map/Player" method="_on_dialogue_manager_timeline_ended"]
 [connection signal="timeline_started" from="DialogueManager" to="Map/Player" method="_on_dialogue_manager_timeline_started"]
 [connection signal="player_faced_tile" from="Map" to="UICanvas/UIManager/UseItemMenu" method="_on_map_player_faced_tile"]
+[connection signal="player_interacted" from="Map" to="DialogueManager" method="_on_map_player_interacted"]
+[connection signal="interacted" from="Map/Player" to="Map" method="_on_player_interacted"]
 [connection signal="pickup_item" from="Map/Player" to="Map/Player/Bag" method="_on_player_pickup_item"]
 [connection signal="position_faced" from="Map/Player" to="Map" method="_on_player_position_faced"]
 [connection signal="current_hp_changed" from="Map/Player/HitPoints" to="UICanvas/UIManager/MarginContainer/Menu/PlayerStats" method="_on_hit_points_current_hp_changed"]

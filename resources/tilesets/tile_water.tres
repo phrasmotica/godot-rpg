@@ -6,3 +6,4 @@
 script = ExtResource("1_vcm8u")
 id = 2
 name = "Water"
+dialogue_timeline = "tile_water"

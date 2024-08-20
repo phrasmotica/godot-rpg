@@ -20,3 +20,7 @@ func handle_timeline_ended():
     print("Timeline ended!")
 
     timeline_ended.emit()
+
+func _on_map_player_interacted(tile: Tile):
+    if tile.dialogue_timeline.length() > 0:
+        Dialogic.start(tile.dialogue_timeline)

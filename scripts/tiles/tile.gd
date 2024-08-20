@@ -7,3 +7,6 @@ var id: int = 0:
 
 @export
 var name := ""
+
+@export
+var dialogue_timeline := ""

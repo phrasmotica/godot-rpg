@@ -15,6 +15,7 @@ var grid_movement = $GridMovement
 var move_timer_on := false
 
 signal position_faced(pos: Vector2)
+signal interacted
 signal pickup_item(item: Item)
 
 func _ready():
@@ -82,6 +83,9 @@ func try_pickup_item():
 		pickup_item.emit(item)
 
 		item_area.dispose()
+		return
+
+	interacted.emit()
 
 func compute_input_action(direction: Vector2) -> StringName:
 	if direction.y > 0:
@@ -136,4 +140,7 @@ func _on_dialogue_manager_timeline_started():
 	set_process(false)
 
 func _on_dialogue_manager_timeline_ended():
+	# BUG: this is not preventing the same timeline from being reactivated
+	# when the timeline is ended with the spacebar, i.e. when the player is
+	# facing a water tile
 	set_process(true)
