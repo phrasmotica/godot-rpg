@@ -8,6 +8,8 @@ func _ready():
     Dialogic.timeline_ended.connect(handle_timeline_ended)
 
 func _on_bag_added_item(new_item: Item, _item_stacks: Array[ItemStack]):
+    # BUG: this is triggering when a glass is filled while facing water.
+    # Different text should appear in that scenario...
     Dialogic.VAR.item_name = new_item.name
     Dialogic.start("picked_up_item")
 
