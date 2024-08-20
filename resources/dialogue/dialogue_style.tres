@@ -31,7 +31,8 @@ script = ExtResource("2_5gs4i")
 scene = ExtResource("5_uuasm")
 overrides = {
 "box_animation_in": "0",
-"box_animation_out": "0"
+"box_animation_out": "0",
+"typing_sounds_enabled": "false"
 }
 
 [sub_resource type="Resource" id="Resource_rdjr4"]
@@ -62,4 +63,4 @@ base_overrides = {
 "global_font_size": "16.0"
 }
 layers = Array[ExtResource("2_5gs4i")]([SubResource("Resource_utout"), SubResource("Resource_s4crt"), SubResource("Resource_0xcsp"), SubResource("Resource_qfoqo"), SubResource("Resource_rdjr4"), SubResource("Resource_3d4rv"), SubResource("Resource_4piap"), SubResource("Resource_bau0f")])
-metadata/_latest_layer = -1
+metadata/_latest_layer = 3
