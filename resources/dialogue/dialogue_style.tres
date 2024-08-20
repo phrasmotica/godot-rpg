@@ -59,6 +59,7 @@ overrides = {}
 script = ExtResource("10_227e7")
 name = "dialogue_style"
 base_overrides = {
+"canvas_layer": "10.0",
 "global_font": "\"res://assets/fonts/PixelOperator8.ttf\"",
 "global_font_size": "16.0"
 }

@@ -22,8 +22,6 @@
 
 [node name="Game" type="Node2D"]
 
-[node name="DialogueManager" parent="." instance=ExtResource("1_1vlts")]
-
 [node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("tile_map", "tile_detection")]
 script = ExtResource("1_ksc2i")
 tile_map = NodePath("TileMap")
@@ -133,15 +131,18 @@ offset_right = 736.0
 offset_bottom = 128.0
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
 
-[connection signal="timeline_ended" from="DialogueManager" to="Map/Player" method="_on_dialogue_manager_timeline_ended"]
-[connection signal="timeline_started" from="DialogueManager" to="Map/Player" method="_on_dialogue_manager_timeline_started"]
+[node name="DialogueCanvas" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="DialogueManager" parent="DialogueCanvas" instance=ExtResource("1_1vlts")]
+
 [connection signal="player_faced_tile" from="Map" to="UICanvas/UIManager/UseItemMenu" method="_on_map_player_faced_tile"]
-[connection signal="player_interacted" from="Map" to="DialogueManager" method="_on_map_player_interacted"]
+[connection signal="player_interacted" from="Map" to="DialogueCanvas/DialogueManager" method="_on_map_player_interacted"]
 [connection signal="interacted" from="Map/Player" to="Map" method="_on_player_interacted"]
 [connection signal="pickup_item" from="Map/Player" to="Map/Player/Bag" method="_on_player_pickup_item"]
 [connection signal="position_faced" from="Map/Player" to="Map" method="_on_player_position_faced"]
 [connection signal="current_hp_changed" from="Map/Player/HitPoints" to="UICanvas/UIManager/MarginContainer/Menu/PlayerStats" method="_on_hit_points_current_hp_changed"]
-[connection signal="added_item" from="Map/Player/Bag" to="DialogueManager" method="_on_bag_added_item"]
+[connection signal="added_item" from="Map/Player/Bag" to="DialogueCanvas/DialogueManager" method="_on_bag_added_item"]
 [connection signal="added_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_added_item"]
 [connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_consumed_item"]
 [connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_consumed_item"]
@@ -167,3 +168,5 @@ item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
 [connection signal="drop" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_use_item_menu_drop"]
 [connection signal="drop_all" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_use_item_menu_drop_all"]
 [connection signal="use" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_use_item_menu_use"]
+[connection signal="timeline_ended" from="DialogueCanvas/DialogueManager" to="Map/Player" method="_on_dialogue_manager_timeline_ended"]
+[connection signal="timeline_started" from="DialogueCanvas/DialogueManager" to="Map/Player" method="_on_dialogue_manager_timeline_started"]
