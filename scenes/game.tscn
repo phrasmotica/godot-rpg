@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=21 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="TileSet" uid="uid://bs5kp5aiadcug" path="res://resources/tilesets/game_tile_set.tres" id="1_af0we"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/dimmer.tscn" id="13_w1m1t"]
 [ext_resource type="PackedScene" uid="uid://uh2ihallkouo" path="res://scenes/tile_detection.tscn" id="15_4thmm"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
+[ext_resource type="PackedScene" uid="uid://dh7a6ebi4py1o" path="res://scenes/dialogue/dialogue_watcher.tscn" id="16_mfdbg"]
 
 [node name="Game" type="Node2D"]
 
@@ -71,6 +72,10 @@ position = Vector2(1184, 800)
 
 [node name="Camera" type="Camera2D" parent="Map/Player"]
 
+[node name="DialogueWatcher" parent="Map/Player" node_paths=PackedStringArray("dialogue_manager", "target") instance=ExtResource("16_mfdbg")]
+dialogue_manager = NodePath("../../../DialogueCanvas/DialogueManager")
+target = NodePath("..")
+
 [node name="HitPoints" parent="Map/Player" instance=ExtResource("3_21716")]
 current_hp = 40
 
@@ -111,6 +116,10 @@ dimming_hides_content = true
 to_dim = NodePath("..")
 is_dimmed = true
 
+[node name="DialogueWatcher" parent="UICanvas/UIManager/MarginContainer/Menu/PlayerStats" node_paths=PackedStringArray("dialogue_manager", "target") instance=ExtResource("16_mfdbg")]
+dialogue_manager = NodePath("../../../../../../DialogueCanvas/DialogueManager")
+target = NodePath("..")
+
 [node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/Menu" instance=ExtResource("5_votnq")]
 custom_minimum_size = Vector2(360, 2.08165e-12)
 layout_mode = 2
@@ -123,6 +132,10 @@ to_dim = NodePath("..")
 parent_menu = NodePath("..")
 child_menus = [NodePath("../../../../UseItemMenu")]
 
+[node name="DialogueWatcher" parent="UICanvas/UIManager/MarginContainer/Menu/BagMenu" node_paths=PackedStringArray("dialogue_manager", "target") instance=ExtResource("16_mfdbg")]
+dialogue_manager = NodePath("../../../../../../DialogueCanvas/DialogueManager")
+target = NodePath("..")
+
 [node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("item_consumer") instance=ExtResource("9_6coe6")]
 visible = false
 offset_left = 736.0
@@ -130,6 +143,10 @@ offset_top = 128.0
 offset_right = 736.0
 offset_bottom = 128.0
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
+
+[node name="DialogueWatcher" parent="UICanvas/UIManager/UseItemMenu" node_paths=PackedStringArray("dialogue_manager", "target") instance=ExtResource("16_mfdbg")]
+dialogue_manager = NodePath("../../../../DialogueCanvas/DialogueManager")
+target = NodePath("..")
 
 [node name="DialogueCanvas" type="CanvasLayer" parent="."]
 layer = 10
@@ -142,8 +159,8 @@ layer = 10
 [connection signal="pickup_item" from="Map/Player" to="Map/Player/Bag" method="_on_player_pickup_item"]
 [connection signal="position_faced" from="Map/Player" to="Map" method="_on_player_position_faced"]
 [connection signal="current_hp_changed" from="Map/Player/HitPoints" to="UICanvas/UIManager/MarginContainer/Menu/PlayerStats" method="_on_hit_points_current_hp_changed"]
-[connection signal="added_item" from="Map/Player/Bag" to="DialogueCanvas/DialogueManager" method="_on_bag_added_item"]
 [connection signal="added_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_added_item"]
+[connection signal="added_item" from="Map/Player/Bag" to="DialogueCanvas/DialogueManager" method="_on_bag_added_item"]
 [connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_consumed_item"]
 [connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_consumed_item"]
 [connection signal="dropped_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_dropped_item"]
@@ -168,5 +185,3 @@ layer = 10
 [connection signal="drop" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_use_item_menu_drop"]
 [connection signal="drop_all" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_use_item_menu_drop_all"]
 [connection signal="use" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_use_item_menu_use"]
-[connection signal="timeline_ended" from="DialogueCanvas/DialogueManager" to="Map/Player" method="_on_dialogue_manager_timeline_ended"]
-[connection signal="timeline_started" from="DialogueCanvas/DialogueManager" to="Map/Player" method="_on_dialogue_manager_timeline_started"]

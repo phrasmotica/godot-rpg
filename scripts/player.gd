@@ -131,17 +131,15 @@ func check_facing_tile():
 	position_faced.emit(facing_pos)
 
 func _on_ui_manager_menu_opened():
-	set_process(false)
+	prevent_input()
 
 func _on_ui_manager_menu_closed():
-	set_process(true)
+	allow_input()
 
-func _on_dialogue_manager_timeline_started():
+func prevent_input():
 	set_process(false)
 
-func _on_dialogue_manager_timeline_ended():
-	# this is prevents the same timeline from being reactivated
-	# when the timeline is ended with the spacebar, e.g. when the player is
-	# facing a water tile
+func allow_input():
+	# this ensures that this script processes against from the NEXT frame
 	var callable := set_process.bind(true)
 	get_tree().process_frame.connect(callable, CONNECT_ONE_SHOT)

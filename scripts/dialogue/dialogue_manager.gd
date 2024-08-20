@@ -1,4 +1,4 @@
-extends Node
+class_name DialogueManager extends Node
 
 signal timeline_started
 signal timeline_ended
