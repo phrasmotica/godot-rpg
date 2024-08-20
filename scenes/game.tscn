@@ -1,5 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=20 format=3 uid="uid://bffi65080d7jm"]
 
+[ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="TileSet" uid="uid://bs5kp5aiadcug" path="res://resources/tilesets/game_tile_set.tres" id="1_af0we"]
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player.tscn" id="1_ia2wv"]
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_ksc2i"]
@@ -20,6 +21,8 @@
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
 
 [node name="Game" type="Node2D"]
+
+[node name="DialogueManager" parent="." instance=ExtResource("1_1vlts")]
 
 [node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("tile_map", "tile_detection")]
 script = ExtResource("1_ksc2i")
@@ -134,6 +137,7 @@ item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
 [connection signal="pickup_item" from="Map/Player" to="Map/Player/Bag" method="_on_player_pickup_item"]
 [connection signal="position_faced" from="Map/Player" to="Map" method="_on_player_position_faced"]
 [connection signal="current_hp_changed" from="Map/Player/HitPoints" to="UICanvas/UIManager/MarginContainer/Menu/PlayerStats" method="_on_hit_points_current_hp_changed"]
+[connection signal="added_item" from="Map/Player/Bag" to="DialogueManager" method="_on_bag_added_item"]
 [connection signal="added_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_added_item"]
 [connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_consumed_item"]
 [connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_consumed_item"]
