@@ -131,3 +131,9 @@ func _on_ui_manager_menu_opened():
 
 func _on_ui_manager_menu_closed():
 	set_process(true)
+
+func _on_dialogue_manager_timeline_started():
+	set_process(false)
+
+func _on_dialogue_manager_timeline_ended():
+	set_process(true)
