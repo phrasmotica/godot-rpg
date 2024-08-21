@@ -22,7 +22,8 @@ func _process(_delta):
 		menu_opened.emit()
 
 		# ensures the key press doesn't immediately hide the menu
-		menu.call_deferred("enable_menu")
+		var callable := menu.enable_menu.bind()
+		get_tree().process_frame.connect(callable, CONNECT_ONE_SHOT)
 
 func _on_menu_cancel():
 	print("Hiding menu")
