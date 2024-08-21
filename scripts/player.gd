@@ -21,6 +21,8 @@ signal pickup_item(item: Item)
 func _ready():
 	position = grid_movement.get_snapped_position(position)
 
+	check_facing_tile()
+
 func _process(_delta):
 	process_move()
 
