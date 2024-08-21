@@ -9,7 +9,7 @@ var stack_manager: StackManager = %StackManager
 @onready
 var item_pool: ItemPool = %ItemPool
 
-signal added_item(new_item: Item, item_stacks: Array[ItemStack])
+signal added_item(new_item: Item, altered: bool, item_stacks: Array[ItemStack])
 signal dropped_item(dropped_item: Item, item_stacks: Array[ItemStack])
 signal used_item(used_item: Item, item_stacks: Array[ItemStack])
 signal consumed_item(consumed_item: Item, item_stacks: Array[ItemStack])
@@ -21,7 +21,7 @@ func add_random_item():
 func add_item(item: Item):
 	var new_item = stack_manager.add_item(item)
 
-	added_item.emit(new_item, stack_manager.get_stacks())
+	added_item.emit(new_item, false, stack_manager.get_stacks())
 
 func try_use_item(stack_id: int):
 	var item := stack_manager.peek(stack_id)
@@ -47,7 +47,7 @@ func try_use_item(stack_id: int):
 		var altered_item := stack_manager.add_item(item)
 		stack_manager.remove_empty_stacks()
 
-		added_item.emit(altered_item, stack_manager.get_stacks())
+		added_item.emit(altered_item, true, stack_manager.get_stacks())
 
 		print("Did not consume item " + item.name)
 		return

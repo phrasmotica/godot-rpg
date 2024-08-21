@@ -166,6 +166,7 @@ layer = 10
 [connection signal="dropped_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_dropped_item"]
 [connection signal="used_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_used_item"]
 [connection signal="used_item" from="Map/Player/Bag" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_used_item"]
+[connection signal="item_effect_result_created" from="Map/Player/Bag/ItemConsumer" to="DialogueCanvas/DialogueManager" method="_on_item_consumer_item_effect_result_created"]
 [connection signal="menu_closed" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_menu_closed"]
 [connection signal="menu_opened" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_menu_opened"]
 [connection signal="cancel" from="UICanvas/UIManager/MarginContainer/Menu" to="UICanvas/UIManager" method="_on_menu_cancel"]

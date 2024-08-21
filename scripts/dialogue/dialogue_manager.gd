@@ -7,11 +7,12 @@ func _ready():
     Dialogic.timeline_started.connect(handle_timeline_started)
     Dialogic.timeline_ended.connect(handle_timeline_ended)
 
-func _on_bag_added_item(new_item: Item, _item_stacks: Array[ItemStack]):
-    # BUG: this is triggering when a glass is filled while facing water.
-    # Different text should appear in that scenario...
-    Dialogic.VAR.item_name = new_item.name
-    Dialogic.start("picked_up_item")
+func _on_bag_added_item(new_item: Item, altered: bool, _item_stacks: Array[ItemStack]):
+    if altered:
+        pass
+    else:
+        Dialogic.VAR.item_name = new_item.name
+        Dialogic.start("picked_up_item")
 
 func handle_timeline_started():
     print("Timeline started!")
@@ -26,3 +27,8 @@ func handle_timeline_ended():
 func _on_map_player_interacted(tile: Tile):
     if tile.dialogue_timeline.length() > 0:
         Dialogic.start(tile.dialogue_timeline)
+
+func _on_item_consumer_item_effect_result_created(result: ItemEffectResult):
+    if result.dialogue_timeline:
+        Dialogic.VAR.item_name = result.item.name
+        Dialogic.start(result.dialogue_timeline)

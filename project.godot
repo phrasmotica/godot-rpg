@@ -33,6 +33,7 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 directories/dch_directory={}
 directories/dtl_directory={
+"filled_item": "res://resources/dialogue/filled_item.dtl",
 "picked_up_item": "res://resources/dialogue/picked_up_item.dtl",
 "tile_water": "res://resources/dialogue/tile_water.dtl"
 }

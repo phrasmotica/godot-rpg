@@ -10,3 +10,11 @@ func apply_to_self(item: Item):
     if item.meta.has("is_filled"):
         print("Filling " + item.name)
         item.meta["is_filled"] = true
+
+        var result := ItemEffectResult.new()
+        result.item = item
+        result.dialogue_timeline = "filled_item"
+
+        return result
+
+    return null

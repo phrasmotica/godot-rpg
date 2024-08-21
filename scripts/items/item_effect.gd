@@ -13,8 +13,8 @@ func get_description():
 func can_apply_to_self(_item: Item):
     return false
 
-func apply_to_self(_item: Item):
-    pass
+func apply_to_self(_item: Item) -> ItemEffectResult:
+    return null
 
 func can_apply_to_hit_points(_hit_points: HitPoints):
     return false

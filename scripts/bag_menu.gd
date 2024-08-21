@@ -161,7 +161,7 @@ func drop_current_stack():
 		var current_item := item_stack_menu_items[current_index]
 		drop_stack.emit(current_item.stack.id)
 
-func _on_bag_added_item(new_item: Item, item_stacks: Array[ItemStack]):
+func _on_bag_added_item(new_item: Item, _altered: bool, item_stacks: Array[ItemStack]):
 	print("Added " + new_item.name + " to bag")
 
 	update_buttons(item_stacks)
