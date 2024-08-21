@@ -91,6 +91,10 @@ hit_points = NodePath("../../HitPoints")
 script = ExtResource("3_qs36w")
 menu = NodePath("MarginContainer/Menu")
 
+[node name="DialogueWatcher" parent="UICanvas/UIManager" node_paths=PackedStringArray("dialogue_manager", "target") instance=ExtResource("16_mfdbg")]
+dialogue_manager = NodePath("../../../DialogueCanvas/DialogueManager")
+target = NodePath("..")
+
 [node name="MarginContainer" type="MarginContainer" parent="UICanvas/UIManager"]
 offset_left = 512.0
 offset_right = 1152.0
