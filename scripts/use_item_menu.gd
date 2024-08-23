@@ -4,14 +4,14 @@ extends ListMenu
 @export
 var item_consumer: ItemConsumer
 
-@export
-var description_label: Label
+@onready
+var description_label: Label = %Description
 
-@export
-var use_item: MenuItem
+@onready
+var use_item: MenuItem = %Use
 
-@export
-var use_all_item: MenuItem
+@onready
+var use_all_item: MenuItem = %UseAll
 
 var selected_item: Item
 
