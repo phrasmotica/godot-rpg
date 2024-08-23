@@ -34,10 +34,12 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 directories/dch_directory={}
 directories/dtl_directory={
 "filled_item": "res://resources/dialogue/filled_item.dtl",
+"healed_amount": "res://resources/dialogue/healed_amount.dtl",
 "picked_up_item": "res://resources/dialogue/picked_up_item.dtl",
 "tile_water": "res://resources/dialogue/tile_water.dtl"
 }
 variables={
+"heal_amount": 0,
 "item_name": "item"
 }
 text/letter_speed=0.01

@@ -19,5 +19,5 @@ func apply_to_self(_item: Item) -> ItemEffectResult:
 func can_apply_to_hit_points(_hit_points: HitPoints):
     return false
 
-func apply_to_hit_points(_hit_points: HitPoints):
-    print("Applying item effect to hit points")
+func apply_to_hit_points(_hit_points: HitPoints) -> ItemEffectResult:
+    return null

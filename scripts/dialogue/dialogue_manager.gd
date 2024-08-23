@@ -30,5 +30,5 @@ func _on_map_player_interacted(tile: Tile):
 
 func _on_item_consumer_item_effect_result_created(result: ItemEffectResult):
     if result.dialogue_timeline:
-        Dialogic.VAR.item_name = result.item.name
+        result.process_for_dialogue()
         Dialogic.start(result.dialogue_timeline)

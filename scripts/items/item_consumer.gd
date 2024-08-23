@@ -44,9 +44,10 @@ func consume(item: Item) -> bool:
 
 	for x in item.external_effects:
 		if x.can_apply_to_hit_points(hit_points):
-			x.apply_to_hit_points(hit_points)
-
-			some_effect_applied = true
+			var result: ItemEffectResult = x.apply_to_hit_points(hit_points)
+			if result:
+				some_effect_applied = true
+				item_effect_result_created.emit(result)
 		else:
 			print("Cannot apply " + x.get_description() + " to hit points")
 
