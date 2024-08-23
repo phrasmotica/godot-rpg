@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=20 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="TileSet" uid="uid://bs5kp5aiadcug" path="res://resources/tilesets/game_tile_set.tres" id="1_af0we"]
@@ -19,7 +19,6 @@
 [ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/dimmer.tscn" id="13_w1m1t"]
 [ext_resource type="PackedScene" uid="uid://uh2ihallkouo" path="res://scenes/tile_detection.tscn" id="15_4thmm"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
-[ext_resource type="PackedScene" uid="uid://dh7a6ebi4py1o" path="res://scenes/dialogue/dialogue_watcher.tscn" id="16_mfdbg"]
 
 [node name="Game" type="Node2D"]
 
@@ -67,14 +66,11 @@ item = ExtResource("7_dso4j")
 position = Vector2(1184, 992)
 item = ExtResource("7_dso4j")
 
-[node name="Player" parent="Map" instance=ExtResource("1_ia2wv")]
+[node name="Player" parent="Map" node_paths=PackedStringArray("dialogue_manager") instance=ExtResource("1_ia2wv")]
 position = Vector2(1184, 800)
+dialogue_manager = NodePath("../../DialogueCanvas/DialogueManager")
 
 [node name="Camera" type="Camera2D" parent="Map/Player"]
-
-[node name="DialogueWatcher" parent="Map/Player" node_paths=PackedStringArray("dialogue_manager", "target") instance=ExtResource("16_mfdbg")]
-dialogue_manager = NodePath("../../../DialogueCanvas/DialogueManager")
-target = NodePath("..")
 
 [node name="HitPoints" parent="Map/Player" instance=ExtResource("3_21716")]
 current_hp = 40
@@ -90,10 +86,6 @@ hit_points = NodePath("../../HitPoints")
 [node name="UIManager" type="Node" parent="UICanvas" node_paths=PackedStringArray("menu")]
 script = ExtResource("3_qs36w")
 menu = NodePath("MarginContainer/Menu")
-
-[node name="DialogueWatcher" parent="UICanvas/UIManager" node_paths=PackedStringArray("dialogue_manager", "target") instance=ExtResource("16_mfdbg")]
-dialogue_manager = NodePath("../../../DialogueCanvas/DialogueManager")
-target = NodePath("..")
 
 [node name="MarginContainer" type="MarginContainer" parent="UICanvas/UIManager"]
 offset_left = 512.0
@@ -122,10 +114,6 @@ dialogue_manager = NodePath("../../../../../DialogueCanvas/DialogueManager")
 to_dim = NodePath("..")
 is_dimmed = true
 
-[node name="DialogueWatcher" parent="UICanvas/UIManager/MarginContainer/Menu/PlayerStats" node_paths=PackedStringArray("dialogue_manager", "target") instance=ExtResource("16_mfdbg")]
-dialogue_manager = NodePath("../../../../../../DialogueCanvas/DialogueManager")
-target = NodePath("..")
-
 [node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/Menu" node_paths=PackedStringArray("dialogue_manager") instance=ExtResource("5_votnq")]
 custom_minimum_size = Vector2(360, 2.08165e-12)
 layout_mode = 2
@@ -139,10 +127,6 @@ to_dim = NodePath("..")
 parent_menu = NodePath("..")
 child_menus = [NodePath("../../../../UseItemMenu")]
 
-[node name="DialogueWatcher" parent="UICanvas/UIManager/MarginContainer/Menu/BagMenu" node_paths=PackedStringArray("dialogue_manager", "target") instance=ExtResource("16_mfdbg")]
-dialogue_manager = NodePath("../../../../../../DialogueCanvas/DialogueManager")
-target = NodePath("..")
-
 [node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("item_consumer", "dialogue_manager") instance=ExtResource("9_6coe6")]
 visible = false
 offset_left = 736.0
@@ -151,10 +135,6 @@ offset_right = 736.0
 offset_bottom = 128.0
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
 dialogue_manager = NodePath("../../../DialogueCanvas/DialogueManager")
-
-[node name="DialogueWatcher" parent="UICanvas/UIManager/UseItemMenu" node_paths=PackedStringArray("dialogue_manager", "target") instance=ExtResource("16_mfdbg")]
-dialogue_manager = NodePath("../../../../DialogueCanvas/DialogueManager")
-target = NodePath("..")
 
 [node name="DialogueCanvas" type="CanvasLayer" parent="."]
 layer = 10

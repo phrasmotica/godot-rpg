@@ -3,6 +3,9 @@ class_name Player extends CharacterBody2D
 @export
 var sprite: AnimatedSprite2D
 
+@export
+var dialogue_manager: DialogueManager
+
 ## The number of seconds that a movement key must be held down before the player
 ## moves. This means if the key is not held down for that long, the player will
 ## face the new direction without moving.
@@ -12,6 +15,7 @@ var tap_threshold_seconds := 0.1
 @onready
 var grid_movement = $GridMovement
 
+var _dialogue_playing := false
 var move_timer_on := false
 
 signal position_faced(pos: Vector2)
@@ -19,15 +23,29 @@ signal interacted
 signal pickup_item(item: Item)
 
 func _ready():
+	if dialogue_manager:
+		dialogue_manager.timeline_started.connect(handle_dialogue_started)
+		dialogue_manager.timeline_ended.connect(handle_dialogue_finished)
+
 	position = grid_movement.get_snapped_position(position)
 
 	check_facing_tile()
 
-func _process(_delta):
-	process_move()
+func handle_dialogue_started():
+	_dialogue_playing = true
 
-	if Input.is_action_just_pressed("pick_up"):
-		try_pickup_item()
+func handle_dialogue_finished():
+	get_tree().process_frame.connect(
+		func():
+			_dialogue_playing = false
+	, CONNECT_ONE_SHOT)
+
+func _process(_delta):
+	if not _dialogue_playing:
+		process_move()
+
+		if Input.is_action_just_pressed("pick_up"):
+			try_pickup_item()
 
 func process_move():
 	var direction := Input.get_vector("player_left", "player_right", "player_up", "player_down")
