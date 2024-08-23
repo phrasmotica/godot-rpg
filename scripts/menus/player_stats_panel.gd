@@ -1,11 +1,11 @@
 @tool
 extends Menu
 
-@export
-var content: Control
+@onready
+var content: Control = %Content
 
-@export
-var hp_label: Label
+@onready
+var hp_label: Label = %HPLabel
 
 func _on_hit_points_current_hp_changed(hp: int, max_hp: int):
 	if hp_label:

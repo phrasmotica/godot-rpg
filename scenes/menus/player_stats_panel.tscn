@@ -3,16 +3,13 @@
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_hkmyc"]
 [ext_resource type="Script" path="res://scripts/menus/player_stats_panel.gd" id="2_ocpfr"]
 
-[node name="PlayerStatsPanel" type="PanelContainer" node_paths=PackedStringArray("content", "hp_label")]
+[node name="PlayerStatsPanel" type="PanelContainer"]
 custom_minimum_size = Vector2(200, 2.08165e-12)
 offset_right = 200.0
 offset_bottom = 70.0
 size_flags_vertical = 0
 theme = ExtResource("1_hkmyc")
 script = ExtResource("2_ocpfr")
-content = NodePath("MarginContainer/VBoxContainer/Content")
-hp_label = NodePath("MarginContainer/VBoxContainer/Content/HPLabel")
-dimming_hides_content = null
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -33,9 +30,11 @@ text = "Stats"
 horizontal_alignment = 2
 
 [node name="Content" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="HPLabel" type="Label" parent="MarginContainer/VBoxContainer/Content"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "50/50 HP"
 horizontal_alignment = 2

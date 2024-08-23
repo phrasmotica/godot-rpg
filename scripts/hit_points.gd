@@ -23,3 +23,6 @@ signal current_hp_changed(hp: int, max_hp: int)
 
 func _ready():
     current_hp_changed.emit(current_hp, max_hp)
+
+func _on_ui_manager_ui_ready():
+    current_hp_changed.emit(current_hp, max_hp)

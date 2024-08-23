@@ -8,6 +8,7 @@ var dialogue_manager: DialogueManager
 
 var _dialogue_playing := false
 
+signal ui_ready
 signal menu_opened
 signal menu_closed
 
@@ -17,6 +18,8 @@ func _ready():
 		dialogue_manager.timeline_ended.connect(handle_dialogue_finished)
 
 	hide_menu()
+
+	ui_ready.emit()
 
 func handle_dialogue_started():
 	_dialogue_playing = true

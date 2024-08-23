@@ -100,7 +100,6 @@ layout_mode = 2
 theme_override_constants/h_separation = 20
 alignment = 2
 script = ExtResource("12_62p5y")
-current_menu_index = 0
 menus = [NodePath("BagMenu"), NodePath("PlayerStats")]
 menu_dimmers = [NodePath("BagMenu/Dimmer"), NodePath("PlayerStats/Dimmer")]
 dialogue_manager = NodePath("../../../../DialogueCanvas/DialogueManager")
@@ -118,7 +117,6 @@ is_dimmed = true
 [node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/Menu" node_paths=PackedStringArray("dialogue_manager") instance=ExtResource("5_votnq")]
 custom_minimum_size = Vector2(360, 2.08165e-12)
 layout_mode = 2
-dimming_hides_content = false
 dialogue_manager = NodePath("../../../../../DialogueCanvas/DialogueManager")
 
 [node name="Dimmer" parent="UICanvas/UIManager/MarginContainer/Menu/BagMenu" node_paths=PackedStringArray("to_dim") instance=ExtResource("13_w1m1t")]
@@ -159,6 +157,7 @@ layer = 10
 [connection signal="item_effect_result_created" from="Map/Player/Bag/ItemConsumer" to="DialogueCanvas/DialogueManager" method="_on_item_consumer_item_effect_result_created"]
 [connection signal="menu_closed" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_menu_closed"]
 [connection signal="menu_opened" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_menu_opened"]
+[connection signal="ui_ready" from="UICanvas/UIManager" to="Map/Player/HitPoints" method="_on_ui_manager_ui_ready"]
 [connection signal="cancel" from="UICanvas/UIManager/MarginContainer/Menu" to="UICanvas/UIManager" method="_on_menu_cancel"]
 [connection signal="visibility_changed" from="UICanvas/UIManager/MarginContainer/Menu" to="UICanvas/UIManager/MarginContainer/Menu" method="_on_visibility_changed"]
 [connection signal="dimmed" from="UICanvas/UIManager/MarginContainer/Menu/PlayerStats/Dimmer" to="UICanvas/UIManager/MarginContainer/Menu/PlayerStats" method="_on_dimmer_dimmed"]
