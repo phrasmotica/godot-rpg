@@ -102,7 +102,7 @@ offset_bottom = 256.0
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 
-[node name="Menu" type="HFlowContainer" parent="UICanvas/UIManager/MarginContainer" node_paths=PackedStringArray("menus", "menu_dimmers")]
+[node name="Menu" type="HFlowContainer" parent="UICanvas/UIManager/MarginContainer" node_paths=PackedStringArray("menus", "menu_dimmers", "dialogue_manager")]
 layout_mode = 2
 theme_override_constants/h_separation = 20
 alignment = 2
@@ -110,11 +110,13 @@ script = ExtResource("12_62p5y")
 current_menu_index = 0
 menus = [NodePath("BagMenu"), NodePath("PlayerStats")]
 menu_dimmers = [NodePath("BagMenu/Dimmer"), NodePath("PlayerStats/Dimmer")]
+dialogue_manager = NodePath("../../../../DialogueCanvas/DialogueManager")
 
-[node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/Menu" instance=ExtResource("13_55kbe")]
+[node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/Menu" node_paths=PackedStringArray("dialogue_manager") instance=ExtResource("13_55kbe")]
 modulate = Color(0.662745, 0.662745, 0.662745, 1)
 layout_mode = 2
 dimming_hides_content = true
+dialogue_manager = NodePath("../../../../../DialogueCanvas/DialogueManager")
 
 [node name="Dimmer" parent="UICanvas/UIManager/MarginContainer/Menu/PlayerStats" node_paths=PackedStringArray("to_dim") instance=ExtResource("13_w1m1t")]
 to_dim = NodePath("..")
@@ -124,10 +126,11 @@ is_dimmed = true
 dialogue_manager = NodePath("../../../../../../DialogueCanvas/DialogueManager")
 target = NodePath("..")
 
-[node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/Menu" instance=ExtResource("5_votnq")]
+[node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/Menu" node_paths=PackedStringArray("dialogue_manager") instance=ExtResource("5_votnq")]
 custom_minimum_size = Vector2(360, 2.08165e-12)
 layout_mode = 2
 dimming_hides_content = false
+dialogue_manager = NodePath("../../../../../DialogueCanvas/DialogueManager")
 
 [node name="Dimmer" parent="UICanvas/UIManager/MarginContainer/Menu/BagMenu" node_paths=PackedStringArray("to_dim") instance=ExtResource("13_w1m1t")]
 to_dim = NodePath("..")
@@ -140,13 +143,14 @@ child_menus = [NodePath("../../../../UseItemMenu")]
 dialogue_manager = NodePath("../../../../../../DialogueCanvas/DialogueManager")
 target = NodePath("..")
 
-[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("item_consumer") instance=ExtResource("9_6coe6")]
+[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("item_consumer", "dialogue_manager") instance=ExtResource("9_6coe6")]
 visible = false
 offset_left = 736.0
 offset_top = 128.0
 offset_right = 736.0
 offset_bottom = 128.0
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
+dialogue_manager = NodePath("../../../DialogueCanvas/DialogueManager")
 
 [node name="DialogueWatcher" parent="UICanvas/UIManager/UseItemMenu" node_paths=PackedStringArray("dialogue_manager", "target") instance=ExtResource("16_mfdbg")]
 dialogue_manager = NodePath("../../../../DialogueCanvas/DialogueManager")

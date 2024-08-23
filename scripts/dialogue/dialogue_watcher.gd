@@ -6,10 +6,10 @@ var dialogue_manager: DialogueManager
 @export
 var target: Node
 
-func _ready():
-    if dialogue_manager:
-        dialogue_manager.timeline_started.connect(handle_timeline_started)
-        dialogue_manager.timeline_ended.connect(handle_timeline_ended)
+# func _ready():
+#     if dialogue_manager:
+#         dialogue_manager.timeline_started.connect(handle_timeline_started)
+#         dialogue_manager.timeline_ended.connect(handle_timeline_ended)
 
 func handle_timeline_started():
     if target:
