@@ -1,6 +1,4 @@
-# TODO: make this inherit something other than ItemEffectResult? The healing
-# isn't being done to the item...
-class_name HealEffectResult extends ItemEffectResult
+class_name HealEffectResult extends ItemConsumeResult
 
 @export
 var amount: int

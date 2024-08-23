@@ -3,6 +3,7 @@ class_name ItemConsumer extends Node
 @export
 var hit_points: HitPoints
 
+signal item_consume_result_created(result: ItemConsumeResult)
 signal item_effect_result_created(result: ItemEffectResult)
 
 func can_use(item: Item) -> bool:
@@ -44,10 +45,10 @@ func consume(item: Item) -> bool:
 
 	for x in item.external_effects:
 		if x.can_apply_to_hit_points(hit_points):
-			var result: ItemEffectResult = x.apply_to_hit_points(hit_points)
+			var result: ItemConsumeResult = x.apply_to_hit_points(hit_points)
 			if result:
 				some_effect_applied = true
-				item_effect_result_created.emit(result)
+				item_consume_result_created.emit(result)
 		else:
 			print("Cannot apply " + x.get_description() + " to hit points")
 
