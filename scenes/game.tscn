@@ -83,9 +83,10 @@ hit_points = NodePath("../../HitPoints")
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
-[node name="UIManager" type="Node" parent="UICanvas" node_paths=PackedStringArray("menu")]
+[node name="UIManager" type="Node" parent="UICanvas" node_paths=PackedStringArray("menu", "dialogue_manager")]
 script = ExtResource("3_qs36w")
 menu = NodePath("MarginContainer/Menu")
+dialogue_manager = NodePath("../../DialogueCanvas/DialogueManager")
 
 [node name="MarginContainer" type="MarginContainer" parent="UICanvas/UIManager"]
 offset_left = 512.0
