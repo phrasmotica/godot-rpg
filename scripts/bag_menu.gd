@@ -2,16 +2,16 @@
 extends ListMenu
 
 @export
-var scroll_container: ScrollContainer
-
-@export
-var item_list: VBoxContainer
-
-@export
-var empty_label: Label
-
-@export
 var item_stack_menu_item_scene: PackedScene
+
+@onready
+var empty_label: Label = %EmptyLabel
+
+@onready
+var scroll_container: ScrollContainer = %ScrollContainer
+
+@onready
+var item_list: VBoxContainer = %ItemList
 
 var item_stack_menu_items: Array[ItemStackMenuItem]
 
