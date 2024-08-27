@@ -89,9 +89,12 @@ menu = NodePath("MarginContainer/Menu")
 dialogue_manager = NodePath("../../DialogueCanvas/DialogueManager")
 
 [node name="MarginContainer" type="MarginContainer" parent="UICanvas/UIManager"]
-offset_left = 512.0
-offset_right = 1152.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -640.0
 offset_bottom = 256.0
+grow_horizontal = 0
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 
@@ -128,10 +131,14 @@ child_menus = [NodePath("../../../../UseItemMenu")]
 
 [node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("item_consumer", "dialogue_manager") instance=ExtResource("9_6coe6")]
 visible = false
-offset_left = 736.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -416.0
 offset_top = 128.0
-offset_right = 736.0
+offset_right = -416.0
 offset_bottom = 128.0
+grow_horizontal = 0
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
 dialogue_manager = NodePath("../../../DialogueCanvas/DialogueManager")
 
