@@ -36,7 +36,8 @@ directories/dtl_directory={
 "filled_item": "res://resources/dialogue/filled_item.dtl",
 "healed_amount": "res://resources/dialogue/healed_amount.dtl",
 "picked_up_item": "res://resources/dialogue/picked_up_item.dtl",
-"tile_water": "res://resources/dialogue/tile_water.dtl"
+"tile_water": "res://resources/dialogue/tile_water.dtl",
+"wall_default": "res://resources/dialogue/wall_default.dtl"
 }
 variables={
 "heal_amount": 0,

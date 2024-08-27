@@ -6,3 +6,4 @@
 script = ExtResource("1_wijoh")
 id = 1
 name = "Wall"
+dialogue_timeline = "wall_default"
