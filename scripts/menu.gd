@@ -31,8 +31,7 @@ func _ready():
 
 		dialogue_manager.timeline_ended.connect(
 			func():
-				var callable := handle_dialogue_finished.bind()
-				get_tree().process_frame.connect(callable, CONNECT_ONE_SHOT)
+				get_tree().process_frame.connect(handle_dialogue_finished, CONNECT_ONE_SHOT)
 		)
 
 	after_ready()

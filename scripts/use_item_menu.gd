@@ -41,8 +41,7 @@ func _on_bag_menu_select_stack(stack: ItemStack):
 	if description_label:
 		description_label.text = stack.item.description
 
-	var callable := enable_menu.bind()
-	get_tree().process_frame.connect(callable, CONNECT_ONE_SHOT)
+	get_tree().process_frame.connect(enable_menu, CONNECT_ONE_SHOT)
 
 func _on_bag_menu_selected_item_changed(item: Item):
 	selected_item = item
