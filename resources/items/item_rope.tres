@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://dc0jtjc1jkqbc"]
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://dc0jtjc1jkqbc"]
 
+[ext_resource type="Script" path="res://scripts/items/item_effect.gd" id="1_dkpkk"]
 [ext_resource type="Script" path="res://scripts/items/item.gd" id="1_x50mk"]
 
 [resource]
@@ -7,6 +8,6 @@ script = ExtResource("1_x50mk")
 id = 4
 name = "Rope"
 description = "Use to ensnare an enemy."
-use_effects = Array[Resource("res://scripts/items/item_effect.gd")]([])
-external_effects = Array[Resource("res://scripts/items/item_effect.gd")]([])
+use_effects = Array[ExtResource("1_dkpkk")]([])
+external_effects = Array[ExtResource("1_dkpkk")]([])
 meta = {}
