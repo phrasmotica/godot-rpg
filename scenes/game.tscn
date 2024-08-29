@@ -22,9 +22,9 @@
 
 [node name="Game" type="Node2D"]
 
-[node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("tile_map", "tile_detection")]
+[node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("tile_map_layer", "tile_detection")]
 script = ExtResource("1_ksc2i")
-tile_map = NodePath("")
+tile_map_layer = NodePath("TileMap/Layer0")
 tile_detection = NodePath("TileDetection")
 
 [node name="TileDetection" parent="Map" instance=ExtResource("15_4thmm")]

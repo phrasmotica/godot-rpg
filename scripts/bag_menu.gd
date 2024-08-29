@@ -91,7 +91,7 @@ func _on_current_index_changed(index: int):
 
 	if _inactive and is_visible_in_tree():
 		print("BagMenu current index changed, stealing control")
-		steal_control.emit(self)
+		steal()
 
 	print("BagMenu scrolling to item " + str(index))
 
@@ -144,7 +144,7 @@ func update_buttons(item_stacks: Array[ItemStack]):
 	if is_visible_in_tree() and count_changed:
 		print("BagMenu stack count changed, stealing control")
 
-		steal_control.emit(self)
+		steal()
 
 func use_current_item():
 	if current_index > -1:

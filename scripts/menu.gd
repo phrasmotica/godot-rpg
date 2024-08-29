@@ -83,6 +83,9 @@ func enable_menu():
 func after_enable_menu():
 	pass
 
+func steal():
+	steal_control.emit(self)
+
 func _on_visibility_changed():
 	if is_visible_in_tree():
 		menu_shown.emit(self)
