@@ -37,3 +37,7 @@ func _on_item_consumer_item_effect_result_created(result: ItemEffectResult):
     if result.dialogue_timeline:
         result.process_for_dialogue()
         Dialogic.start(result.dialogue_timeline)
+
+func _on_npc_manager_npc_talked(dialogue_timeline: String) -> void:
+    if dialogue_timeline:
+        Dialogic.start(dialogue_timeline)
