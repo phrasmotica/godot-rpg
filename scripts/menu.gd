@@ -23,6 +23,9 @@ signal menu_enabled(menu: Menu)
 signal steal_control(menu: Menu)
 
 func _ready():
+	if Engine.is_editor_hint():
+		return
+
 	if dialogue_manager:
 		dialogue_manager.timeline_started.connect(
 			func():
