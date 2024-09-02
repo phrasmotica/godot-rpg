@@ -161,6 +161,7 @@ layer = 10
 [connection signal="player_faced_tile" from="Map" to="UICanvas/UIManager/UseItemMenu" method="_on_map_player_faced_tile"]
 [connection signal="player_interacted" from="Map" to="DialogueCanvas/DialogueManager" method="_on_map_player_interacted"]
 [connection signal="npc_talked" from="Map/NPCManager" to="DialogueCanvas/DialogueManager" method="_on_npc_manager_npc_talked"]
+[connection signal="dialogue_triggered" from="Map/Player" to="DialogueCanvas/DialogueManager" method="_on_player_dialogue_triggered"]
 [connection signal="interacted" from="Map/Player" to="Map" method="_on_player_interacted"]
 [connection signal="pickup_item" from="Map/Player" to="Map/Player/Bag" method="_on_player_pickup_item"]
 [connection signal="position_faced" from="Map/Player" to="Map" method="_on_player_position_faced"]

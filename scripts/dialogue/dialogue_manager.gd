@@ -41,3 +41,7 @@ func _on_item_consumer_item_effect_result_created(result: ItemEffectResult):
 func _on_npc_manager_npc_talked(dialogue_timeline: String) -> void:
     if dialogue_timeline:
         Dialogic.start(dialogue_timeline)
+
+func _on_player_dialogue_triggered(timeline: String) -> void:
+    if timeline:
+        Dialogic.start(timeline)

@@ -1,13 +1,18 @@
 class_name NPC extends CharacterBody2D
 
 @export
-var talk_dialogue := ""
+var talk_dialogue := "":
+    set(value):
+        talk_dialogue = value
 
-signal talked(dialogue_timeline: String)
+        if dialogue_area:
+            dialogue_area.timeline = talk_dialogue
+
+@onready
+var dialogue_area: DialogueArea = %DialogueArea
+
+@onready
+var collision_shape: CollisionShape2D = %CollisionShape2D
 
 func _ready():
-    get_tree().process_frame.connect(talk, CONNECT_ONE_SHOT)
-
-func talk():
-    if talk_dialogue.length() > 0:
-        talked.emit(talk_dialogue)
+    collision_shape.shape = dialogue_area.get_area_shape()

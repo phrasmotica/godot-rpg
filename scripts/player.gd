@@ -21,6 +21,7 @@ var move_timer_on := false
 signal position_faced(pos: Vector2)
 signal interacted
 signal pickup_item(item: Item)
+signal dialogue_triggered(timeline: String)
 
 func _ready():
 	if dialogue_manager:
@@ -45,7 +46,7 @@ func _process(_delta):
 		process_move()
 
 		if Input.is_action_just_pressed("pick_up"):
-			try_pickup_item()
+			try_interact()
 
 func process_move():
 	var direction := Input.get_vector("player_left", "player_right", "player_up", "player_down")
@@ -95,15 +96,22 @@ func do_move(direction: Vector2):
 	if did_move and direction.length() > 0:
 		sprite.play()
 
-func try_pickup_item():
+func try_interact():
 	var collider = grid_movement.raycast.get_collider()
-	if collider and collider is ItemArea:
-		var item_area = collider as ItemArea
-		var item := item_area.get_item()
-		pickup_item.emit(item)
+	if collider:
+		if collider is ItemArea:
+			var item_area = collider as ItemArea
+			var item := item_area.get_item()
+			pickup_item.emit(item)
 
-		item_area.dispose()
-		return
+			item_area.dispose()
+			return
+
+		if collider is NPC:
+			var npc = collider as NPC
+			dialogue_triggered.emit(npc.talk_dialogue)
+
+			return
 
 	interacted.emit()
 
