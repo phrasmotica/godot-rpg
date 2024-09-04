@@ -1,11 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://vawc2gply777"]
+[gd_scene load_steps=4 format=3 uid="uid://vawc2gply777"]
 
 [ext_resource type="Script" path="res://scripts/npc.gd" id="1_fp5du"]
+[ext_resource type="PackedScene" uid="uid://cxo8n08h3j7iq" path="res://scenes/grid_movement.tscn" id="2_724fx"]
 [ext_resource type="PackedScene" uid="uid://hiq0l3eppv1l" path="res://scenes/dialogue_area.tscn" id="2_swojc"]
 
 [node name="NPC" type="CharacterBody2D"]
 script = ExtResource("1_fp5du")
 talk_dialogue = "npc_default"
+
+[node name="GridMovement" parent="." node_paths=PackedStringArray("self_node") instance=ExtResource("2_724fx")]
+unique_name_in_owner = true
+self_node = NodePath("..")
 
 [node name="DialogueArea" parent="." instance=ExtResource("2_swojc")]
 unique_name_in_owner = true
@@ -14,3 +19,6 @@ timeline = "npc_default"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
 editor_description = "This node's shape will be set to the shape inside the DialogueArea node when the scene is run."
+
+[node name="MoveTimer" type="Timer" parent="."]
+unique_name_in_owner = true

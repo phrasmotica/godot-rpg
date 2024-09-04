@@ -13,7 +13,7 @@ var dialogue_manager: DialogueManager
 var tap_threshold_seconds := 0.1
 
 @onready
-var grid_movement = $GridMovement
+var grid_movement: GridMovement = $GridMovement
 
 @onready
 var movement_animation: MovementAnimation = %MovementAnimation

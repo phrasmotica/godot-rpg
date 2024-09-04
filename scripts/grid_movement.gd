@@ -1,4 +1,4 @@
-extends Node2D
+class_name GridMovement extends Node2D
 
 @export
 var self_node: Node2D
