@@ -15,6 +15,9 @@ var tap_threshold_seconds := 0.1
 @onready
 var grid_movement = $GridMovement
 
+@onready
+var movement_animation: MovementAnimation = %MovementAnimation
+
 var _dialogue_playing := false
 var move_timer_on := false
 
@@ -30,7 +33,10 @@ func _ready():
 
 	position = grid_movement.get_snapped_position(position)
 
-	check_facing_tile()
+	if movement_animation:
+		movement_animation.position_faced.connect(position_faced.emit)
+
+		movement_animation.check_facing_tile()
 
 func handle_dialogue_started():
 	_dialogue_playing = true
@@ -55,23 +61,12 @@ func process_move():
 		if not grid_movement.can_face(direction) or move_timer_on:
 			return
 
-		var did_change := face_direction(direction)
+		var did_change := movement_animation.face_direction(direction)
 		if did_change:
 			set_move_timer(direction)
 		else:
 			# no need to wait for the player to face in the movement direction
-			do_move(direction)
-
-func face_direction(direction: Vector2) -> bool:
-	var did_change = grid_movement.face(direction)
-	if did_change:
-		check_facing_tile()
-
-		var new_anim = compute_animation(direction)
-		if new_anim.length() > 0:
-			sprite.animation = new_anim
-
-	return did_change
+			movement_animation.do_move(direction)
 
 func set_move_timer(direction: Vector2):
 	if direction.length() <= 0:
@@ -88,13 +83,8 @@ func set_move_timer(direction: Vector2):
 			var action = compute_input_action(direction)
 
 			if Input.is_action_pressed(action):
-				do_move(direction)
+				movement_animation.do_move(direction)
 	)
-
-func do_move(direction: Vector2):
-	var did_move = grid_movement.move(direction)
-	if did_move and direction.length() > 0:
-		sprite.play()
 
 func try_interact():
 	var collider = grid_movement.raycast.get_collider()
@@ -130,33 +120,10 @@ func compute_input_action(direction: Vector2) -> StringName:
 
 	return ""
 
-func compute_animation(direction: Vector2) -> StringName:
-	if direction.y > 0:
-		return "walk_down"
-
-	if direction.y < 0:
-		return "walk_up"
-
-	if direction.x > 0:
-		return "walk_right"
-
-	if direction.x < 0:
-		return "walk_left"
-
-	return ""
-
 func _on_grid_movement_moving_finished():
 	sprite.stop()
 
-	check_facing_tile()
-
-func check_facing_tile():
-	var raycast: RayCast2D = grid_movement.raycast
-
-	# global position of raycast target
-	var facing_pos := raycast.global_position + raycast.target_position
-
-	position_faced.emit(facing_pos)
+	movement_animation.check_facing_tile()
 
 func _on_ui_manager_menu_opened():
 	prevent_input()

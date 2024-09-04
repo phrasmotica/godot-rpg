@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://d2s13nanwkocg"]
+[gd_scene load_steps=17 format=3 uid="uid://d2s13nanwkocg"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_f36bm"]
 [ext_resource type="Texture2D" uid="uid://cryxhusaiopv8" path="res://assets/sprites/player_walk.png" id="2_777sl"]
 [ext_resource type="PackedScene" uid="uid://cxo8n08h3j7iq" path="res://scenes/grid_movement.tscn" id="3_co72y"]
+[ext_resource type="PackedScene" uid="uid://c0tkt5r1ynknp" path="res://scenes/movement_animation.tscn" id="4_lx4vg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_utbco"]
 atlas = ExtResource("2_777sl")
@@ -117,5 +118,10 @@ disabled = true
 
 [node name="GridMovement" parent="." node_paths=PackedStringArray("self_node") instance=ExtResource("3_co72y")]
 self_node = NodePath("..")
+
+[node name="MovementAnimation" parent="." node_paths=PackedStringArray("sprite", "grid_movement") instance=ExtResource("4_lx4vg")]
+unique_name_in_owner = true
+sprite = NodePath("../Sprite")
+grid_movement = NodePath("../GridMovement")
 
 [connection signal="moving_finished" from="GridMovement" to="." method="_on_grid_movement_moving_finished"]
