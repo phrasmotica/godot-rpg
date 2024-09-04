@@ -43,3 +43,10 @@ func move():
 
     grid_movement.face(dir)
     grid_movement.move(dir)
+
+func face(pos: Vector2):
+    print("NPC " + name + " facing position " + str(pos))
+
+    var dir: Vector2i = (pos - global_position).normalized()
+
+    grid_movement.face(dir)

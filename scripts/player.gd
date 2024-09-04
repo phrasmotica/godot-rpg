@@ -98,7 +98,9 @@ func try_interact():
 			return
 
 		if collider is NPC:
-			var npc = collider as NPC
+			var npc := collider as NPC
+			npc.face(global_position)
+
 			dialogue_triggered.emit(npc.talk_dialogue)
 
 			return
