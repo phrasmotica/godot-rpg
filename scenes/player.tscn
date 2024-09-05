@@ -116,12 +116,13 @@ position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_r62ki")
 disabled = true
 
-[node name="GridMovement" parent="." node_paths=PackedStringArray("self_node") instance=ExtResource("3_co72y")]
+[node name="GridMovement" parent="." node_paths=PackedStringArray("self_node", "movement_animation") instance=ExtResource("3_co72y")]
+unique_name_in_owner = true
 self_node = NodePath("..")
+movement_animation = NodePath("../MovementAnimation")
 
-[node name="MovementAnimation" parent="." node_paths=PackedStringArray("sprite", "grid_movement") instance=ExtResource("4_lx4vg")]
+[node name="MovementAnimation" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("4_lx4vg")]
 unique_name_in_owner = true
 sprite = NodePath("../Sprite")
-grid_movement = NodePath("../GridMovement")
 
 [connection signal="moving_finished" from="GridMovement" to="." method="_on_grid_movement_moving_finished"]

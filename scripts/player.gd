@@ -13,10 +13,7 @@ var dialogue_manager: DialogueManager
 var tap_threshold_seconds := 0.1
 
 @onready
-var grid_movement: GridMovement = $GridMovement
-
-@onready
-var movement_animation: MovementAnimation = %MovementAnimation
+var grid_movement: GridMovement = %GridMovement
 
 var _dialogue_playing := false
 var move_timer_on := false
@@ -33,10 +30,10 @@ func _ready():
 
 	position = grid_movement.get_snapped_position(position)
 
-	if movement_animation:
-		movement_animation.position_faced.connect(position_faced.emit)
+	if grid_movement:
+		grid_movement.position_faced.connect(position_faced.emit)
 
-		movement_animation.check_facing_tile()
+		grid_movement.check_facing_tile()
 
 func handle_dialogue_started():
 	_dialogue_playing = true
@@ -61,12 +58,12 @@ func process_move():
 		if not grid_movement.can_face(direction) or move_timer_on:
 			return
 
-		var did_change := movement_animation.face_direction(direction)
+		var did_change := grid_movement.face(direction)
 		if did_change:
 			set_move_timer(direction)
 		else:
 			# no need to wait for the player to face in the movement direction
-			movement_animation.do_move(direction)
+			grid_movement.move(direction)
 
 func set_move_timer(direction: Vector2):
 	if direction.length() <= 0:
@@ -83,7 +80,7 @@ func set_move_timer(direction: Vector2):
 			var action = compute_input_action(direction)
 
 			if Input.is_action_pressed(action):
-				movement_animation.do_move(direction)
+				grid_movement.move(direction)
 	)
 
 func try_interact():
@@ -124,8 +121,6 @@ func compute_input_action(direction: Vector2) -> StringName:
 
 func _on_grid_movement_moving_finished():
 	sprite.stop()
-
-	movement_animation.check_facing_tile()
 
 func _on_ui_manager_menu_opened():
 	prevent_input()

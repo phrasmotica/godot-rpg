@@ -9,12 +9,16 @@ var speed := 0.35
 @export
 var step_size := 64
 
+@export
+var movement_animation: MovementAnimation
+
 @onready
 var raycast: RayCast2D = $RayCast2D
 
 var moving_direction := Vector2.ZERO
 var facing_direction := Vector2.RIGHT
 
+signal position_faced(pos: Vector2)
 signal moving_finished
 
 func _ready():
@@ -38,11 +42,23 @@ func face(direction: Vector2) -> bool:
 
         facing_direction = new_facing_direction
 
+        if did_change:
+            check_facing_tile()
+
+            if movement_animation:
+                movement_animation.face_direction(direction)
+
         return did_change
 
     return false
 
-func move(direction: Vector2):
+func check_facing_tile():
+    # global position of raycast target
+    var facing_pos := raycast.global_position + raycast.target_position
+
+    position_faced.emit(facing_pos)
+
+func move(direction: Vector2) -> void:
     if moving_direction.length() == 0 and direction.length() > 0:
         var movement := Vector2.ZERO
 
@@ -60,9 +76,8 @@ func move(direction: Vector2):
 
             animate_move()
 
-            return true
-
-        return false
+            if movement_animation:
+                movement_animation.do_move(direction)
 
 func animate_move():
     var new_position = self_node.global_position + (moving_direction * step_size)
@@ -73,4 +88,6 @@ func animate_move():
         func():
             moving_direction = Vector2.ZERO
             moving_finished.emit()
+
+            check_facing_tile()
     )
