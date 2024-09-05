@@ -105,6 +105,7 @@ size = Vector2(32, 40)
 collision_layer = 2
 script = ExtResource("1_f36bm")
 sprite = NodePath("Sprite")
+raycast_mask = 13
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0s6ni")
@@ -114,7 +115,6 @@ animation = &"walk_right"
 editor_description = "This is currently disabled because collision is handled by the RayCast2D in the GridMovement scene; we leave it here to remove the editor warning."
 position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_r62ki")
-disabled = true
 
 [node name="GridMovement" parent="." node_paths=PackedStringArray("self_node", "movement_animation") instance=ExtResource("3_co72y")]
 unique_name_in_owner = true

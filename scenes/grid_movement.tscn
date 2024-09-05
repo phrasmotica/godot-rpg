@@ -7,5 +7,5 @@ script = ExtResource("1_y1g24")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(64, 0)
-collision_mask = 5
+collision_mask = 13
 collide_with_areas = true

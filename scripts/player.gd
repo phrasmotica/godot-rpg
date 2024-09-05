@@ -12,6 +12,11 @@ var dialogue_manager: DialogueManager
 @export_range(0.05, 0.2)
 var tap_threshold_seconds := 0.1
 
+## The physics layers that the raycast should collide with when processing
+## movement.
+@export_flags_2d_physics
+var raycast_mask: int
+
 @onready
 var grid_movement: GridMovement = %GridMovement
 
@@ -33,6 +38,7 @@ func _ready():
 	if grid_movement:
 		grid_movement.position_faced.connect(position_faced.emit)
 
+		grid_movement.set_raycast_mask(raycast_mask)
 		grid_movement.check_facing_tile()
 
 func handle_dialogue_started():

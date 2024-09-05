@@ -7,6 +7,7 @@
 [node name="NPC" type="CharacterBody2D"]
 script = ExtResource("1_fp5du")
 talk_dialogue = "npc_default"
+raycast_mask = 15
 
 [node name="GridMovement" parent="." node_paths=PackedStringArray("self_node") instance=ExtResource("2_724fx")]
 unique_name_in_owner = true

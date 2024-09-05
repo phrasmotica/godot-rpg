@@ -11,6 +11,11 @@ var talk_dialogue := "":
 @export_range(0.0, 10.0)
 var move_interval_seconds := 5.0
 
+## The physics layers that the raycast should collide with when processing
+## movement.
+@export_flags_2d_physics
+var raycast_mask: int
+
 @onready
 var grid_movement: GridMovement = %GridMovement
 
@@ -35,6 +40,8 @@ func _ready():
 
     move_timer.timeout.connect(move)
     move_timer.start(move_interval_seconds)
+
+    grid_movement.set_raycast_mask(raycast_mask)
 
 func move():
     var dir: Vector2i = possible_directions.pick_random()

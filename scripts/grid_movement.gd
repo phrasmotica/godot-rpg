@@ -24,6 +24,9 @@ signal moving_finished
 func _ready():
     raycast.target_position = Vector2.RIGHT * step_size
 
+func set_raycast_mask(mask: int):
+    raycast.collision_mask = mask
+
 func get_snapped_position(current_pos: Vector2):
     var snap_pos = current_pos.snapped(Vector2.ONE * step_size)
     snap_pos -= Vector2.ONE * float(step_size) / 2
