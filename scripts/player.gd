@@ -91,22 +91,22 @@ func set_move_timer(direction: Vector2):
 
 func try_interact():
 	var collider = grid_movement.raycast.get_collider()
-	if collider:
-		if collider is ItemArea:
-			var item_area = collider as ItemArea
-			var item := item_area.get_item()
-			pickup_item.emit(item)
 
-			item_area.dispose()
-			return
+	if not collider:
+		return
 
-		if collider is NPC:
-			var npc := collider as NPC
-			npc.face(global_position)
+	if collider is ItemArea:
+		var item_area = collider as ItemArea
+		var item := item_area.get_item()
+		pickup_item.emit(item)
 
-			dialogue_triggered.emit(npc.talk_dialogue)
+		item_area.dispose()
 
-			return
+	elif collider is NPC:
+		var npc := collider as NPC
+		npc.face(global_position)
+
+		dialogue_triggered.emit(npc.talk_dialogue)
 
 	interacted.emit()
 
