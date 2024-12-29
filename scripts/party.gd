@@ -9,3 +9,11 @@ func follow_player(positions: Array[Vector2i]):
         var pos := positions[i]
 
         member.move_to(pos, true)
+
+func get_colliders() -> Array[CollisionShape2D]:
+    var colliders: Array[CollisionShape2D] = []
+
+    for m in members:
+        colliders.append(m.collision_shape)
+
+    return colliders
