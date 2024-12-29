@@ -8,6 +8,9 @@ var talk_dialogue := "":
         if dialogue_area:
             dialogue_area.timeline = talk_dialogue
 
+@export
+var enable_move := false
+
 @export_range(0.0, 10.0)
 var move_interval_seconds := 5.0
 
@@ -38,8 +41,9 @@ var possible_directions: Array[Vector2i] = [
 func _ready():
     collision_shape.shape = dialogue_area.get_area_shape()
 
-    move_timer.timeout.connect(move)
-    move_timer.start(move_interval_seconds)
+    if enable_move:
+        move_timer.timeout.connect(move)
+        move_timer.start(move_interval_seconds)
 
     grid_movement.set_raycast_mask(raycast_mask)
 

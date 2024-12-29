@@ -76,6 +76,7 @@ npcs = [NodePath("NPC")]
 
 [node name="NPC" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
 position = Vector2(1056, 672)
+enable_move = true
 
 [node name="Player" parent="Map" node_paths=PackedStringArray("dialogue_manager") instance=ExtResource("1_ia2wv")]
 position = Vector2(1184, 800)
