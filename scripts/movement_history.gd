@@ -10,9 +10,9 @@ var _pos_history: Array[Vector2i] = []
 
 func _ready() -> void:
     if player:
-        player.moved_to_position.connect(handle_player_moved_to_position)
+        player.moving_to_position.connect(handle_player_moving_to_position)
 
-func handle_player_moved_to_position(pos: Vector2i) -> void:
+func handle_player_moving_to_position(pos: Vector2i) -> void:
     if party:
         party.follow_player(_pos_history)
 

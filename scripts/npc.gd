@@ -62,10 +62,10 @@ func face(pos: Vector2):
 
     grid_movement.face(dir)
 
-func move_to(pos: Vector2):
+func move_to(pos: Vector2, ignore_collision := false):
     print("NPC " + name + " is being moved to " + str(pos))
 
     var dir := (pos - global_position).normalized()
 
     grid_movement.face(dir)
-    grid_movement.move(dir)
+    grid_movement.move(dir, ignore_collision)

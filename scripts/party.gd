@@ -8,4 +8,4 @@ func follow_player(positions: Array[Vector2i]):
         var member := members[i]
         var pos := positions[i]
 
-        member.move_to(pos)
+        member.move_to(pos, true)

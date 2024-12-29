@@ -22,6 +22,7 @@ var moving_direction := Vector2.ZERO
 var facing_direction := Vector2.RIGHT
 
 signal position_faced(pos: Vector2)
+signal moving_started(pos: Vector2)
 signal moving_finished(pos: Vector2)
 
 func _ready():
@@ -66,7 +67,7 @@ func check_facing_tile():
 
     position_faced.emit(facing_pos)
 
-func move(direction: Vector2) -> void:
+func move(direction: Vector2, ignore_collision := false) -> void:
     if moving_direction.length() == 0 and direction.length() > 0:
         var movement := Vector2.ZERO
 
@@ -79,7 +80,7 @@ func move(direction: Vector2) -> void:
         elif direction.x < 0:
             movement = Vector2.LEFT
 
-        if not raycast.is_colliding():
+        if ignore_collision or not raycast.is_colliding():
             moving_direction = movement
 
             animate_move()
@@ -89,6 +90,8 @@ func move(direction: Vector2) -> void:
 
 func animate_move():
     var new_position := self_node.global_position + (moving_direction * step_size)
+
+    moving_started.emit(new_position)
 
     var tween := create_tween()
     tween.tween_property(self_node, "position", new_position, speed).set_trans(Tween.TRANS_LINEAR)
