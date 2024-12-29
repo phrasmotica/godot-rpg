@@ -19,7 +19,7 @@ var moving_direction := Vector2.ZERO
 var facing_direction := Vector2.RIGHT
 
 signal position_faced(pos: Vector2)
-signal moving_finished
+signal moving_finished(pos: Vector2)
 
 func _ready():
     raycast.target_position = Vector2.RIGHT * step_size
@@ -83,14 +83,14 @@ func move(direction: Vector2) -> void:
                 movement_animation.do_move(direction)
 
 func animate_move():
-    var new_position = self_node.global_position + (moving_direction * step_size)
+    var new_position := self_node.global_position + (moving_direction * step_size)
 
     var tween := create_tween()
     tween.tween_property(self_node, "position", new_position, speed).set_trans(Tween.TRANS_LINEAR)
     tween.tween_callback(
         func():
             moving_direction = Vector2.ZERO
-            moving_finished.emit()
+            moving_finished.emit(new_position)
 
             check_facing_tile()
     )

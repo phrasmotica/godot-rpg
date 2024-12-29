@@ -125,7 +125,7 @@ func compute_input_action(direction: Vector2) -> StringName:
 
 	return ""
 
-func _on_grid_movement_moving_finished():
+func _on_grid_movement_moving_finished(_pos: Vector2):
 	sprite.stop()
 
 func _on_ui_manager_menu_opened():
