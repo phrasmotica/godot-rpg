@@ -24,6 +24,7 @@ var _dialogue_playing := false
 var move_timer_on := false
 
 signal position_faced(pos: Vector2)
+signal moved_to_position(pos: Vector2i)
 signal interacted
 signal pickup_item(item: Item)
 signal dialogue_triggered(timeline: String)
