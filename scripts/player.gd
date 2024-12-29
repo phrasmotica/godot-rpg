@@ -38,9 +38,12 @@ func _ready():
 
 	if grid_movement:
 		grid_movement.position_faced.connect(position_faced.emit)
+		grid_movement.moving_finished.connect(moved_to_position.emit)
 
 		grid_movement.set_raycast_mask(raycast_mask)
 		grid_movement.check_facing_tile()
+
+	moved_to_position.emit(global_position)
 
 func handle_dialogue_started():
 	_dialogue_playing = true
