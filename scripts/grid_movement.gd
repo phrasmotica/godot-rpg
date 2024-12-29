@@ -12,6 +12,9 @@ var step_size := 64
 @export
 var movement_animation: MovementAnimation
 
+@export
+var sprite: Sprite2D
+
 @onready
 var raycast: RayCast2D = $RayCast2D
 
@@ -50,6 +53,8 @@ func face(direction: Vector2) -> bool:
 
             if movement_animation:
                 movement_animation.face_direction(direction)
+            elif sprite:
+                sprite.rotation = direction.angle()
 
         return did_change
 
