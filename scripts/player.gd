@@ -75,7 +75,7 @@ func process_move():
 			set_move_timer(direction)
 		else:
 			# no need to wait for the player to face in the movement direction
-			grid_movement.move(direction)
+			grid_movement.move_obey_collisions(direction)
 
 func set_move_timer(direction: Vector2):
 	if direction.length() <= 0:
@@ -92,7 +92,7 @@ func set_move_timer(direction: Vector2):
 			var action = compute_input_action(direction)
 
 			if Input.is_action_pressed(action):
-				grid_movement.move(direction)
+				grid_movement.move_obey_collisions(direction)
 	)
 
 func try_interact():

@@ -53,7 +53,7 @@ func move():
     print("NPC " + name + " moving in direction " + str(dir))
 
     grid_movement.face(dir)
-    grid_movement.move(dir)
+    grid_movement.move_obey_collisions(dir)
 
 func face(pos: Vector2):
     print("NPC " + name + " facing position " + str(pos))
@@ -68,4 +68,8 @@ func move_to(pos: Vector2, ignore_collision := false):
     var dir := (pos - global_position).normalized()
 
     grid_movement.face(dir)
-    grid_movement.move(dir, ignore_collision)
+
+    if ignore_collision:
+        grid_movement.move_ignore_collisions(dir)
+    else:
+        grid_movement.move_obey_collisions(dir)

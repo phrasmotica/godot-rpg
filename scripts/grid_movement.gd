@@ -67,7 +67,13 @@ func check_facing_tile():
 
     position_faced.emit(facing_pos)
 
-func move(direction: Vector2, ignore_collision := false) -> void:
+func move_obey_collisions(direction: Vector2) -> void:
+    _move(direction, raycast.is_colliding())
+
+func move_ignore_collisions(direction: Vector2) -> void:
+    _move(direction, false)
+
+func _move(direction: Vector2, is_colliding: bool) -> void:
     if moving_direction.length() == 0 and direction.length() > 0:
         var movement := Vector2.ZERO
 
@@ -80,7 +86,7 @@ func move(direction: Vector2, ignore_collision := false) -> void:
         elif direction.x < 0:
             movement = Vector2.LEFT
 
-        if ignore_collision or not raycast.is_colliding():
+        if not is_colliding:
             moving_direction = movement
 
             animate_move()
