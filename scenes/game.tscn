@@ -38,7 +38,7 @@
 script = ExtResource("4_uej20")
 ctx_bag_menu = ExtResource("2_2ba1f")
 ctx_interact = ExtResource("2_p6jtw")
-walk_mode = ExtResource("2_c4rma")
+ctx_walk_mode = ExtResource("2_c4rma")
 dialogue_manager = NodePath("../DialogueCanvas/DialogueManager")
 ui_manager = NodePath("../UICanvas/UIManager")
 
