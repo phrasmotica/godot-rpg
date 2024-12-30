@@ -106,17 +106,3 @@ func try_interact():
 
 func _on_grid_movement_moving_finished(_pos: Vector2):
 	sprite.stop()
-
-func _on_ui_manager_menu_opened():
-	prevent_input()
-
-func _on_ui_manager_menu_closed():
-	allow_input()
-
-func prevent_input():
-	set_process(false)
-
-func allow_input():
-	# this ensures that this script processes against from the NEXT frame
-	var callable := set_process.bind(true)
-	get_tree().process_frame.connect(callable, CONNECT_ONE_SHOT)

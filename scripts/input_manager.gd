@@ -9,6 +9,9 @@ var walk_mode: GUIDEMappingContext
 @export
 var dialogue_manager: DialogueManager
 
+@export
+var ui_manager: UIManager
+
 func _ready() -> void:
 	GUIDE.enable_mapping_context(ctx_interact)
 	GUIDE.enable_mapping_context(walk_mode)
@@ -17,11 +20,24 @@ func _ready() -> void:
 		dialogue_manager.timeline_started.connect(handle_dialogue_started)
 		dialogue_manager.timeline_ended.connect(handle_dialogue_finished)
 
-func handle_dialogue_started():
+	if ui_manager:
+		ui_manager.menu_opened.connect(handle_menu_opened)
+		ui_manager.menu_closed.connect(handle_menu_closed)
+
+func handle_dialogue_started() -> void:
 	disable_walk_mode()
 
-func handle_dialogue_finished():
-	get_tree().process_frame.connect(enable_walk_mode, CONNECT_ONE_SHOT)
+func handle_dialogue_finished() -> void:
+	on_next_frame(enable_walk_mode)
+
+func handle_menu_opened() -> void:
+	disable_walk_mode()
+
+func handle_menu_closed() -> void:
+	on_next_frame(enable_walk_mode)
+
+func on_next_frame(callable: Callable) -> void:
+	get_tree().process_frame.connect(callable, CONNECT_ONE_SHOT)
 
 func enable_walk_mode() -> void:
 	GUIDE.enable_mapping_context(ctx_interact)

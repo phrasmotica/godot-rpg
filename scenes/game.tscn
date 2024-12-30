@@ -32,11 +32,12 @@
 
 [node name="Game" type="Node2D"]
 
-[node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("dialogue_manager")]
+[node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("dialogue_manager", "ui_manager")]
 script = ExtResource("4_uej20")
 ctx_interact = ExtResource("2_p6jtw")
 walk_mode = ExtResource("2_c4rma")
 dialogue_manager = NodePath("../DialogueCanvas/DialogueManager")
+ui_manager = NodePath("../UICanvas/UIManager")
 
 [node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("tile_map_layer", "tile_detection")]
 script = ExtResource("1_ksc2i")
@@ -208,8 +209,6 @@ layer = 10
 [connection signal="used_item" from="Map/Player/Bag" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_used_item"]
 [connection signal="item_consume_result_created" from="Map/Player/Bag/ItemConsumer" to="DialogueCanvas/DialogueManager" method="_on_item_consumer_item_consume_result_created"]
 [connection signal="item_effect_result_created" from="Map/Player/Bag/ItemConsumer" to="DialogueCanvas/DialogueManager" method="_on_item_consumer_item_effect_result_created"]
-[connection signal="menu_closed" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_menu_closed"]
-[connection signal="menu_opened" from="UICanvas/UIManager" to="Map/Player" method="_on_ui_manager_menu_opened"]
 [connection signal="ui_ready" from="UICanvas/UIManager" to="Map/Player/HitPoints" method="_on_ui_manager_ui_ready"]
 [connection signal="cancel" from="UICanvas/UIManager/MarginContainer/Menu" to="UICanvas/UIManager" method="_on_menu_cancel"]
 [connection signal="visibility_changed" from="UICanvas/UIManager/MarginContainer/Menu" to="UICanvas/UIManager/MarginContainer/Menu" method="_on_visibility_changed"]

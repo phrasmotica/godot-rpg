@@ -1,4 +1,4 @@
-extends Node
+class_name UIManager extends Node
 
 @export
 var menu: MenuSet
