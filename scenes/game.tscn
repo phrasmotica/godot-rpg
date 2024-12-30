@@ -30,10 +30,11 @@
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="27_5g51u"]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("dialogue_manager")]
 script = ExtResource("1_bfa1k")
 ctx_interact = ExtResource("2_p6jtw")
 walk_mode = ExtResource("2_c4rma")
+dialogue_manager = NodePath("DialogueCanvas/DialogueManager")
 
 [node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("tile_map_layer", "tile_detection")]
 script = ExtResource("1_ksc2i")
@@ -95,9 +96,8 @@ position = Vector2(1120, 800)
 [node name="NPC3" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
 position = Vector2(1120, 800)
 
-[node name="Player" parent="Map" node_paths=PackedStringArray("dialogue_manager", "party") instance=ExtResource("1_ia2wv")]
+[node name="Player" parent="Map" node_paths=PackedStringArray("party") instance=ExtResource("1_ia2wv")]
 position = Vector2(1184, 800)
-dialogue_manager = NodePath("../../DialogueCanvas/DialogueManager")
 party = NodePath("Party")
 move_action = ExtResource("11_vc7q6")
 interact_action = ExtResource("14_wu561")

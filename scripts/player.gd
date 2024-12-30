@@ -4,9 +4,6 @@ class_name Player extends CharacterBody2D
 var sprite: AnimatedSprite2D
 
 @export
-var dialogue_manager: DialogueManager
-
-@export
 var party: Party
 
 @export
@@ -29,7 +26,6 @@ var raycast_mask: int
 @onready
 var grid_movement: GridMovement = %GridMovement
 
-var _dialogue_playing := false
 var move_timer_on := false
 
 signal position_faced(pos: Vector2)
@@ -40,10 +36,6 @@ signal pickup_item(item: Item)
 signal dialogue_triggered(timeline: String)
 
 func _ready():
-	if dialogue_manager:
-		dialogue_manager.timeline_started.connect(handle_dialogue_started)
-		dialogue_manager.timeline_ended.connect(handle_dialogue_finished)
-
 	position = grid_movement.get_snapped_position(position)
 
 	if grid_movement:
@@ -58,18 +50,8 @@ func _ready():
 
 	moving_to_position.emit(global_position)
 
-func handle_dialogue_started():
-	_dialogue_playing = true
-
-func handle_dialogue_finished():
-	get_tree().process_frame.connect(
-		func():
-			_dialogue_playing = false
-	, CONNECT_ONE_SHOT)
-
 func _process(_delta):
-	if not _dialogue_playing:
-		process_move()
+	process_move()
 
 func process_move():
 	var direction := move_action.value_axis_2d
@@ -104,9 +86,6 @@ func set_move_timer(direction: Vector2):
 	)
 
 func try_interact():
-	if _dialogue_playing:
-		return
-
 	var collider = grid_movement.raycast.get_collider()
 
 	if not collider:
