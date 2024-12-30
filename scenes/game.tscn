@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_ksc2i"]
 [ext_resource type="Resource" uid="uid://bm3sgn3pyotus" path="res://resources/input/ctx_bag_menu.tres" id="2_2ba1f"]
 [ext_resource type="PackedScene" uid="uid://bd0jt41y1i55t" path="res://scenes/item_pickup.tscn" id="2_24x27"]
-[ext_resource type="Resource" uid="uid://cp5gm7rfljpgs" path="res://resources/input/walk_mode.tres" id="2_c4rma"]
+[ext_resource type="Resource" uid="uid://cp5gm7rfljpgs" path="res://resources/input/ctx_walk_mode.tres" id="2_c4rma"]
 [ext_resource type="Resource" uid="uid://dbdwcsay6ekb8" path="res://resources/input/ctx_interact.tres" id="2_p6jtw"]
 [ext_resource type="PackedScene" uid="uid://cbptipoqr4j66" path="res://scenes/hit_points.tscn" id="3_21716"]
 [ext_resource type="PackedScene" uid="uid://wf1bgkchcqs5" path="res://scenes/bag.tscn" id="3_pc812"]
