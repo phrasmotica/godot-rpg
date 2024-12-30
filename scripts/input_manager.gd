@@ -1,6 +1,9 @@
 extends Node
 
 @export
+var ctx_bag_menu: GUIDEMappingContext
+
+@export
 var ctx_interact: GUIDEMappingContext
 
 @export
@@ -13,6 +16,7 @@ var dialogue_manager: DialogueManager
 var ui_manager: UIManager
 
 func _ready() -> void:
+	GUIDE.enable_mapping_context(ctx_bag_menu)
 	GUIDE.enable_mapping_context(ctx_interact)
 	GUIDE.enable_mapping_context(walk_mode)
 
@@ -26,9 +30,11 @@ func _ready() -> void:
 
 func handle_dialogue_started() -> void:
 	disable_walk_mode()
+	disable_bag_menu()
 
 func handle_dialogue_finished() -> void:
 	on_next_frame(enable_walk_mode)
+	on_next_frame(enable_bag_menu)
 
 func handle_menu_opened() -> void:
 	disable_walk_mode()
@@ -46,3 +52,9 @@ func enable_walk_mode() -> void:
 func disable_walk_mode() -> void:
 	GUIDE.disable_mapping_context(ctx_interact)
 	GUIDE.disable_mapping_context(walk_mode)
+
+func disable_bag_menu() -> void:
+	GUIDE.disable_mapping_context(ctx_bag_menu)
+
+func enable_bag_menu() -> void:
+	GUIDE.enable_mapping_context(ctx_bag_menu)

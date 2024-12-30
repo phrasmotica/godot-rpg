@@ -1,9 +1,10 @@
-[gd_scene load_steps=30 format=4 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=32 format=4 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="TileSet" uid="uid://bs5kp5aiadcug" path="res://resources/tilesets/game_tile_set.tres" id="1_af0we"]
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player.tscn" id="1_ia2wv"]
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_ksc2i"]
+[ext_resource type="Resource" uid="uid://bm3sgn3pyotus" path="res://resources/input/ctx_bag_menu.tres" id="2_2ba1f"]
 [ext_resource type="PackedScene" uid="uid://bd0jt41y1i55t" path="res://scenes/item_pickup.tscn" id="2_24x27"]
 [ext_resource type="Resource" uid="uid://cp5gm7rfljpgs" path="res://resources/input/walk_mode.tres" id="2_c4rma"]
 [ext_resource type="Resource" uid="uid://dbdwcsay6ekb8" path="res://resources/input/ctx_interact.tres" id="2_p6jtw"]
@@ -28,12 +29,14 @@
 [ext_resource type="Resource" uid="uid://v5qquk3hch77" path="res://resources/input/interact.tres" id="14_wu561"]
 [ext_resource type="PackedScene" uid="uid://uh2ihallkouo" path="res://scenes/tile_detection.tscn" id="15_4thmm"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
+[ext_resource type="Resource" uid="uid://bc5ihww0horcy" path="res://resources/input/toggle_bag_menu.tres" id="22_p4bfe"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="27_5g51u"]
 
 [node name="Game" type="Node2D"]
 
 [node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("dialogue_manager", "ui_manager")]
 script = ExtResource("4_uej20")
+ctx_bag_menu = ExtResource("2_2ba1f")
 ctx_interact = ExtResource("2_p6jtw")
 walk_mode = ExtResource("2_c4rma")
 dialogue_manager = NodePath("../DialogueCanvas/DialogueManager")
@@ -125,10 +128,10 @@ hit_points = NodePath("../../HitPoints")
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
-[node name="UIManager" type="Node" parent="UICanvas" node_paths=PackedStringArray("menu", "dialogue_manager")]
+[node name="UIManager" type="Node" parent="UICanvas" node_paths=PackedStringArray("menu")]
 script = ExtResource("3_qs36w")
 menu = NodePath("MarginContainer/Menu")
-dialogue_manager = NodePath("../../DialogueCanvas/DialogueManager")
+toggle_bag_menu_action = ExtResource("22_p4bfe")
 
 [node name="MarginContainer" type="MarginContainer" parent="UICanvas/UIManager"]
 anchors_preset = 1
@@ -140,29 +143,29 @@ grow_horizontal = 0
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 
-[node name="Menu" type="HFlowContainer" parent="UICanvas/UIManager/MarginContainer" node_paths=PackedStringArray("menus", "menu_dimmers", "dialogue_manager")]
+[node name="Menu" type="HFlowContainer" parent="UICanvas/UIManager/MarginContainer" node_paths=PackedStringArray("menus", "menu_dimmers")]
 layout_mode = 2
 theme_override_constants/h_separation = 20
 alignment = 2
 script = ExtResource("12_62p5y")
 menus = [NodePath("BagMenu"), NodePath("PlayerStats")]
 menu_dimmers = [NodePath("BagMenu/Dimmer"), NodePath("PlayerStats/Dimmer")]
-dialogue_manager = NodePath("../../../../DialogueCanvas/DialogueManager")
+toggle_bag_menu_action = ExtResource("22_p4bfe")
 
-[node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/Menu" node_paths=PackedStringArray("dialogue_manager") instance=ExtResource("13_55kbe")]
+[node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/Menu" instance=ExtResource("13_55kbe")]
 modulate = Color(0.662745, 0.662745, 0.662745, 1)
 layout_mode = 2
 dimming_hides_content = true
-dialogue_manager = NodePath("../../../../../DialogueCanvas/DialogueManager")
+toggle_bag_menu_action = ExtResource("22_p4bfe")
 
 [node name="Dimmer" parent="UICanvas/UIManager/MarginContainer/Menu/PlayerStats" node_paths=PackedStringArray("to_dim") instance=ExtResource("13_w1m1t")]
 to_dim = NodePath("..")
 is_dimmed = true
 
-[node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/Menu" node_paths=PackedStringArray("dialogue_manager") instance=ExtResource("5_votnq")]
+[node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/Menu" instance=ExtResource("5_votnq")]
 custom_minimum_size = Vector2(360, 2.08165e-12)
 layout_mode = 2
-dialogue_manager = NodePath("../../../../../DialogueCanvas/DialogueManager")
+toggle_bag_menu_action = ExtResource("22_p4bfe")
 
 [node name="Dimmer" parent="UICanvas/UIManager/MarginContainer/Menu/BagMenu" node_paths=PackedStringArray("to_dim") instance=ExtResource("13_w1m1t")]
 to_dim = NodePath("..")
@@ -171,7 +174,7 @@ to_dim = NodePath("..")
 parent_menu = NodePath("..")
 child_menus = [NodePath("../../../../UseItemMenu")]
 
-[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("item_consumer", "dialogue_manager") instance=ExtResource("9_6coe6")]
+[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("item_consumer") instance=ExtResource("9_6coe6")]
 visible = false
 anchors_preset = 1
 anchor_left = 1.0
@@ -182,7 +185,7 @@ offset_right = -416.0
 offset_bottom = 128.0
 grow_horizontal = 0
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
-dialogue_manager = NodePath("../../../DialogueCanvas/DialogueManager")
+toggle_bag_menu_action = ExtResource("22_p4bfe")
 
 [node name="DialogueCanvas" type="CanvasLayer" parent="."]
 layer = 10

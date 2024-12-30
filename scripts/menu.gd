@@ -7,10 +7,9 @@ class_name Menu extends Control
 var dimming_hides_content := false
 
 @export
-var dialogue_manager: DialogueManager
+var toggle_bag_menu_action: GUIDEAction
 
 var _inactive := false
-var _dialogue_playing := false
 
 signal cancel
 
@@ -26,21 +25,9 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 
-	if dialogue_manager:
-		dialogue_manager.timeline_started.connect(
-			func():
-				_dialogue_playing = true
-		)
-
-		dialogue_manager.timeline_ended.connect(
-			func():
-				get_tree().process_frame.connect(handle_dialogue_finished, CONNECT_ONE_SHOT)
-		)
+	toggle_bag_menu_action.triggered.connect(handle_toggle_bag_menu)
 
 	after_ready()
-
-func handle_dialogue_finished():
-	_dialogue_playing = false
 
 func after_ready():
 	pass
@@ -50,13 +37,14 @@ func _process(_delta):
 		return
 
 	if can_listen():
-		if Input.is_action_just_pressed("ui_cancel"):
-			cancel_menu()
-
 		listen_for_inputs()
 
+func handle_toggle_bag_menu() -> void:
+	if can_listen():
+		cancel_menu()
+
 func can_listen():
-	return not _inactive and not _dialogue_playing and is_visible_in_tree()
+	return not _inactive and is_visible_in_tree()
 
 func cancel_menu():
 	cancel.emit()
