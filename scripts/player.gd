@@ -58,6 +58,7 @@ func process_move():
 		if not grid_movement.can_face(direction) or move_timer_on:
 			return
 
+		# TODO: implement facing logic via GUIDE tap triggers
 		var did_change := grid_movement.face(direction)
 		if did_change:
 			set_move_timer(direction)
