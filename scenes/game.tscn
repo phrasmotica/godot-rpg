@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=28 format=4 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="TileSet" uid="uid://bs5kp5aiadcug" path="res://resources/tilesets/game_tile_set.tres" id="1_af0we"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/dimmer.tscn" id="13_w1m1t"]
 [ext_resource type="PackedScene" uid="uid://uh2ihallkouo" path="res://scenes/tile_detection.tscn" id="15_4thmm"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
+[ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="27_5g51u"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_bfa1k")
@@ -180,6 +181,10 @@ dialogue_manager = NodePath("../../../DialogueCanvas/DialogueManager")
 layer = 10
 
 [node name="DialogueManager" parent="DialogueCanvas" instance=ExtResource("1_1vlts")]
+
+[node name="DebugLayer" type="CanvasLayer" parent="."]
+
+[node name="GuideDebugger" parent="DebugLayer" instance=ExtResource("27_5g51u")]
 
 [connection signal="player_faced_tile" from="Map" to="UICanvas/UIManager/UseItemMenu" method="_on_map_player_faced_tile"]
 [connection signal="player_interacted" from="Map" to="DialogueCanvas/DialogueManager" method="_on_map_player_interacted"]
