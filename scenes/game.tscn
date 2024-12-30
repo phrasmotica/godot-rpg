@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="TileSet" uid="uid://bs5kp5aiadcug" path="res://resources/tilesets/game_tile_set.tres" id="1_af0we"]
-[ext_resource type="Script" path="res://scripts/game.gd" id="1_bfa1k"]
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player.tscn" id="1_ia2wv"]
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_ksc2i"]
 [ext_resource type="PackedScene" uid="uid://bd0jt41y1i55t" path="res://scenes/item_pickup.tscn" id="2_24x27"]
@@ -12,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://wf1bgkchcqs5" path="res://scenes/bag.tscn" id="3_pc812"]
 [ext_resource type="Script" path="res://scripts/ui_manager.gd" id="3_qs36w"]
 [ext_resource type="Resource" uid="uid://bsp3wru64i61u" path="res://resources/items/item_apple.tres" id="4_joh4c"]
+[ext_resource type="Script" path="res://scripts/input_manager.gd" id="4_uej20"]
 [ext_resource type="Resource" uid="uid://051773al2ksf" path="res://resources/items/item_potion.tres" id="5_c3sxs"]
 [ext_resource type="PackedScene" uid="uid://7nyhh4cif5fr" path="res://scenes/bag_menu.tscn" id="5_votnq"]
 [ext_resource type="Resource" uid="uid://b5hhypvakbuho" path="res://resources/items/item_glass.tres" id="7_dso4j"]
@@ -30,11 +30,13 @@
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="27_5g51u"]
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("dialogue_manager")]
-script = ExtResource("1_bfa1k")
+[node name="Game" type="Node2D"]
+
+[node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("dialogue_manager")]
+script = ExtResource("4_uej20")
 ctx_interact = ExtResource("2_p6jtw")
 walk_mode = ExtResource("2_c4rma")
-dialogue_manager = NodePath("DialogueCanvas/DialogueManager")
+dialogue_manager = NodePath("../DialogueCanvas/DialogueManager")
 
 [node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("tile_map_layer", "tile_detection")]
 script = ExtResource("1_ksc2i")
