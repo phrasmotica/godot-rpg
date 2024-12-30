@@ -46,12 +46,10 @@ func _ready():
 		grid_movement.set_raycast_mask(raycast_mask)
 		grid_movement.check_facing_tile()
 
+	move_action.triggered.connect(process_move)
 	interact_action.triggered.connect(try_interact)
 
 	moving_to_position.emit(global_position)
-
-func _process(_delta):
-	process_move()
 
 func process_move():
 	var direction := move_action.value_axis_2d
