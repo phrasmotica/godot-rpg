@@ -70,7 +70,7 @@ func _process(_delta):
 			try_interact()
 
 func process_move():
-	var direction := Vector2(move_action.value_axis_3d.x, move_action.value_axis_3d.y)
+	var direction := move_action.value_axis_2d
 
 	if direction.length() > 0:
 		if not grid_movement.can_face(direction) or move_timer_on:
