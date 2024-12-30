@@ -98,9 +98,7 @@ func set_move_timer(direction: Vector2):
 		func():
 			move_timer_on = false
 
-			var action = compute_input_action(direction)
-
-			if Input.is_action_pressed(action):
+			if move_action.value_axis_2d == direction:
 				var party_colliders := party.get_colliders() if party else []
 				grid_movement.move_ignore_collision_set(direction, party_colliders)
 	)
@@ -128,21 +126,6 @@ func try_interact():
 		dialogue_triggered.emit(npc.talk_dialogue)
 
 	interacted.emit()
-
-func compute_input_action(direction: Vector2) -> StringName:
-	if direction.y > 0:
-		return "player_down"
-
-	if direction.y < 0:
-		return "player_up"
-
-	if direction.x > 0:
-		return "player_right"
-
-	if direction.x < 0:
-		return "player_left"
-
-	return ""
 
 func _on_grid_movement_moving_finished(_pos: Vector2):
 	sprite.stop()
