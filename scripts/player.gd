@@ -9,6 +9,9 @@ var dialogue_manager: DialogueManager
 @export
 var party: Party
 
+@export
+var move_action: GUIDEAction
+
 ## The number of seconds that a movement key must be held down before the player
 ## moves. This means if the key is not held down for that long, the player will
 ## face the new direction without moving.
@@ -67,7 +70,7 @@ func _process(_delta):
 			try_interact()
 
 func process_move():
-	var direction := Input.get_vector("player_left", "player_right", "player_up", "player_down")
+	var direction := Vector2(move_action.value_axis_3d.x, move_action.value_axis_3d.y)
 
 	if direction.length() > 0:
 		if not grid_movement.can_face(direction) or move_timer_on:
