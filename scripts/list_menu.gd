@@ -4,6 +4,12 @@ class_name ListMenu extends Menu
 @export
 var items: Array[MenuItem] = []
 
+@export
+var menu_nav_action: GUIDEAction
+
+@export
+var menu_select_action: GUIDEAction
+
 ## The index of the selected menu item. Set to -1 for no item to be selected.
 @export
 var current_index := -1:
@@ -20,23 +26,36 @@ var current_index := -1:
 signal current_index_changed(index: int)
 signal select_index(index: int)
 
-func after_ready():
+func _ready():
+	if Engine.is_editor_hint():
+		return
+
+	toggle_bag_menu_action.triggered.connect(handle_toggle_bag_menu)
+	menu_nav_action.triggered.connect(handle_menu_nav)
+	menu_select_action.triggered.connect(handle_menu_select)
+
 	if items.size() > 0:
 		current_index = 0
 
-func listen_for_inputs():
-	if Input.is_action_just_pressed("ui_select"):
-		process_select()
+func handle_menu_nav() -> void:
+	var dir := menu_nav_action.value_axis_2d
 
-	if Input.is_action_just_pressed("menu_down"):
+	if dir == Vector2.DOWN:
 		print("Moving to next item")
 
 		next()
 
-	if Input.is_action_just_pressed("menu_up"):
+	if dir == Vector2.UP:
 		print("Moving to previous item")
 
 		previous()
+
+func handle_menu_select() -> void:
+	if can_listen():
+		print(name + " can listen, handling menu select")
+		process_select()
+	else:
+		print(name + " cannot listen!")
 
 func get_max_index():
 	return items.size() - 1

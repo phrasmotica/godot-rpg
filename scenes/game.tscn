@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=35 format=4 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="TileSet" uid="uid://bs5kp5aiadcug" path="res://resources/tilesets/game_tile_set.tres" id="1_af0we"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://wf1bgkchcqs5" path="res://scenes/bag.tscn" id="3_pc812"]
 [ext_resource type="Script" path="res://scripts/ui_manager.gd" id="3_qs36w"]
 [ext_resource type="Resource" uid="uid://bsp3wru64i61u" path="res://resources/items/item_apple.tres" id="4_joh4c"]
+[ext_resource type="Resource" uid="uid://dt5dc26x64ebh" path="res://resources/input/ctx_menu_nav.tres" id="4_o6w0g"]
 [ext_resource type="Script" path="res://scripts/input_manager.gd" id="4_uej20"]
 [ext_resource type="Resource" uid="uid://051773al2ksf" path="res://resources/items/item_potion.tres" id="5_c3sxs"]
 [ext_resource type="PackedScene" uid="uid://7nyhh4cif5fr" path="res://scenes/bag_menu.tscn" id="5_votnq"]
@@ -31,6 +32,8 @@
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
 [ext_resource type="Resource" uid="uid://bc5ihww0horcy" path="res://resources/input/toggle_bag_menu.tres" id="22_p4bfe"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="27_5g51u"]
+[ext_resource type="Resource" uid="uid://b7cxm53xklexf" path="res://resources/input/menu_select.tres" id="28_apfmn"]
+[ext_resource type="Resource" uid="uid://brvcbjaw14wp5" path="res://resources/input/menu_nav.tres" id="29_v7mnn"]
 
 [node name="Game" type="Node2D"]
 
@@ -38,6 +41,7 @@
 script = ExtResource("4_uej20")
 ctx_bag_menu = ExtResource("2_2ba1f")
 ctx_interact = ExtResource("2_p6jtw")
+ctx_menu_nav = ExtResource("4_o6w0g")
 ctx_walk_mode = ExtResource("2_c4rma")
 dialogue_manager = NodePath("../DialogueCanvas/DialogueManager")
 ui_manager = NodePath("../UICanvas/UIManager")
@@ -150,6 +154,7 @@ alignment = 2
 script = ExtResource("12_62p5y")
 menus = [NodePath("BagMenu"), NodePath("PlayerStats")]
 menu_dimmers = [NodePath("BagMenu/Dimmer"), NodePath("PlayerStats/Dimmer")]
+menu_nav_action = ExtResource("29_v7mnn")
 toggle_bag_menu_action = ExtResource("22_p4bfe")
 
 [node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/Menu" instance=ExtResource("13_55kbe")]
@@ -165,6 +170,8 @@ is_dimmed = true
 [node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/Menu" instance=ExtResource("5_votnq")]
 custom_minimum_size = Vector2(360, 2.08165e-12)
 layout_mode = 2
+menu_nav_action = ExtResource("29_v7mnn")
+menu_select_action = ExtResource("28_apfmn")
 toggle_bag_menu_action = ExtResource("22_p4bfe")
 
 [node name="Dimmer" parent="UICanvas/UIManager/MarginContainer/Menu/BagMenu" node_paths=PackedStringArray("to_dim") instance=ExtResource("13_w1m1t")]
@@ -185,6 +192,8 @@ offset_right = -416.0
 offset_bottom = 128.0
 grow_horizontal = 0
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
+menu_nav_action = ExtResource("29_v7mnn")
+menu_select_action = ExtResource("28_apfmn")
 toggle_bag_menu_action = ExtResource("22_p4bfe")
 
 [node name="DialogueCanvas" type="CanvasLayer" parent="."]

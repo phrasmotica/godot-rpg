@@ -25,6 +25,9 @@ var menu_dimmers: Array[Dimmer] = []:
 		menu_dimmers = value
 		update_configuration_warnings()
 
+@export
+var menu_nav_action: GUIDEAction
+
 func after_ready():
 	if menus.size() > 0:
 		current_menu_index = 0
@@ -48,14 +51,17 @@ func after_ready():
 				enable_menu()
 		)
 
-func listen_for_inputs():
+	menu_nav_action.triggered.connect(handle_menu_nav)
+
+func handle_menu_nav() -> void:
 	# MEDIUM: allow cycling the positions of each menu in the set
 	# as the selected menu changes
+	var dir := menu_nav_action.value_axis_2d
 
-	if Input.is_action_just_pressed("menu_set_cycle_next"):
+	if dir == Vector2.RIGHT:
 		current_menu_index = ((current_menu_index + 1) % menus.size())
 
-	if Input.is_action_just_pressed("menu_set_cycle_previous"):
+	if dir == Vector2.LEFT:
 		current_menu_index = ((current_menu_index + menus.size() - 1) % menus.size())
 
 func _get_configuration_warnings():
