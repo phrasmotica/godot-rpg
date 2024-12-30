@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=30 format=4 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="TileSet" uid="uid://bs5kp5aiadcug" path="res://resources/tilesets/game_tile_set.tres" id="1_af0we"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_ksc2i"]
 [ext_resource type="PackedScene" uid="uid://bd0jt41y1i55t" path="res://scenes/item_pickup.tscn" id="2_24x27"]
 [ext_resource type="Resource" uid="uid://cp5gm7rfljpgs" path="res://resources/input/walk_mode.tres" id="2_c4rma"]
+[ext_resource type="Resource" uid="uid://dbdwcsay6ekb8" path="res://resources/input/ctx_interact.tres" id="2_p6jtw"]
 [ext_resource type="PackedScene" uid="uid://cbptipoqr4j66" path="res://scenes/hit_points.tscn" id="3_21716"]
 [ext_resource type="PackedScene" uid="uid://wf1bgkchcqs5" path="res://scenes/bag.tscn" id="3_pc812"]
 [ext_resource type="Script" path="res://scripts/ui_manager.gd" id="3_qs36w"]
@@ -31,6 +32,7 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_bfa1k")
+ctx_interact = ExtResource("2_p6jtw")
 walk_mode = ExtResource("2_c4rma")
 
 [node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("tile_map_layer", "tile_detection")]
