@@ -74,13 +74,16 @@ item = ExtResource("7_dso4j")
 
 [node name="NPCManager" type="Node2D" parent="Map" node_paths=PackedStringArray("npcs")]
 script = ExtResource("8_nppn6")
-npcs = [NodePath("NPC"), NodePath("NPC2")]
+npcs = [NodePath("NPC"), NodePath("NPC2"), NodePath("NPC3")]
 
 [node name="NPC" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
 position = Vector2(1056, 672)
 enable_move = true
 
 [node name="NPC2" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
+position = Vector2(1120, 800)
+
+[node name="NPC3" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
 position = Vector2(1120, 800)
 
 [node name="Player" parent="Map" node_paths=PackedStringArray("dialogue_manager", "party") instance=ExtResource("1_ia2wv")]
@@ -95,7 +98,7 @@ player = NodePath("..")
 party = NodePath("../Party")
 
 [node name="Party" parent="Map/Player" node_paths=PackedStringArray("members") instance=ExtResource("11_d8y58")]
-members = [NodePath("../../NPCManager/NPC2")]
+members = [NodePath("../../NPCManager/NPC2"), NodePath("../../NPCManager/NPC3")]
 
 [node name="HitPoints" parent="Map/Player" instance=ExtResource("3_21716")]
 current_hp = 40
