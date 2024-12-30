@@ -12,6 +12,9 @@ var party: Party
 @export
 var move_action: GUIDEAction
 
+@export
+var interact_action: GUIDEAction
+
 ## The number of seconds that a movement key must be held down before the player
 ## moves. This means if the key is not held down for that long, the player will
 ## face the new direction without moving.
@@ -51,6 +54,8 @@ func _ready():
 		grid_movement.set_raycast_mask(raycast_mask)
 		grid_movement.check_facing_tile()
 
+	interact_action.triggered.connect(try_interact)
+
 	moving_to_position.emit(global_position)
 
 func handle_dialogue_started():
@@ -65,9 +70,6 @@ func handle_dialogue_finished():
 func _process(_delta):
 	if not _dialogue_playing:
 		process_move()
-
-		if Input.is_action_just_pressed("pick_up"):
-			try_interact()
 
 func process_move():
 	var direction := move_action.value_axis_2d
@@ -104,6 +106,9 @@ func set_move_timer(direction: Vector2):
 	)
 
 func try_interact():
+	if _dialogue_playing:
+		return
+
 	var collider = grid_movement.raycast.get_collider()
 
 	if not collider:
