@@ -7,6 +7,9 @@ var sprite: AnimatedSprite2D
 var party: Party
 
 @export
+var face_action: GUIDEAction
+
+@export
 var move_action: GUIDEAction
 
 @export
@@ -58,7 +61,7 @@ func process_move():
 		if not grid_movement.can_face(direction) or move_timer_on:
 			return
 
-		# TODO: implement facing logic via GUIDE tap triggers
+		# TODO: use face_action triggers here instead...
 		var did_change := grid_movement.face(direction)
 		if did_change:
 			set_move_timer(direction)

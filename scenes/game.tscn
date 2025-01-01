@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=36 format=4 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="TileSet" uid="uid://bs5kp5aiadcug" path="res://resources/tilesets/game_tile_set.tres" id="1_af0we"]
@@ -30,6 +30,7 @@
 [ext_resource type="Resource" uid="uid://v5qquk3hch77" path="res://resources/input/interact.tres" id="14_wu561"]
 [ext_resource type="PackedScene" uid="uid://uh2ihallkouo" path="res://scenes/tile_detection.tscn" id="15_4thmm"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
+[ext_resource type="Resource" uid="uid://skcw58ycl5lp" path="res://resources/input/face.tres" id="16_wwsro"]
 [ext_resource type="Resource" uid="uid://bc5ihww0horcy" path="res://resources/input/toggle_bag_menu.tres" id="22_p4bfe"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="27_5g51u"]
 [ext_resource type="Resource" uid="uid://b7cxm53xklexf" path="res://resources/input/menu_select.tres" id="28_apfmn"]
@@ -109,6 +110,7 @@ position = Vector2(1120, 800)
 [node name="Player" parent="Map" node_paths=PackedStringArray("party") instance=ExtResource("1_ia2wv")]
 position = Vector2(1184, 800)
 party = NodePath("Party")
+face_action = ExtResource("16_wwsro")
 move_action = ExtResource("11_vc7q6")
 interact_action = ExtResource("14_wu561")
 
