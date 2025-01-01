@@ -15,7 +15,6 @@ var item_list: VBoxContainer = %ItemList
 
 var item_stack_menu_items: Array[ItemStackMenuItem]
 
-signal add_random_item
 signal select_stack(stack: ItemStack)
 
 signal use_item(stack_id: int)
@@ -50,15 +49,6 @@ func previous():
 	# this weird maths ensures we wrap around to the bottom of the bag
 	# if we're currently at the top of it
 	current_index = (current_index + item_stack_menu_items.size() - 1) % item_stack_menu_items.size()
-
-func listen_for_inputs():
-	super.listen_for_inputs()
-
-	if Input.is_action_just_pressed("random_item"):
-		add_random_item.emit()
-
-	if Input.is_action_just_pressed("drop_item"):
-		drop_current_item()
 
 func highlight_current():
 	for button in item_stack_menu_items:

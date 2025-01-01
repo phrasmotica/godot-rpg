@@ -14,10 +14,6 @@ signal dropped_item(dropped_item: Item, item_stacks: Array[ItemStack])
 signal used_item(used_item: Item, item_stacks: Array[ItemStack])
 signal consumed_item(consumed_item: Item, item_stacks: Array[ItemStack])
 
-func add_random_item():
-	var item := item_pool.get_random()
-	add_item(item)
-
 func add_item(item: Item):
 	var new_item = stack_manager.add_item(item)
 
@@ -76,9 +72,6 @@ func _on_bag_menu_drop_item(stack_id: int):
 
 func _on_bag_menu_drop_stack(stack_id: int):
 	drop_stack(stack_id)
-
-func _on_bag_menu_add_random_item():
-	add_random_item()
 
 func _on_player_pickup_item(item: Item):
 	print("Player picked up " + item.name)

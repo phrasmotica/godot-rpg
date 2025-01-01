@@ -32,13 +32,6 @@ func _ready():
 func after_ready():
 	pass
 
-func _process(_delta):
-	if Engine.is_editor_hint():
-		return
-
-	if can_listen():
-		listen_for_inputs()
-
 func handle_toggle_bag_menu() -> void:
 	if can_listen():
 		cancel_menu()
@@ -48,9 +41,6 @@ func can_listen():
 
 func cancel_menu():
 	cancel.emit()
-
-func listen_for_inputs():
-	pass
 
 func disable_menu():
 	print("Disabling menu " + name)
