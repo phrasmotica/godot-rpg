@@ -4,14 +4,14 @@ class_name UIManager extends Node
 var menu: MenuSet
 
 @export
-var toggle_bag_menu_action: GUIDEAction
+var toggle_bag_menu_input_handler: ToggleBagMenuInputHandler
 
 signal ui_ready
 signal menu_opened
 signal menu_closed
 
 func _ready():
-	toggle_bag_menu_action.triggered.connect(handle_toggle_bag_menu)
+	toggle_bag_menu_input_handler.toggled.connect(_handle_toggle_bag_menu)
 
 	hide_menu()
 
@@ -21,8 +21,8 @@ func hide_menu():
 	menu.disable_menu()
 	menu.hide()
 
-func handle_toggle_bag_menu() -> void:
-	if not menu.visible and toggle_bag_menu_action.is_triggered():
+func _handle_toggle_bag_menu() -> void:
+	if not menu.visible:
 		print("Showing menu")
 
 		menu.show()

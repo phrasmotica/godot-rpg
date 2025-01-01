@@ -7,7 +7,7 @@ class_name Menu extends Control
 var dimming_hides_content := false
 
 @export
-var toggle_bag_menu_action: GUIDEAction
+var toggle_bag_menu_input_handler: ToggleBagMenuInputHandler
 
 var _inactive := false
 
@@ -25,14 +25,14 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 
-	toggle_bag_menu_action.triggered.connect(handle_toggle_bag_menu)
+	toggle_bag_menu_input_handler.toggled.connect(_handle_toggle_bag_menu)
 
 	after_ready()
 
 func after_ready():
 	pass
 
-func handle_toggle_bag_menu() -> void:
+func _handle_toggle_bag_menu() -> void:
 	if can_listen():
 		cancel_menu()
 

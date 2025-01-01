@@ -28,7 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/dimmer.tscn" id="13_w1m1t"]
 [ext_resource type="PackedScene" uid="uid://uh2ihallkouo" path="res://scenes/tile_detection.tscn" id="15_4thmm"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
-[ext_resource type="Resource" uid="uid://bc5ihww0horcy" path="res://resources/input/toggle_bag_menu.tres" id="22_p4bfe"]
+[ext_resource type="PackedScene" uid="uid://byfqmfx243vdg" path="res://scenes/menus/toggle_bag_menu_input_handler.tscn" id="23_audap"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="27_5g51u"]
 [ext_resource type="Resource" uid="uid://b7cxm53xklexf" path="res://resources/input/menu_select.tres" id="28_apfmn"]
 [ext_resource type="Resource" uid="uid://brvcbjaw14wp5" path="res://resources/input/menu_nav.tres" id="29_v7mnn"]
@@ -43,6 +43,8 @@ ctx_menu_nav = ExtResource("4_o6w0g")
 ctx_walk_mode = ExtResource("2_c4rma")
 dialogue_manager = NodePath("../DialogueCanvas/DialogueManager")
 ui_manager = NodePath("../UICanvas/UIManager")
+
+[node name="ToggleBagMenuInputHandler" parent="InputManager" instance=ExtResource("23_audap")]
 
 [node name="Map" type="Node2D" parent="." node_paths=PackedStringArray("tile_map_layer", "tile_detection")]
 script = ExtResource("1_ksc2i")
@@ -128,10 +130,10 @@ hit_points = NodePath("../../HitPoints")
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
-[node name="UIManager" type="Node" parent="UICanvas" node_paths=PackedStringArray("menu")]
+[node name="UIManager" type="Node" parent="UICanvas" node_paths=PackedStringArray("menu", "toggle_bag_menu_input_handler")]
 script = ExtResource("3_qs36w")
 menu = NodePath("MarginContainer/Menu")
-toggle_bag_menu_action = ExtResource("22_p4bfe")
+toggle_bag_menu_input_handler = NodePath("../../InputManager/ToggleBagMenuInputHandler")
 
 [node name="MarginContainer" type="MarginContainer" parent="UICanvas/UIManager"]
 anchors_preset = 1
@@ -143,7 +145,7 @@ grow_horizontal = 0
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 
-[node name="Menu" type="HFlowContainer" parent="UICanvas/UIManager/MarginContainer" node_paths=PackedStringArray("menus", "menu_dimmers")]
+[node name="Menu" type="HFlowContainer" parent="UICanvas/UIManager/MarginContainer" node_paths=PackedStringArray("menus", "menu_dimmers", "toggle_bag_menu_input_handler")]
 layout_mode = 2
 theme_override_constants/h_separation = 20
 alignment = 2
@@ -151,24 +153,24 @@ script = ExtResource("12_62p5y")
 menus = [NodePath("BagMenu"), NodePath("PlayerStats")]
 menu_dimmers = [NodePath("BagMenu/Dimmer"), NodePath("PlayerStats/Dimmer")]
 menu_nav_action = ExtResource("29_v7mnn")
-toggle_bag_menu_action = ExtResource("22_p4bfe")
+toggle_bag_menu_input_handler = NodePath("../../../../InputManager/ToggleBagMenuInputHandler")
 
-[node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/Menu" instance=ExtResource("13_55kbe")]
+[node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/Menu" node_paths=PackedStringArray("toggle_bag_menu_input_handler") instance=ExtResource("13_55kbe")]
 modulate = Color(0.662745, 0.662745, 0.662745, 1)
 layout_mode = 2
 dimming_hides_content = true
-toggle_bag_menu_action = ExtResource("22_p4bfe")
+toggle_bag_menu_input_handler = NodePath("../../../../../InputManager/ToggleBagMenuInputHandler")
 
 [node name="Dimmer" parent="UICanvas/UIManager/MarginContainer/Menu/PlayerStats" node_paths=PackedStringArray("to_dim") instance=ExtResource("13_w1m1t")]
 to_dim = NodePath("..")
 is_dimmed = true
 
-[node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/Menu" instance=ExtResource("5_votnq")]
+[node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/Menu" node_paths=PackedStringArray("toggle_bag_menu_input_handler") instance=ExtResource("5_votnq")]
 custom_minimum_size = Vector2(360, 2.08165e-12)
 layout_mode = 2
 menu_nav_action = ExtResource("29_v7mnn")
 menu_select_action = ExtResource("28_apfmn")
-toggle_bag_menu_action = ExtResource("22_p4bfe")
+toggle_bag_menu_input_handler = NodePath("../../../../../InputManager/ToggleBagMenuInputHandler")
 
 [node name="Dimmer" parent="UICanvas/UIManager/MarginContainer/Menu/BagMenu" node_paths=PackedStringArray("to_dim") instance=ExtResource("13_w1m1t")]
 to_dim = NodePath("..")
@@ -177,7 +179,7 @@ to_dim = NodePath("..")
 parent_menu = NodePath("..")
 child_menus = [NodePath("../../../../UseItemMenu")]
 
-[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("item_consumer") instance=ExtResource("9_6coe6")]
+[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("item_consumer", "toggle_bag_menu_input_handler") instance=ExtResource("9_6coe6")]
 visible = false
 anchors_preset = 1
 anchor_left = 1.0
@@ -190,7 +192,7 @@ grow_horizontal = 0
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
 menu_nav_action = ExtResource("29_v7mnn")
 menu_select_action = ExtResource("28_apfmn")
-toggle_bag_menu_action = ExtResource("22_p4bfe")
+toggle_bag_menu_input_handler = NodePath("../../../InputManager/ToggleBagMenuInputHandler")
 
 [node name="DialogueCanvas" type="CanvasLayer" parent="."]
 layer = 10
