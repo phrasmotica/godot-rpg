@@ -6,15 +6,6 @@ var sprite: AnimatedSprite2D
 @export
 var party: Party
 
-@export
-var face_action: GUIDEAction
-
-@export
-var move_action: GUIDEAction
-
-@export
-var interact_action: GUIDEAction
-
 ## The number of seconds that a movement key must be held down before the player
 ## moves. This means if the key is not held down for that long, the player will
 ## face the new direction without moving.
@@ -28,6 +19,9 @@ var raycast_mask: int
 
 @onready
 var grid_movement: GridMovement = %GridMovement
+
+@onready
+var player_input_handler: PlayerInputHandler = %PlayerInputHandler
 
 var move_timer_on := false
 
@@ -49,14 +43,12 @@ func _ready():
 		grid_movement.set_raycast_mask(raycast_mask)
 		grid_movement.check_facing_tile()
 
-	move_action.triggered.connect(process_move)
-	interact_action.triggered.connect(try_interact)
+	player_input_handler.move_triggered.connect(_handle_move_triggered)
+	player_input_handler.interact_triggered.connect(_handle_interact_triggered)
 
 	moving_to_position.emit(global_position)
 
-func process_move():
-	var direction := move_action.value_axis_2d
-
+func _handle_move_triggered(direction: Vector2):
 	if direction.length() > 0:
 		if not grid_movement.can_face(direction) or move_timer_on:
 			return
@@ -64,13 +56,13 @@ func process_move():
 		# TODO: use face_action triggers here instead...
 		var did_change := grid_movement.face(direction)
 		if did_change:
-			set_move_timer(direction)
+			_set_move_timer(direction)
 		else:
 			# no need to wait for the player to face in the movement direction
 			var party_colliders := party.get_colliders() if party else []
 			grid_movement.move_ignore_collision_set(direction, party_colliders)
 
-func set_move_timer(direction: Vector2):
+func _set_move_timer(direction: Vector2):
 	if direction.length() <= 0:
 		return
 
@@ -82,12 +74,12 @@ func set_move_timer(direction: Vector2):
 		func():
 			move_timer_on = false
 
-			if move_action.value_axis_2d == direction:
+			if player_input_handler.get_move_direction() == direction:
 				var party_colliders := party.get_colliders() if party else []
 				grid_movement.move_ignore_collision_set(direction, party_colliders)
 	)
 
-func try_interact():
+func _handle_interact_triggered():
 	var collider = grid_movement.raycast.get_collider()
 
 	if not collider:
