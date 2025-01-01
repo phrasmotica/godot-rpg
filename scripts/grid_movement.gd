@@ -39,6 +39,9 @@ func get_snapped_position(current_pos: Vector2):
 func can_face(direction: Vector2):
     return moving_direction.length() == 0 and direction.length() > 0
 
+func is_facing(direction: Vector2) -> bool:
+    return facing_direction == direction.normalized()
+
 func face(direction: Vector2) -> bool:
     if can_face(direction):
         raycast.target_position = direction * step_size

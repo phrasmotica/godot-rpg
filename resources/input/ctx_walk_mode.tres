@@ -388,6 +388,7 @@ triggers = Array[ExtResource("6_2bd2k")]([SubResource("Resource_o7ejj")])
 script = ExtResource("1_cbmx5")
 action = ExtResource("9_g8uop")
 input_mappings = Array[ExtResource("3_je85k")]([SubResource("Resource_rtu36"), SubResource("Resource_w08mi"), SubResource("Resource_bebkj"), SubResource("Resource_qo3ib"), SubResource("Resource_r27c7"), SubResource("Resource_s67wu"), SubResource("Resource_cs2vv"), SubResource("Resource_gyuof")])
+metadata/_guide_input_mappings_collapsed = false
 
 [resource]
 script = ExtResource("2_bvesc")

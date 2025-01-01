@@ -24,6 +24,7 @@ var grid_movement: GridMovement = %GridMovement
 var player_input_handler: PlayerInputHandler = %PlayerInputHandler
 
 var move_timer_on := false
+var _facing_computed := false
 
 signal position_faced(pos: Vector2)
 signal moving_to_position(pos: Vector2i)
@@ -44,40 +45,50 @@ func _ready():
 		grid_movement.check_facing_tile()
 
 	player_input_handler.move_triggered.connect(_handle_move_triggered)
+	player_input_handler.move_completed.connect(_handle_move_completed)
+
 	player_input_handler.interact_triggered.connect(_handle_interact_triggered)
 
 	moving_to_position.emit(global_position)
 
-func _handle_move_triggered(direction: Vector2):
-	if direction.length() > 0:
-		if not grid_movement.can_face(direction) or move_timer_on:
-			return
-
-		# TODO: use face_action triggers here instead...
-		var did_change := grid_movement.face(direction)
-		if did_change:
-			_set_move_timer(direction)
-		else:
-			# no need to wait for the player to face in the movement direction
-			var party_colliders := party.get_colliders() if party else []
-			grid_movement.move_ignore_collision_set(direction, party_colliders)
-
-func _set_move_timer(direction: Vector2):
-	if direction.length() <= 0:
+func _handle_move_triggered(direction: Vector2, triggered_seconds: float):
+	if not _validate_movement(direction):
 		return
 
-	var move_timer := get_tree().create_timer(tap_threshold_seconds)
-	move_timer_on = true
+	# TODO: is it possible to do all of this logic
+	# inside the player input handler? So that this method can be
+	# very simple?
+	var already_facing := grid_movement.is_facing(direction)
 
-	# only move if the user has held down the key for long enough
-	move_timer.timeout.connect(
-		func():
-			move_timer_on = false
+	# if we're not already facing in the direction we want to move in, we should
+	# be. Regardless of how long the input has been triggered for
+	if not already_facing and not _facing_computed:
+		grid_movement.face(direction)
+		_facing_computed = true
 
-			if player_input_handler.get_move_direction() == direction:
-				var party_colliders := party.get_colliders() if party else []
-				grid_movement.move_ignore_collision_set(direction, party_colliders)
+	var do_move := (
+		triggered_seconds >= tap_threshold_seconds or
+
+		# player was already facing the correct way when move trigger STARTED
+		(already_facing and not _facing_computed)
 	)
+
+	if not do_move:
+		return
+
+	if _facing_computed:
+		# facing direction should be recomputed for the next move trigger
+		_facing_computed = false
+
+	var party_colliders := party.get_colliders() if party else []
+	grid_movement.move_ignore_collision_set(direction, party_colliders)
+
+func _handle_move_completed():
+	# facing direction should be recomputed for the next move trigger
+	_facing_computed = false
+
+func _validate_movement(direction: Vector2) -> bool:
+	return not move_timer_on and grid_movement.can_face(direction)
 
 func _handle_interact_triggered():
 	var collider = grid_movement.raycast.get_collider()
