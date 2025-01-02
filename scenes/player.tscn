@@ -142,5 +142,3 @@ script = ExtResource("5_ar6j6")
 grid_movement = NodePath("../GridMovement")
 face = ExtResource("6_mh6ol")
 move = ExtResource("7_vwfou")
-
-[connection signal="moving_finished" from="GridMovement" to="." method="_on_grid_movement_moving_finished"]

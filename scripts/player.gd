@@ -30,13 +30,12 @@ signal dialogue_triggered(timeline: String)
 func _ready():
 	position = grid_movement.get_snapped_position(position)
 
-	if grid_movement:
-		grid_movement.position_faced.connect(position_faced.emit)
-		grid_movement.moving_started.connect(moving_to_position.emit)
-		grid_movement.moving_finished.connect(moved_to_position.emit)
+	grid_movement.position_faced.connect(position_faced.emit)
+	grid_movement.moving_started.connect(moving_to_position.emit)
+	grid_movement.moving_finished.connect(_handle_grid_movement_moving_finished)
 
-		grid_movement.set_raycast_mask(raycast_mask)
-		grid_movement.check_facing_tile()
+	grid_movement.set_raycast_mask(raycast_mask)
+	grid_movement.check_facing_tile()
 
 	player_interact_input_handler.dialogue_triggered.connect(_handle_dialogue_triggered)
 	player_interact_input_handler.pickup_item_triggered.connect(_handle_pickup_item_triggered)
@@ -60,5 +59,6 @@ func _handle_pickup_item_triggered(item: Item) -> void:
 
 	interacted.emit()
 
-func _on_grid_movement_moving_finished(_pos: Vector2):
+func _handle_grid_movement_moving_finished(pos: Vector2):
 	sprite.stop()
+	moved_to_position.emit(pos)
