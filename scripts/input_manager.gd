@@ -21,8 +21,8 @@ var dialogue_manager: DialogueManager
 @export
 var ui_manager: UIManager
 
-@export
-var next_frame_handler: NextFrameHandler
+@onready
+var next_frame_handler: NextFrameHandler = %NextFrameHandler
 
 var _menu_is_open := false
 

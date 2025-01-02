@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbtoj82qvcrwg"]
+[gd_scene load_steps=5 format=3 uid="uid://cbtoj82qvcrwg"]
 
 [ext_resource type="Script" path="res://scripts/use_item_menu.gd" id="1_5yin2"]
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_eomyo"]
 [ext_resource type="PackedScene" uid="uid://cy5cot7lqw00f" path="res://scenes/menu_item.tscn" id="1_iqlnl"]
+[ext_resource type="Script" path="res://scripts/next_frame_handler.gd" id="3_6n6si"]
 
 [node name="UseItemMenu" type="Control" node_paths=PackedStringArray("items")]
 layout_mode = 3
@@ -11,6 +12,10 @@ theme = ExtResource("1_eomyo")
 script = ExtResource("1_5yin2")
 items = [NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Use"), NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/UseAll"), NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Drop"), NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/DropAll"), NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Cancel")]
 current_index = 0
+
+[node name="NextFrameHandler" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_6n6si")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0

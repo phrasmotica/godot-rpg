@@ -4,8 +4,8 @@ extends ListMenu
 @export
 var item_consumer: ItemConsumer
 
-@export
-var next_frame_handler: NextFrameHandler
+@onready
+var next_frame_handler: NextFrameHandler = %NextFrameHandler
 
 @onready
 var description_label: Label = %Description

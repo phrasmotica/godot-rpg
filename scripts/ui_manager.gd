@@ -6,8 +6,8 @@ var menu: MenuSet
 @export
 var toggle_bag_menu_input_handler: ToggleBagMenuInputHandler
 
-@export
-var next_frame_handler: NextFrameHandler
+@onready
+var next_frame_handler: NextFrameHandler = %NextFrameHandler
 
 signal ui_ready
 signal menu_opened
