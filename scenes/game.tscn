@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=29 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player.tscn" id="1_ia2wv"]
@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://ghhfb6xsyy7h" path="res://scenes/items/item_consumer.tscn" id="8_7srcv"]
 [ext_resource type="PackedScene" uid="uid://vawc2gply777" path="res://scenes/npc.tscn" id="8_60xt8"]
 [ext_resource type="PackedScene" uid="uid://dht0cwk6y3xd4" path="res://scenes/toggle_debug_mode_input_handler.tscn" id="8_544nx"]
-[ext_resource type="Script" path="res://scripts/npc_manager.gd" id="8_nppn6"]
 [ext_resource type="PackedScene" uid="uid://cbtoj82qvcrwg" path="res://scenes/use_item_menu.tscn" id="9_6coe6"]
 [ext_resource type="PackedScene" uid="uid://clducor041jpw" path="res://scenes/map.tscn" id="10_ns2nh"]
 [ext_resource type="PackedScene" uid="uid://cvtqbegbkh1at" path="res://scenes/movement_history.tscn" id="11_80ub2"]
@@ -52,21 +51,19 @@ debug_layer = NodePath("../../DebugLayer")
 
 [node name="Map" parent="." instance=ExtResource("10_ns2nh")]
 
-[node name="NPCManager" type="Node2D" parent="Map" node_paths=PackedStringArray("npcs")]
-script = ExtResource("8_nppn6")
-npcs = [NodePath("NPC"), NodePath("NPC2"), NodePath("NPC3")]
+[node name="NPCs" type="Node2D" parent="Map"]
 
-[node name="NPC" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
+[node name="NPC" parent="Map/NPCs" instance=ExtResource("8_60xt8")]
 position = Vector2(1056, 672)
 enable_move = true
 
-[node name="NPC2" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
+[node name="NPC2" parent="Map/NPCs" instance=ExtResource("8_60xt8")]
 position = Vector2(1120, 800)
 
-[node name="NPC3" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
+[node name="NPC3" parent="Map/NPCs" instance=ExtResource("8_60xt8")]
 position = Vector2(1120, 800)
 
-[node name="NPC4" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
+[node name="NPC4" parent="Map/NPCs" instance=ExtResource("8_60xt8")]
 position = Vector2(1120, 1056)
 talk_dialogue = "npc_want_to_die"
 
@@ -81,7 +78,7 @@ player = NodePath("..")
 party = NodePath("../Party")
 
 [node name="Party" parent="Map/Player" node_paths=PackedStringArray("members") instance=ExtResource("11_d8y58")]
-members = [NodePath("../../NPCManager/NPC2"), NodePath("../../NPCManager/NPC3")]
+members = [NodePath("../../NPCs/NPC2"), NodePath("../../NPCs/NPC3")]
 
 [node name="HitPoints" parent="Map/Player" instance=ExtResource("3_21716")]
 current_hp = 40
