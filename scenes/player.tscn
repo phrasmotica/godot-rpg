@@ -129,9 +129,10 @@ movement_animation = NodePath("../MovementAnimation")
 unique_name_in_owner = true
 sprite = NodePath("../Sprite")
 
-[node name="PlayerInputHandler" type="Node" parent="."]
+[node name="PlayerInputHandler" type="Node" parent="." node_paths=PackedStringArray("grid_movement")]
 unique_name_in_owner = true
 script = ExtResource("5_ar6j6")
+grid_movement = NodePath("../GridMovement")
 face = ExtResource("6_mh6ol")
 move = ExtResource("7_vwfou")
 interact = ExtResource("8_adrrr")
