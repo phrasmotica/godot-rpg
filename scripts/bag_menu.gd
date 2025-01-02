@@ -67,10 +67,14 @@ func can_listen():
 	return not dimmer.is_dimmed and is_visible_in_tree()
 
 func disable_menu():
+	menu_disabled.emit(self)
+
 	dimmer.is_dimmed = true
 	disable_animations()
 
 func enable_menu():
+	menu_enabled.emit(self)
+
 	dimmer.is_dimmed = false
 	enable_animations()
 
