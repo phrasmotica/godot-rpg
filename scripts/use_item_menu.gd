@@ -4,6 +4,9 @@ extends ListMenu
 @export
 var item_consumer: ItemConsumer
 
+@export
+var next_frame_handler: NextFrameHandler
+
 @onready
 var description_label: Label = %Description
 
@@ -30,7 +33,7 @@ func after_ready():
 	disable_menu()
 
 func _on_bag_menu_select_stack(stack: ItemStack):
-	get_tree().process_frame.connect(_show_menu.bind(stack), CONNECT_ONE_SHOT)
+	next_frame_handler.on_next_frame(_show_menu.bind(stack))
 
 func _show_menu(stack: ItemStack) -> void:
 	print("Showing UseItemMenu for stack ID=" + str(stack.id))

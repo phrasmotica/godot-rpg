@@ -21,6 +21,9 @@ var dialogue_manager: DialogueManager
 @export
 var ui_manager: UIManager
 
+@export
+var next_frame_handler: NextFrameHandler
+
 var _menu_is_open := false
 
 func _ready() -> void:
@@ -43,15 +46,15 @@ func handle_dialogue_started() -> void:
 	disable_menu_nav()
 
 func handle_dialogue_finished() -> void:
-	on_next_frame(enable_bag_menu)
+	next_frame_handler.on_next_frame(enable_bag_menu)
 
 	# TODO: implement a stack of mapping contexts so that we disable/enable the
 	# correct ones once the dialogue finishes? Or can we use GUIDE's priority
 	# system for this?
 	if _menu_is_open:
-		on_next_frame(enable_menu_nav)
+		next_frame_handler.on_next_frame(enable_menu_nav)
 	else:
-		on_next_frame(enable_walk_mode)
+		next_frame_handler.on_next_frame(enable_walk_mode)
 
 func handle_menu_opened() -> void:
 	_menu_is_open = true
@@ -62,11 +65,8 @@ func handle_menu_opened() -> void:
 func handle_menu_closed() -> void:
 	_menu_is_open = false
 
-	on_next_frame(enable_walk_mode)
-	on_next_frame(disable_menu_nav)
-
-func on_next_frame(callable: Callable) -> void:
-	get_tree().process_frame.connect(callable, CONNECT_ONE_SHOT)
+	next_frame_handler.on_next_frame(enable_walk_mode)
+	next_frame_handler.on_next_frame(disable_menu_nav)
 
 func enable_walk_mode() -> void:
 	GUIDE.enable_mapping_context(ctx_interact)

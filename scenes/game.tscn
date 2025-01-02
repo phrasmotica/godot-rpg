@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=36 format=4 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="TileSet" uid="uid://bs5kp5aiadcug" path="res://resources/tilesets/game_tile_set.tres" id="1_af0we"]
@@ -31,13 +31,16 @@
 [ext_resource type="PackedScene" uid="uid://uh2ihallkouo" path="res://scenes/tile_detection.tscn" id="15_4thmm"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
 [ext_resource type="PackedScene" uid="uid://byfqmfx243vdg" path="res://scenes/menus/toggle_bag_menu_input_handler.tscn" id="23_audap"]
+[ext_resource type="PackedScene" uid="uid://dhvthnmuq7xb6" path="res://scenes/next_frame_handler.tscn" id="25_c37an"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="27_5g51u"]
 [ext_resource type="Resource" uid="uid://b7cxm53xklexf" path="res://resources/input/menu_select.tres" id="28_apfmn"]
 [ext_resource type="Resource" uid="uid://brvcbjaw14wp5" path="res://resources/input/menu_nav.tres" id="29_v7mnn"]
 
 [node name="Game" type="Node2D"]
 
-[node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("dialogue_manager", "ui_manager")]
+[node name="NextFrameHandler" parent="." instance=ExtResource("25_c37an")]
+
+[node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("dialogue_manager", "ui_manager", "next_frame_handler")]
 script = ExtResource("4_uej20")
 ctx_bag_menu = ExtResource("2_2ba1f")
 ctx_debug_mode = ExtResource("3_5fqfg")
@@ -46,6 +49,7 @@ ctx_menu_nav = ExtResource("4_o6w0g")
 ctx_walk_mode = ExtResource("2_c4rma")
 dialogue_manager = NodePath("../DialogueCanvas/DialogueManager")
 ui_manager = NodePath("../UICanvas/UIManager")
+next_frame_handler = NodePath("../NextFrameHandler")
 
 [node name="ToggleBagMenuInputHandler" parent="InputManager" instance=ExtResource("23_audap")]
 
@@ -136,10 +140,11 @@ hit_points = NodePath("../../HitPoints")
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
-[node name="UIManager" type="Node" parent="UICanvas" node_paths=PackedStringArray("menu", "toggle_bag_menu_input_handler")]
+[node name="UIManager" type="Node" parent="UICanvas" node_paths=PackedStringArray("menu", "toggle_bag_menu_input_handler", "next_frame_handler")]
 script = ExtResource("3_qs36w")
 menu = NodePath("MarginContainer/Menu")
 toggle_bag_menu_input_handler = NodePath("../../InputManager/ToggleBagMenuInputHandler")
+next_frame_handler = NodePath("../../NextFrameHandler")
 
 [node name="MarginContainer" type="MarginContainer" parent="UICanvas/UIManager"]
 anchors_preset = 1
@@ -185,7 +190,7 @@ to_dim = NodePath("..")
 parent_menu = NodePath("..")
 child_menus = [NodePath("../../../../UseItemMenu")]
 
-[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("item_consumer", "toggle_bag_menu_input_handler") instance=ExtResource("9_6coe6")]
+[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("item_consumer", "next_frame_handler", "toggle_bag_menu_input_handler") instance=ExtResource("9_6coe6")]
 visible = false
 anchors_preset = 1
 anchor_left = 1.0
@@ -196,6 +201,7 @@ offset_right = -416.0
 offset_bottom = 128.0
 grow_horizontal = 0
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
+next_frame_handler = NodePath("../../../NextFrameHandler")
 menu_nav_action = ExtResource("29_v7mnn")
 menu_select_action = ExtResource("28_apfmn")
 toggle_bag_menu_input_handler = NodePath("../../../InputManager/ToggleBagMenuInputHandler")

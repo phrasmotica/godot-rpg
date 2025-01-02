@@ -6,6 +6,9 @@ var menu: MenuSet
 @export
 var toggle_bag_menu_input_handler: ToggleBagMenuInputHandler
 
+@export
+var next_frame_handler: NextFrameHandler
+
 signal ui_ready
 signal menu_opened
 signal menu_closed
@@ -35,6 +38,6 @@ func _on_menu_cancel():
 	print("Hiding menu")
 
 	# ensures the key press doesn't immediately show the menu
-	get_tree().process_frame.connect(hide_menu, CONNECT_ONE_SHOT)
+	next_frame_handler.on_next_frame(hide_menu)
 
 	menu_closed.emit()
