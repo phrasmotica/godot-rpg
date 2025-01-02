@@ -1,11 +1,6 @@
 @tool
 class_name Menu extends Control
 
-## Whether the content of this menu should become hidden when
-## this menu is dimmed (content node can be chosen).
-@export
-var dimming_hides_content := false
-
 @export
 var toggle_bag_menu_input_handler: ToggleBagMenuInputHandler
 
@@ -48,21 +43,11 @@ func disable_menu():
 	_inactive = true
 	menu_disabled.emit(self)
 
-	after_disable_menu()
-
-func after_disable_menu():
-	pass
-
 func enable_menu():
 	print("Enabling menu " + name)
 
 	_inactive = false
 	menu_enabled.emit(self)
-
-	after_enable_menu()
-
-func after_enable_menu():
-	pass
 
 func steal():
 	steal_control.emit(self)
@@ -76,27 +61,4 @@ func _on_visibility_changed():
 	after_visibility_changed()
 
 func after_visibility_changed():
-	pass
-
-func _on_dimmer_dimmed():
-	if dimming_hides_content:
-		hide_content()
-
-	after_dimmed()
-
-func _on_dimmer_undimmed():
-	show_content()
-
-	after_undimmed()
-
-func hide_content():
-	pass
-
-func after_dimmed():
-	pass
-
-func show_content():
-	pass
-
-func after_undimmed():
 	pass

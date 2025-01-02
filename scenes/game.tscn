@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=22 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player.tscn" id="1_ia2wv"]
@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://berealf573bgo" path="res://scenes/party.tscn" id="11_d8y58"]
 [ext_resource type="Script" path="res://scripts/menu_set.gd" id="12_62p5y"]
 [ext_resource type="PackedScene" uid="uid://pbl172qx88xu" path="res://scenes/menus/player_stats_panel.tscn" id="13_55kbe"]
-[ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/dimmer.tscn" id="13_w1m1t"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/child_menu_handler.tscn" id="16_2runr"]
 [ext_resource type="PackedScene" uid="uid://d1gaebohj82ts" path="res://scenes/ui_manager.tscn" id="21_52gs6"]
 [ext_resource type="PackedScene" uid="uid://byfqmfx243vdg" path="res://scenes/menus/toggle_bag_menu_input_handler.tscn" id="23_audap"]
@@ -90,35 +89,24 @@ grow_horizontal = 0
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 
-[node name="Menu" type="HFlowContainer" parent="UICanvas/UIManager/MarginContainer" node_paths=PackedStringArray("menus", "menu_dimmers", "toggle_bag_menu_input_handler")]
+[node name="Menu" type="HFlowContainer" parent="UICanvas/UIManager/MarginContainer" node_paths=PackedStringArray("menus", "toggle_bag_menu_input_handler")]
 layout_mode = 2
 theme_override_constants/h_separation = 20
 alignment = 2
 script = ExtResource("12_62p5y")
 menus = [NodePath("BagMenu"), NodePath("PlayerStats")]
-menu_dimmers = [NodePath("BagMenu/Dimmer"), NodePath("PlayerStats/Dimmer")]
 menu_nav_action = ExtResource("29_v7mnn")
 toggle_bag_menu_input_handler = NodePath("../../../../InputManager/ToggleBagMenuInputHandler")
 
 [node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/Menu" node_paths=PackedStringArray("toggle_bag_menu_input_handler") instance=ExtResource("13_55kbe")]
 modulate = Color(0.662745, 0.662745, 0.662745, 1)
 layout_mode = 2
-dimming_hides_content = true
 toggle_bag_menu_input_handler = NodePath("../../../../../InputManager/ToggleBagMenuInputHandler")
-
-[node name="Dimmer" parent="UICanvas/UIManager/MarginContainer/Menu/PlayerStats" node_paths=PackedStringArray("to_dim") instance=ExtResource("13_w1m1t")]
-to_dim = NodePath("..")
-is_dimmed = true
 
 [node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/Menu" node_paths=PackedStringArray("toggle_bag_menu_input_handler") instance=ExtResource("5_votnq")]
 custom_minimum_size = Vector2(360, 2.08165e-12)
 layout_mode = 2
-menu_nav_action = ExtResource("29_v7mnn")
-menu_select_action = ExtResource("28_apfmn")
 toggle_bag_menu_input_handler = NodePath("../../../../../InputManager/ToggleBagMenuInputHandler")
-
-[node name="Dimmer" parent="UICanvas/UIManager/MarginContainer/Menu/BagMenu" node_paths=PackedStringArray("to_dim") instance=ExtResource("13_w1m1t")]
-to_dim = NodePath("..")
 
 [node name="ChildMenuHandler" parent="UICanvas/UIManager/MarginContainer/Menu/BagMenu" node_paths=PackedStringArray("parent_menu", "child_menus") instance=ExtResource("16_2runr")]
 parent_menu = NodePath("..")
@@ -167,16 +155,12 @@ layer = 10
 [connection signal="ui_ready" from="UICanvas/UIManager" to="Map/Player/HitPoints" method="_on_ui_manager_ui_ready"]
 [connection signal="cancel" from="UICanvas/UIManager/MarginContainer/Menu" to="UICanvas/UIManager" method="_on_menu_cancel"]
 [connection signal="visibility_changed" from="UICanvas/UIManager/MarginContainer/Menu" to="UICanvas/UIManager/MarginContainer/Menu" method="_on_visibility_changed"]
-[connection signal="dimmed" from="UICanvas/UIManager/MarginContainer/Menu/PlayerStats/Dimmer" to="UICanvas/UIManager/MarginContainer/Menu/PlayerStats" method="_on_dimmer_dimmed"]
-[connection signal="undimmed" from="UICanvas/UIManager/MarginContainer/Menu/PlayerStats/Dimmer" to="UICanvas/UIManager/MarginContainer/Menu/PlayerStats" method="_on_dimmer_undimmed"]
 [connection signal="current_index_changed" from="UICanvas/UIManager/MarginContainer/Menu/BagMenu" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_current_index_changed"]
 [connection signal="drop_item" from="UICanvas/UIManager/MarginContainer/Menu/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_item"]
 [connection signal="drop_stack" from="UICanvas/UIManager/MarginContainer/Menu/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_stack"]
 [connection signal="select_stack" from="UICanvas/UIManager/MarginContainer/Menu/BagMenu" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_menu_select_stack"]
 [connection signal="selected_item_changed" from="UICanvas/UIManager/MarginContainer/Menu/BagMenu" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_menu_selected_item_changed"]
 [connection signal="use_item" from="UICanvas/UIManager/MarginContainer/Menu/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_use_item"]
-[connection signal="dimmed" from="UICanvas/UIManager/MarginContainer/Menu/BagMenu/Dimmer" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_dimmer_dimmed"]
-[connection signal="undimmed" from="UICanvas/UIManager/MarginContainer/Menu/BagMenu/Dimmer" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_dimmer_undimmed"]
 [connection signal="cancel" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/UseItemMenu" method="_on_cancel"]
 [connection signal="drop" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_use_item_menu_drop"]
 [connection signal="drop_all" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_use_item_menu_drop_all"]

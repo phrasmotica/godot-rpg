@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://7nyhh4cif5fr"]
+[gd_scene load_steps=7 format=3 uid="uid://7nyhh4cif5fr"]
 
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_l8nhx"]
 [ext_resource type="Script" path="res://scripts/bag_menu.gd" id="2_46jpv"]
 [ext_resource type="PackedScene" uid="uid://8gweefisuilw" path="res://scenes/item_stack_menu_item.tscn" id="3_1sdhg"]
+[ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/dimmer.tscn" id="4_bpnub"]
+[ext_resource type="Resource" uid="uid://brvcbjaw14wp5" path="res://resources/input/menu_nav.tres" id="4_spxkr"]
+[ext_resource type="Resource" uid="uid://b7cxm53xklexf" path="res://resources/input/menu_select.tres" id="5_hd0cx"]
 
 [node name="BagMenu" type="PanelContainer"]
 custom_minimum_size = Vector2(360, 132)
@@ -12,6 +15,12 @@ size_flags_vertical = 0
 theme = ExtResource("1_l8nhx")
 script = ExtResource("2_46jpv")
 item_stack_menu_item_scene = ExtResource("3_1sdhg")
+menu_nav_action = ExtResource("4_spxkr")
+menu_select_action = ExtResource("5_hd0cx")
+
+[node name="Dimmer" parent="." node_paths=PackedStringArray("to_dim") instance=ExtResource("4_bpnub")]
+unique_name_in_owner = true
+to_dim = NodePath("..")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
