@@ -38,6 +38,9 @@ func _ready():
 		current_index = 0
 
 func handle_menu_nav() -> void:
+	if not can_listen():
+		return
+
 	var dir := menu_nav_action.value_axis_2d
 
 	if dir == Vector2.DOWN:
