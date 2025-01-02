@@ -75,8 +75,8 @@ hit_points = NodePath("../../HitPoints")
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
-[node name="UIManager" parent="UICanvas" node_paths=PackedStringArray("menu", "toggle_bag_menu_input_handler") instance=ExtResource("21_52gs6")]
-menu = NodePath("MarginContainer/Menu")
+[node name="UIManager" parent="UICanvas" node_paths=PackedStringArray("menu_set", "toggle_bag_menu_input_handler") instance=ExtResource("21_52gs6")]
+menu_set = NodePath("MarginContainer/MenuSet")
 toggle_bag_menu_input_handler = NodePath("../../InputManager/ToggleBagMenuInputHandler")
 
 [node name="MarginContainer" type="MarginContainer" parent="UICanvas/UIManager"]
@@ -89,26 +89,27 @@ grow_horizontal = 0
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 
-[node name="Menu" type="HFlowContainer" parent="UICanvas/UIManager/MarginContainer" node_paths=PackedStringArray("menus", "toggle_bag_menu_input_handler")]
+[node name="MenuSet" type="HFlowContainer" parent="UICanvas/UIManager/MarginContainer" node_paths=PackedStringArray("menus", "toggle_bag_menu_input_handler")]
 layout_mode = 2
 theme_override_constants/h_separation = 20
 alignment = 2
 script = ExtResource("12_62p5y")
+current_menu_index = 0
 menus = [NodePath("BagMenu"), NodePath("PlayerStats")]
-menu_nav_action = ExtResource("29_v7mnn")
 toggle_bag_menu_input_handler = NodePath("../../../../InputManager/ToggleBagMenuInputHandler")
+menu_nav_action = ExtResource("29_v7mnn")
 
-[node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/Menu" node_paths=PackedStringArray("toggle_bag_menu_input_handler") instance=ExtResource("13_55kbe")]
+[node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("toggle_bag_menu_input_handler") instance=ExtResource("13_55kbe")]
 modulate = Color(0.662745, 0.662745, 0.662745, 1)
 layout_mode = 2
 toggle_bag_menu_input_handler = NodePath("../../../../../InputManager/ToggleBagMenuInputHandler")
 
-[node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/Menu" node_paths=PackedStringArray("toggle_bag_menu_input_handler") instance=ExtResource("5_votnq")]
+[node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("toggle_bag_menu_input_handler") instance=ExtResource("5_votnq")]
 custom_minimum_size = Vector2(360, 2.08165e-12)
 layout_mode = 2
 toggle_bag_menu_input_handler = NodePath("../../../../../InputManager/ToggleBagMenuInputHandler")
 
-[node name="ChildMenuHandler" parent="UICanvas/UIManager/MarginContainer/Menu/BagMenu" node_paths=PackedStringArray("parent_menu", "child_menus") instance=ExtResource("16_2runr")]
+[node name="ChildMenuHandler" parent="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" node_paths=PackedStringArray("parent_menu", "child_menus") instance=ExtResource("16_2runr")]
 parent_menu = NodePath("..")
 child_menus = [NodePath("../../../../UseItemMenu")]
 
@@ -142,26 +143,26 @@ layer = 10
 [connection signal="interacted" from="Map/Player" to="Map" method="_on_player_interacted"]
 [connection signal="pickup_item" from="Map/Player" to="Map/Player/Bag" method="_on_player_pickup_item"]
 [connection signal="position_faced" from="Map/Player" to="Map" method="_on_player_position_faced"]
-[connection signal="current_hp_changed" from="Map/Player/HitPoints" to="UICanvas/UIManager/MarginContainer/Menu/PlayerStats" method="_on_hit_points_current_hp_changed"]
-[connection signal="added_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_added_item"]
+[connection signal="current_hp_changed" from="Map/Player/HitPoints" to="UICanvas/UIManager/MarginContainer/MenuSet/PlayerStats" method="_on_hit_points_current_hp_changed"]
+[connection signal="added_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_bag_added_item"]
 [connection signal="added_item" from="Map/Player/Bag" to="DialogueCanvas/DialogueManager" method="_on_bag_added_item"]
-[connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_consumed_item"]
+[connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_bag_consumed_item"]
 [connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_consumed_item"]
-[connection signal="dropped_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_dropped_item"]
-[connection signal="used_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_bag_used_item"]
+[connection signal="dropped_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_bag_dropped_item"]
+[connection signal="used_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_bag_used_item"]
 [connection signal="used_item" from="Map/Player/Bag" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_used_item"]
 [connection signal="item_consume_result_created" from="Map/Player/Bag/ItemConsumer" to="DialogueCanvas/DialogueManager" method="_on_item_consumer_item_consume_result_created"]
 [connection signal="item_effect_result_created" from="Map/Player/Bag/ItemConsumer" to="DialogueCanvas/DialogueManager" method="_on_item_consumer_item_effect_result_created"]
 [connection signal="ui_ready" from="UICanvas/UIManager" to="Map/Player/HitPoints" method="_on_ui_manager_ui_ready"]
-[connection signal="cancel" from="UICanvas/UIManager/MarginContainer/Menu" to="UICanvas/UIManager" method="_on_menu_cancel"]
-[connection signal="visibility_changed" from="UICanvas/UIManager/MarginContainer/Menu" to="UICanvas/UIManager/MarginContainer/Menu" method="_on_visibility_changed"]
-[connection signal="current_index_changed" from="UICanvas/UIManager/MarginContainer/Menu/BagMenu" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_current_index_changed"]
-[connection signal="drop_item" from="UICanvas/UIManager/MarginContainer/Menu/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_item"]
-[connection signal="drop_stack" from="UICanvas/UIManager/MarginContainer/Menu/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_stack"]
-[connection signal="select_stack" from="UICanvas/UIManager/MarginContainer/Menu/BagMenu" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_menu_select_stack"]
-[connection signal="selected_item_changed" from="UICanvas/UIManager/MarginContainer/Menu/BagMenu" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_menu_selected_item_changed"]
-[connection signal="use_item" from="UICanvas/UIManager/MarginContainer/Menu/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_use_item"]
+[connection signal="cancel" from="UICanvas/UIManager/MarginContainer/MenuSet" to="UICanvas/UIManager" method="_on_menu_cancel"]
+[connection signal="visibility_changed" from="UICanvas/UIManager/MarginContainer/MenuSet" to="UICanvas/UIManager/MarginContainer/MenuSet" method="_on_visibility_changed"]
+[connection signal="current_index_changed" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_current_index_changed"]
+[connection signal="drop_item" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_item"]
+[connection signal="drop_stack" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_stack"]
+[connection signal="select_stack" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_menu_select_stack"]
+[connection signal="selected_item_changed" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_menu_selected_item_changed"]
+[connection signal="use_item" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_use_item"]
 [connection signal="cancel" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/UseItemMenu" method="_on_cancel"]
-[connection signal="drop" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_use_item_menu_drop"]
-[connection signal="drop_all" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_use_item_menu_drop_all"]
-[connection signal="use" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/Menu/BagMenu" method="_on_use_item_menu_use"]
+[connection signal="drop" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_use_item_menu_drop"]
+[connection signal="drop_all" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_use_item_menu_drop_all"]
+[connection signal="use" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_use_item_menu_use"]

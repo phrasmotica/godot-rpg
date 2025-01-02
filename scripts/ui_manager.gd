@@ -1,7 +1,7 @@
 class_name UIManager extends Node
 
 @export
-var menu: MenuSet
+var menu_set: MenuSet
 
 @export
 var toggle_bag_menu_input_handler: ToggleBagMenuInputHandler
@@ -21,21 +21,18 @@ func _ready():
 	ui_ready.emit()
 
 func hide_menu():
-	menu.disable_menu()
-	menu.hide()
+	menu_set.hide()
 
 func _handle_toggle_bag_menu() -> void:
-	if not menu.visible:
-		print("Showing menu")
+	if not menu_set.visible:
+		print("Showing menu set")
 
-		menu.show()
+		menu_set.show()
 
 		menu_opened.emit()
 
-		menu.enable_menu()
-
 func _on_menu_cancel():
-	print("Hiding menu")
+	print("Hiding menu set")
 
 	# ensures the key press doesn't immediately show the menu
 	next_frame_handler.on_next_frame(hide_menu)
