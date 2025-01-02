@@ -1,6 +1,8 @@
 @tool
 extends ListMenu
 
+# HIGH: move list-style menu logic into a child node, rather than using inheritance
+
 @export
 var item_stack_menu_item_scene: PackedScene
 
