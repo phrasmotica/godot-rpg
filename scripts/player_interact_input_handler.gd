@@ -7,12 +7,15 @@ var grid_movement: GridMovement
 var interact: GUIDEAction
 
 signal dialogue_triggered(npc: NPC)
+signal interacted
 signal pickup_item_triggered(item: Item)
 
 func _ready():
 	interact.triggered.connect(_handle_interact_triggered)
 
 func _handle_interact_triggered() -> void:
+	interacted.emit()
+
 	var collider = grid_movement.raycast.get_collider()
 
 	if not collider:

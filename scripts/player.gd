@@ -38,6 +38,7 @@ func _ready():
 	grid_movement.check_facing_tile()
 
 	player_interact_input_handler.dialogue_triggered.connect(_handle_dialogue_triggered)
+	player_interact_input_handler.interacted.connect(interacted.emit)
 	player_interact_input_handler.pickup_item_triggered.connect(_handle_pickup_item_triggered)
 
 	player_move_input_handler.move_triggered.connect(_handle_move_triggered)
