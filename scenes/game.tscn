@@ -66,6 +66,10 @@ position = Vector2(1120, 800)
 [node name="NPC3" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
 position = Vector2(1120, 800)
 
+[node name="NPC4" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
+position = Vector2(1760, 800)
+talk_dialogue = "npc_want_to_die"
+
 [node name="Player" parent="Map" node_paths=PackedStringArray("party") instance=ExtResource("1_ia2wv")]
 position = Vector2(1184, 800)
 party = NodePath("Party")
