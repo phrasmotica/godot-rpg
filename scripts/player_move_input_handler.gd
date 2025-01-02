@@ -1,4 +1,4 @@
-class_name PlayerInputHandler extends Node
+class_name PlayerMoveInputHandler extends Node
 
 @export
 var grid_movement: GridMovement
@@ -15,20 +15,13 @@ var face: GUIDEAction
 @export
 var move: GUIDEAction
 
-@export
-var interact: GUIDEAction
-
 var _facing_computed := false
 
 signal move_triggered(direction: Vector2)
 
-signal interact_triggered
-
 func _ready():
 	move.triggered.connect(_handle_move)
 	move.completed.connect(_handle_move_completed)
-
-	interact.triggered.connect(interact_triggered.emit)
 
 func _handle_move():
 	var direction := move.value_axis_2d

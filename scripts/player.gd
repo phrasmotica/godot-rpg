@@ -15,7 +15,10 @@ var raycast_mask: int
 var grid_movement: GridMovement = %GridMovement
 
 @onready
-var player_input_handler: PlayerInputHandler = %PlayerInputHandler
+var player_interact_input_handler: PlayerInteractInputHandler = %PlayerInteractInputHandler
+
+@onready
+var player_move_input_handler: PlayerMoveInputHandler = %PlayerMoveInputHandler
 
 signal position_faced(pos: Vector2)
 signal moving_to_position(pos: Vector2i)
@@ -35,8 +38,10 @@ func _ready():
 		grid_movement.set_raycast_mask(raycast_mask)
 		grid_movement.check_facing_tile()
 
-	player_input_handler.move_triggered.connect(_handle_move_triggered)
-	player_input_handler.interact_triggered.connect(_handle_interact_triggered)
+	player_interact_input_handler.dialogue_triggered.connect(_handle_dialogue_triggered)
+	player_interact_input_handler.pickup_item_triggered.connect(_handle_pickup_item_triggered)
+
+	player_move_input_handler.move_triggered.connect(_handle_move_triggered)
 
 	moving_to_position.emit(global_position)
 
@@ -44,24 +49,14 @@ func _handle_move_triggered(direction: Vector2):
 	var party_colliders := party.get_colliders() if party else []
 	grid_movement.move_ignore_collision_set(direction, party_colliders)
 
-func _handle_interact_triggered():
-	var collider = grid_movement.raycast.get_collider()
+func _handle_dialogue_triggered(npc: NPC) -> void:
+	npc.face(global_position)
+	dialogue_triggered.emit(npc.talk_dialogue)
 
-	if not collider:
-		return
+	interacted.emit()
 
-	if collider is ItemArea:
-		var item_area = collider as ItemArea
-		var item := item_area.get_item()
-		pickup_item.emit(item)
-
-		item_area.dispose()
-
-	elif collider is NPC:
-		var npc := collider as NPC
-		npc.face(global_position)
-
-		dialogue_triggered.emit(npc.talk_dialogue)
+func _handle_pickup_item_triggered(item: Item) -> void:
+	pickup_item.emit(item)
 
 	interacted.emit()
 
