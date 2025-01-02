@@ -4,6 +4,9 @@ extends Node
 var ctx_bag_menu: GUIDEMappingContext
 
 @export
+var ctx_debug_mode: GUIDEMappingContext
+
+@export
 var ctx_interact: GUIDEMappingContext
 
 @export
@@ -22,6 +25,7 @@ var _menu_is_open := false
 
 func _ready() -> void:
 	GUIDE.enable_mapping_context(ctx_bag_menu)
+	GUIDE.enable_mapping_context(ctx_debug_mode)
 	GUIDE.enable_mapping_context(ctx_interact)
 	GUIDE.enable_mapping_context(ctx_walk_mode)
 
