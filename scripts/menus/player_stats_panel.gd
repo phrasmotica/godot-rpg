@@ -18,10 +18,14 @@ func disable_menu():
 	menu_disabled.emit(self)
 
 	dimmer.is_dimmed = true
+	_inactive = true
+
 	content.hide()
 
 func enable_menu():
 	menu_enabled.emit(self)
 
 	dimmer.is_dimmed = false
+	_inactive = false
+
 	content.show()

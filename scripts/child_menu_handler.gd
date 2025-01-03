@@ -7,36 +7,30 @@ var parent_menu: Menu
 @export
 var child_menus: Array[Menu] = []
 
-func _ready():
-    parent_menu.steal_control.connect(
-        func(menu: Menu):
-            print(menu.name + " stole control, hiding " + str(child_menus.size()) + " child menu(s)")
-
-            for m in child_menus:
-                m.disable_menu()
-                m.hide()
-    )
+func _ready() -> void:
+    parent_menu.steal_control.connect(_handle_parent_menu_steal_control)
 
     for m in child_menus:
-        m.menu_hidden.connect(handle_child_menu_hidden)
-        m.menu_shown.connect(handle_child_menu_shown)
+        m.menu_hidden.connect(_handle_child_menu_hidden)
+        m.menu_shown.connect(_handle_child_menu_shown)
 
-        m.menu_disabled.connect(handle_child_menu_disabled)
-        m.menu_enabled.connect(handle_child_menu_enabled)
+func _handle_parent_menu_steal_control(menu: Menu) -> void:
+    print(menu.name + " stole control from " + str(child_menus.size()) + " child menu(s)")
 
-func handle_child_menu_hidden(menu: Menu):
+    for m in child_menus:
+        m.disable_menu()
+        m.hide()
+
+func _handle_child_menu_hidden(menu: Menu) -> void:
     print(menu.name + " hidden")
 
-    if child_menus.all(func(m: Menu): return not m.visible):
-        parent_menu.enable_menu()
+    if child_menus.all(_menu_is_closed):
+        parent_menu.uncover_menu()
 
-func handle_child_menu_shown(menu: Menu):
+func _handle_child_menu_shown(menu: Menu) -> void:
     print(menu.name + " shown")
 
-    parent_menu.disable_menu()
+    parent_menu.cover_menu()
 
-func handle_child_menu_disabled(menu: Menu):
-    print(menu.name + " disabled")
-
-func handle_child_menu_enabled(menu: Menu):
-    print(menu.name + " enabled")
+func _menu_is_closed(menu: Menu) -> bool:
+    return menu.get_menu_state() == Menu.MenuState.CLOSED

@@ -54,11 +54,12 @@ func handle_menu_nav() -> void:
 		previous()
 
 func handle_menu_select() -> void:
-	if can_listen():
-		print(name + " can listen, handling menu select")
-		process_select()
-	else:
+	if not can_listen():
 		print(name + " cannot listen!")
+		return
+
+	print(name + " can listen, handling menu select")
+	process_select()
 
 func get_max_index():
 	return items.size() - 1

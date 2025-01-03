@@ -5,6 +5,7 @@ class_name Menu extends Control
 var toggle_bag_menu_input_handler: ToggleBagMenuInputHandler
 
 var _inactive := false
+var _covered := false
 
 signal cancel
 
@@ -15,6 +16,8 @@ signal menu_disabled(menu: Menu)
 signal menu_enabled(menu: Menu)
 
 signal steal_control(menu: Menu)
+
+enum MenuState { CLOSED, INACTIVE, ACTIVE, COVERED }
 
 func _ready():
 	if Engine.is_editor_hint():
@@ -32,7 +35,19 @@ func _handle_toggle_bag_menu() -> void:
 		cancel_menu()
 
 func can_listen():
-	return not _inactive and is_visible_in_tree()
+	return get_menu_state() == MenuState.ACTIVE
+
+func get_menu_state() -> MenuState:
+	if not is_visible_in_tree():
+		return MenuState.CLOSED
+
+	if _inactive:
+		return MenuState.INACTIVE
+
+	if _covered:
+		return MenuState.COVERED
+
+	return MenuState.ACTIVE
 
 func cancel_menu():
 	cancel.emit()
@@ -48,6 +63,16 @@ func enable_menu():
 
 	_inactive = false
 	menu_enabled.emit(self)
+
+func cover_menu() -> void:
+	print("Covering menu " + name)
+
+	_covered = true
+
+func uncover_menu() -> void:
+	print("Uncovering menu " + name)
+
+	_covered = false
 
 func steal():
 	steal_control.emit(self)
