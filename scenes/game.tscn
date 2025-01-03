@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=21 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player.tscn" id="1_ia2wv"]
@@ -19,7 +19,6 @@
 [ext_resource type="PackedScene" uid="uid://d1gaebohj82ts" path="res://scenes/ui_manager.tscn" id="21_52gs6"]
 [ext_resource type="PackedScene" uid="uid://byfqmfx243vdg" path="res://scenes/menus/toggle_bag_menu_input_handler.tscn" id="23_audap"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="27_5g51u"]
-[ext_resource type="Resource" uid="uid://b7cxm53xklexf" path="res://resources/input/menu_select.tres" id="28_apfmn"]
 [ext_resource type="Resource" uid="uid://brvcbjaw14wp5" path="res://resources/input/menu_nav.tres" id="29_v7mnn"]
 
 [node name="Game" type="Node2D"]
@@ -124,8 +123,7 @@ offset_right = -416.0
 offset_bottom = 128.0
 grow_horizontal = 0
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
-menu_nav_action = ExtResource("29_v7mnn")
-menu_select_action = ExtResource("28_apfmn")
+current_index = 0
 toggle_bag_menu_input_handler = NodePath("../../../InputManager/ToggleBagMenuInputHandler")
 
 [node name="DialogueCanvas" type="CanvasLayer" parent="."]
