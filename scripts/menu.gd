@@ -12,9 +12,6 @@ signal cancel
 signal menu_hidden(menu: Menu)
 signal menu_shown(menu: Menu)
 
-signal menu_disabled(menu: Menu)
-signal menu_enabled(menu: Menu)
-
 signal steal_control(menu: Menu)
 
 enum MenuState { CLOSED, INACTIVE, ACTIVE, COVERED }
@@ -41,28 +38,26 @@ func get_menu_state() -> MenuState:
 	if not is_visible_in_tree():
 		return MenuState.CLOSED
 
-	if _inactive:
-		return MenuState.INACTIVE
-
 	if _covered:
 		return MenuState.COVERED
+
+	if _inactive:
+		return MenuState.INACTIVE
 
 	return MenuState.ACTIVE
 
 func cancel_menu():
 	cancel.emit()
 
-func disable_menu():
+func disable_menu() -> void:
 	print("Disabling menu " + name)
 
 	_inactive = true
-	menu_disabled.emit(self)
 
-func enable_menu():
+func enable_menu() -> void:
 	print("Enabling menu " + name)
 
 	_inactive = false
-	menu_enabled.emit(self)
 
 func cover_menu() -> void:
 	print("Covering menu " + name)

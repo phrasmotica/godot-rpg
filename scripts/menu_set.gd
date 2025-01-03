@@ -12,11 +12,7 @@ var current_menu_index := -1:
 		current_menu_index = new_index
 
 		if index_changed:
-			for i in range(menus.size()):
-				if i != current_menu_index:
-					menus[i].disable_menu()
-				else:
-					menus[i].enable_menu()
+			_refresh()
 
 @export
 var menus: Array[Menu] = []
@@ -27,11 +23,9 @@ var toggle_bag_menu_input_handler: ToggleBagMenuInputHandler
 @export
 var menu_nav_action: GUIDEAction
 
-var _child_is_enabled := false
-
 signal cancel
 
-func _ready():
+func _ready() -> void:
 	if menus.size() > 0:
 		current_menu_index = 0
 
@@ -42,9 +36,12 @@ func _ready():
 
 	menu_nav_action.triggered.connect(_handle_menu_nav)
 
+func _refresh() -> void:
 	for i in range(menus.size()):
-		menus[i].menu_disabled.connect(_handle_child_menu_disabled)
-		menus[i].menu_enabled.connect(_handle_child_menu_enabled)
+		if i != current_menu_index:
+			menus[i].disable_menu()
+		else:
+			menus[i].enable_menu()
 
 func _handle_toggle_bag_menu() -> void:
 	if _can_listen():
@@ -62,17 +59,13 @@ func _handle_menu_nav() -> void:
 	if dir == Vector2.LEFT:
 		current_menu_index = ((current_menu_index + menus.size() - 1) % menus.size())
 
-func _handle_child_menu_disabled(menu: Menu) -> void:
-	print(menu.name + " disabled, disabling parent set " + name)
+func _can_listen() -> bool:
+	if not is_visible_in_tree():
+		return false
 
-	_child_is_enabled = true
+	for menu in menus:
+		if menu.get_menu_state() == Menu.MenuState.COVERED:
+			# another layer of menus is currently active
+			return false
 
-func _handle_child_menu_enabled(menu: Menu) -> void:
-	print(menu.name + " enabled, enabling parent set " + name)
-
-	_child_is_enabled = false
-
-func _can_listen():
-	# HIGH: if a child menu is open and it cannot listen (due to one of ITS
-	# child menus being open, for example) then this menu set should not listen.
-	return not _child_is_enabled and is_visible_in_tree()
+	return true

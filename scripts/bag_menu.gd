@@ -68,12 +68,8 @@ func get_max_index():
 func disable_menu() -> void:
 	_dim_menu()
 
-	menu_disabled.emit(self)
-
 func enable_menu() -> void:
 	_undim_menu()
-
-	menu_enabled.emit(self)
 
 func cover_menu() -> void:
 	super.cover_menu()
