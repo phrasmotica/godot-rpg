@@ -15,15 +15,13 @@ func _on_hit_points_current_hp_changed(hp: int, max_hp: int):
 		hp_label.text = str(hp) + "/" + str(max_hp) + " HP"
 
 func disable_menu():
-	# HIGH: pass self as argument
-	menu_disabled.emit()
+	menu_disabled.emit(self)
 
 	dimmer.is_dimmed = true
 	content.hide()
 
 func enable_menu():
-	# HIGH: pass self as argument
-	menu_enabled.emit()
+	menu_enabled.emit(self)
 
 	dimmer.is_dimmed = false
 	content.show()
