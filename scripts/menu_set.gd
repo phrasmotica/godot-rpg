@@ -1,5 +1,5 @@
 @tool
-class_name MenuSet extends Menu
+class_name MenuSet extends Control
 
 @export
 var current_menu_index := -1:
@@ -7,59 +7,72 @@ var current_menu_index := -1:
 		var new_index: int = max(-1, min(menus.size() - 1, value))
 		var index_changed := current_menu_index != new_index
 
+		# MEDIUM: allow cycling the positions of each menu in the set
+		# as the selected menu changes
 		current_menu_index = new_index
 
 		if index_changed:
-			for i in range(menu_dimmers.size()):
-				menu_dimmers[i].is_dimmed = i != current_menu_index
+			for i in range(menus.size()):
+				if i != current_menu_index:
+					menus[i].disable_menu()
+				else:
+					menus[i].enable_menu()
 
 @export
-var menus: Array[Menu] = []:
-	set(value):
-		menus = value
-		update_configuration_warnings()
+var menus: Array[Menu] = []
 
 @export
-var menu_dimmers: Array[Dimmer] = []:
-	set(value):
-		menu_dimmers = value
-		update_configuration_warnings()
+var toggle_bag_menu_input_handler: ToggleBagMenuInputHandler
 
-func after_ready():
+@export
+var menu_nav_action: GUIDEAction
+
+var _child_is_enabled := false
+
+signal cancel
+
+func _ready():
 	if menus.size() > 0:
 		current_menu_index = 0
 
+	if Engine.is_editor_hint():
+		return
+
+	toggle_bag_menu_input_handler.toggled.connect(_handle_toggle_bag_menu)
+
+	menu_nav_action.triggered.connect(_handle_menu_nav)
+
 	for i in range(menus.size()):
-		var menu = menus[i]
+		menus[i].menu_disabled.connect(_handle_child_menu_disabled)
+		menus[i].menu_enabled.connect(_handle_child_menu_enabled)
 
-		menu.menu_disabled.connect(
-			func(m):
-				menu_dimmers[i].is_dimmed = true
+func _handle_toggle_bag_menu() -> void:
+	if _can_listen():
+		cancel.emit()
 
-				print(m.name + " disabled, disabling " + name)
-				disable_menu()
-		)
+func _handle_menu_nav() -> void:
+	if not _can_listen():
+		return
 
-		menu.menu_enabled.connect(
-			func(m):
-				menu_dimmers[i].is_dimmed = false
+	var dir := menu_nav_action.value_axis_2d
 
-				print(m.name + " enabled, enabling " + name)
-				enable_menu()
-		)
-
-func listen_for_inputs():
-	# MEDIUM: allow cycling the positions of each menu in the set
-	# as the selected menu changes
-
-	if Input.is_action_just_pressed("menu_set_cycle_next"):
+	if dir == Vector2.RIGHT:
 		current_menu_index = ((current_menu_index + 1) % menus.size())
 
-	if Input.is_action_just_pressed("menu_set_cycle_previous"):
+	if dir == Vector2.LEFT:
 		current_menu_index = ((current_menu_index + menus.size() - 1) % menus.size())
 
-func _get_configuration_warnings():
-	if menus.size() != menu_dimmers.size():
-		return ["Menu count and dimmer count must be the same!"]
+func _handle_child_menu_disabled(menu: Menu) -> void:
+	print(menu.name + " disabled, disabling parent set " + name)
 
-	return []
+	_child_is_enabled = true
+
+func _handle_child_menu_enabled(menu: Menu) -> void:
+	print(menu.name + " enabled, enabling parent set " + name)
+
+	_child_is_enabled = false
+
+func _can_listen():
+	# HIGH: if a child menu is open and it cannot listen (due to one of ITS
+	# child menus being open, for example) then this menu set should not listen.
+	return not _child_is_enabled and is_visible_in_tree()

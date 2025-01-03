@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="GUIDEMappingContext" load_steps=16 format=3 uid="uid://dbdwcsay6ekb8"]
+
+[ext_resource type="Script" path="res://addons/guide/guide_action_mapping.gd" id="1_lp3bo"]
+[ext_resource type="Script" path="res://addons/guide/guide_input_mapping.gd" id="3_w5yow"]
+[ext_resource type="Script" path="res://addons/guide/inputs/guide_input_key.gd" id="4_xn0ak"]
+[ext_resource type="Script" path="res://addons/guide/modifiers/guide_modifier.gd" id="5_2nvuh"]
+[ext_resource type="Script" path="res://addons/guide/triggers/guide_trigger.gd" id="8_imnhm"]
+[ext_resource type="Resource" uid="uid://v5qquk3hch77" path="res://resources/input/interact.tres" id="9_hwu2q"]
+[ext_resource type="Script" path="res://addons/guide/triggers/guide_trigger_pressed.gd" id="10_prmq3"]
+[ext_resource type="Script" path="res://addons/guide/guide_mapping_context.gd" id="11_20ugu"]
+
+[sub_resource type="Resource" id="Resource_7ovj1"]
+script = ExtResource("4_xn0ak")
+key = 32
+shift = false
+control = false
+alt = false
+meta = false
+allow_additional_modifiers = false
+
+[sub_resource type="Resource" id="Resource_tnt7s"]
+script = ExtResource("10_prmq3")
+actuation_threshold = 0.5
+
+[sub_resource type="Resource" id="Resource_umse7"]
+script = ExtResource("3_w5yow")
+input = SubResource("Resource_7ovj1")
+modifiers = Array[ExtResource("5_2nvuh")]([])
+triggers = Array[ExtResource("8_imnhm")]([SubResource("Resource_tnt7s")])
+
+[sub_resource type="Resource" id="Resource_y22qv"]
+script = ExtResource("4_xn0ak")
+key = 4194438
+shift = false
+control = false
+alt = false
+meta = false
+allow_additional_modifiers = false
+
+[sub_resource type="Resource" id="Resource_8rlus"]
+script = ExtResource("10_prmq3")
+actuation_threshold = 0.5
+
+[sub_resource type="Resource" id="Resource_ukb6w"]
+script = ExtResource("3_w5yow")
+input = SubResource("Resource_y22qv")
+modifiers = Array[ExtResource("5_2nvuh")]([])
+triggers = Array[ExtResource("8_imnhm")]([SubResource("Resource_8rlus")])
+
+[sub_resource type="Resource" id="Resource_i2bdq"]
+script = ExtResource("1_lp3bo")
+action = ExtResource("9_hwu2q")
+input_mappings = Array[ExtResource("3_w5yow")]([SubResource("Resource_umse7"), SubResource("Resource_ukb6w")])
+metadata/_guide_input_mappings_collapsed = false
+
+[resource]
+script = ExtResource("11_20ugu")
+display_name = ""
+mappings = Array[ExtResource("1_lp3bo")]([SubResource("Resource_i2bdq")])

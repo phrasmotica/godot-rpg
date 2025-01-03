@@ -1,8 +1,13 @@
 @tool
 extends ListMenu
 
+# HIGH: move list-style menu logic into a child node, rather than using inheritance
+
 @export
 var item_stack_menu_item_scene: PackedScene
+
+@onready
+var dimmer: Dimmer = %Dimmer
 
 @onready
 var empty_label: Label = %EmptyLabel
@@ -15,7 +20,6 @@ var item_list: VBoxContainer = %ItemList
 
 var item_stack_menu_items: Array[ItemStackMenuItem]
 
-signal add_random_item
 signal select_stack(stack: ItemStack)
 
 signal use_item(stack_id: int)
@@ -51,15 +55,6 @@ func previous():
 	# if we're currently at the top of it
 	current_index = (current_index + item_stack_menu_items.size() - 1) % item_stack_menu_items.size()
 
-func listen_for_inputs():
-	super.listen_for_inputs()
-
-	if Input.is_action_just_pressed("random_item"):
-		add_random_item.emit()
-
-	if Input.is_action_just_pressed("drop_item"):
-		drop_current_item()
-
 func highlight_current():
 	for button in item_stack_menu_items:
 		if button.index == current_index:
@@ -70,15 +65,24 @@ func highlight_current():
 func get_max_index():
 	return item_stack_menu_items.size() - 1
 
-func after_disable_menu():
+func can_listen():
+	return not dimmer.is_dimmed and is_visible_in_tree()
+
+func disable_menu():
+	menu_disabled.emit(self)
+
+	dimmer.is_dimmed = true
 	disable_animations()
+
+func enable_menu():
+	menu_enabled.emit(self)
+
+	dimmer.is_dimmed = false
+	enable_animations()
 
 func disable_animations():
 	for x in item_stack_menu_items:
 		x.disable_item()
-
-func after_enable_menu():
-	enable_animations()
 
 func enable_animations():
 	for x in item_stack_menu_items:
@@ -89,7 +93,7 @@ func enable_animations():
 func _on_current_index_changed(index: int):
 	print("BagMenu current index changed " + str(index))
 
-	if _inactive and is_visible_in_tree():
+	if dimmer.is_dimmed and is_visible_in_tree():
 		print("BagMenu current index changed, stealing control")
 		steal()
 
@@ -146,20 +150,26 @@ func update_buttons(item_stacks: Array[ItemStack]):
 
 		steal()
 
-func use_current_item():
-	if current_index > -1:
-		var current_item := item_stack_menu_items[current_index]
-		use_item.emit(current_item.stack.id)
+func use_current_item() -> void:
+	var current_stack := _get_current_stack()
+	if current_stack:
+		use_item.emit(current_stack.id)
 
 func drop_current_item():
-	if current_index > -1:
-		var current_item := item_stack_menu_items[current_index]
-		drop_item.emit(current_item.stack.id)
+	var current_stack := _get_current_stack()
+	if current_stack:
+		drop_item.emit(current_stack.id)
 
 func drop_current_stack():
+	var current_stack := _get_current_stack()
+	if current_stack:
+		drop_stack.emit(current_stack.id)
+
+func _get_current_stack() -> ItemStack:
 	if current_index > -1:
-		var current_item := item_stack_menu_items[current_index]
-		drop_stack.emit(current_item.stack.id)
+		return item_stack_menu_items[current_index].stack
+
+	return null
 
 func _on_bag_added_item(new_item: Item, _altered: bool, item_stacks: Array[ItemStack]):
 	print("Added " + new_item.name + " to bag")
@@ -189,9 +199,3 @@ func _on_use_item_menu_drop():
 
 func _on_use_item_menu_drop_all():
 	drop_current_stack()
-
-func after_dimmed():
-	disable_animations()
-
-func after_undimmed():
-	enable_animations()

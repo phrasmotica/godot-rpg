@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1gaebohj82ts"]
+
+[ext_resource type="Script" path="res://scripts/ui_manager.gd" id="1_3lwbb"]
+[ext_resource type="Script" path="res://scripts/next_frame_handler.gd" id="2_va7av"]
+
+[node name="UIManager" type="Node"]
+script = ExtResource("1_3lwbb")
+
+[node name="NextFrameHandler" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_va7av")

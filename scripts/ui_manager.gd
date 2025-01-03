@@ -1,53 +1,40 @@
-extends Node
+class_name UIManager extends Node
 
 @export
-var menu: MenuSet
+var menu_set: MenuSet
 
 @export
-var dialogue_manager: DialogueManager
+var toggle_bag_menu_input_handler: ToggleBagMenuInputHandler
 
-var _dialogue_playing := false
+@onready
+var next_frame_handler: NextFrameHandler = %NextFrameHandler
 
 signal ui_ready
 signal menu_opened
 signal menu_closed
 
 func _ready():
-	if dialogue_manager:
-		dialogue_manager.timeline_started.connect(handle_dialogue_started)
-		dialogue_manager.timeline_ended.connect(handle_dialogue_finished)
+	toggle_bag_menu_input_handler.toggled.connect(_handle_toggle_bag_menu)
 
 	hide_menu()
 
 	ui_ready.emit()
 
-func handle_dialogue_started():
-	_dialogue_playing = true
-
-func handle_dialogue_finished():
-	get_tree().process_frame.connect(
-		func():
-			_dialogue_playing = false
-	, CONNECT_ONE_SHOT)
-
 func hide_menu():
-	menu.disable_menu()
-	menu.hide()
+	menu_set.hide()
 
-func _process(_delta):
-	if not menu.visible and not _dialogue_playing and Input.is_action_just_pressed("toggle_bag"):
-		print("Showing menu")
+func _handle_toggle_bag_menu() -> void:
+	if not menu_set.visible:
+		print("Showing menu set")
 
-		menu.show()
+		menu_set.show()
 
 		menu_opened.emit()
 
-		# ensures the key press doesn't immediately hide the menu
-		get_tree().process_frame.connect(menu.enable_menu, CONNECT_ONE_SHOT)
-
 func _on_menu_cancel():
-	print("Hiding menu")
+	print("Hiding menu set")
 
-	hide_menu()
+	# ensures the key press doesn't immediately show the menu
+	next_frame_handler.on_next_frame(hide_menu)
 
 	menu_closed.emit()

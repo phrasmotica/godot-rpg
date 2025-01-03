@@ -2,6 +2,9 @@
 extends Menu
 
 @onready
+var dimmer: Dimmer = %Dimmer
+
+@onready
 var content: Control = %Content
 
 @onready
@@ -11,8 +14,16 @@ func _on_hit_points_current_hp_changed(hp: int, max_hp: int):
 	if hp_label:
 		hp_label.text = str(hp) + "/" + str(max_hp) + " HP"
 
-func hide_content():
+func disable_menu():
+	# HIGH: pass self as argument
+	menu_disabled.emit()
+
+	dimmer.is_dimmed = true
 	content.hide()
 
-func show_content():
+func enable_menu():
+	# HIGH: pass self as argument
+	menu_enabled.emit()
+
+	dimmer.is_dimmed = false
 	content.show()

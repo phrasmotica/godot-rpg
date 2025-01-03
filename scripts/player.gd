@@ -4,16 +4,7 @@ class_name Player extends CharacterBody2D
 var sprite: AnimatedSprite2D
 
 @export
-var dialogue_manager: DialogueManager
-
-@export
 var party: Party
-
-## The number of seconds that a movement key must be held down before the player
-## moves. This means if the key is not held down for that long, the player will
-## face the new direction without moving.
-@export_range(0.05, 0.2)
-var tap_threshold_seconds := 0.1
 
 ## The physics layers that the raycast should collide with when processing
 ## movement.
@@ -23,8 +14,11 @@ var raycast_mask: int
 @onready
 var grid_movement: GridMovement = %GridMovement
 
-var _dialogue_playing := false
-var move_timer_on := false
+@onready
+var player_interact_input_handler: PlayerInteractInputHandler = %PlayerInteractInputHandler
+
+@onready
+var player_move_input_handler: PlayerMoveInputHandler = %PlayerMoveInputHandler
 
 signal position_faced(pos: Vector2)
 signal moving_to_position(pos: Vector2i)
@@ -34,121 +28,38 @@ signal pickup_item(item: Item)
 signal dialogue_triggered(timeline: String)
 
 func _ready():
-	if dialogue_manager:
-		dialogue_manager.timeline_started.connect(handle_dialogue_started)
-		dialogue_manager.timeline_ended.connect(handle_dialogue_finished)
-
 	position = grid_movement.get_snapped_position(position)
 
-	if grid_movement:
-		grid_movement.position_faced.connect(position_faced.emit)
-		grid_movement.moving_started.connect(moving_to_position.emit)
-		grid_movement.moving_finished.connect(moved_to_position.emit)
+	grid_movement.position_faced.connect(position_faced.emit)
+	grid_movement.moving_started.connect(moving_to_position.emit)
+	grid_movement.moving_finished.connect(_handle_grid_movement_moving_finished)
 
-		grid_movement.set_raycast_mask(raycast_mask)
-		grid_movement.check_facing_tile()
+	grid_movement.set_raycast_mask(raycast_mask)
+	grid_movement.check_facing_tile()
+
+	player_interact_input_handler.dialogue_triggered.connect(_handle_dialogue_triggered)
+	player_interact_input_handler.interacted.connect(interacted.emit)
+	player_interact_input_handler.pickup_item_triggered.connect(_handle_pickup_item_triggered)
+
+	player_move_input_handler.move_triggered.connect(_handle_move_triggered)
 
 	moving_to_position.emit(global_position)
 
-func handle_dialogue_started():
-	_dialogue_playing = true
+func _handle_move_triggered(direction: Vector2):
+	var party_colliders := party.get_colliders() if party else []
+	grid_movement.move_ignore_collision_set(direction, party_colliders)
 
-func handle_dialogue_finished():
-	get_tree().process_frame.connect(
-		func():
-			_dialogue_playing = false
-	, CONNECT_ONE_SHOT)
-
-func _process(_delta):
-	if not _dialogue_playing:
-		process_move()
-
-		if Input.is_action_just_pressed("pick_up"):
-			try_interact()
-
-func process_move():
-	var direction := Input.get_vector("player_left", "player_right", "player_up", "player_down")
-
-	if direction.length() > 0:
-		if not grid_movement.can_face(direction) or move_timer_on:
-			return
-
-		var did_change := grid_movement.face(direction)
-		if did_change:
-			set_move_timer(direction)
-		else:
-			# no need to wait for the player to face in the movement direction
-			var party_colliders := party.get_colliders() if party else []
-			grid_movement.move_ignore_collision_set(direction, party_colliders)
-
-func set_move_timer(direction: Vector2):
-	if direction.length() <= 0:
-		return
-
-	var move_timer := get_tree().create_timer(tap_threshold_seconds)
-	move_timer_on = true
-
-	# only move if the user has held down the key for long enough
-	move_timer.timeout.connect(
-		func():
-			move_timer_on = false
-
-			var action = compute_input_action(direction)
-
-			if Input.is_action_pressed(action):
-				var party_colliders := party.get_colliders() if party else []
-				grid_movement.move_ignore_collision_set(direction, party_colliders)
-	)
-
-func try_interact():
-	var collider = grid_movement.raycast.get_collider()
-
-	if not collider:
-		return
-
-	if collider is ItemArea:
-		var item_area = collider as ItemArea
-		var item := item_area.get_item()
-		pickup_item.emit(item)
-
-		item_area.dispose()
-
-	elif collider is NPC:
-		var npc := collider as NPC
-		npc.face(global_position)
-
-		dialogue_triggered.emit(npc.talk_dialogue)
+func _handle_dialogue_triggered(npc: NPC) -> void:
+	npc.face(global_position)
+	dialogue_triggered.emit(npc.talk_dialogue)
 
 	interacted.emit()
 
-func compute_input_action(direction: Vector2) -> StringName:
-	if direction.y > 0:
-		return "player_down"
+func _handle_pickup_item_triggered(item: Item) -> void:
+	pickup_item.emit(item)
 
-	if direction.y < 0:
-		return "player_up"
+	interacted.emit()
 
-	if direction.x > 0:
-		return "player_right"
-
-	if direction.x < 0:
-		return "player_left"
-
-	return ""
-
-func _on_grid_movement_moving_finished(_pos: Vector2):
+func _handle_grid_movement_moving_finished(pos: Vector2):
 	sprite.stop()
-
-func _on_ui_manager_menu_opened():
-	prevent_input()
-
-func _on_ui_manager_menu_closed():
-	allow_input()
-
-func prevent_input():
-	set_process(false)
-
-func allow_input():
-	# this ensures that this script processes against from the NEXT frame
-	var callable := set_process.bind(true)
-	get_tree().process_frame.connect(callable, CONNECT_ONE_SHOT)
+	moved_to_position.emit(pos)
