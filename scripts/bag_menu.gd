@@ -1,10 +1,13 @@
 @tool
 extends ListMenu
 
-# HIGH: move list-style menu logic into a child node, rather than using inheritance
+# HIGH: cut down on inheritance as much as possible
 
 @export
 var item_stack_menu_item_scene: PackedScene
+
+@export
+var menu_behaviour: BagMenuBehaviour
 
 @onready
 var dimmer: Dimmer = %Dimmer
@@ -35,25 +38,25 @@ func process_select():
 	if current_index < 0 || current_index >= item_stack_menu_items.size():
 		return
 
-	var button := item_stack_menu_items[current_index]
+	var stack := menu_behaviour.get_stack(item_stack_menu_items, current_index)
+	if not stack:
+		return
 
-	print("Selecting the " + button.stack.item.name)
+	print("Selecting the " + stack.item.name)
 
-	select_stack.emit(button.stack)
+	select_stack.emit(stack)
 
 func next():
 	if item_stack_menu_items.size() <= 0:
 		return
 
-	current_index = (current_index + 1) % item_stack_menu_items.size()
+	current_index = menu_behaviour.next(item_stack_menu_items, current_index)
 
 func previous():
 	if item_stack_menu_items.size() <= 0:
 		return
 
-	# this weird maths ensures we wrap around to the bottom of the bag
-	# if we're currently at the top of it
-	current_index = (current_index + item_stack_menu_items.size() - 1) % item_stack_menu_items.size()
+	current_index = menu_behaviour.previous(item_stack_menu_items, current_index)
 
 func highlight_current():
 	for button in item_stack_menu_items:
