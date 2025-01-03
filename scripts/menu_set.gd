@@ -73,4 +73,6 @@ func _handle_child_menu_enabled(menu: Menu) -> void:
 	_child_is_enabled = false
 
 func _can_listen():
+	# HIGH: if a child menu is open and it cannot listen (due to one of ITS
+	# child menus being open, for example) then this menu set should not listen.
 	return not _child_is_enabled and is_visible_in_tree()
