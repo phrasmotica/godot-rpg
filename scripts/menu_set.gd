@@ -69,3 +69,6 @@ func _can_listen() -> bool:
 			return false
 
 	return true
+
+func after_visibility_changed() -> void:
+	_refresh()
