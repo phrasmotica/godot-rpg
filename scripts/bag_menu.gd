@@ -65,17 +65,33 @@ func highlight_current():
 func get_max_index():
 	return item_stack_menu_items.size() - 1
 
-func disable_menu():
+func disable_menu() -> void:
+	_dim_menu()
+
 	menu_disabled.emit(self)
 
+func enable_menu() -> void:
+	_undim_menu()
+
+	menu_enabled.emit(self)
+
+func cover_menu() -> void:
+	super.cover_menu()
+
+	_dim_menu()
+
+func uncover_menu() -> void:
+	super.uncover_menu()
+
+	_undim_menu()
+
+func _dim_menu() -> void:
 	dimmer.is_dimmed = true
 	_inactive = true
 
 	disable_animations()
 
-func enable_menu():
-	menu_enabled.emit(self)
-
+func _undim_menu() -> void:
 	dimmer.is_dimmed = false
 	_inactive = false
 
