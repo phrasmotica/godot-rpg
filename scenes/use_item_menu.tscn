@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbtoj82qvcrwg"]
+[gd_scene load_steps=8 format=3 uid="uid://cbtoj82qvcrwg"]
 
 [ext_resource type="Script" path="res://scripts/use_item_menu.gd" id="1_5yin2"]
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_eomyo"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/next_frame_handler.gd" id="3_6n6si"]
 [ext_resource type="Resource" uid="uid://brvcbjaw14wp5" path="res://resources/input/menu_nav.tres" id="3_cxf10"]
 [ext_resource type="Resource" uid="uid://b7cxm53xklexf" path="res://resources/input/menu_select.tres" id="4_l76ie"]
+[ext_resource type="PackedScene" uid="uid://bajxb5vyt0vj8" path="res://scenes/menus/list_menu_input_handler.tscn" id="5_w3f5e"]
 
 [node name="UseItemMenu" type="Control" node_paths=PackedStringArray("items")]
 layout_mode = 3
@@ -16,6 +17,9 @@ items = [NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/
 menu_nav_action = ExtResource("3_cxf10")
 menu_select_action = ExtResource("4_l76ie")
 current_index = 0
+
+[node name="ListMenuInputHandler" parent="." instance=ExtResource("5_w3f5e")]
+unique_name_in_owner = true
 
 [node name="NextFrameHandler" type="Node" parent="."]
 unique_name_in_owner = true

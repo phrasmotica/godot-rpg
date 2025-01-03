@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://bajxb5vyt0vj8"]
+
+[ext_resource type="Script" path="res://scripts/menus/list_menu_input_handler.gd" id="1_jktls"]
+[ext_resource type="Resource" uid="uid://brvcbjaw14wp5" path="res://resources/input/menu_nav.tres" id="2_fjxwb"]
+[ext_resource type="Resource" uid="uid://b7cxm53xklexf" path="res://resources/input/menu_select.tres" id="3_xtwbx"]
+
+[node name="ListMenuInputHandler" type="Node"]
+script = ExtResource("1_jktls")
+menu_nav = ExtResource("2_fjxwb")
+menu_select = ExtResource("3_xtwbx")

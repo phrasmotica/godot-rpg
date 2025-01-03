@@ -10,6 +10,9 @@ var item_stack_menu_item_scene: PackedScene
 var menu_behaviour: BagMenuBehaviour
 
 @onready
+var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
+
+@onready
 var dimmer: Dimmer = %Dimmer
 
 @onready
@@ -32,9 +35,36 @@ signal drop_stack(stack_id: int)
 
 signal selected_item_changed(item: Item)
 
-## Menu overrides
+func _ready():
+	if Engine.is_editor_hint():
+		return
 
-func process_select():
+	list_menu_input_handler.next.connect(_handle_next)
+	list_menu_input_handler.previous.connect(_handle_previous)
+	list_menu_input_handler.select.connect(_handle_select)
+
+func _handle_next() -> void:
+	if not can_listen():
+		return
+
+	if item_stack_menu_items.size() <= 0:
+		return
+
+	current_index = menu_behaviour.next(item_stack_menu_items, current_index)
+
+func _handle_previous():
+	if not can_listen():
+		return
+
+	if item_stack_menu_items.size() <= 0:
+		return
+
+	current_index = menu_behaviour.previous(item_stack_menu_items, current_index)
+
+func _handle_select():
+	if not can_listen():
+		return
+
 	if current_index < 0 || current_index >= item_stack_menu_items.size():
 		return
 
@@ -46,17 +76,7 @@ func process_select():
 
 	select_stack.emit(stack)
 
-func next():
-	if item_stack_menu_items.size() <= 0:
-		return
-
-	current_index = menu_behaviour.next(item_stack_menu_items, current_index)
-
-func previous():
-	if item_stack_menu_items.size() <= 0:
-		return
-
-	current_index = menu_behaviour.previous(item_stack_menu_items, current_index)
+## Menu overrides
 
 func highlight_current():
 	for button in item_stack_menu_items:

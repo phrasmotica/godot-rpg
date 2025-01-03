@@ -123,7 +123,6 @@ offset_right = -416.0
 offset_bottom = 128.0
 grow_horizontal = 0
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
-current_index = 0
 toggle_bag_menu_input_handler = NodePath("../../../InputManager/ToggleBagMenuInputHandler")
 
 [node name="DialogueCanvas" type="CanvasLayer" parent="."]

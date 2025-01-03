@@ -5,6 +5,9 @@ extends ListMenu
 var item_consumer: ItemConsumer
 
 @onready
+var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
+
+@onready
 var next_frame_handler: NextFrameHandler = %NextFrameHandler
 
 @onready
@@ -29,8 +32,61 @@ signal use_all
 signal drop
 signal drop_all
 
-func after_ready():
+func _ready():
+	if items.size() > 0:
+		current_index = 0
+
+	if Engine.is_editor_hint():
+		return
+
+	toggle_bag_menu_input_handler.toggled.connect(_handle_toggle_bag_menu)
+
+	list_menu_input_handler.next.connect(_handle_next)
+	list_menu_input_handler.previous.connect(_handle_previous)
+	list_menu_input_handler.select.connect(_handle_select)
+
 	disable_menu()
+
+func _handle_next() -> void:
+	if not can_listen():
+		return
+
+	if items.size() <= 0:
+		return
+
+	var i := 0
+	while i == 0 or items[current_index].disabled:
+		current_index = (current_index + 1) % items.size()
+
+		i += 1
+
+func _handle_previous() -> void:
+	if not can_listen():
+		return
+
+	if items.size() <= 0:
+		return
+
+	var i := 0
+	while i == 0 or items[current_index].disabled:
+		# this weird maths ensures we wrap around to the bottom
+		# if we're currently at the top
+		current_index = (current_index + items.size() - 1) % items.size()
+
+		i += 1
+
+func _handle_select() -> void:
+	if not can_listen():
+		return
+
+	var item := items[current_index]
+	if item.disabled:
+		return
+
+	if item.is_cancel:
+		cancel_menu()
+	else:
+		select_current()
 
 func _on_bag_menu_select_stack(stack: ItemStack):
 	next_frame_handler.on_next_frame(_show_menu.bind(stack))
@@ -45,7 +101,7 @@ func _show_menu(stack: ItemStack) -> void:
 	update_for(selected_item)
 
 	if description_label:
-		description_label.text = stack.item.description
+		description_label.text = selected_item.description
 
 	enable_menu()
 

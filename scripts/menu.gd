@@ -22,11 +22,6 @@ func _ready():
 
 	toggle_bag_menu_input_handler.toggled.connect(_handle_toggle_bag_menu)
 
-	after_ready()
-
-func after_ready():
-	pass
-
 func _handle_toggle_bag_menu() -> void:
 	if can_listen():
 		cancel_menu()

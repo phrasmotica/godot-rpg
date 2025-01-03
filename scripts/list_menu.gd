@@ -26,41 +26,6 @@ var current_index := -1:
 signal current_index_changed(index: int)
 signal select_index(index: int)
 
-func _ready():
-	if Engine.is_editor_hint():
-		return
-
-	toggle_bag_menu_input_handler.toggled.connect(_handle_toggle_bag_menu)
-	menu_nav_action.triggered.connect(handle_menu_nav)
-	menu_select_action.triggered.connect(handle_menu_select)
-
-	if items.size() > 0:
-		current_index = 0
-
-func handle_menu_nav() -> void:
-	if not can_listen():
-		return
-
-	var dir := menu_nav_action.value_axis_2d
-
-	if dir == Vector2.DOWN:
-		print("Moving to next item")
-
-		next()
-
-	if dir == Vector2.UP:
-		print("Moving to previous item")
-
-		previous()
-
-func handle_menu_select() -> void:
-	if not can_listen():
-		print(name + " cannot listen!")
-		return
-
-	print(name + " can listen, handling menu select")
-	process_select()
-
 func get_max_index():
 	return items.size() - 1
 
@@ -68,44 +33,12 @@ func highlight_current():
 	for i in range(items.size()):
 		items[i].selected = i == current_index
 
-func process_select():
-	var item := items[current_index]
-	if item.disabled:
-		return
-
-	if item.is_cancel:
-		cancel_menu()
-	else:
-		select_current()
-
 func select_current():
 	select_index.emit(current_index)
-
-func next():
-	if items.size() <= 0:
-		return
-
-	var i := 0
-	while i == 0 or items[current_index].disabled:
-		current_index = (current_index + 1) % items.size()
-
-		i += 1
 
 func next_if_disabled():
 	while items[current_index].disabled:
 		current_index = (current_index + 1) % items.size()
-
-func previous():
-	if items.size() <= 0:
-		return
-
-	var i := 0
-	while i == 0 or items[current_index].disabled:
-		# this weird maths ensures we wrap around to the bottom
-		# if we're currently at the top
-		current_index = (current_index + items.size() - 1) % items.size()
-
-		i += 1
 
 func after_visibility_changed():
 	if items.size() > 0:
