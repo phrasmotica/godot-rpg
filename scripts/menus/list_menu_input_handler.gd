@@ -7,15 +7,21 @@ var menu_nav: GUIDEAction
 @export
 var menu_select: GUIDEAction
 
+@export
+var state_handler: MenuStateHandler
+
 signal next
 signal previous
 signal select
 
 func _ready():
 	menu_nav.triggered.connect(_handle_menu_nav)
-	menu_select.triggered.connect(select.emit)
+	menu_select.triggered.connect(_handle_menu_select)
 
 func _handle_menu_nav() -> void:
+	if not state_handler.can_listen():
+		return
+
 	var dir := menu_nav.value_axis_2d
 
 	if dir == Vector2.DOWN:
@@ -27,3 +33,9 @@ func _handle_menu_nav() -> void:
 		print("Moving to previous item")
 
 		previous.emit()
+
+func _handle_menu_select() -> void:
+	if not state_handler.can_listen():
+		return
+
+	select.emit()

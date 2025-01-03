@@ -33,4 +33,4 @@ func _handle_child_menu_shown(menu: Menu) -> void:
     parent_menu.cover_menu()
 
 func _menu_is_closed(menu: Menu) -> bool:
-    return menu.get_menu_state() == Menu.MenuState.CLOSED
+    return menu.is_closed()

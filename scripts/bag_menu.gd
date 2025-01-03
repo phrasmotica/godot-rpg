@@ -44,27 +44,18 @@ func _ready():
 	list_menu_input_handler.select.connect(_handle_select)
 
 func _handle_next() -> void:
-	if not can_listen():
-		return
-
 	if item_stack_menu_items.size() <= 0:
 		return
 
 	current_index = menu_behaviour.next(item_stack_menu_items, current_index)
 
 func _handle_previous():
-	if not can_listen():
-		return
-
 	if item_stack_menu_items.size() <= 0:
 		return
 
 	current_index = menu_behaviour.previous(item_stack_menu_items, current_index)
 
 func _handle_select():
-	if not can_listen():
-		return
-
 	if current_index < 0 || current_index >= item_stack_menu_items.size():
 		return
 
@@ -106,13 +97,13 @@ func uncover_menu() -> void:
 
 func _dim_menu() -> void:
 	dimmer.is_dimmed = true
-	_inactive = true
+	menu_state_handler.disable()
 
 	disable_animations()
 
 func _undim_menu() -> void:
 	dimmer.is_dimmed = false
-	_inactive = false
+	menu_state_handler.enable()
 
 	enable_animations()
 

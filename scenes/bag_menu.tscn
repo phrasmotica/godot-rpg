@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://7nyhh4cif5fr"]
+[gd_scene load_steps=10 format=3 uid="uid://7nyhh4cif5fr"]
 
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_l8nhx"]
 [ext_resource type="Script" path="res://scripts/bag_menu.gd" id="2_46jpv"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://b7cxm53xklexf" path="res://resources/input/menu_select.tres" id="5_hd0cx"]
 [ext_resource type="Script" path="res://scripts/menus/bag_menu_behaviour.gd" id="6_qsubh"]
 [ext_resource type="PackedScene" uid="uid://bajxb5vyt0vj8" path="res://scenes/menus/list_menu_input_handler.tscn" id="7_cni2r"]
+[ext_resource type="PackedScene" uid="uid://coaf4en4unowj" path="res://scenes/menus/menu_state_handler.tscn" id="8_yrwam"]
 
 [node name="BagMenu" type="PanelContainer" node_paths=PackedStringArray("menu_behaviour")]
 custom_minimum_size = Vector2(360, 132)
@@ -20,16 +21,21 @@ item_stack_menu_item_scene = ExtResource("3_1sdhg")
 menu_behaviour = NodePath("BagMenuBehaviour")
 menu_nav_action = ExtResource("4_spxkr")
 menu_select_action = ExtResource("5_hd0cx")
+current_index = 0
 
 [node name="BagMenuBehaviour" type="Node" parent="."]
 script = ExtResource("6_qsubh")
 
-[node name="ListMenuInputHandler" parent="." instance=ExtResource("7_cni2r")]
+[node name="ListMenuInputHandler" parent="." node_paths=PackedStringArray("state_handler") instance=ExtResource("7_cni2r")]
 unique_name_in_owner = true
+state_handler = NodePath("../MenuStateHandler")
 
 [node name="Dimmer" parent="." node_paths=PackedStringArray("to_dim") instance=ExtResource("4_bpnub")]
 unique_name_in_owner = true
 to_dim = NodePath("..")
+
+[node name="MenuStateHandler" parent="." instance=ExtResource("8_yrwam")]
+unique_name_in_owner = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

@@ -4,8 +4,8 @@ class_name Menu extends Control
 @export
 var toggle_bag_menu_input_handler: ToggleBagMenuInputHandler
 
-var _inactive := false
-var _covered := false
+@onready
+var menu_state_handler: MenuStateHandler = %MenuStateHandler
 
 signal cancel
 
@@ -14,8 +14,6 @@ signal menu_shown(menu: Menu)
 
 signal steal_control(menu: Menu)
 
-enum MenuState { CLOSED, INACTIVE, ACTIVE, COVERED }
-
 func _ready():
 	if Engine.is_editor_hint():
 		return
@@ -23,23 +21,8 @@ func _ready():
 	toggle_bag_menu_input_handler.toggled.connect(_handle_toggle_bag_menu)
 
 func _handle_toggle_bag_menu() -> void:
-	if can_listen():
+	if menu_state_handler.can_listen():
 		cancel_menu()
-
-func can_listen():
-	return get_menu_state() == MenuState.ACTIVE
-
-func get_menu_state() -> MenuState:
-	if not is_visible_in_tree():
-		return MenuState.CLOSED
-
-	if _covered:
-		return MenuState.COVERED
-
-	if _inactive:
-		return MenuState.INACTIVE
-
-	return MenuState.ACTIVE
 
 func cancel_menu():
 	cancel.emit()
@@ -47,25 +30,31 @@ func cancel_menu():
 func disable_menu() -> void:
 	print("Disabling menu " + name)
 
-	_inactive = true
+	menu_state_handler.disable()
 
 func enable_menu() -> void:
 	print("Enabling menu " + name)
 
-	_inactive = false
+	menu_state_handler.enable()
 
 func cover_menu() -> void:
 	print("Covering menu " + name)
 
-	_covered = true
+	menu_state_handler.cover()
 
 func uncover_menu() -> void:
 	print("Uncovering menu " + name)
 
-	_covered = false
+	menu_state_handler.uncover()
 
 func steal():
 	steal_control.emit(self)
+
+func is_closed() -> bool:
+	return menu_state_handler.is_closed()
+
+func is_covered() -> bool:
+	return menu_state_handler.is_covered()
 
 func _on_visibility_changed():
 	if is_visible_in_tree():

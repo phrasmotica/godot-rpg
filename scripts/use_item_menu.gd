@@ -48,9 +48,6 @@ func _ready():
 	disable_menu()
 
 func _handle_next() -> void:
-	if not can_listen():
-		return
-
 	if items.size() <= 0:
 		return
 
@@ -61,9 +58,6 @@ func _handle_next() -> void:
 		i += 1
 
 func _handle_previous() -> void:
-	if not can_listen():
-		return
-
 	if items.size() <= 0:
 		return
 
@@ -76,9 +70,6 @@ func _handle_previous() -> void:
 		i += 1
 
 func _handle_select() -> void:
-	if not can_listen():
-		return
-
 	var item := items[current_index]
 	if item.disabled:
 		return

@@ -64,7 +64,7 @@ func _can_listen() -> bool:
 		return false
 
 	for menu in menus:
-		if menu.get_menu_state() == Menu.MenuState.COVERED:
+		if menu.is_covered():
 			# another layer of menus is currently active
 			return false
 

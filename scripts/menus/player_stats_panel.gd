@@ -16,12 +16,12 @@ func _on_hit_points_current_hp_changed(hp: int, max_hp: int) -> void:
 
 func disable_menu() -> void:
 	dimmer.is_dimmed = true
-	_inactive = true
+	menu_state_handler.disable()
 
 	content.hide()
 
 func enable_menu() -> void:
 	dimmer.is_dimmed = false
-	_inactive = false
+	menu_state_handler.enable()
 
 	content.show()
