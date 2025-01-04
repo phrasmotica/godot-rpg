@@ -33,8 +33,9 @@ state_handler = NodePath("../MenuStateHandler")
 unique_name_in_owner = true
 to_dim = NodePath("..")
 
-[node name="MenuStateHandler" parent="." instance=ExtResource("8_yrwam")]
+[node name="MenuStateHandler" parent="." node_paths=PackedStringArray("menu") instance=ExtResource("8_yrwam")]
 unique_name_in_owner = true
+menu = NodePath("..")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

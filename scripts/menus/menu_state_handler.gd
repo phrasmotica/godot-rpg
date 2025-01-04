@@ -3,6 +3,9 @@ class_name MenuStateHandler extends Node2D
 
 enum MenuState { CLOSED, INACTIVE, ACTIVE, COVERED }
 
+@export
+var menu: Menu
+
 var _inactive := false
 var _covered := false
 
@@ -28,7 +31,7 @@ func uncover() -> void:
 	_covered = false
 
 func get_menu_state() -> MenuState:
-	if not is_visible_in_tree():
+	if not menu.is_visible_in_tree():
 		return MenuState.CLOSED
 
 	if _covered:
