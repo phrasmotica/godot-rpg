@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=20 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player/player.tscn" id="1_ia2wv"]
@@ -13,13 +13,12 @@
 [ext_resource type="PackedScene" uid="uid://clducor041jpw" path="res://scenes/map.tscn" id="10_ns2nh"]
 [ext_resource type="PackedScene" uid="uid://cvtqbegbkh1at" path="res://scenes/movement/movement_history.tscn" id="11_80ub2"]
 [ext_resource type="PackedScene" uid="uid://berealf573bgo" path="res://scenes/player/party.tscn" id="11_d8y58"]
-[ext_resource type="Script" path="res://scripts/menus/menu_set.gd" id="12_62p5y"]
 [ext_resource type="PackedScene" uid="uid://pbl172qx88xu" path="res://scenes/menus/player_stats_panel.tscn" id="13_55kbe"]
+[ext_resource type="PackedScene" uid="uid://b1dyw2k752kgp" path="res://scenes/menu_set.tscn" id="13_vxc7t"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/menus/child_menu_handler.tscn" id="16_2runr"]
 [ext_resource type="PackedScene" uid="uid://d1gaebohj82ts" path="res://scenes/ui_manager.tscn" id="21_52gs6"]
 [ext_resource type="PackedScene" uid="uid://byfqmfx243vdg" path="res://scenes/input/toggle_bag_menu_input_handler.tscn" id="23_audap"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="27_5g51u"]
-[ext_resource type="Resource" uid="uid://brvcbjaw14wp5" path="res://resources/input/menu_nav.tres" id="29_v7mnn"]
 
 [node name="Game" type="Node2D"]
 
@@ -88,15 +87,11 @@ grow_horizontal = 0
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 
-[node name="MenuSet" type="HFlowContainer" parent="UICanvas/UIManager/MarginContainer" node_paths=PackedStringArray("menus", "toggle_bag_menu_input_handler")]
+[node name="MenuSet" parent="UICanvas/UIManager/MarginContainer" node_paths=PackedStringArray("menus", "toggle_bag_menu_input_handler") instance=ExtResource("13_vxc7t")]
 layout_mode = 2
-theme_override_constants/h_separation = 20
-alignment = 2
-script = ExtResource("12_62p5y")
 current_menu_index = 0
 menus = [NodePath("BagMenu"), NodePath("PlayerStats")]
 toggle_bag_menu_input_handler = NodePath("../../../../InputManager/ToggleBagMenuInputHandler")
-menu_nav_action = ExtResource("29_v7mnn")
 
 [node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("toggle_bag_menu_input_handler") instance=ExtResource("13_55kbe")]
 modulate = Color(0.662745, 0.662745, 0.662745, 1)
@@ -152,7 +147,6 @@ layer = 10
 [connection signal="item_effect_result_created" from="Map/Player/Bag/ItemConsumer" to="DialogueCanvas/DialogueManager" method="_on_item_consumer_item_effect_result_created"]
 [connection signal="ui_ready" from="UICanvas/UIManager" to="Map/Player/HitPoints" method="_on_ui_manager_ui_ready"]
 [connection signal="cancel" from="UICanvas/UIManager/MarginContainer/MenuSet" to="UICanvas/UIManager" method="_on_menu_cancel"]
-[connection signal="visibility_changed" from="UICanvas/UIManager/MarginContainer/MenuSet" to="UICanvas/UIManager/MarginContainer/MenuSet" method="_on_visibility_changed"]
 [connection signal="current_index_changed" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_current_index_changed"]
 [connection signal="drop_item" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_item"]
 [connection signal="drop_stack" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_stack"]
