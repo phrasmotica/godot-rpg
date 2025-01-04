@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bc8nalaam6hto"]
 
-[ext_resource type="Script" path="res://scripts/input_manager.gd" id="1_nvyto"]
+[ext_resource type="Script" path="res://scripts/input/input_manager.gd" id="1_nvyto"]
 [ext_resource type="Resource" uid="uid://bm3sgn3pyotus" path="res://resources/input/ctx_bag_menu.tres" id="2_6b8dd"]
 [ext_resource type="Resource" uid="uid://ivwmaj7ar83q" path="res://resources/input/ctx_debug_mode.tres" id="3_ekgui"]
 [ext_resource type="Resource" uid="uid://dbdwcsay6ekb8" path="res://resources/input/ctx_interact.tres" id="4_y2kxr"]

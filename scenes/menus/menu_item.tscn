@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cy5cot7lqw00f"]
 
-[ext_resource type="Script" path="res://scripts/menu_item.gd" id="1_d2522"]
+[ext_resource type="Script" path="res://scripts/menus/menu_item.gd" id="1_d2522"]
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_uswix"]
 [ext_resource type="Texture2D" uid="uid://06gn0bussjc3" path="res://assets/sprites/selection_pointer.png" id="2_pq84d"]
 

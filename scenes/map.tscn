@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=4 uid="uid://clducor041jpw"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_hap8p"]
-[ext_resource type="PackedScene" uid="uid://uh2ihallkouo" path="res://scenes/tile_detection.tscn" id="2_7f1cu"]
+[ext_resource type="PackedScene" uid="uid://uh2ihallkouo" path="res://scenes/movement/tile_detection.tscn" id="2_7f1cu"]
 [ext_resource type="TileSet" uid="uid://bs5kp5aiadcug" path="res://resources/tilesets/game_tile_set.tres" id="3_sfrrm"]
-[ext_resource type="PackedScene" uid="uid://bd0jt41y1i55t" path="res://scenes/item_pickup.tscn" id="4_05j6t"]
+[ext_resource type="PackedScene" uid="uid://bd0jt41y1i55t" path="res://scenes/items/item_pickup.tscn" id="4_05j6t"]
 [ext_resource type="Resource" uid="uid://051773al2ksf" path="res://resources/items/item_potion.tres" id="5_86o63"]
 [ext_resource type="Resource" uid="uid://bsp3wru64i61u" path="res://resources/items/item_apple.tres" id="6_5rhde"]
 [ext_resource type="Resource" uid="uid://b5hhypvakbuho" path="res://resources/items/item_glass.tres" id="7_r2scf"]

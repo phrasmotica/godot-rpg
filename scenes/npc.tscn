@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://vawc2gply777"]
 
 [ext_resource type="Script" path="res://scripts/npc.gd" id="1_fp5du"]
-[ext_resource type="PackedScene" uid="uid://cxo8n08h3j7iq" path="res://scenes/grid_movement.tscn" id="2_724fx"]
-[ext_resource type="PackedScene" uid="uid://hiq0l3eppv1l" path="res://scenes/dialogue_area.tscn" id="2_swojc"]
+[ext_resource type="PackedScene" uid="uid://cxo8n08h3j7iq" path="res://scenes/movement/grid_movement.tscn" id="2_724fx"]
+[ext_resource type="PackedScene" uid="uid://hiq0l3eppv1l" path="res://scenes/dialogue/dialogue_area.tscn" id="2_swojc"]
 
 [sub_resource type="Gradient" id="Gradient_efj8u"]
 colors = PackedColorArray(0.588235, 0.333333, 0, 1, 1, 0.658032, 0.326783, 1)

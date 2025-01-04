@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://cbtoj82qvcrwg"]
 
-[ext_resource type="Script" path="res://scripts/use_item_menu.gd" id="1_5yin2"]
+[ext_resource type="Script" path="res://scripts/menus/use_item_menu.gd" id="1_5yin2"]
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_eomyo"]
-[ext_resource type="PackedScene" uid="uid://cy5cot7lqw00f" path="res://scenes/menu_item.tscn" id="1_iqlnl"]
+[ext_resource type="PackedScene" uid="uid://cy5cot7lqw00f" path="res://scenes/menus/menu_item.tscn" id="1_iqlnl"]
 [ext_resource type="Script" path="res://scripts/next_frame_handler.gd" id="3_6n6si"]
 [ext_resource type="Resource" uid="uid://brvcbjaw14wp5" path="res://resources/input/menu_nav.tres" id="3_cxf10"]
 [ext_resource type="Resource" uid="uid://b7cxm53xklexf" path="res://resources/input/menu_select.tres" id="4_l76ie"]

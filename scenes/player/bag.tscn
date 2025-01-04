@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://wf1bgkchcqs5"]
 
-[ext_resource type="Script" path="res://scripts/bag.gd" id="1_a5j3q"]
-[ext_resource type="Script" path="res://scripts/stack_manager.gd" id="2_cpolw"]
-[ext_resource type="Script" path="res://scripts/item_pool.gd" id="3_a5are"]
+[ext_resource type="Script" path="res://scripts/player/bag.gd" id="1_a5j3q"]
+[ext_resource type="Script" path="res://scripts/player/stack_manager.gd" id="2_cpolw"]
+[ext_resource type="Script" path="res://scripts/items/item_pool.gd" id="3_a5are"]
 [ext_resource type="Resource" uid="uid://bsp3wru64i61u" path="res://resources/items/item_apple.tres" id="4_a6mfa"]
 [ext_resource type="Resource" uid="uid://bq382ory2pvt0" path="res://resources/items/item_feather.tres" id="5_rqu8a"]
 [ext_resource type="Resource" uid="uid://b5hhypvakbuho" path="res://resources/items/item_glass.tres" id="6_i8frb"]
