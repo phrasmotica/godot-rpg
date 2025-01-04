@@ -121,7 +121,9 @@ func update_for(item: Item):
 	next_if_disabled()
 
 func _can_use_item(item: Item) -> bool:
-	var facing_correct_tile := not item.facing_tile or (player_facing_tile.id == item.facing_tile.id)
+	var facing_tile := item.get_required_facing_tile()
+	var facing_correct_tile := not facing_tile or (player_facing_tile.id == facing_tile.id)
+
 	var can_use := item_consumer.can_use(selected_item)
 
 	return facing_correct_tile and can_use

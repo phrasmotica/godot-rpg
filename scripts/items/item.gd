@@ -43,6 +43,9 @@ func get_use_text() -> String:
 func get_use_all_text() -> String:
     return "Use all"
 
+func get_required_facing_tile() -> Tile:
+    return facing_tile
+
 func same_meta_as(other: Item):
     if meta.size() == 0 and other.meta.size() == 0:
         return true
