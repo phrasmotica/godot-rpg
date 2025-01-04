@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://b1dyw2k752kgp" path="res://scenes/menu_set.tscn" id="13_vxc7t"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/menus/child_menu_handler.tscn" id="16_2runr"]
 [ext_resource type="PackedScene" uid="uid://d1gaebohj82ts" path="res://scenes/ui_manager.tscn" id="21_52gs6"]
-[ext_resource type="PackedScene" uid="uid://byfqmfx243vdg" path="res://scenes/input/toggle_bag_menu_input_handler.tscn" id="23_audap"]
+[ext_resource type="PackedScene" uid="uid://byfqmfx243vdg" path="res://scenes/input/toggle_menu_input_handler.tscn" id="23_audap"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="27_5g51u"]
 
 [node name="Game" type="Node2D"]
@@ -26,7 +26,7 @@
 dialogue_manager = NodePath("../DialogueCanvas/DialogueManager")
 ui_manager = NodePath("../UICanvas/UIManager")
 
-[node name="ToggleBagMenuInputHandler" parent="InputManager" instance=ExtResource("23_audap")]
+[node name="ToggleMenuInputHandler" parent="InputManager" instance=ExtResource("23_audap")]
 
 [node name="ToggleDebugModeInputHandler" parent="InputManager" node_paths=PackedStringArray("debug_layer") instance=ExtResource("8_544nx")]
 debug_layer = NodePath("../../DebugLayer")
@@ -73,9 +73,9 @@ hit_points = NodePath("../../HitPoints")
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
-[node name="UIManager" parent="UICanvas" node_paths=PackedStringArray("menu_set", "toggle_bag_menu_input_handler") instance=ExtResource("21_52gs6")]
+[node name="UIManager" parent="UICanvas" node_paths=PackedStringArray("menu_set", "toggle_menu_input_handler") instance=ExtResource("21_52gs6")]
 menu_set = NodePath("MarginContainer/MenuSet")
-toggle_bag_menu_input_handler = NodePath("../../InputManager/ToggleBagMenuInputHandler")
+toggle_menu_input_handler = NodePath("../../InputManager/ToggleMenuInputHandler")
 
 [node name="MarginContainer" type="MarginContainer" parent="UICanvas/UIManager"]
 anchors_preset = 1
@@ -87,27 +87,27 @@ grow_horizontal = 0
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 
-[node name="MenuSet" parent="UICanvas/UIManager/MarginContainer" node_paths=PackedStringArray("menus", "toggle_bag_menu_input_handler") instance=ExtResource("13_vxc7t")]
+[node name="MenuSet" parent="UICanvas/UIManager/MarginContainer" node_paths=PackedStringArray("menus", "toggle_menu_input_handler") instance=ExtResource("13_vxc7t")]
 layout_mode = 2
 current_menu_index = 0
 menus = [NodePath("BagMenu"), NodePath("PlayerStats")]
-toggle_bag_menu_input_handler = NodePath("../../../../InputManager/ToggleBagMenuInputHandler")
+toggle_menu_input_handler = NodePath("../../../../InputManager/ToggleMenuInputHandler")
 
-[node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("toggle_bag_menu_input_handler") instance=ExtResource("13_55kbe")]
+[node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("toggle_menu_input_handler") instance=ExtResource("13_55kbe")]
 modulate = Color(0.662745, 0.662745, 0.662745, 1)
 layout_mode = 2
-toggle_bag_menu_input_handler = NodePath("../../../../../InputManager/ToggleBagMenuInputHandler")
+toggle_menu_input_handler = NodePath("../../../../../InputManager/ToggleMenuInputHandler")
 
-[node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("toggle_bag_menu_input_handler") instance=ExtResource("5_votnq")]
+[node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("toggle_menu_input_handler") instance=ExtResource("5_votnq")]
 custom_minimum_size = Vector2(360, 2.08165e-12)
 layout_mode = 2
-toggle_bag_menu_input_handler = NodePath("../../../../../InputManager/ToggleBagMenuInputHandler")
+toggle_menu_input_handler = NodePath("../../../../../InputManager/ToggleMenuInputHandler")
 
 [node name="ChildMenuHandler" parent="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" node_paths=PackedStringArray("parent_menu", "child_menus") instance=ExtResource("16_2runr")]
 parent_menu = NodePath("..")
 child_menus = [NodePath("../../../../UseItemMenu")]
 
-[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("item_consumer", "toggle_bag_menu_input_handler") instance=ExtResource("9_6coe6")]
+[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("item_consumer", "toggle_menu_input_handler") instance=ExtResource("9_6coe6")]
 visible = false
 anchors_preset = 1
 anchor_left = 1.0
@@ -118,7 +118,7 @@ offset_right = -416.0
 offset_bottom = 128.0
 grow_horizontal = 0
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
-toggle_bag_menu_input_handler = NodePath("../../../InputManager/ToggleBagMenuInputHandler")
+toggle_menu_input_handler = NodePath("../../../InputManager/ToggleMenuInputHandler")
 
 [node name="DialogueCanvas" type="CanvasLayer" parent="."]
 layer = 10

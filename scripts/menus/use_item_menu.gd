@@ -39,7 +39,7 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 
-	toggle_bag_menu_input_handler.toggled.connect(_handle_toggle_bag_menu)
+	toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
 
 	list_menu_input_handler.next.connect(_handle_next)
 	list_menu_input_handler.previous.connect(_handle_previous)

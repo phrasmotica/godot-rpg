@@ -18,7 +18,7 @@ var current_menu_index := -1:
 var menus: Array[Menu] = []
 
 @export
-var toggle_bag_menu_input_handler: ToggleBagMenuInputHandler
+var toggle_menu_input_handler: ToggleMenuInputHandler
 
 @export
 var menu_nav_action: GUIDEAction
@@ -32,7 +32,7 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
-	toggle_bag_menu_input_handler.toggled.connect(_handle_toggle_bag_menu)
+	toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
 
 	menu_nav_action.triggered.connect(_handle_menu_nav)
 
@@ -43,7 +43,7 @@ func _refresh() -> void:
 		else:
 			menus[i].enable_menu()
 
-func _handle_toggle_bag_menu() -> void:
+func _handle_toggle_menu() -> void:
 	if _can_listen():
 		cancel.emit()
 

@@ -2,7 +2,7 @@
 class_name Menu extends Control
 
 @export
-var toggle_bag_menu_input_handler: ToggleBagMenuInputHandler
+var toggle_menu_input_handler: ToggleMenuInputHandler
 
 @onready
 var menu_state_handler: MenuStateHandler = %MenuStateHandler
@@ -18,9 +18,9 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 
-	toggle_bag_menu_input_handler.toggled.connect(_handle_toggle_bag_menu)
+	toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
 
-func _handle_toggle_bag_menu() -> void:
+func _handle_toggle_menu() -> void:
 	if menu_state_handler.can_listen():
 		cancel_menu()
 

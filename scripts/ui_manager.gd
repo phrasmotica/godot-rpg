@@ -4,7 +4,7 @@ class_name UIManager extends Node
 var menu_set: MenuSet
 
 @export
-var toggle_bag_menu_input_handler: ToggleBagMenuInputHandler
+var toggle_menu_input_handler: ToggleMenuInputHandler
 
 @onready
 var next_frame_handler: NextFrameHandler = %NextFrameHandler
@@ -14,7 +14,7 @@ signal menu_opened
 signal menu_closed
 
 func _ready():
-	toggle_bag_menu_input_handler.toggled.connect(_handle_toggle_bag_menu)
+	toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
 
 	hide_menu()
 
@@ -23,7 +23,7 @@ func _ready():
 func hide_menu():
 	menu_set.hide()
 
-func _handle_toggle_bag_menu() -> void:
+func _handle_toggle_menu() -> void:
 	if not menu_set.visible:
 		print("Showing menu set")
 
