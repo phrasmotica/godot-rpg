@@ -1,5 +1,8 @@
 class_name ItemEffect extends Resource
 
+@export
+var new_external_effects: Array[ItemEffect]
+
 signal consume(effect: ItemEffect)
 
 func apply():

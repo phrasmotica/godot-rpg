@@ -46,6 +46,15 @@ func get_use_all_text() -> String:
 func get_required_facing_tile() -> Tile:
     return facing_tile
 
+func after_apply(applied_effect: ItemEffect) -> void:
+    print("Removing use effect '%s' from %s" % [applied_effect.get_description(), name])
+    use_effects.erase(applied_effect)
+
+    print("Adding %d new external effect(s)" % applied_effect.new_external_effects.size())
+    external_effects.append_array(applied_effect.new_external_effects)
+
+    print("There are now %d external effect(s)" % external_effects.size())
+
 func same_meta_as(other: Item):
     if meta.size() == 0 and other.meta.size() == 0:
         return true

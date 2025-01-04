@@ -26,6 +26,8 @@ func use(item: Item) -> bool:
 		if x.can_apply_to_self(item):
 			var result: ItemEffectResult = x.apply_to_self(item)
 			if result:
+				item.after_apply(x)
+
 				some_effect_applied = true
 				item_effect_result_created.emit(result)
 		else:
