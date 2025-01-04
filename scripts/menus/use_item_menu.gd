@@ -91,9 +91,6 @@ func _show_menu(stack: ItemStack) -> void:
 
 	update_for(selected_item)
 
-	if description_label:
-		description_label.text = selected_item.description
-
 	enable_menu()
 
 func _on_bag_menu_selected_item_changed(item: Item):
@@ -107,20 +104,23 @@ func _on_bag_consumed_item(_consumed_item:Item, _item_stacks:Array[ItemStack]):
 	update_for(selected_item)
 
 func update_for(item: Item):
-	var cannot_use := not can_use_item(item)
+	if not item:
+		return
+
+	if description_label:
+		description_label.text = item.get_description()
+
+	var cannot_use := not _can_use_item(item)
 
 	use_item.disabled = cannot_use
-	use_item.text = item.get_use_text() if item else "Use"
+	use_item.text = item.get_use_text()
 
 	use_all_item.disabled = cannot_use
-	use_all_item.text = item.get_use_all_text() if item else "Use all"
+	use_all_item.text = item.get_use_all_text()
 
 	next_if_disabled()
 
-func can_use_item(item: Item) -> bool:
-	if not item:
-		return false
-
+func _can_use_item(item: Item) -> bool:
 	var facing_correct_tile := not item.facing_tile or (player_facing_tile.id == item.facing_tile.id)
 	var can_use := item_consumer.can_use(selected_item)
 

@@ -32,21 +32,15 @@ var external_effects: Array[ItemEffect] = []
 var meta := {}
 
 func get_display_name() -> String:
-    if meta.has("is_filled") and meta["is_filled"] == true:
-        return name + " (filled)"
-
     return name
 
-func get_use_text() -> String:
-    if meta.has("is_filled") and meta["is_filled"] == false:
-        return "Fill"
+func get_description() -> String:
+    return description
 
+func get_use_text() -> String:
     return "Use"
 
 func get_use_all_text() -> String:
-    if meta.has("is_filled") and meta["is_filled"] == false:
-        return "Fill all"
-
     return "Use all"
 
 func same_meta_as(other: Item):

@@ -1,16 +1,16 @@
-[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://b5hhypvakbuho"]
+[gd_resource type="Resource" script_class="Glass" load_steps=7 format=3 uid="uid://b5hhypvakbuho"]
 
 [ext_resource type="Resource" uid="uid://ciw4lsfrcukdk" path="res://resources/tilesets/tile_water.tres" id="1_5qrbu"]
 [ext_resource type="Script" path="res://scripts/items/item_effect.gd" id="1_7lvg1"]
 [ext_resource type="Script" path="res://scripts/items/fill_glass_item_effect.gd" id="1_ghd45"]
-[ext_resource type="Script" path="res://scripts/items/item.gd" id="1_h3uyv"]
+[ext_resource type="Script" path="res://scripts/items/item_glass.gd" id="2_ce7tb"]
 [ext_resource type="Texture2D" uid="uid://7nyladrne3g5" path="res://assets/sprites/jar.png" id="2_u3ei4"]
 
 [sub_resource type="Resource" id="Resource_1yinw"]
 script = ExtResource("1_ghd45")
 
 [resource]
-script = ExtResource("1_h3uyv")
+script = ExtResource("2_ce7tb")
 id = 3
 name = "Glass"
 description = "Use while facing water to fill it."
