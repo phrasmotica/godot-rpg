@@ -26,6 +26,8 @@ func try_use_item(stack_id: int):
 		print("Tried to use from stack ID=" + str(stack_id) + " but no item was found!")
 		return
 
+	var can_consume := item_consumer.can_consume(item)
+
 	var did_use := item_consumer.use(item)
 	if not did_use:
 		print("Did not use item " + item.name)
@@ -37,13 +39,19 @@ func try_use_item(stack_id: int):
 
 	used_item.emit(item, stack_manager.get_stacks())
 
+	if not can_consume:
+		# we might be able to consume the item now, as its list of external
+		# effects might have changed, but we require the player to use it from
+		# the bag again to do this
+		_put_back(item)
+
+		print(item.name + " could not be consumed before its use")
+		return
+
 	var did_consume := item_consumer.consume(item)
 	if not did_consume:
 		# add the item back in its possibly altered state after being used
-		var altered_item := stack_manager.add_item(item)
-		stack_manager.remove_empty_stacks()
-
-		added_item.emit(altered_item, true, stack_manager.get_stacks())
+		_put_back(item)
 
 		print("Did not consume item " + item.name)
 		return
@@ -53,6 +61,12 @@ func try_use_item(stack_id: int):
 	stack_manager.remove_empty_stacks()
 
 	consumed_item.emit(item, stack_manager.get_stacks())
+
+func _put_back(item: Item) -> void:
+	var altered_item := stack_manager.add_item(item)
+	stack_manager.remove_empty_stacks()
+
+	added_item.emit(altered_item, true, stack_manager.get_stacks())
 
 func drop_item(stack_id: int):
 	var just_dropped_item := stack_manager.drop_item(stack_id, true)

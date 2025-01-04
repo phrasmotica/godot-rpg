@@ -124,7 +124,7 @@ func _can_use_item(item: Item) -> bool:
 	var facing_tile := item.get_required_facing_tile()
 	var facing_correct_tile := not facing_tile or (player_facing_tile.id == facing_tile.id)
 
-	var can_use := item_consumer.can_use(selected_item)
+	var can_use := item_consumer.can_use(selected_item) or item_consumer.can_consume(selected_item)
 
 	return facing_correct_tile and can_use
 
