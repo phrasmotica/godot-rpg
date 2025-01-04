@@ -1,3 +1,4 @@
+@tool
 class_name MenuStateHandler extends Node2D
 
 enum MenuState { CLOSED, INACTIVE, ACTIVE, COVERED }
