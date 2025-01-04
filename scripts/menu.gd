@@ -48,6 +48,9 @@ func uncover_menu() -> void:
 	menu_state_handler.uncover()
 
 func steal():
+	enable_menu()
+	uncover_menu()
+
 	steal_control.emit(self)
 
 func is_closed() -> bool:
