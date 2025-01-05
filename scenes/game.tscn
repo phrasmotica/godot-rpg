@@ -63,7 +63,8 @@ party = NodePath("../Party")
 [node name="Party" parent="Map/Player" node_paths=PackedStringArray("members") instance=ExtResource("11_d8y58")]
 members = [NodePath("../../NPCs/NPC2"), NodePath("../../NPCs/NPC3")]
 
-[node name="HitPoints" parent="Map/Player" instance=ExtResource("3_21716")]
+[node name="HitPoints" parent="Map/Player" node_paths=PackedStringArray("ui_manager") instance=ExtResource("3_21716")]
+ui_manager = NodePath("../../../UICanvas/UIManager")
 current_hp = 40
 
 [node name="Bag" parent="Map/Player" node_paths=PackedStringArray("player", "item_consumer", "bag_menu") instance=ExtResource("3_pc812")]
@@ -96,9 +97,10 @@ current_menu_index = 0
 menus = [NodePath("BagMenu"), NodePath("PlayerStats")]
 toggle_menu_input_handler = NodePath("../../../../InputManager/ToggleMenuInputHandler")
 
-[node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("toggle_menu_input_handler") instance=ExtResource("13_55kbe")]
+[node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("player_hit_points", "toggle_menu_input_handler") instance=ExtResource("13_55kbe")]
 modulate = Color(0.662745, 0.662745, 0.662745, 1)
 layout_mode = 2
+player_hit_points = NodePath("../../../../../Map/Player/HitPoints")
 toggle_menu_input_handler = NodePath("../../../../../InputManager/ToggleMenuInputHandler")
 
 [node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("bag", "use_item_menu", "toggle_menu_input_handler") instance=ExtResource("5_votnq")]
@@ -140,8 +142,3 @@ item_consumer = NodePath("../../Map/Player/Bag/ItemConsumer")
 [node name="DebugLayer" type="CanvasLayer" parent="."]
 
 [node name="GuideDebugger" parent="DebugLayer" instance=ExtResource("27_5g51u")]
-
-[connection signal="current_hp_changed" from="Map/Player/HitPoints" to="UICanvas/UIManager/MarginContainer/MenuSet/PlayerStats" method="_on_hit_points_current_hp_changed"]
-[connection signal="ui_ready" from="UICanvas/UIManager" to="Map/Player/HitPoints" method="_on_ui_manager_ui_ready"]
-[connection signal="cancel" from="UICanvas/UIManager/MarginContainer/MenuSet" to="UICanvas/UIManager" method="_on_menu_cancel"]
-[connection signal="current_index_changed" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_current_index_changed"]

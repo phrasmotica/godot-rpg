@@ -13,14 +13,17 @@ signal ui_ready
 signal menu_opened
 signal menu_closed
 
-func _ready():
+func _ready() -> void:
+	if menu_set:
+		menu_set.cancel.connect(_handle_menu_cancel)
+
 	toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
 
 	hide_menu()
 
 	ui_ready.emit()
 
-func hide_menu():
+func hide_menu() -> void:
 	menu_set.hide()
 
 func _handle_toggle_menu() -> void:
@@ -31,7 +34,7 @@ func _handle_toggle_menu() -> void:
 
 		menu_opened.emit()
 
-func _on_menu_cancel():
+func _handle_menu_cancel() -> void:
 	print("Hiding menu set")
 
 	# ensures the key press doesn't immediately show the menu

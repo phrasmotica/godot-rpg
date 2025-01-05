@@ -1,5 +1,8 @@
 @tool
-extends Menu
+class_name PlayerStatsPanel extends Menu
+
+@export
+var player_hit_points: HitPoints
 
 @onready
 var dimmer: Dimmer = %Dimmer
@@ -10,7 +13,11 @@ var content: Control = %Content
 @onready
 var hp_label: Label = %HPLabel
 
-func _on_hit_points_current_hp_changed(hp: int, max_hp: int) -> void:
+func _ready() -> void:
+	if player_hit_points:
+		player_hit_points.current_hp_changed.connect(_handle_current_hp_changed)
+
+func _handle_current_hp_changed(hp: int, max_hp: int) -> void:
 	if hp_label:
 		hp_label.text = str(hp) + "/" + str(max_hp) + " HP"
 

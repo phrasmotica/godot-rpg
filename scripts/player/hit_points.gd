@@ -1,6 +1,9 @@
 @tool
 class_name HitPoints extends Node
 
+@export
+var ui_manager: UIManager
+
 @export_range(10, 100)
 var max_hp := 50:
     set(value):
@@ -21,8 +24,11 @@ var current_hp := 50:
 
 signal current_hp_changed(hp: int, max_hp: int)
 
-func _ready():
+func _ready() -> void:
+    if ui_manager:
+        ui_manager.ui_ready.connect(_handle_ui_ready)
+
     current_hp_changed.emit(current_hp, max_hp)
 
-func _on_ui_manager_ui_ready():
+func _handle_ui_ready() -> void:
     current_hp_changed.emit(current_hp, max_hp)
