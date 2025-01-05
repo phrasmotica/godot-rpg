@@ -86,5 +86,4 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[connection signal="current_index_changed" from="." to="." method="_on_current_index_changed"]
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

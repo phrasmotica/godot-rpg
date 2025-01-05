@@ -36,6 +36,8 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 
+	current_index_changed.connect(_handle_current_index_changed)
+
 	if bag:
 		bag.added_item.connect(_handle_bag_added_item)
 		bag.dropped_item.connect(_handle_bag_dropped_item)
@@ -125,7 +127,7 @@ func enable_animations() -> void:
 
 ## Menu signals
 
-func _on_current_index_changed(index: int) -> void:
+func _handle_current_index_changed(index: int) -> void:
 	print("BagMenu current index changed " + str(index))
 
 	if dimmer.is_dimmed and is_visible_in_tree():
