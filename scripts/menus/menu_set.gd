@@ -32,6 +32,8 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
+	visibility_changed.connect(_refresh)
+
 	toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
 
 	menu_nav_action.triggered.connect(_handle_menu_nav)
@@ -69,6 +71,3 @@ func _can_listen() -> bool:
 			return false
 
 	return true
-
-func after_visibility_changed() -> void:
-	_refresh()

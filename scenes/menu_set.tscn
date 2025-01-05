@@ -8,5 +8,3 @@ theme_override_constants/h_separation = 20
 alignment = 2
 script = ExtResource("1_qev08")
 menu_nav_action = ExtResource("2_1e7ff")
-
-[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
