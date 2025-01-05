@@ -31,7 +31,8 @@ ui_manager = NodePath("../UICanvas/UIManager")
 [node name="ToggleDebugModeInputHandler" parent="InputManager" node_paths=PackedStringArray("debug_layer") instance=ExtResource("8_544nx")]
 debug_layer = NodePath("../../DebugLayer")
 
-[node name="Map" parent="." instance=ExtResource("10_ns2nh")]
+[node name="Map" parent="." node_paths=PackedStringArray("player") instance=ExtResource("10_ns2nh")]
+player = NodePath("Player")
 
 [node name="NPCs" type="Node2D" parent="Map"]
 
@@ -130,20 +131,17 @@ toggle_menu_input_handler = NodePath("../../../InputManager/ToggleMenuInputHandl
 [node name="DialogueCanvas" type="CanvasLayer" parent="."]
 layer = 10
 
-[node name="DialogueManager" parent="DialogueCanvas" instance=ExtResource("1_1vlts")]
+[node name="DialogueManager" parent="DialogueCanvas" node_paths=PackedStringArray("map", "player", "bag", "item_consumer") instance=ExtResource("1_1vlts")]
+map = NodePath("../../Map")
+player = NodePath("../../Map/Player")
+bag = NodePath("../../Map/Player/Bag")
+item_consumer = NodePath("../../Map/Player/Bag/ItemConsumer")
 
 [node name="DebugLayer" type="CanvasLayer" parent="."]
 
 [node name="GuideDebugger" parent="DebugLayer" instance=ExtResource("27_5g51u")]
 
-[connection signal="player_interacted" from="Map" to="DialogueCanvas/DialogueManager" method="_on_map_player_interacted"]
-[connection signal="dialogue_triggered" from="Map/Player" to="DialogueCanvas/DialogueManager" method="_on_player_dialogue_triggered"]
-[connection signal="interacted" from="Map/Player" to="Map" method="_on_player_interacted"]
-[connection signal="position_faced" from="Map/Player" to="Map" method="_on_player_position_faced"]
 [connection signal="current_hp_changed" from="Map/Player/HitPoints" to="UICanvas/UIManager/MarginContainer/MenuSet/PlayerStats" method="_on_hit_points_current_hp_changed"]
-[connection signal="added_item" from="Map/Player/Bag" to="DialogueCanvas/DialogueManager" method="_on_bag_added_item"]
-[connection signal="item_consume_result_created" from="Map/Player/Bag/ItemConsumer" to="DialogueCanvas/DialogueManager" method="_on_item_consumer_item_consume_result_created"]
-[connection signal="item_effect_result_created" from="Map/Player/Bag/ItemConsumer" to="DialogueCanvas/DialogueManager" method="_on_item_consumer_item_effect_result_created"]
 [connection signal="ui_ready" from="UICanvas/UIManager" to="Map/Player/HitPoints" method="_on_ui_manager_ui_ready"]
 [connection signal="cancel" from="UICanvas/UIManager/MarginContainer/MenuSet" to="UICanvas/UIManager" method="_on_menu_cancel"]
 [connection signal="current_index_changed" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_current_index_changed"]

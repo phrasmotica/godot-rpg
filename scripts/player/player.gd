@@ -1,15 +1,15 @@
 class_name Player extends CharacterBody2D
 
 @export
-var sprite: AnimatedSprite2D
-
-@export
 var party: Party
 
 ## The physics layers that the raycast should collide with when processing
 ## movement.
 @export_flags_2d_physics
 var raycast_mask: int
+
+@onready
+var sprite: AnimatedSprite2D = %Sprite
 
 @onready
 var grid_movement: GridMovement = %GridMovement
