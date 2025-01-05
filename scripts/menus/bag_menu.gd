@@ -32,11 +32,12 @@ signal drop_stack(stack_id: int)
 
 signal selected_item_changed(item: Item)
 
-func _ready():
+func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
 	current_index_changed.connect(_handle_current_index_changed)
+	visibility_changed.connect(_handle_visibility_changed)
 
 	if bag:
 		bag.added_item.connect(_handle_bag_added_item)

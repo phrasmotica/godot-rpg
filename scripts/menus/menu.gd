@@ -1,9 +1,6 @@
 @tool
 class_name Menu extends Control
 
-@export
-var toggle_menu_input_handler: ToggleMenuInputHandler
-
 @onready
 var menu_state_handler: MenuStateHandler = %MenuStateHandler
 
@@ -14,17 +11,7 @@ signal menu_shown(menu: Menu)
 
 signal steal_control(menu: Menu)
 
-func _ready():
-	if Engine.is_editor_hint():
-		return
-
-	toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
-
-func _handle_toggle_menu() -> void:
-	if menu_state_handler.can_listen():
-		cancel_menu()
-
-func cancel_menu():
+func cancel_menu() -> void:
 	cancel.emit()
 
 func disable_menu() -> void:
@@ -47,7 +34,7 @@ func uncover_menu() -> void:
 
 	menu_state_handler.uncover()
 
-func steal():
+func steal() -> void:
 	enable_menu()
 	uncover_menu()
 
@@ -59,7 +46,7 @@ func is_closed() -> bool:
 func is_covered() -> bool:
 	return menu_state_handler.is_covered()
 
-func _on_visibility_changed():
+func _handle_visibility_changed() -> void:
 	if is_visible_in_tree():
 		menu_shown.emit(self)
 	else:
@@ -67,5 +54,5 @@ func _on_visibility_changed():
 
 	after_visibility_changed()
 
-func after_visibility_changed():
+func after_visibility_changed() -> void:
 	pass

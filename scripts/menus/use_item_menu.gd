@@ -2,6 +2,9 @@
 class_name UseItemMenu extends ListMenu
 
 @export
+var toggle_menu_input_handler: ToggleMenuInputHandler
+
+@export
 var bag: Bag
 
 @export
@@ -39,6 +42,7 @@ func _ready() -> void:
 
 	select_index.connect(use_item_menu_behaviour.handle_select_index)
 	cancel.connect(_handle_cancel)
+	visibility_changed.connect(_handle_visibility_changed)
 
 	if bag:
 		bag.used_item.connect(_handle_bag_used_item)
@@ -66,6 +70,10 @@ func _ready() -> void:
 	list_menu_input_handler.select.connect(_handle_select)
 
 	disable_menu()
+
+func _handle_toggle_menu() -> void:
+	if menu_state_handler.can_listen():
+		cancel_menu()
 
 func _handle_next() -> void:
 	if items.size() <= 0:
