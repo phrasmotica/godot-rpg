@@ -145,6 +145,3 @@ item_consumer = NodePath("../../Map/Player/Bag/ItemConsumer")
 [connection signal="ui_ready" from="UICanvas/UIManager" to="Map/Player/HitPoints" method="_on_ui_manager_ui_ready"]
 [connection signal="cancel" from="UICanvas/UIManager/MarginContainer/MenuSet" to="UICanvas/UIManager" method="_on_menu_cancel"]
 [connection signal="current_index_changed" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_current_index_changed"]
-[connection signal="drop_item" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_item"]
-[connection signal="drop_stack" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_stack"]
-[connection signal="use_item" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_use_item"]
