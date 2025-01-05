@@ -1,5 +1,5 @@
 @tool
-extends ListMenu
+class_name BagMenu extends ListMenu
 
 # HIGH: cut down on inheritance as much as possible
 

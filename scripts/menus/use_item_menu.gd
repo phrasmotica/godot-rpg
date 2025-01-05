@@ -2,42 +2,62 @@
 extends ListMenu
 
 @export
+var bag: Bag
+
+@export
+var bag_menu: BagMenu
+
+@export
 var item_consumer: ItemConsumer
+
+@export
+var map: Map
+
+@onready
+var use_item_menu_behaviour: UseItemMenuBehaviour = %UseItemMenuBehaviour
+
+@onready
+var bag_menu_handler: BagMenuHandler = %BagMenuHandler
 
 @onready
 var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
 
 @onready
-var next_frame_handler: NextFrameHandler = %NextFrameHandler
-
-@onready
-var description_label: Label = %Description
-
-@onready
-var use_item: MenuItem = %Use
-
-@onready
-var use_all_item: MenuItem = %UseAll
-
-var selected_item: Item
-
-var player_facing_tile: Tile
-
-# MEDIUM: assign values of this enum to the menu items, rather than mapping
-# menu item indexes to these enum values
-enum UseItemAction { USE, USE_ALL, DROP, DROP_ALL, NONE }
+var ui_updater: UseItemMenuUIUpdater = %UIUpdater
 
 signal use
 signal use_all
 signal drop
 signal drop_all
 
-func _ready():
+func _ready() -> void:
 	if items.size() > 0:
 		current_index = 0
 
 	if Engine.is_editor_hint():
 		return
+
+	select_index.connect(use_item_menu_behaviour.handle_select_index)
+	cancel.connect(_handle_cancel)
+
+	if bag:
+		bag.used_item.connect(_handle_bag_used_item)
+		bag.consumed_item.connect(_handle_bag_consumed_item)
+
+	if bag_menu:
+		bag_menu.select_stack.connect(bag_menu_handler.handle_select_stack)
+		bag_menu.selected_item_changed.connect(_handle_bag_menu_selected_item_changed)
+
+	if map:
+		map.player_faced_tile.connect(use_item_menu_behaviour.handle_player_faced_tile)
+
+	use_item_menu_behaviour.use.connect(use.emit)
+	use_item_menu_behaviour.use_all.connect(use_all.emit)
+	use_item_menu_behaviour.drop.connect(drop.emit)
+	use_item_menu_behaviour.drop_all.connect(drop_all.emit)
+
+	bag_menu_handler.show_menu.connect(_handle_show_menu)
+	bag_menu_handler.selected_item_changed.connect(_handle_selected_item_changed)
 
 	toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
 
@@ -79,91 +99,44 @@ func _handle_select() -> void:
 	else:
 		select_current()
 
-func _on_bag_menu_select_stack(stack: ItemStack):
-	next_frame_handler.on_next_frame(_show_menu.bind(stack))
+func _handle_bag_menu_selected_item_changed(item: Item) -> void:
+	bag_menu_handler.select_item(item)
 
-func _show_menu(stack: ItemStack) -> void:
-	print("Showing UseItemMenu for stack ID=" + str(stack.id))
+func _handle_bag_used_item(used_item: Item, _item_stacks: Array[ItemStack]) -> void:
+	bag_menu_handler.select_item(used_item)
 
-	show()
+func _handle_bag_consumed_item(consumed_item: Item, _item_stacks:Array[ItemStack]) -> void:
+	bag_menu_handler.select_item(consumed_item)
 
-	selected_item = stack.item
+func _handle_selected_item_changed(item: Item) -> void:
+	_update_for(item)
 
-	update_for(selected_item)
+func _update_for(item: Item) -> void:
+	var can_use := _can_use_item(item)
 
-	enable_menu()
-
-func _on_bag_menu_selected_item_changed(item: Item):
-	selected_item = item
-	update_for(selected_item)
-
-func _on_bag_used_item(_used_item: Item, _item_stacks: Array[ItemStack]):
-	update_for(selected_item)
-
-func _on_bag_consumed_item(_consumed_item:Item, _item_stacks:Array[ItemStack]):
-	update_for(selected_item)
-
-func update_for(item: Item):
-	if not item:
-		return
-
-	if description_label:
-		description_label.text = item.get_description()
-
-	var cannot_use := not _can_use_item(item)
-
-	use_item.disabled = cannot_use
-	use_item.text = item.get_use_text()
-
-	use_all_item.disabled = cannot_use
-	use_all_item.text = item.get_use_all_text()
+	ui_updater.update_for(item, can_use)
 
 	next_if_disabled()
 
-func _can_use_item(item: Item) -> bool:
-	var facing_tile := item.get_required_facing_tile()
-	var facing_correct_tile := not facing_tile or (player_facing_tile.id == facing_tile.id)
+func _handle_show_menu(stack: ItemStack) -> void:
+	print("Showing UseItemMenu for stack ID=" + str(stack.id))
 
-	var can_use := item_consumer.can_use(selected_item) or item_consumer.can_consume(selected_item)
+	bag_menu_handler.select_item(stack.item)
 
-	return facing_correct_tile and can_use
+	enable_menu()
+	show()
 
-func _on_select_index(index: int):
-	var action := get_action(index)
-
-	match action:
-		UseItemAction.USE:
-			print("Using one item")
-			use.emit()
-
-		UseItemAction.USE_ALL:
-			print("Using all items")
-			use_all.emit()
-
-		UseItemAction.DROP:
-			print("Dropping one item")
-			drop.emit()
-
-		UseItemAction.DROP_ALL:
-			print("Dropping all items")
-			drop_all.emit()
-
-func get_action(index: int) -> UseItemAction:
-	match index:
-		0: return UseItemAction.USE
-		1: return UseItemAction.USE_ALL
-		2: return UseItemAction.DROP
-		3: return UseItemAction.DROP_ALL
-
-	print("Unknown use item action " + str(index))
-	return UseItemAction.NONE
-
-func _on_cancel():
+func _handle_cancel() -> void:
 	print("Hiding UseItemMenu")
 
 	disable_menu()
-
 	hide()
 
-func _on_map_player_faced_tile(tile: Tile):
-	player_facing_tile = tile
+func _can_use_item(item: Item) -> bool:
+	if not item:
+		return false
+
+	var facing_correct_tile := use_item_menu_behaviour.can_use_item(item)
+	var can_use := item_consumer.can_use(item) or item_consumer.can_consume(item)
+
+	return facing_correct_tile and can_use

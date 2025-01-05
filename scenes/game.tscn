@@ -107,7 +107,7 @@ toggle_menu_input_handler = NodePath("../../../../../InputManager/ToggleMenuInpu
 parent_menu = NodePath("..")
 child_menus = [NodePath("../../../../UseItemMenu")]
 
-[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("item_consumer", "toggle_menu_input_handler") instance=ExtResource("9_6coe6")]
+[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("bag", "bag_menu", "item_consumer", "map", "toggle_menu_input_handler") instance=ExtResource("9_6coe6")]
 visible = false
 anchors_preset = 1
 anchor_left = 1.0
@@ -117,7 +117,10 @@ offset_top = 128.0
 offset_right = -416.0
 offset_bottom = 128.0
 grow_horizontal = 0
+bag = NodePath("../../../Map/Player/Bag")
+bag_menu = NodePath("../MarginContainer/MenuSet/BagMenu")
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
+map = NodePath("../../../Map")
 toggle_menu_input_handler = NodePath("../../../InputManager/ToggleMenuInputHandler")
 
 [node name="DialogueCanvas" type="CanvasLayer" parent="."]
@@ -129,7 +132,6 @@ layer = 10
 
 [node name="GuideDebugger" parent="DebugLayer" instance=ExtResource("27_5g51u")]
 
-[connection signal="player_faced_tile" from="Map" to="UICanvas/UIManager/UseItemMenu" method="_on_map_player_faced_tile"]
 [connection signal="player_interacted" from="Map" to="DialogueCanvas/DialogueManager" method="_on_map_player_interacted"]
 [connection signal="dialogue_triggered" from="Map/Player" to="DialogueCanvas/DialogueManager" method="_on_player_dialogue_triggered"]
 [connection signal="interacted" from="Map/Player" to="Map" method="_on_player_interacted"]
@@ -139,10 +141,8 @@ layer = 10
 [connection signal="added_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_bag_added_item"]
 [connection signal="added_item" from="Map/Player/Bag" to="DialogueCanvas/DialogueManager" method="_on_bag_added_item"]
 [connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_bag_consumed_item"]
-[connection signal="consumed_item" from="Map/Player/Bag" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_consumed_item"]
 [connection signal="dropped_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_bag_dropped_item"]
 [connection signal="used_item" from="Map/Player/Bag" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_bag_used_item"]
-[connection signal="used_item" from="Map/Player/Bag" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_used_item"]
 [connection signal="item_consume_result_created" from="Map/Player/Bag/ItemConsumer" to="DialogueCanvas/DialogueManager" method="_on_item_consumer_item_consume_result_created"]
 [connection signal="item_effect_result_created" from="Map/Player/Bag/ItemConsumer" to="DialogueCanvas/DialogueManager" method="_on_item_consumer_item_effect_result_created"]
 [connection signal="ui_ready" from="UICanvas/UIManager" to="Map/Player/HitPoints" method="_on_ui_manager_ui_ready"]
@@ -150,10 +150,7 @@ layer = 10
 [connection signal="current_index_changed" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_current_index_changed"]
 [connection signal="drop_item" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_item"]
 [connection signal="drop_stack" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_drop_stack"]
-[connection signal="select_stack" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_menu_select_stack"]
-[connection signal="selected_item_changed" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="UICanvas/UIManager/UseItemMenu" method="_on_bag_menu_selected_item_changed"]
 [connection signal="use_item" from="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" to="Map/Player/Bag" method="_on_bag_menu_use_item"]
-[connection signal="cancel" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/UseItemMenu" method="_on_cancel"]
 [connection signal="drop" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_use_item_menu_drop"]
 [connection signal="drop_all" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_use_item_menu_drop_all"]
 [connection signal="use" from="UICanvas/UIManager/UseItemMenu" to="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" method="_on_use_item_menu_use"]
