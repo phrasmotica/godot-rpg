@@ -1,25 +1,42 @@
 class_name Bag extends Node
 
 @export
+var player: Player
+
+@export
 var item_consumer: ItemConsumer
+
+@export
+var bag_menu: BagMenu
 
 @onready
 var stack_manager: StackManager = %StackManager
-
-@onready
-var item_pool: ItemPool = %ItemPool
 
 signal added_item(new_item: Item, altered: bool, item_stacks: Array[ItemStack])
 signal dropped_item(dropped_item: Item, item_stacks: Array[ItemStack])
 signal used_item(used_item: Item, item_stacks: Array[ItemStack])
 signal consumed_item(consumed_item: Item, item_stacks: Array[ItemStack])
 
-func add_item(item: Item):
+func _ready():
+	if player:
+		player.pickup_item.connect(_handle_player_pickup_item)
+
+	if bag_menu:
+		bag_menu.use_item.connect(_try_use_item)
+		bag_menu.drop_item.connect(_drop_item)
+		bag_menu.drop_stack.connect(_drop_stack)
+
+func _handle_player_pickup_item(item: Item) -> void:
+	print("Player picked up " + item.name)
+
+	_add_item(item)
+
+func _add_item(item: Item) -> void:
 	var new_item = stack_manager.add_item(item)
 
 	added_item.emit(new_item, false, stack_manager.get_stacks())
 
-func try_use_item(stack_id: int):
+func _try_use_item(stack_id: int) -> void:
 	var item := stack_manager.peek(stack_id)
 
 	if not item:
@@ -68,26 +85,12 @@ func _put_back(item: Item) -> void:
 
 	added_item.emit(altered_item, true, stack_manager.get_stacks())
 
-func drop_item(stack_id: int):
+func _drop_item(stack_id: int) -> void:
 	var just_dropped_item := stack_manager.drop_item(stack_id, true)
 
 	dropped_item.emit(just_dropped_item, stack_manager.get_stacks())
 
-func drop_stack(stack_id: int):
+func _drop_stack(stack_id: int) -> void:
 	var just_dropped_item := stack_manager.drop_stack(stack_id)
 
 	dropped_item.emit(just_dropped_item, stack_manager.get_stacks())
-
-func _on_bag_menu_use_item(stack_id: int):
-	try_use_item(stack_id)
-
-func _on_bag_menu_drop_item(stack_id: int):
-	drop_item(stack_id)
-
-func _on_bag_menu_drop_stack(stack_id: int):
-	drop_stack(stack_id)
-
-func _on_player_pickup_item(item: Item):
-	print("Player picked up " + item.name)
-
-	add_item(item)

@@ -4,10 +4,13 @@ class_name BagMenu extends ListMenu
 # HIGH: cut down on inheritance as much as possible
 
 @export
-var item_stack_menu_item_scene: PackedScene
+var bag: Bag
 
 @export
-var menu_behaviour: BagMenuBehaviour
+var use_item_menu: UseItemMenu
+
+@onready
+var menu_behaviour: BagMenuBehaviour = %BagMenuBehaviour
 
 @onready
 var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
@@ -16,13 +19,7 @@ var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
 var dimmer: Dimmer = %Dimmer
 
 @onready
-var empty_label: Label = %EmptyLabel
-
-@onready
-var scroll_container: ScrollContainer = %ScrollContainer
-
-@onready
-var item_list: VBoxContainer = %ItemList
+var ui_updater: BagMenuUIUpdater = %UIUpdater
 
 var item_stack_menu_items: Array[ItemStackMenuItem]
 
@@ -39,6 +36,17 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 
+	if bag:
+		bag.added_item.connect(_handle_bag_added_item)
+		bag.dropped_item.connect(_handle_bag_dropped_item)
+		bag.used_item.connect(_handle_bag_used_item)
+		bag.consumed_item.connect(_handle_bag_consumed_item)
+
+	if use_item_menu:
+		use_item_menu.use.connect(use_current_item)
+		use_item_menu.drop.connect(drop_current_item)
+		use_item_menu.drop_all.connect(drop_current_stack)
+
 	list_menu_input_handler.next.connect(_handle_next)
 	list_menu_input_handler.previous.connect(_handle_previous)
 	list_menu_input_handler.select.connect(_handle_select)
@@ -49,13 +57,13 @@ func _handle_next() -> void:
 
 	current_index = menu_behaviour.next(item_stack_menu_items, current_index)
 
-func _handle_previous():
+func _handle_previous() -> void:
 	if item_stack_menu_items.size() <= 0:
 		return
 
 	current_index = menu_behaviour.previous(item_stack_menu_items, current_index)
 
-func _handle_select():
+func _handle_select() -> void:
 	if current_index < 0 || current_index >= item_stack_menu_items.size():
 		return
 
@@ -69,14 +77,14 @@ func _handle_select():
 
 ## Menu overrides
 
-func highlight_current():
+func highlight_current() -> void:
 	for button in item_stack_menu_items:
 		if button.index == current_index:
 			button.select()
 		else:
 			button.deselect()
 
-func get_max_index():
+func get_max_index() -> int:
 	return item_stack_menu_items.size() - 1
 
 func disable_menu() -> void:
@@ -107,17 +115,17 @@ func _undim_menu() -> void:
 
 	enable_animations()
 
-func disable_animations():
+func disable_animations() -> void:
 	for x in item_stack_menu_items:
 		x.disable_item()
 
-func enable_animations():
+func enable_animations() -> void:
 	for x in item_stack_menu_items:
 		x.enable_item()
 
 ## Menu signals
 
-func _on_current_index_changed(index: int):
+func _on_current_index_changed(index: int) -> void:
 	print("BagMenu current index changed " + str(index))
 
 	if dimmer.is_dimmed and is_visible_in_tree():
@@ -126,40 +134,12 @@ func _on_current_index_changed(index: int):
 
 	print("BagMenu scrolling to item " + str(index))
 
-	var scroll_y := (
-		int(item_stack_menu_items[index].position.y) if current_index > -1
-		else 0
-	)
-
-	scroll_container.scroll_vertical = scroll_y
+	ui_updater.scroll_to_item(index, item_stack_menu_items)
 
 ## BagMenu-specific
 
-func update_buttons(item_stacks: Array[ItemStack]):
-	var count := item_stacks.size()
-	empty_label.visible = count <= 0
-
-	var count_changed := count != item_stack_menu_items.size()
-
-	for i in range(item_stacks.size()):
-		if item_stack_menu_items.size() > i:
-			item_stack_menu_items[i].stack = item_stacks[i]
-		else:
-			var new_button: ItemStackMenuItem = item_stack_menu_item_scene.instantiate()
-
-			new_button.index = i
-			new_button.stack = item_stacks[i]
-
-			item_list.add_child(new_button)
-			item_stack_menu_items.append(new_button)
-
-	# clean up any unused buttons
-	if item_stack_menu_items.size() > item_stacks.size():
-		for j in range(item_stacks.size(), item_stack_menu_items.size()):
-			item_stack_menu_items[j].queue_free()
-
-		while item_stack_menu_items.size() > item_stacks.size():
-			item_stack_menu_items.pop_back()
+func update_buttons(item_stacks: Array[ItemStack]) -> void:
+	var count_changed := ui_updater.update_buttons(item_stacks, item_stack_menu_items)
 
 	if item_stacks.size() > 0:
 		current_index = clampi(current_index, 0, item_stacks.size() - 1)
@@ -182,12 +162,12 @@ func use_current_item() -> void:
 	if current_stack:
 		use_item.emit(current_stack.id)
 
-func drop_current_item():
+func drop_current_item() -> void:
 	var current_stack := _get_current_stack()
 	if current_stack:
 		drop_item.emit(current_stack.id)
 
-func drop_current_stack():
+func drop_current_stack() -> void:
 	var current_stack := _get_current_stack()
 	if current_stack:
 		drop_stack.emit(current_stack.id)
@@ -198,31 +178,22 @@ func _get_current_stack() -> ItemStack:
 
 	return null
 
-func _on_bag_added_item(new_item: Item, _altered: bool, item_stacks: Array[ItemStack]):
+func _handle_bag_added_item(new_item: Item, _altered: bool, item_stacks: Array[ItemStack]) -> void:
 	print("Added " + new_item.name + " to bag")
 
 	update_buttons(item_stacks)
 
-func _on_bag_dropped_item(dropped_item: Item, item_stacks: Array[ItemStack]):
+func _handle_bag_dropped_item(dropped_item: Item, item_stacks: Array[ItemStack]) -> void:
 	print("Dropped " + dropped_item.name + " from bag")
 
 	update_buttons(item_stacks)
 
-func _on_bag_used_item(used_item: Item, item_stacks: Array[ItemStack]):
+func _handle_bag_used_item(used_item: Item, item_stacks: Array[ItemStack]) -> void:
 	print("Used " + used_item.name + " from bag")
 
 	update_buttons(item_stacks)
 
-func _on_bag_consumed_item(consumed_item:Item, item_stacks:Array[ItemStack]):
+func _handle_bag_consumed_item(consumed_item:Item, item_stacks:Array[ItemStack]) -> void:
 	print("Consumed " + consumed_item.name + " from bag")
 
 	update_buttons(item_stacks)
-
-func _on_use_item_menu_use():
-	use_current_item()
-
-func _on_use_item_menu_drop():
-	drop_current_item()
-
-func _on_use_item_menu_drop_all():
-	drop_current_stack()

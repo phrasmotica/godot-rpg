@@ -1,5 +1,5 @@
 @tool
-extends ListMenu
+class_name UseItemMenu extends ListMenu
 
 @export
 var bag: Bag

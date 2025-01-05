@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://7nyhh4cif5fr"]
+[gd_scene load_steps=11 format=3 uid="uid://7nyhh4cif5fr"]
 
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_l8nhx"]
 [ext_resource type="Script" path="res://scripts/menus/bag_menu.gd" id="2_46jpv"]
@@ -9,29 +9,37 @@
 [ext_resource type="Script" path="res://scripts/menus/bag_menu_behaviour.gd" id="6_qsubh"]
 [ext_resource type="PackedScene" uid="uid://bajxb5vyt0vj8" path="res://scenes/menus/list_menu_input_handler.tscn" id="7_cni2r"]
 [ext_resource type="PackedScene" uid="uid://coaf4en4unowj" path="res://scenes/menus/menu_state_handler.tscn" id="8_yrwam"]
+[ext_resource type="Script" path="res://scripts/menus/bag_menu_ui_updater.gd" id="10_x12t8"]
 
-[node name="BagMenu" type="PanelContainer" node_paths=PackedStringArray("menu_behaviour")]
+[node name="BagMenu" type="PanelContainer"]
 custom_minimum_size = Vector2(360, 132)
 offset_right = 360.0
 offset_bottom = 132.0
 size_flags_vertical = 0
 theme = ExtResource("1_l8nhx")
 script = ExtResource("2_46jpv")
-item_stack_menu_item_scene = ExtResource("3_1sdhg")
-menu_behaviour = NodePath("BagMenuBehaviour")
 menu_nav_action = ExtResource("4_spxkr")
 menu_select_action = ExtResource("5_hd0cx")
 
 [node name="BagMenuBehaviour" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("6_qsubh")
 
-[node name="ListMenuInputHandler" parent="." node_paths=PackedStringArray("state_handler") instance=ExtResource("7_cni2r")]
+[node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("empty_label", "scroll_container", "item_list")]
 unique_name_in_owner = true
-state_handler = NodePath("../MenuStateHandler")
+script = ExtResource("10_x12t8")
+item_stack_menu_item_scene = ExtResource("3_1sdhg")
+empty_label = NodePath("../MarginContainer/VBoxContainer/Content/EmptyLabel")
+scroll_container = NodePath("../MarginContainer/VBoxContainer/Content/ScrollContainer")
+item_list = NodePath("../MarginContainer/VBoxContainer/Content/ScrollContainer/ItemList")
 
 [node name="Dimmer" parent="." node_paths=PackedStringArray("to_dim") instance=ExtResource("4_bpnub")]
 unique_name_in_owner = true
 to_dim = NodePath("..")
+
+[node name="ListMenuInputHandler" parent="." node_paths=PackedStringArray("state_handler") instance=ExtResource("7_cni2r")]
+unique_name_in_owner = true
+state_handler = NodePath("../MenuStateHandler")
 
 [node name="MenuStateHandler" parent="." node_paths=PackedStringArray("menu") instance=ExtResource("8_yrwam")]
 unique_name_in_owner = true
@@ -58,7 +66,6 @@ custom_minimum_size = Vector2(2.08165e-12, 84)
 layout_mode = 2
 
 [node name="EmptyLabel" type="Label" parent="MarginContainer/VBoxContainer/Content"]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 28)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0, 1, 1)
@@ -67,7 +74,6 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/Content"]
-unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
@@ -76,7 +82,6 @@ horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
 [node name="ItemList" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Content/ScrollContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
