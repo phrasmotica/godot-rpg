@@ -1,3 +1,4 @@
+@tool
 class_name UIManager extends Node
 
 @export
@@ -14,6 +15,9 @@ signal menu_opened
 signal menu_closed
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+
 	if menu_set:
 		menu_set.cancel.connect(_handle_menu_cancel)
 
