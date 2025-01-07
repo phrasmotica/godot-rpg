@@ -1,5 +1,5 @@
 @tool
-class_name BagMenu extends ListMenu
+class_name BagMenu extends Menu
 
 # HIGH: cut down on inheritance as much as possible
 
@@ -11,6 +11,9 @@ var use_item_menu: UseItemMenu
 
 @onready
 var menu_behaviour: BagMenuBehaviour = %BagMenuBehaviour
+
+@onready
+var index_handler: ListIndexHandler = %ListIndexHandler
 
 @onready
 var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
@@ -33,10 +36,13 @@ signal drop_stack(stack_id: int)
 signal selected_item_changed(item: Item)
 
 func _ready() -> void:
+	if item_stack_menu_items.size() > 0:
+		index_handler.clamp(_get_max_index())
+
 	if Engine.is_editor_hint():
 		return
 
-	current_index_changed.connect(_handle_current_index_changed)
+	index_handler.current_index_changed.connect(_handle_current_index_changed)
 	visibility_changed.connect(_handle_visibility_changed)
 
 	if bag:
@@ -58,19 +64,32 @@ func _handle_next() -> void:
 	if item_stack_menu_items.size() <= 0:
 		return
 
-	current_index = menu_behaviour.next(item_stack_menu_items, current_index)
+	menu_behaviour.next(item_stack_menu_items)
 
 func _handle_previous() -> void:
 	if item_stack_menu_items.size() <= 0:
 		return
 
-	current_index = menu_behaviour.previous(item_stack_menu_items, current_index)
+	menu_behaviour.previous(item_stack_menu_items)
+
+func _handle_current_index_changed(index: int) -> void:
+	print("BagMenu current index changed " + str(index))
+
+	if dimmer.is_dimmed and is_visible_in_tree():
+		print("BagMenu current index changed, stealing control")
+		steal()
+
+	print("BagMenu scrolling to item " + str(index))
+
+	ui_updater.scroll_to_item(index, item_stack_menu_items)
+
+	_highlight_current()
 
 func _handle_select() -> void:
-	if current_index < 0 || current_index >= item_stack_menu_items.size():
+	if index_handler.current < 0 || index_handler.current > _get_max_index():
 		return
 
-	var stack := menu_behaviour.get_stack(item_stack_menu_items, current_index)
+	var stack := menu_behaviour.get_stack(item_stack_menu_items)
 	if not stack:
 		return
 
@@ -78,17 +97,20 @@ func _handle_select() -> void:
 
 	select_stack.emit(stack)
 
-## Menu overrides
-
-func highlight_current() -> void:
+func _highlight_current() -> void:
 	for button in item_stack_menu_items:
-		if button.index == current_index:
+		if button.index == index_handler.current:
 			button.select()
 		else:
 			button.deselect()
 
-func get_max_index() -> int:
-	return item_stack_menu_items.size() - 1
+## Menu overrides
+
+func after_visibility_changed() -> void:
+	if item_stack_menu_items.size() > 0:
+		index_handler.clamp(_get_max_index())
+
+	_highlight_current()
 
 func disable_menu() -> void:
 	_dim_menu()
@@ -126,32 +148,19 @@ func enable_animations() -> void:
 	for x in item_stack_menu_items:
 		x.enable_item()
 
-## Menu signals
-
-func _handle_current_index_changed(index: int) -> void:
-	print("BagMenu current index changed " + str(index))
-
-	if dimmer.is_dimmed and is_visible_in_tree():
-		print("BagMenu current index changed, stealing control")
-		steal()
-
-	print("BagMenu scrolling to item " + str(index))
-
-	ui_updater.scroll_to_item(index, item_stack_menu_items)
-
 ## BagMenu-specific
 
 func update_buttons(item_stacks: Array[ItemStack]) -> void:
 	var count_changed := ui_updater.update_buttons(item_stacks, item_stack_menu_items)
 
 	if item_stacks.size() > 0:
-		current_index = clampi(current_index, 0, item_stacks.size() - 1)
+		index_handler.clamp(_get_max_index())
 
-	highlight_current()
+	_highlight_current()
 
 	var new_item: Item = null
-	if current_index < item_stack_menu_items.size():
-		new_item = item_stack_menu_items[current_index].stack.item
+	if index_handler.current < item_stack_menu_items.size():
+		new_item = item_stack_menu_items[index_handler.current].stack.item
 
 	selected_item_changed.emit(new_item)
 
@@ -176,10 +185,13 @@ func drop_current_stack() -> void:
 		drop_stack.emit(current_stack.id)
 
 func _get_current_stack() -> ItemStack:
-	if current_index > -1:
-		return item_stack_menu_items[current_index].stack
+	if index_handler.current > -1:
+		return item_stack_menu_items[index_handler.current].stack
 
 	return null
+
+func _get_max_index() -> int:
+	return item_stack_menu_items.size() - 1
 
 func _handle_bag_added_item(new_item: Item, _altered: bool, item_stacks: Array[ItemStack]) -> void:
 	print("Added " + new_item.name + " to bag")

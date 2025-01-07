@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckuv8k527aaei"]
+
+[ext_resource type="Script" path="res://scripts/menus/list_menu_behaviour.gd" id="1_ppw5x"]
+[ext_resource type="PackedScene" uid="uid://r8jqs8jl02qv" path="res://scenes/menus/list_index_handler.tscn" id="2_73k3y"]
+
+[node name="ListMenuBehaviour" type="Node"]
+script = ExtResource("1_ppw5x")
+
+[node name="ListIndexHandler" parent="." instance=ExtResource("2_73k3y")]
+unique_name_in_owner = true
+current = 0

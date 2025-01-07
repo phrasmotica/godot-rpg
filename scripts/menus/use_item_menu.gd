@@ -1,5 +1,5 @@
 @tool
-class_name UseItemMenu extends ListMenu
+class_name UseItemMenu extends Menu
 
 @export
 var toggle_menu_input_handler: ToggleMenuInputHandler
@@ -15,6 +15,9 @@ var item_consumer: ItemConsumer
 
 @export
 var map: Map
+
+@onready
+var list_menu_behaviour: ListMenu = %ListMenuBehaviour
 
 @onready
 var use_item_menu_behaviour: UseItemMenuBehaviour = %UseItemMenuBehaviour
@@ -34,13 +37,9 @@ signal drop
 signal drop_all
 
 func _ready() -> void:
-	if items.size() > 0:
-		current_index = 0
-
 	if Engine.is_editor_hint():
 		return
 
-	select_index.connect(use_item_menu_behaviour.handle_select_index)
 	cancel.connect(_handle_cancel)
 	visibility_changed.connect(_handle_visibility_changed)
 
@@ -60,6 +59,8 @@ func _ready() -> void:
 	use_item_menu_behaviour.drop.connect(drop.emit)
 	use_item_menu_behaviour.drop_all.connect(drop_all.emit)
 
+	list_menu_behaviour.select_index.connect(use_item_menu_behaviour.handle_select_index)
+
 	bag_menu_handler.show_menu.connect(_handle_show_menu)
 	bag_menu_handler.selected_item_changed.connect(_handle_selected_item_changed)
 
@@ -76,36 +77,21 @@ func _handle_toggle_menu() -> void:
 		cancel_menu()
 
 func _handle_next() -> void:
-	if items.size() <= 0:
-		return
-
-	var i := 0
-	while i == 0 or items[current_index].disabled:
-		current_index = (current_index + 1) % items.size()
-
-		i += 1
+	list_menu_behaviour.next()
+	list_menu_behaviour.next_if_disabled()
 
 func _handle_previous() -> void:
-	if items.size() <= 0:
-		return
-
-	var i := 0
-	while i == 0 or items[current_index].disabled:
-		# this weird maths ensures we wrap around to the bottom
-		# if we're currently at the top
-		current_index = (current_index + items.size() - 1) % items.size()
-
-		i += 1
+	list_menu_behaviour.previous()
 
 func _handle_select() -> void:
-	var item := items[current_index]
+	var item := list_menu_behaviour.item()
 	if item.disabled:
 		return
 
 	if item.is_cancel:
 		cancel_menu()
 	else:
-		select_current()
+		list_menu_behaviour.select_current()
 
 func _handle_bag_menu_selected_item_changed(item: Item) -> void:
 	bag_menu_handler.select_item(item)
@@ -124,7 +110,7 @@ func _update_for(item: Item) -> void:
 
 	ui_updater.update_for(item, can_use)
 
-	next_if_disabled()
+	list_menu_behaviour.next_if_disabled()
 
 func _handle_show_menu(stack: ItemStack) -> void:
 	print("Showing UseItemMenu for stack ID=" + str(stack.id))

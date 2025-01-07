@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://r8jqs8jl02qv"]
+
+[ext_resource type="Script" path="res://scripts/menus/list_index_handler.gd" id="1_jcb4h"]
+
+[node name="ListIndexHandler" type="Node"]
+script = ExtResource("1_jcb4h")

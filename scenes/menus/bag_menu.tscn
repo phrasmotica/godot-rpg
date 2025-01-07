@@ -1,13 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://7nyhh4cif5fr"]
+[gd_scene load_steps=10 format=3 uid="uid://7nyhh4cif5fr"]
 
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_l8nhx"]
 [ext_resource type="Script" path="res://scripts/menus/bag_menu.gd" id="2_46jpv"]
 [ext_resource type="PackedScene" uid="uid://8gweefisuilw" path="res://scenes/menus/item_stack_menu_item.tscn" id="3_1sdhg"]
 [ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/menus/dimmer.tscn" id="4_bpnub"]
-[ext_resource type="Resource" uid="uid://brvcbjaw14wp5" path="res://resources/input/menu_nav.tres" id="4_spxkr"]
-[ext_resource type="Resource" uid="uid://b7cxm53xklexf" path="res://resources/input/menu_select.tres" id="5_hd0cx"]
 [ext_resource type="Script" path="res://scripts/menus/bag_menu_behaviour.gd" id="6_qsubh"]
 [ext_resource type="PackedScene" uid="uid://bajxb5vyt0vj8" path="res://scenes/menus/list_menu_input_handler.tscn" id="7_cni2r"]
+[ext_resource type="PackedScene" uid="uid://r8jqs8jl02qv" path="res://scenes/menus/list_index_handler.tscn" id="8_nh8e6"]
 [ext_resource type="PackedScene" uid="uid://coaf4en4unowj" path="res://scenes/menus/menu_state_handler.tscn" id="8_yrwam"]
 [ext_resource type="Script" path="res://scripts/menus/bag_menu_ui_updater.gd" id="10_x12t8"]
 
@@ -18,20 +17,14 @@ offset_bottom = 132.0
 size_flags_vertical = 0
 theme = ExtResource("1_l8nhx")
 script = ExtResource("2_46jpv")
-menu_nav_action = ExtResource("4_spxkr")
-menu_select_action = ExtResource("5_hd0cx")
 
-[node name="BagMenuBehaviour" type="Node" parent="."]
+[node name="BagMenuBehaviour" type="Node" parent="." node_paths=PackedStringArray("index_handler")]
 unique_name_in_owner = true
 script = ExtResource("6_qsubh")
+index_handler = NodePath("ListIndexHandler")
 
-[node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("empty_label", "scroll_container", "item_list")]
+[node name="ListIndexHandler" parent="BagMenuBehaviour" instance=ExtResource("8_nh8e6")]
 unique_name_in_owner = true
-script = ExtResource("10_x12t8")
-item_stack_menu_item_scene = ExtResource("3_1sdhg")
-empty_label = NodePath("../MarginContainer/VBoxContainer/Content/EmptyLabel")
-scroll_container = NodePath("../MarginContainer/VBoxContainer/Content/ScrollContainer")
-item_list = NodePath("../MarginContainer/VBoxContainer/Content/ScrollContainer/ItemList")
 
 [node name="Dimmer" parent="." node_paths=PackedStringArray("to_dim") instance=ExtResource("4_bpnub")]
 unique_name_in_owner = true
@@ -44,6 +37,14 @@ state_handler = NodePath("../MenuStateHandler")
 [node name="MenuStateHandler" parent="." node_paths=PackedStringArray("menu") instance=ExtResource("8_yrwam")]
 unique_name_in_owner = true
 menu = NodePath("..")
+
+[node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("empty_label", "scroll_container", "item_list")]
+unique_name_in_owner = true
+script = ExtResource("10_x12t8")
+item_stack_menu_item_scene = ExtResource("3_1sdhg")
+empty_label = NodePath("../MarginContainer/VBoxContainer/Content/EmptyLabel")
+scroll_container = NodePath("../MarginContainer/VBoxContainer/Content/ScrollContainer")
+item_list = NodePath("../MarginContainer/VBoxContainer/Content/ScrollContainer/ItemList")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

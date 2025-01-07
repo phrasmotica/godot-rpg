@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cbtoj82qvcrwg"]
+[gd_scene load_steps=11 format=3 uid="uid://cbtoj82qvcrwg"]
 
 [ext_resource type="Script" path="res://scripts/menus/use_item_menu.gd" id="1_5yin2"]
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_eomyo"]
 [ext_resource type="PackedScene" uid="uid://cy5cot7lqw00f" path="res://scenes/menus/menu_item.tscn" id="1_iqlnl"]
-[ext_resource type="Resource" uid="uid://brvcbjaw14wp5" path="res://resources/input/menu_nav.tres" id="3_cxf10"]
-[ext_resource type="Resource" uid="uid://b7cxm53xklexf" path="res://resources/input/menu_select.tres" id="4_l76ie"]
+[ext_resource type="PackedScene" uid="uid://ckuv8k527aaei" path="res://scenes/menus/list_menu_behaviour.tscn" id="4_rtl2b"]
 [ext_resource type="Script" path="res://scripts/menus/use_item_menu_behaviour.gd" id="5_g8vw5"]
 [ext_resource type="PackedScene" uid="uid://bajxb5vyt0vj8" path="res://scenes/menus/list_menu_input_handler.tscn" id="5_w3f5e"]
 [ext_resource type="Script" path="res://scripts/menus/use_item_menu_bag_menu_handler.gd" id="6_tupxa"]
@@ -12,19 +11,19 @@
 [ext_resource type="PackedScene" uid="uid://coaf4en4unowj" path="res://scenes/menus/menu_state_handler.tscn" id="7_ivic7"]
 [ext_resource type="Script" path="res://scripts/menus/use_item_menu_ui_updater.gd" id="10_py227"]
 
-[node name="UseItemMenu" type="Control" node_paths=PackedStringArray("items")]
+[node name="UseItemMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("1_eomyo")
 script = ExtResource("1_5yin2")
-items = [NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Use"), NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/UseAll"), NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Drop"), NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/DropAll"), NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Cancel")]
-menu_nav_action = ExtResource("3_cxf10")
-menu_select_action = ExtResource("4_l76ie")
-current_index = 0
 
 [node name="UseItemMenuBehaviour" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("5_g8vw5")
+
+[node name="ListMenuBehaviour" parent="." node_paths=PackedStringArray("items") instance=ExtResource("4_rtl2b")]
+unique_name_in_owner = true
+items = [NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Use"), NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer/UseAll"), NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Drop"), NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer/DropAll"), NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Cancel")]
 
 [node name="BagMenuHandler" type="Node" parent="." node_paths=PackedStringArray("next_frame_handler")]
 unique_name_in_owner = true
