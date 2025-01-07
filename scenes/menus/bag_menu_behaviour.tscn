@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://d27chcpa08xfl"]
+
+[ext_resource type="Script" path="res://scripts/menus/bag_menu_behaviour.gd" id="1_4lrqo"]
+[ext_resource type="PackedScene" uid="uid://r8jqs8jl02qv" path="res://scenes/menus/list_index_handler.tscn" id="2_voqwx"]
+
+[node name="BagMenuBehaviour" type="Node"]
+script = ExtResource("1_4lrqo")
+
+[node name="ListIndexHandler" parent="." instance=ExtResource("2_voqwx")]
+unique_name_in_owner = true

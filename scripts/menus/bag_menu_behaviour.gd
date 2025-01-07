@@ -1,8 +1,8 @@
 @tool
 class_name BagMenuBehaviour extends Node
 
-@export
-var index_handler: ListIndexHandler
+@onready
+var index_handler: ListIndexHandler = %ListIndexHandler
 
 func get_stack(items: Array[ItemStackMenuItem]) -> ItemStack:
 	if index_handler.current < 0 || index_handler.current >= items.size():
