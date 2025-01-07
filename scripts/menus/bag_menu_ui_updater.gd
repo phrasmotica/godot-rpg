@@ -1,6 +1,9 @@
 class_name BagMenuUIUpdater extends Node
 
 @export
+var menu_items: BagMenuItems
+
+@export
 var item_stack_menu_item_scene: PackedScene
 
 @export
@@ -12,7 +15,7 @@ var scroll_container: ScrollContainer
 @export
 var item_list: VBoxContainer
 
-func update_buttons(item_stacks: Array[ItemStack], menu_items: Array[ItemStackMenuItem]) -> bool:
+func update_buttons(item_stacks: Array[ItemStack]) -> bool:
 	var count := item_stacks.size()
 	empty_label.visible = count <= 0
 
@@ -20,7 +23,7 @@ func update_buttons(item_stacks: Array[ItemStack], menu_items: Array[ItemStackMe
 
 	for i in range(item_stacks.size()):
 		if menu_items.size() > i:
-			menu_items[i].stack = item_stacks[i]
+			menu_items.assign_stack(item_stacks[i], i)
 		else:
 			var new_button: ItemStackMenuItem = item_stack_menu_item_scene.instantiate()
 
@@ -28,22 +31,12 @@ func update_buttons(item_stacks: Array[ItemStack], menu_items: Array[ItemStackMe
 			new_button.stack = item_stacks[i]
 
 			item_list.add_child(new_button)
-			menu_items.append(new_button)
+			menu_items.add_item(new_button)
 
 	# clean up any unused buttons
-	if menu_items.size() > item_stacks.size():
-		for j in range(item_stacks.size(), menu_items.size()):
-			menu_items[j].queue_free()
-
-		while menu_items.size() > item_stacks.size():
-			menu_items.pop_back()
+	menu_items.trim_to(item_stacks.size())
 
 	return count_changed
 
-func scroll_to_item(index: int, menu_items: Array[ItemStackMenuItem]) -> void:
-	var scroll_y := (
-		int(menu_items[index].position.y) if index > -1
-		else 0
-	)
-
-	scroll_container.scroll_vertical = scroll_y
+func scroll_to_item(index: int) -> void:
+	scroll_container.scroll_vertical = int(menu_items.get_item_y_pos(index))
