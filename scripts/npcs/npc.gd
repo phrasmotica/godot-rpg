@@ -1,12 +1,12 @@
+@tool
 class_name NPC extends CharacterBody2D
 
 @export
-var talk_dialogue := "":
+var npc_data: NPCData:
     set(value):
-        talk_dialogue = value
+        npc_data = value
 
-        if dialogue_area:
-            dialogue_area.timeline = talk_dialogue
+        _refresh()
 
 @export
 var enable_move := false
@@ -38,7 +38,12 @@ var possible_directions: Array[Vector2i] = [
     Vector2i.LEFT,
 ]
 
-func _ready():
+func _ready() -> void:
+    npc_data.changed.connect(_refresh)
+
+    if Engine.is_editor_hint():
+        return
+
     collision_shape.shape = dialogue_area.get_area_shape()
 
     if enable_move:
@@ -46,6 +51,10 @@ func _ready():
         move_timer.start(move_interval_seconds)
 
     grid_movement.set_raycast_mask(raycast_mask)
+
+func _refresh() -> void:
+    if dialogue_area:
+        dialogue_area.timeline = npc_data.talk_dialogue
 
 func move():
     var dir: Vector2i = possible_directions.pick_random()

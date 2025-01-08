@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=22 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player/player.tscn" id="1_ia2wv"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cbptipoqr4j66" path="res://scenes/player/hit_points.tscn" id="3_21716"]
 [ext_resource type="PackedScene" uid="uid://wf1bgkchcqs5" path="res://scenes/player/bag.tscn" id="3_pc812"]
 [ext_resource type="PackedScene" uid="uid://7nyhh4cif5fr" path="res://scenes/menus/bag_menu.tscn" id="5_votnq"]
+[ext_resource type="Script" path="res://scripts/npcs/npc_data.gd" id="6_kw080"]
 [ext_resource type="PackedScene" uid="uid://ghhfb6xsyy7h" path="res://scenes/items/item_consumer.tscn" id="8_7srcv"]
 [ext_resource type="PackedScene" uid="uid://vawc2gply777" path="res://scenes/npc.tscn" id="8_60xt8"]
 [ext_resource type="PackedScene" uid="uid://dht0cwk6y3xd4" path="res://scenes/input/toggle_debug_mode_input_handler.tscn" id="8_544nx"]
@@ -19,6 +20,10 @@
 [ext_resource type="PackedScene" uid="uid://d1gaebohj82ts" path="res://scenes/ui_manager.tscn" id="21_52gs6"]
 [ext_resource type="PackedScene" uid="uid://byfqmfx243vdg" path="res://scenes/input/toggle_menu_input_handler.tscn" id="23_audap"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="27_5g51u"]
+
+[sub_resource type="Resource" id="Resource_tayge"]
+script = ExtResource("6_kw080")
+talk_dialogue = "npc_want_to_die"
 
 [node name="Game" type="Node2D"]
 
@@ -48,7 +53,7 @@ position = Vector2(1120, 800)
 
 [node name="NPC4" parent="Map/NPCs" instance=ExtResource("8_60xt8")]
 position = Vector2(1120, 1056)
-talk_dialogue = "npc_want_to_die"
+npc_data = SubResource("Resource_tayge")
 
 [node name="Player" parent="Map" node_paths=PackedStringArray("party") instance=ExtResource("1_ia2wv")]
 position = Vector2(1184, 800)

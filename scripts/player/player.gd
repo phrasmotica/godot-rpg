@@ -51,7 +51,7 @@ func _handle_move_triggered(direction: Vector2):
 
 func _handle_dialogue_triggered(npc: NPC) -> void:
 	npc.face(global_position)
-	dialogue_triggered.emit(npc.talk_dialogue)
+	dialogue_triggered.emit(npc.npc_data.talk_dialogue)
 
 	interacted.emit()
 
