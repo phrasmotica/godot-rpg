@@ -25,9 +25,11 @@ unique_name_in_owner = true
 menu_items = NodePath("BagMenuItems")
 index_handler = NodePath("ListIndexHandler")
 
-[node name="BagMenuItems" parent="BagMenuBehaviour" node_paths=PackedStringArray("index_handler") instance=ExtResource("4_i0bqq")]
+[node name="BagMenuItems" parent="BagMenuBehaviour" node_paths=PackedStringArray("index_handler", "item_list") instance=ExtResource("4_i0bqq")]
 unique_name_in_owner = true
 index_handler = NodePath("../ListIndexHandler")
+item_stack_menu_item_scene = ExtResource("3_1sdhg")
+item_list = NodePath("../../MarginContainer/VBoxContainer/Content/ScrollContainer/ItemList")
 
 [node name="ListIndexHandler" parent="BagMenuBehaviour" instance=ExtResource("8_nh8e6")]
 unique_name_in_owner = true
@@ -47,15 +49,13 @@ state_handler = NodePath("../MenuStateHandler")
 unique_name_in_owner = true
 menu = NodePath("..")
 
-[node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("menu_items", "index_handler", "empty_label", "scroll_container", "item_list")]
+[node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("menu_items", "index_handler", "empty_label", "scroll_container")]
 unique_name_in_owner = true
 script = ExtResource("10_x12t8")
 menu_items = NodePath("../BagMenuBehaviour/BagMenuItems")
 index_handler = NodePath("../BagMenuBehaviour/ListIndexHandler")
-item_stack_menu_item_scene = ExtResource("3_1sdhg")
 empty_label = NodePath("../MarginContainer/VBoxContainer/Content/EmptyLabel")
 scroll_container = NodePath("../MarginContainer/VBoxContainer/Content/ScrollContainer")
-item_list = NodePath("../MarginContainer/VBoxContainer/Content/ScrollContainer/ItemList")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

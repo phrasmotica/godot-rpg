@@ -9,9 +9,6 @@ var menu_items: BagMenuItems
 @export
 var index_handler: ListIndexHandler
 
-@export
-var item_stack_menu_item_scene: PackedScene
-
 @export_group("Controls")
 
 @export
@@ -19,9 +16,6 @@ var empty_label: Label
 
 @export
 var scroll_container: ScrollContainer
-
-@export
-var item_list: VBoxContainer
 
 func _ready() -> void:
 	index_handler.current_index_changed.connect(_scroll_to)
@@ -36,13 +30,7 @@ func update_buttons(item_stacks: Array[ItemStack]) -> bool:
 		if menu_items.size() > i:
 			menu_items.assign_stack(item_stacks[i], i)
 		else:
-			var new_button: ItemStackMenuItem = item_stack_menu_item_scene.instantiate()
-
-			new_button.index = i
-			new_button.stack = item_stacks[i]
-
-			item_list.add_child(new_button)
-			menu_items.add_item(new_button)
+			menu_items.create_item(item_stacks[i], i)
 
 	# clean up any unused buttons
 	menu_items.trim_to(item_stacks.size())

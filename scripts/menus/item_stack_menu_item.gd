@@ -1,16 +1,16 @@
 class_name ItemStackMenuItem extends VBoxContainer
 
-@export
-var pointer: TextureRect
+@onready
+var pointer: TextureRect = %SelectionPointer
 
-@export
-var name_label: Label
+@onready
+var name_label: Label = %Name
 
-@export
-var amount_label: Label
+@onready
+var amount_label: Label = %Amount
 
-@export
-var animation_player: AnimationPlayer
+@onready
+var animation_player: AnimationPlayer = %AnimationPlayer
 
 var stack: ItemStack:
 	set(value):
