@@ -82,6 +82,7 @@ func _handle_next() -> void:
 
 func _handle_previous() -> void:
 	list_menu_behaviour.previous()
+	list_menu_behaviour.previous_if_disabled()
 
 func _handle_select() -> void:
 	var item := list_menu_behaviour.item()

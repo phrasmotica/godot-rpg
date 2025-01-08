@@ -41,5 +41,9 @@ func next_if_disabled() -> void:
 	while items[index_handler.current].disabled:
 		next()
 
+func previous_if_disabled() -> void:
+	while items[index_handler.current].disabled:
+		previous()
+
 func select_current() -> void:
 	select_index.emit(index_handler.current)
