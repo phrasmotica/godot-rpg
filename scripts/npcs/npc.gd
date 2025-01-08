@@ -56,6 +56,17 @@ func _refresh() -> void:
     if dialogue_area:
         dialogue_area.timeline = npc_data.talk_dialogue
 
+func get_talk_dialogue() -> String:
+    if not npc_data:
+        return ""
+
+    if npc_data.item_trade:
+        # TODO: instead, return a stock dialogue timeline with variables for the
+        # item names
+        return npc_data.talk_dialogue
+
+    return npc_data.talk_dialogue
+
 func move():
     var dir: Vector2i = possible_directions.pick_random()
 
