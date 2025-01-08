@@ -3,6 +3,8 @@ class_name BagMenu extends Menu
 
 # HIGH: cut down on inheritance as much as possible
 
+@export_group("Dependencies")
+
 @export
 var bag: Bag
 

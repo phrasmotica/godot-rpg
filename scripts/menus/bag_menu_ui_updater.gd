@@ -1,6 +1,8 @@
 @tool
 class_name BagMenuUIUpdater extends Node
 
+@export_group("Dependencies")
+
 @export
 var menu_items: BagMenuItems
 
@@ -9,6 +11,8 @@ var index_handler: ListIndexHandler
 
 @export
 var item_stack_menu_item_scene: PackedScene
+
+@export_group("Controls")
 
 @export
 var empty_label: Label

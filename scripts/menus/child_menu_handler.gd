@@ -1,6 +1,8 @@
 @tool
 extends Node
 
+@export_group("Dependencies")
+
 @export
 var parent_menu: Menu
 

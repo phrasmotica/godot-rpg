@@ -1,5 +1,7 @@
 class_name UseItemMenuUIUpdater extends Node
 
+@export_group("Controls")
+
 @export
 var description_label: Label
 

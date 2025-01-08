@@ -1,6 +1,8 @@
 @tool
 class_name BagMenuBehaviour extends Node
 
+@export_group("Dependencies")
+
 @export
 var menu_items: BagMenuItems
 

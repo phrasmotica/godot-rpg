@@ -1,11 +1,15 @@
 @tool
 class_name ListMenuInputHandler extends Node
 
+@export_group("Input Actions")
+
 @export
 var menu_nav: GUIDEAction
 
 @export
 var menu_select: GUIDEAction
+
+@export_group("Dependencies")
 
 @export
 var state_handler: MenuStateHandler

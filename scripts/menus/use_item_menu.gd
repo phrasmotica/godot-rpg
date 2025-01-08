@@ -1,6 +1,8 @@
 @tool
 class_name UseItemMenu extends Menu
 
+@export_group("Dependencies")
+
 @export
 var toggle_menu_input_handler: ToggleMenuInputHandler
 
