@@ -8,6 +8,7 @@
 [sub_resource type="Resource" id="Resource_27lvv"]
 script = ExtResource("1_vqj20")
 heal_amount = 10
+new_external_effects = Array[ExtResource("1_ko3o6")]([])
 
 [resource]
 script = ExtResource("1_xw1cv")
