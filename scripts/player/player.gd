@@ -51,6 +51,9 @@ func _handle_move_triggered(direction: Vector2):
 
 func _handle_dialogue_triggered(npc: NPC) -> void:
 	npc.face(global_position)
+	npc.enable_move = false
+
+	# HIGH: re-enable NPC movement once dialogue finishes
 	dialogue_triggered.emit(npc.get_talk_dialogue())
 
 	interacted.emit()

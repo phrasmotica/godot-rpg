@@ -9,7 +9,11 @@ var npc_data: NPCData:
         _refresh()
 
 @export
-var enable_move := false
+var enable_move := false:
+    set(value):
+        enable_move = value
+
+        _refresh_movement()
 
 @export_range(0.0, 10.0)
 var move_interval_seconds := 5.0
@@ -46,15 +50,27 @@ func _ready() -> void:
 
     collision_shape.shape = dialogue_area.get_area_shape()
 
-    if enable_move:
-        move_timer.timeout.connect(move)
-        move_timer.start(move_interval_seconds)
+    _refresh_movement()
 
     grid_movement.set_raycast_mask(raycast_mask)
 
 func _refresh() -> void:
     if dialogue_area:
         dialogue_area.timeline = npc_data.talk_dialogue
+
+func _refresh_movement() -> void:
+    if not move_timer:
+        return
+
+    var is_moving := move_timer.timeout.is_connected(move)
+
+    if enable_move:
+        if not is_moving:
+            move_timer.timeout.connect(move)
+            move_timer.start(move_interval_seconds)
+    elif is_moving:
+        move_timer.timeout.disconnect(move)
+        move_timer.stop()
 
 func get_talk_dialogue() -> String:
     if not npc_data:
