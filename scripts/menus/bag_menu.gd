@@ -19,6 +19,9 @@ var menu_items: BagMenuItems = %BagMenuItems
 var index_handler: ListIndexHandler = %ListIndexHandler
 
 @onready
+var bag_handler: BagHandler = %BagHandler
+
+@onready
 var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
 
 @onready
@@ -46,33 +49,29 @@ func _ready() -> void:
 	index_handler.current_index_changed.connect(_handle_current_index_changed)
 	visibility_changed.connect(_handle_visibility_changed)
 
+	bag_handler.bag_changed.connect(_handle_bag_changed)
+
+	list_menu_input_handler.next.connect(menu_behaviour.next)
+	list_menu_input_handler.previous.connect(menu_behaviour.previous)
+	list_menu_input_handler.select.connect(_handle_select)
+
 	if bag:
-		bag.added_item.connect(_handle_bag_added_item)
-		bag.dropped_item.connect(_handle_bag_dropped_item)
-		bag.used_item.connect(_handle_bag_used_item)
-		bag.consumed_item.connect(_handle_bag_consumed_item)
+		bag.added_item.connect(bag_handler.handle_bag_added_item)
+		bag.dropped_item.connect(bag_handler.handle_bag_dropped_item)
+		bag.used_item.connect(bag_handler.handle_bag_used_item)
+		bag.consumed_item.connect(bag_handler.handle_bag_consumed_item)
 
 	if use_item_menu:
 		use_item_menu.use.connect(use_current_item)
 		use_item_menu.drop.connect(drop_current_item)
 		use_item_menu.drop_all.connect(drop_current_stack)
 
-	list_menu_input_handler.next.connect(menu_behaviour.next)
-	list_menu_input_handler.previous.connect(menu_behaviour.previous)
-	list_menu_input_handler.select.connect(_handle_select)
-
 func _handle_current_index_changed(index: int) -> void:
 	print("BagMenu current index changed " + str(index))
 
-	if dimmer.is_dimmed and is_visible_in_tree():
+	if not menu_state_handler.can_listen():
 		print("BagMenu current index changed, stealing control")
 		steal()
-
-	print("BagMenu scrolling to item " + str(index))
-
-	ui_updater.scroll_to_item(index)
-
-	menu_items.highlight_current()
 
 func _handle_select() -> void:
 	var stack := menu_items.get_stack()
@@ -127,13 +126,8 @@ func enable_animations() -> void:
 
 ## BagMenu-specific
 
-func update_buttons(item_stacks: Array[ItemStack]) -> void:
+func _handle_bag_changed(item_stacks: Array[ItemStack]) -> void:
 	var count_changed := ui_updater.update_buttons(item_stacks)
-
-	if item_stacks.size() > 0:
-		index_handler.clamp(menu_items.get_max_index())
-
-	menu_items.highlight_current()
 
 	var new_item: Item = null
 	if index_handler.current < menu_items.size():
@@ -141,7 +135,7 @@ func update_buttons(item_stacks: Array[ItemStack]) -> void:
 
 	selected_item_changed.emit(new_item)
 
-	if is_visible_in_tree() and count_changed:
+	if count_changed and not menu_state_handler.can_listen():
 		print("BagMenu stack count changed, stealing control")
 
 		steal()
@@ -160,23 +154,3 @@ func drop_current_stack() -> void:
 	var current_stack := menu_items.get_stack()
 	if current_stack:
 		drop_stack.emit(current_stack.id)
-
-func _handle_bag_added_item(new_item: Item, _altered: bool, item_stacks: Array[ItemStack]) -> void:
-	print("Added " + new_item.name + " to bag")
-
-	update_buttons(item_stacks)
-
-func _handle_bag_dropped_item(dropped_item: Item, item_stacks: Array[ItemStack]) -> void:
-	print("Dropped " + dropped_item.name + " from bag")
-
-	update_buttons(item_stacks)
-
-func _handle_bag_used_item(used_item: Item, item_stacks: Array[ItemStack]) -> void:
-	print("Used " + used_item.name + " from bag")
-
-	update_buttons(item_stacks)
-
-func _handle_bag_consumed_item(consumed_item: Item, item_stacks: Array[ItemStack]) -> void:
-	print("Consumed " + consumed_item.name + " from bag")
-
-	update_buttons(item_stacks)

@@ -1,9 +1,13 @@
+@tool
 class_name BagMenuItems extends Node
 
 @export
 var index_handler: ListIndexHandler
 
 var _menu_items: Array[ItemStackMenuItem]
+
+func _ready() -> void:
+	index_handler.current_index_changed.connect(_highlight)
 
 func get_stack() -> ItemStack:
 	if index_handler.current > -1 and index_handler.current <= get_max_index():
@@ -37,6 +41,9 @@ func trim_to(trim_size: int) -> void:
 		_menu_items.pop_back()
 
 func highlight_current() -> void:
+	_highlight(index_handler.current)
+
+func _highlight(index: int) -> void:
 	for button in _menu_items:
 		if button.index == index_handler.current:
 			button.select()

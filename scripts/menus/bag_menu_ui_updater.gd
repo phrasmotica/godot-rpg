@@ -1,7 +1,11 @@
+@tool
 class_name BagMenuUIUpdater extends Node
 
 @export
 var menu_items: BagMenuItems
+
+@export
+var index_handler: ListIndexHandler
 
 @export
 var item_stack_menu_item_scene: PackedScene
@@ -14,6 +18,9 @@ var scroll_container: ScrollContainer
 
 @export
 var item_list: VBoxContainer
+
+func _ready() -> void:
+	index_handler.current_index_changed.connect(_scroll_to)
 
 func update_buttons(item_stacks: Array[ItemStack]) -> bool:
 	var count := item_stacks.size()
@@ -36,7 +43,15 @@ func update_buttons(item_stacks: Array[ItemStack]) -> bool:
 	# clean up any unused buttons
 	menu_items.trim_to(item_stacks.size())
 
+	if count > 0:
+		index_handler.clamp(menu_items.get_max_index())
+
+	menu_items.highlight_current()
+
 	return count_changed
 
-func scroll_to_item(index: int) -> void:
-	scroll_container.scroll_vertical = int(menu_items.get_item_y_pos(index))
+func _scroll_to(index: int) -> void:
+	print("Scrolling bag menu to item " + str(index))
+
+	var scroll_y := int(menu_items.get_item_y_pos(index))
+	scroll_container.scroll_vertical = scroll_y
