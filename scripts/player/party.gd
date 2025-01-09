@@ -1,3 +1,4 @@
+@tool
 class_name Party extends Node2D
 
 @export

@@ -1,10 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://d2s13nanwkocg"]
+[gd_scene load_steps=24 format=3 uid="uid://d2s13nanwkocg"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_f36bm"]
 [ext_resource type="Texture2D" uid="uid://cryxhusaiopv8" path="res://assets/sprites/player_walk.png" id="2_777sl"]
 [ext_resource type="PackedScene" uid="uid://cxo8n08h3j7iq" path="res://scenes/movement/grid_movement.tscn" id="3_co72y"]
 [ext_resource type="PackedScene" uid="uid://c0tkt5r1ynknp" path="res://scenes/movement/movement_animation.tscn" id="4_lx4vg"]
+[ext_resource type="PackedScene" uid="uid://berealf573bgo" path="res://scenes/player/party.tscn" id="4_pp1si"]
 [ext_resource type="Script" path="res://scripts/player/player_move_input_handler.gd" id="5_ar6j6"]
+[ext_resource type="PackedScene" uid="uid://cvtqbegbkh1at" path="res://scenes/movement/movement_history.tscn" id="5_f151a"]
 [ext_resource type="Resource" uid="uid://skcw58ycl5lp" path="res://resources/input/face.tres" id="6_mh6ol"]
 [ext_resource type="Resource" uid="uid://b1qcurn4np0wt" path="res://resources/input/move.tres" id="7_vwfou"]
 [ext_resource type="Resource" uid="uid://v5qquk3hch77" path="res://resources/input/interact.tres" id="8_adrrr"]
@@ -107,6 +109,7 @@ animations = [{
 size = Vector2(32, 40)
 
 [node name="Player" type="CharacterBody2D"]
+position = Vector2(-32, -32)
 collision_layer = 2
 script = ExtResource("1_f36bm")
 raycast_mask = 13
@@ -126,9 +129,16 @@ unique_name_in_owner = true
 self_node = NodePath("..")
 movement_animation = NodePath("../MovementAnimation")
 
+[node name="Party" parent="." instance=ExtResource("4_pp1si")]
+unique_name_in_owner = true
+
 [node name="MovementAnimation" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("4_lx4vg")]
 unique_name_in_owner = true
 sprite = NodePath("../Sprite")
+
+[node name="MovementHistory" parent="." node_paths=PackedStringArray("party") instance=ExtResource("5_f151a")]
+unique_name_in_owner = true
+party = NodePath("../Party")
 
 [node name="PlayerInteractInputHandler" type="Node" parent="." node_paths=PackedStringArray("grid_movement")]
 unique_name_in_owner = true

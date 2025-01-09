@@ -1,3 +1,4 @@
+@tool
 class_name GridMovement extends Node2D
 
 @export

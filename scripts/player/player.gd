@@ -1,7 +1,13 @@
+@tool
 class_name Player extends CharacterBody2D
 
 @export
-var party: Party
+var party_members: Array[NPC] = []:
+	set(value):
+		party_members = value
+
+		if party:
+			party.members = value
 
 ## The physics layers that the raycast should collide with when processing
 ## movement.
@@ -13,6 +19,12 @@ var sprite: AnimatedSprite2D = %Sprite
 
 @onready
 var grid_movement: GridMovement = %GridMovement
+
+@onready
+var party: Party = %Party
+
+@onready
+var movement_history: MovementHistory = %MovementHistory
 
 @onready
 var player_interact_input_handler: PlayerInteractInputHandler = %PlayerInteractInputHandler
@@ -31,11 +43,13 @@ func _ready():
 	position = grid_movement.get_snapped_position(position)
 
 	grid_movement.position_faced.connect(position_faced.emit)
-	grid_movement.moving_started.connect(moving_to_position.emit)
+	grid_movement.moving_started.connect(_handle_grid_movement_moving_started)
 	grid_movement.moving_finished.connect(_handle_grid_movement_moving_finished)
 
 	grid_movement.set_raycast_mask(raycast_mask)
 	grid_movement.check_facing_tile()
+
+	party.members = party_members
 
 	player_interact_input_handler.dialogue_triggered.connect(_handle_dialogue_triggered)
 	player_interact_input_handler.interacted.connect(interacted.emit)
@@ -43,7 +57,7 @@ func _ready():
 
 	player_move_input_handler.move_triggered.connect(_handle_move_triggered)
 
-	moving_to_position.emit(global_position)
+	_add_position(global_position)
 
 func _handle_move_triggered(direction: Vector2):
 	var party_colliders := party.get_colliders() if party else []
@@ -62,6 +76,14 @@ func _handle_pickup_item_triggered(item: Item) -> void:
 
 	interacted.emit()
 
-func _handle_grid_movement_moving_finished(pos: Vector2):
+func _handle_grid_movement_moving_started(pos: Vector2) -> void:
+	_add_position(pos)
+
+func _add_position(pos: Vector2) -> void:
+	movement_history.add_position(pos)
+
+	moving_to_position.emit(pos)
+
+func _handle_grid_movement_moving_finished(pos: Vector2) -> void:
 	sprite.stop()
 	moved_to_position.emit(pos)
