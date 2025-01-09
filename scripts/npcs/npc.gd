@@ -35,7 +35,9 @@ var move_timer: Timer = %MoveTimer
 @onready
 var collision_shape: CollisionShape2D = %CollisionShape2D
 
-var possible_directions: Array[Vector2i] = [
+var _was_moving_on_ready := false
+
+var _possible_directions: Array[Vector2i] = [
     Vector2i.UP,
     Vector2i.RIGHT,
     Vector2i.DOWN,
@@ -50,6 +52,7 @@ func _ready() -> void:
 
     collision_shape.shape = dialogue_area.get_area_shape()
 
+    _was_moving_on_ready = enable_move
     _refresh_movement()
 
     grid_movement.set_raycast_mask(raycast_mask)
@@ -62,15 +65,24 @@ func _refresh_movement() -> void:
     if not move_timer:
         return
 
-    var is_moving := move_timer.timeout.is_connected(move)
+    var is_moving := move_timer.timeout.is_connected(_move)
 
-    if enable_move:
-        if not is_moving:
-            move_timer.timeout.connect(move)
-            move_timer.start(move_interval_seconds)
-    elif is_moving:
-        move_timer.timeout.disconnect(move)
-        move_timer.stop()
+    if enable_move and not is_moving:
+        _start_moving()
+    elif not enable_move and is_moving:
+        _stop_moving()
+
+func _start_moving() -> void:
+    move_timer.timeout.connect(_move)
+    move_timer.start(move_interval_seconds)
+
+func _stop_moving() -> void:
+    move_timer.timeout.disconnect(_move)
+    move_timer.stop()
+
+func resume_moving() -> void:
+    if _was_moving_on_ready:
+        _start_moving()
 
 func get_talk_dialogue() -> String:
     if not npc_data:
@@ -83,22 +95,22 @@ func get_talk_dialogue() -> String:
 
     return npc_data.talk_dialogue
 
-func move():
-    var dir: Vector2i = possible_directions.pick_random()
+func _move() -> void:
+    var dir: Vector2i = _possible_directions.pick_random()
 
     print("NPC " + name + " moving in direction " + str(dir))
 
     grid_movement.face(dir)
     grid_movement.move_obey_collisions(dir)
 
-func face(pos: Vector2):
+func face(pos: Vector2) -> void:
     print("NPC " + name + " facing position " + str(pos))
 
     var dir: Vector2i = (pos - global_position).normalized()
 
     grid_movement.face(dir)
 
-func move_to(pos: Vector2, ignore_collision := false):
+func move_to(pos: Vector2, ignore_collision := false) -> void:
     print("NPC " + name + " is being moved to " + str(pos))
 
     var dir := (pos - global_position).normalized()

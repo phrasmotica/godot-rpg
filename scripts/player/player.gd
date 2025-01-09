@@ -25,7 +25,7 @@ signal moving_to_position(pos: Vector2i)
 signal moved_to_position(pos: Vector2i)
 signal interacted
 signal pickup_item(item: Item)
-signal dialogue_triggered(timeline: String)
+signal dialogue_triggered(npc: NPC)
 
 func _ready():
 	position = grid_movement.get_snapped_position(position)
@@ -53,8 +53,7 @@ func _handle_dialogue_triggered(npc: NPC) -> void:
 	npc.face(global_position)
 	npc.enable_move = false
 
-	# HIGH: re-enable NPC movement once dialogue finishes
-	dialogue_triggered.emit(npc.get_talk_dialogue())
+	dialogue_triggered.emit(npc)
 
 	interacted.emit()
 

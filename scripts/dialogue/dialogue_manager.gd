@@ -46,8 +46,10 @@ func _handle_map_player_interacted(tile: Tile) -> void:
     if tile.dialogue_timeline.length() > 0:
         Dialogic.start(tile.dialogue_timeline)
 
-func _handle_player_dialogue_triggered(timeline: String) -> void:
+func _handle_player_dialogue_triggered(npc: NPC) -> void:
+    var timeline := npc.get_talk_dialogue()
     if timeline:
+        Dialogic.timeline_ended.connect(npc.resume_moving, CONNECT_ONE_SHOT)
         Dialogic.start(timeline)
 
 func _handle_bag_added_item(new_item: Item, altered: bool, _item_stacks: Array[ItemStack]) -> void:
