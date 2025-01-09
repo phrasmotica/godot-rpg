@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://im7teipfndb"]
+[gd_scene load_steps=3 format=3 uid="uid://im7teipfndb"]
 
 [ext_resource type="Script" path="res://scripts/dialogue/dialogue_manager.gd" id="1_8sxr6"]
+[ext_resource type="Script" path="res://scripts/dialogue/dialogic_signal_event_handler.gd" id="2_q4fjp"]
 
 [node name="DialogueManager" type="Node"]
 script = ExtResource("1_8sxr6")
+
+[node name="DialogicSignalEventHandler" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_q4fjp")

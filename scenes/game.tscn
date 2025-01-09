@@ -80,9 +80,10 @@ hit_points = NodePath("../../HitPoints")
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
-[node name="UIManager" parent="UICanvas" node_paths=PackedStringArray("menu_set", "toggle_menu_input_handler") instance=ExtResource("21_52gs6")]
+[node name="UIManager" parent="UICanvas" node_paths=PackedStringArray("menu_set", "toggle_menu_input_handler", "dialogue_manager") instance=ExtResource("21_52gs6")]
 menu_set = NodePath("MarginContainer/MenuSet")
 toggle_menu_input_handler = NodePath("../../InputManager/ToggleMenuInputHandler")
+dialogue_manager = NodePath("../../DialogueCanvas/DialogueManager")
 
 [node name="MarginContainer" type="MarginContainer" parent="UICanvas/UIManager"]
 anchors_preset = 1

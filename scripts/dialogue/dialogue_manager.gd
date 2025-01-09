@@ -12,10 +12,15 @@ var bag: Bag
 @export
 var item_consumer: ItemConsumer
 
+@onready
+var signal_event_handler: DialogicSignalEventHandler = %DialogicSignalEventHandler
+
 signal timeline_started
 signal timeline_ended
 
-func _ready():
+signal choose_item_from_bag
+
+func _ready() -> void:
     if map:
         map.player_interacted.connect(_handle_map_player_interacted)
 
@@ -31,6 +36,9 @@ func _ready():
 
     Dialogic.timeline_started.connect(handle_timeline_started)
     Dialogic.timeline_ended.connect(handle_timeline_ended)
+    Dialogic.signal_event.connect(signal_event_handler.handle)
+
+    signal_event_handler.choose_item_from_bag.connect(_handle_choose_item_from_bag)
 
 func handle_timeline_started():
     print("Timeline started!")
@@ -41,6 +49,9 @@ func handle_timeline_ended():
     print("Timeline ended!")
 
     timeline_ended.emit()
+
+func _handle_choose_item_from_bag() -> void:
+    choose_item_from_bag.emit()
 
 func _handle_map_player_interacted(tile: Tile) -> void:
     if tile.dialogue_timeline.length() > 0:

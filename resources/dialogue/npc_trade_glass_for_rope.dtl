@@ -1,5 +1,6 @@
 Hey kid!! You wanna give me a Glass for this Rope? Hehehe >\:)
 - Yes!
 	Excellent. Let's trade.
+	[signal arg="choose_item_from_bag"]
 - No...
 	Well... suit yourself, kid.
