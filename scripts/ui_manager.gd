@@ -60,3 +60,5 @@ func _handle_choose_item_from_bag() -> void:
 	print("choose_item_from_bag")
 
 	_show_menu()
+
+	menu_closed.connect(dialogue_manager.try_resume, CONNECT_ONE_SHOT)

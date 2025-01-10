@@ -42,13 +42,26 @@ func _ready() -> void:
 
     signal_event_handler.choose_item_from_bag.connect(_handle_choose_item_from_bag)
 
-func handle_timeline_started():
+func try_resume() -> void:
+    var timeline: String = Dialogic.VAR.resume_with_timeline
+    if timeline.length() > 0:
+        print("Resuming with dialogue timeline %s" % timeline)
+
+        Dialogic.VAR.resume_with_timeline = ""
+        Dialogic.start(timeline)
+
+func is_busy() -> bool:
+    return Dialogic.current_timeline != null
+
+func handle_timeline_started() -> void:
     print("Timeline started!")
 
     timeline_started.emit()
 
-func handle_timeline_ended():
-    print("Timeline ended!")
+func handle_timeline_ended() -> void:
+    var timeline: String = Dialogic.VAR.resume_with_timeline
+
+    print("Timeline ended! Resume timeline=%s" % timeline)
 
     timeline_ended.emit()
 
