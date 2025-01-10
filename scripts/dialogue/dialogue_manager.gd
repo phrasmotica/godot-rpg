@@ -15,6 +15,8 @@ var item_consumer: ItemConsumer
 @onready
 var signal_event_handler: DialogicSignalEventHandler = %DialogicSignalEventHandler
 
+var _resume_npc_moving := true
+
 signal timeline_started
 signal timeline_ended
 
@@ -51,6 +53,9 @@ func handle_timeline_ended():
     timeline_ended.emit()
 
 func _handle_choose_item_from_bag() -> void:
+    # NPC should at least wait for us to choose the item from the bag
+    _resume_npc_moving = false
+
     choose_item_from_bag.emit()
 
 func _handle_map_player_interacted(tile: Tile) -> void:
@@ -60,8 +65,18 @@ func _handle_map_player_interacted(tile: Tile) -> void:
 func _handle_player_dialogue_triggered(npc: NPC) -> void:
     var timeline := npc.get_talk_dialogue()
     if timeline:
-        Dialogic.timeline_ended.connect(npc.resume_moving, CONNECT_ONE_SHOT)
+        Dialogic.timeline_ended.connect(
+            func():
+                _handle_npc_dialogue_ended(npc)
+        , CONNECT_ONE_SHOT)
+
         Dialogic.start(timeline)
+
+func _handle_npc_dialogue_ended(npc: NPC) -> void:
+    if _resume_npc_moving:
+        npc.resume_moving()
+    else:
+        print("NOT resuming movement for %s" % npc.name)
 
 func _handle_bag_added_item(new_item: Item, altered: bool, _item_stacks: Array[ItemStack]) -> void:
     if altered:
