@@ -1,5 +1,5 @@
 @tool
-class_name Party extends Node2D
+class_name Party extends Node
 
 @export
 var members: Array[NPC] = []

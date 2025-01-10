@@ -39,7 +39,10 @@ signal interacted
 signal pickup_item(item: Item)
 signal dialogue_triggered(npc: NPC)
 
-func _ready():
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+
 	position = grid_movement.get_snapped_position(position)
 
 	grid_movement.position_faced.connect(position_faced.emit)
