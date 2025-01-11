@@ -6,6 +6,8 @@ enum MenuState { CLOSED, INACTIVE, ACTIVE, COVERED }
 @export
 var menu: Menu
 
+# HIGH: re-implement this using Godot State Charts library
+
 var _inactive := false
 var _covered := false
 
