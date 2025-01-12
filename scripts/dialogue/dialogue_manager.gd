@@ -12,6 +12,9 @@ var bag: Bag
 @export
 var item_consumer: ItemConsumer
 
+@export
+var bag_menu: BagMenu
+
 @onready
 var signal_event_handler: DialogicSignalEventHandler = %DialogicSignalEventHandler
 
@@ -35,6 +38,9 @@ func _ready() -> void:
     if item_consumer:
         item_consumer.item_consume_result_created.connect(_handle_item_consumer_item_consume_result_created)
         item_consumer.item_effect_result_created.connect(_handle_item_consumer_item_effect_result_created)
+
+    if bag_menu:
+        bag_menu.select_stack.connect(_handle_bag_menu_select_stack)
 
     Dialogic.timeline_started.connect(handle_timeline_started)
     Dialogic.timeline_ended.connect(handle_timeline_ended)
@@ -107,3 +113,6 @@ func _handle_item_consumer_item_effect_result_created(result: ItemEffectResult) 
     if result.dialogue_timeline:
         result.process_for_dialogue()
         Dialogic.start(result.dialogue_timeline)
+
+func _handle_bag_menu_select_stack(stack: ItemStack, _should_close: bool) -> void:
+    Dialogic.VAR.chosen_item_id = stack.item.id if stack and stack.item else -1

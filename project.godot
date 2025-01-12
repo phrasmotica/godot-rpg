@@ -45,6 +45,7 @@ directories/dtl_directory={
 "wall_default": "res://resources/dialogue/wall_default.dtl"
 }
 variables={
+"chosen_item_id": -1,
 "heal_amount": 0,
 "is_choosing_from_bag": false,
 "item_name": "item",

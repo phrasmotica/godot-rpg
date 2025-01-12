@@ -1,2 +1,5 @@
-Gee, thanks kid!
-Now don't you lose track of that thing.
+if {chosen_item_id} == 3:
+	Gee, thanks kid!
+	Now don't you lose track of that thing.
+else:
+	Well that's not a Glass! What am I supposed to do with that?

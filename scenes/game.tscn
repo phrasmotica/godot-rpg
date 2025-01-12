@@ -138,11 +138,12 @@ map = NodePath("../../../Map")
 [node name="DialogueCanvas" type="CanvasLayer" parent="."]
 layer = 10
 
-[node name="DialogueManager" parent="DialogueCanvas" node_paths=PackedStringArray("map", "player", "bag", "item_consumer") instance=ExtResource("1_1vlts")]
+[node name="DialogueManager" parent="DialogueCanvas" node_paths=PackedStringArray("map", "player", "bag", "item_consumer", "bag_menu") instance=ExtResource("1_1vlts")]
 map = NodePath("../../Map")
 player = NodePath("../../Map/Player")
 bag = NodePath("../../Map/Player/Bag")
 item_consumer = NodePath("../../Map/Player/Bag/ItemConsumer")
+bag_menu = NodePath("../../UICanvas/UIManager/MarginContainer/MenuSet/BagMenu")
 
 [node name="DebugLayer" type="CanvasLayer" parent="."]
 
