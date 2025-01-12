@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://byb1wdm31r2o3"]
 
-[ext_resource type="Script" path="res://scripts/npc_manager.gd" id="1_p30cw"]
+[ext_resource type="Script" path="res://scripts/npcs/npc_manager.gd" id="1_p30cw"]
 [ext_resource type="Script" path="res://scripts/npcs/npc_trade_tracker.gd" id="2_w7ly8"]
 
 [node name="NPCManager" type="Node2D"]
