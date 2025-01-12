@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=23 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player/player.tscn" id="1_ia2wv"]
 [ext_resource type="PackedScene" uid="uid://bc8nalaam6hto" path="res://scenes/input/input_manager.tscn" id="2_vx32o"]
 [ext_resource type="PackedScene" uid="uid://cbptipoqr4j66" path="res://scenes/player/hit_points.tscn" id="3_21716"]
 [ext_resource type="PackedScene" uid="uid://wf1bgkchcqs5" path="res://scenes/player/bag.tscn" id="3_pc812"]
+[ext_resource type="PackedScene" uid="uid://byb1wdm31r2o3" path="res://scenes/npc_manager.tscn" id="5_0gk26"]
 [ext_resource type="PackedScene" uid="uid://7nyhh4cif5fr" path="res://scenes/menus/bag_menu.tscn" id="5_votnq"]
 [ext_resource type="Resource" uid="uid://c7gwsc63ucp3v" path="res://resources/npcs/item_trade_glass_for_rope.tres" id="6_37fwd"]
 [ext_resource type="Script" path="res://scripts/npcs/npc_data.gd" id="6_kw080"]
@@ -43,26 +44,27 @@ debug_layer = NodePath("../../DebugLayer")
 [node name="Map" parent="." node_paths=PackedStringArray("player") instance=ExtResource("10_ns2nh")]
 player = NodePath("Player")
 
-[node name="NPCs" type="Node2D" parent="Map"]
+[node name="NPCManager" parent="Map" node_paths=PackedStringArray("player") instance=ExtResource("5_0gk26")]
+player = NodePath("../Player")
 
-[node name="NPC" parent="Map/NPCs" instance=ExtResource("8_60xt8")]
+[node name="NPC" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
 position = Vector2(1056, 672)
 npc_data = SubResource("Resource_ga6nc")
 enable_move = true
 
-[node name="NPC2" parent="Map/NPCs" instance=ExtResource("8_60xt8")]
+[node name="NPC2" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
 position = Vector2(1120, 800)
 
-[node name="NPC3" parent="Map/NPCs" instance=ExtResource("8_60xt8")]
+[node name="NPC3" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
 position = Vector2(1120, 800)
 
-[node name="NPC4" parent="Map/NPCs" instance=ExtResource("8_60xt8")]
+[node name="NPC4" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
 position = Vector2(1120, 1056)
 npc_data = SubResource("Resource_tayge")
 
 [node name="Player" parent="Map" node_paths=PackedStringArray("party_members") instance=ExtResource("1_ia2wv")]
 position = Vector2(1184, 800)
-party_members = [NodePath("../NPCs/NPC2"), NodePath("../NPCs/NPC3")]
+party_members = [NodePath("../NPCManager/NPC2"), NodePath("../NPCManager/NPC3")]
 
 [node name="Camera" type="Camera2D" parent="Map/Player"]
 
