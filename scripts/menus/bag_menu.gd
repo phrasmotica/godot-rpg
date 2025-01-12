@@ -3,6 +3,13 @@ class_name BagMenu extends Menu
 
 # HIGH: cut down on inheritance as much as possible
 
+@export_group("Behaviour")
+
+@export
+var close_on_select := false:
+	set(value):
+		close_on_select = value
+
 @export_group("Dependencies")
 
 @export
@@ -32,7 +39,7 @@ var dimmer: Dimmer = %Dimmer
 @onready
 var ui_updater: BagMenuUIUpdater = %UIUpdater
 
-signal select_stack(stack: ItemStack)
+signal select_stack(stack: ItemStack, should_close: bool)
 
 signal use_item(stack_id: int)
 
@@ -82,7 +89,7 @@ func _handle_select() -> void:
 
 	print("Selecting the " + stack.item.name)
 
-	select_stack.emit(stack)
+	select_stack.emit(stack, close_on_select)
 
 ## Menu overrides
 
