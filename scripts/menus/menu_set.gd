@@ -38,6 +38,9 @@ func _ready() -> void:
 
 	menu_nav_action.triggered.connect(_handle_menu_nav)
 
+	for m in menus:
+		m.cancel.connect(cancel.emit)
+
 func _refresh() -> void:
 	for i in range(menus.size()):
 		if i != current_menu_index:

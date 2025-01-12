@@ -6,9 +6,7 @@ class_name BagMenu extends Menu
 @export_group("Behaviour")
 
 @export
-var close_on_select := false:
-	set(value):
-		close_on_select = value
+var close_on_select := false
 
 @export_group("Dependencies")
 
@@ -91,9 +89,17 @@ func _handle_select() -> void:
 
 	select_stack.emit(stack, close_on_select)
 
+	if close_on_select:
+		# the cancel signal should be good enough for this purpose.
+		cancel.emit()
+
 ## Menu overrides
 
 func after_visibility_changed() -> void:
+	var is_choosing: bool = Dialogic.VAR.is_choosing_from_bag
+
+	close_on_select = is_choosing
+
 	if menu_items.size() > 0:
 		index_handler.clamp(menu_items.get_max_index())
 

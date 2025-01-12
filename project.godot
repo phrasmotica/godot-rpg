@@ -46,6 +46,7 @@ directories/dtl_directory={
 }
 variables={
 "heal_amount": 0,
+"is_choosing_from_bag": false,
 "item_name": "item",
 "resume_with_timeline": ""
 }

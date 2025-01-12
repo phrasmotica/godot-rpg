@@ -57,8 +57,17 @@ func _handle_menu_cancel() -> void:
 	next_frame_handler.on_next_frame(_hide_menu)
 
 func _handle_choose_item_from_bag() -> void:
-	print("choose_item_from_bag")
+	print("Choosing item from bag")
+
+	Dialogic.VAR.is_choosing_from_bag = true
 
 	_show_menu()
 
-	menu_closed.connect(dialogue_manager.try_resume, CONNECT_ONE_SHOT)
+	menu_closed.connect(_handle_menu_closed_after_choosing_from_bag, CONNECT_ONE_SHOT)
+
+func _handle_menu_closed_after_choosing_from_bag() -> void:
+	print("Choosing item from bag finished!")
+
+	Dialogic.VAR.is_choosing_from_bag = false
+
+	dialogue_manager.try_resume()
