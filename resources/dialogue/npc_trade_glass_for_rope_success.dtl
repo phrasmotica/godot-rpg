@@ -3,3 +3,4 @@ if {chosen_item_id} == 3:
 	Now don't you lose track of that thing.
 else:
 	Well that's not a Glass! What am I supposed to do with that?
+[signal arg="trade_finished"]

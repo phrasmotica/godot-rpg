@@ -47,6 +47,7 @@ func _ready() -> void:
     Dialogic.signal_event.connect(signal_event_handler.handle)
 
     signal_event_handler.choose_item_from_bag.connect(_handle_choose_item_from_bag)
+    signal_event_handler.trade_finished.connect(_handle_trade_finished)
 
 func try_resume() -> void:
     var timeline: String = Dialogic.VAR.resume_with_timeline
@@ -76,6 +77,11 @@ func _handle_choose_item_from_bag() -> void:
     _resume_npc_moving = false
 
     choose_item_from_bag.emit()
+
+func _handle_trade_finished() -> void:
+    print("NPC trade finished!")
+
+    Dialogic.VAR.chosen_item_id = -1
 
 func _handle_map_player_interacted(tile: Tile) -> void:
     if tile.dialogue_timeline.length() > 0:
