@@ -21,6 +21,7 @@ var signal_event_handler: DialogicSignalEventHandler = %DialogicSignalEventHandl
 var _resume_npc_moving := true
 
 signal timeline_started
+signal trade_item(item_id: int)
 signal timeline_ended
 
 signal choose_item_from_bag
@@ -47,6 +48,7 @@ func _ready() -> void:
     Dialogic.signal_event.connect(signal_event_handler.handle)
 
     signal_event_handler.choose_item_from_bag.connect(_handle_choose_item_from_bag)
+    signal_event_handler.trade_item.connect(trade_item.emit)
     signal_event_handler.trade_finished.connect(_handle_trade_finished)
 
 func try_resume() -> void:
