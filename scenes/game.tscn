@@ -23,7 +23,7 @@
 
 [sub_resource type="Resource" id="Resource_ga6nc"]
 script = ExtResource("6_kw080")
-talk_dialogue = "npc_trade_glass_for_rope"
+talk_dialogue = "npc_default"
 item_trade = ExtResource("6_37fwd")
 
 [sub_resource type="Resource" id="Resource_tayge"]

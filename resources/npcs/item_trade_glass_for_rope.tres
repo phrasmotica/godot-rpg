@@ -6,5 +6,7 @@
 
 [resource]
 script = ExtResource("3_7ivlg")
+talk_dialogue = "npc_trade_glass_for_rope"
 give_item = ExtResource("1_ebr1t")
 receive_item = ExtResource("2_u816c")
+amount = 1

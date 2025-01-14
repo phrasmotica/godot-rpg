@@ -10,12 +10,14 @@ func track(npc: NPC) -> void:
     _tracking_npc = npc
 
 func handle_trade_item(item_id: int) -> void:
-    if not _tracking_npc or not _tracking_npc.npc_data or not _tracking_npc.npc_data.item_trade:
+    var item_trade := _tracking_npc.get_trade()
+    if not item_trade:
         return
 
-    var trade_for_item_id := _tracking_npc.npc_data.item_trade.receive_item.id
+    var trade_for_item_id := item_trade.receive_item.id
+    item_trade.amount -= 1
 
-    print("Trading item ID=%d for item ID=%d" % [item_id, trade_for_item_id])
+    print("Trading item ID=%d for item ID=%d (%d remaining)" % [item_id, trade_for_item_id, item_trade.amount])
 
     traded_item.emit(item_id, trade_for_item_id)
 

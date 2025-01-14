@@ -88,12 +88,21 @@ func get_talk_dialogue() -> String:
     if not npc_data:
         return ""
 
-    if npc_data.item_trade:
+    var trade_dialogue := get_trade_dialogue()
+    if trade_dialogue.length() > 0:
         # TODO: instead, return a stock dialogue timeline with variables for the
         # item names
-        return npc_data.talk_dialogue
+        return trade_dialogue
 
     return npc_data.talk_dialogue
+
+func get_trade() -> ItemTrade:
+    var trade := npc_data.item_trade
+    return trade if trade and trade.amount > 0 else null
+
+func get_trade_dialogue() -> String:
+    var trade := get_trade()
+    return trade.talk_dialogue if trade else ""
 
 func _move() -> void:
     var dir: Vector2i = _possible_directions.pick_random()
