@@ -9,6 +9,17 @@ func track(npc: NPC) -> void:
 
     _tracking_npc = npc
 
+    var trade := npc.get_trade()
+    if trade:
+        Dialogic.VAR.trade_give_item_id = trade.give_item.id
+
+func untrack() -> void:
+    print("Untracking NPC: %s" % _tracking_npc.name)
+
+    _tracking_npc = null
+
+    Dialogic.VAR.trade_give_item_id = -1
+
 func handle_trade_item(item_id: int) -> void:
     var item_trade := _tracking_npc.get_trade()
     if not item_trade:
@@ -29,7 +40,6 @@ func handle_dialogue_ended() -> void:
 
     if timeline.length() > 0:
         print("Dialogue will resume with timeline %s, continuing to track NPC: %s" % [timeline, _tracking_npc.name])
-    else:
-        print("Dialogue ended, untracking NPC: %s" % _tracking_npc.name)
+        return
 
-        _tracking_npc = null
+    untrack()

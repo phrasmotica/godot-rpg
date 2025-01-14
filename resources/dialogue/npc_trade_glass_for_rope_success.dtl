@@ -1,4 +1,4 @@
-if {chosen_item_id} == 3:
+if {chosen_item_id} == {trade_give_item_id}:
 	[signal arg="trade_chosen_item"]
 	Gee, thanks kid!
 	Now don't you lose track of that thing.
