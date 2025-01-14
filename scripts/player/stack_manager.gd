@@ -45,6 +45,24 @@ func peek(stack_id: int) -> Item:
 
 	return stack.peek()
 
+func drop_item_with_id(item_id: int) -> Item:
+	var stack := get_stack_with_item_id(item_id)
+
+	if not stack:
+		print("Tried to drop from stack with item ID=" + str(item_id) + " but no such stack exists!")
+		return null
+
+	var just_dropped_item := stack.drop(1)
+	if not just_dropped_item:
+		print("Tried to drop from stack with item ID=" + str(item_id) + " but the stack was empty!")
+		return null
+
+	print("Dropped from stack ID=" + str(item_id))
+
+	remove_empty_stacks()
+
+	return just_dropped_item
+
 func drop_item(stack_id: int, cleanup := false) -> Item:
 	var stack := get_stack_with_id(stack_id)
 
@@ -92,6 +110,14 @@ func get_stack_with_id(id: int) -> ItemStack:
 	var valid_stacks := _item_stacks.filter(
 		func(stack: ItemStack):
 			return stack.id == id
+	)
+
+	return valid_stacks[0] if valid_stacks.size() > 0 else null
+
+func get_stack_with_item_id(item_id: int) -> ItemStack:
+	var valid_stacks := _item_stacks.filter(
+		func(stack: ItemStack):
+			return stack.item.id == item_id
 	)
 
 	return valid_stacks[0] if valid_stacks.size() > 0 else null

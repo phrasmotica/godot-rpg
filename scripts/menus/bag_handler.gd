@@ -2,7 +2,7 @@ class_name BagHandler extends Node
 
 signal bag_changed(item_stacks: Array[ItemStack])
 
-func handle_bag_added_item(new_item: Item, _altered: bool, item_stacks: Array[ItemStack]) -> void:
+func handle_bag_added_item(new_item: Item, _altered: bool, _silent: bool, item_stacks: Array[ItemStack]) -> void:
 	print("Added " + new_item.name + " to bag")
 
 	bag_changed.emit(item_stacks)

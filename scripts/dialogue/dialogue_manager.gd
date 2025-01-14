@@ -105,12 +105,12 @@ func _handle_npc_dialogue_ended(npc: NPC) -> void:
     else:
         print("NOT resuming movement for %s" % npc.name)
 
-func _handle_bag_added_item(new_item: Item, altered: bool, _item_stacks: Array[ItemStack]) -> void:
-    if altered:
-        pass
-    else:
-        Dialogic.VAR.item_name = new_item.name
-        Dialogic.start("picked_up_item")
+func _handle_bag_added_item(new_item: Item, altered: bool, silent: bool, _item_stacks: Array[ItemStack]) -> void:
+    if altered or silent:
+        return
+
+    Dialogic.VAR.item_name = new_item.name
+    Dialogic.start("picked_up_item")
 
 func _handle_item_consumer_item_consume_result_created(result: ItemConsumeResult) -> void:
     if result.dialogue_timeline:

@@ -12,12 +12,15 @@ var bag_menu: BagMenu
 @onready
 var stack_manager: StackManager = %StackManager
 
-signal added_item(new_item: Item, altered: bool, item_stacks: Array[ItemStack])
+@onready
+var item_pool: ItemPool = %ItemPool
+
+signal added_item(new_item: Item, altered: bool, silent: bool, item_stacks: Array[ItemStack])
 signal dropped_item(dropped_item: Item, item_stacks: Array[ItemStack])
 signal used_item(used_item: Item, item_stacks: Array[ItemStack])
 signal consumed_item(consumed_item: Item, item_stacks: Array[ItemStack])
 
-func _ready():
+func _ready() -> void:
 	if player:
 		player.pickup_item.connect(_handle_player_pickup_item)
 
@@ -26,15 +29,22 @@ func _ready():
 		bag_menu.drop_item.connect(_drop_item)
 		bag_menu.drop_stack.connect(_drop_stack)
 
+func handle_traded_item(give_item_id: int, receive_item_id: int) -> void:
+	stack_manager.drop_item_with_id(give_item_id)
+
+	var received_item := item_pool.get_item(receive_item_id)
+
+	_add_item(received_item, true)
+
 func _handle_player_pickup_item(item: Item) -> void:
 	print("Player picked up " + item.name)
 
-	_add_item(item)
+	_add_item(item, false)
 
-func _add_item(item: Item) -> void:
+func _add_item(item: Item, silent: bool) -> void:
 	var new_item = stack_manager.add_item(item)
 
-	added_item.emit(new_item, false, stack_manager.get_stacks())
+	added_item.emit(new_item, false, silent, stack_manager.get_stacks())
 
 func _try_use_item(stack_id: int) -> void:
 	var item := stack_manager.peek(stack_id)
@@ -83,7 +93,7 @@ func _put_back(item: Item) -> void:
 	var altered_item := stack_manager.add_item(item)
 	stack_manager.remove_empty_stacks()
 
-	added_item.emit(altered_item, true, stack_manager.get_stacks())
+	added_item.emit(altered_item, true, false, stack_manager.get_stacks())
 
 func _drop_item(stack_id: int) -> void:
 	var just_dropped_item := stack_manager.drop_item(stack_id, true)

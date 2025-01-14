@@ -2,6 +2,8 @@ class_name NPCTradeTracker extends Node
 
 var _tracking_npc: NPC
 
+signal traded_item(give_item_id: int, receive_item_id: int)
+
 func track(npc: NPC) -> void:
     print("Tracking NPC: %s" % npc.name)
 
@@ -15,8 +17,7 @@ func handle_trade_item(item_id: int) -> void:
 
     print("Trading item ID=%d for item ID=%d" % [item_id, trade_for_item_id])
 
-    # HIGH: emit a signal that the bag can connect to, which removes the traded
-    # item from and adds the received item to the player's bag
+    traded_item.emit(item_id, trade_for_item_id)
 
 func handle_dialogue_ended() -> void:
     if not _tracking_npc:

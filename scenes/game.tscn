@@ -44,9 +44,10 @@ debug_layer = NodePath("../../DebugLayer")
 [node name="Map" parent="." node_paths=PackedStringArray("player") instance=ExtResource("10_ns2nh")]
 player = NodePath("Player")
 
-[node name="NPCManager" parent="Map" node_paths=PackedStringArray("player", "dialogue_manager") instance=ExtResource("5_0gk26")]
+[node name="NPCManager" parent="Map" node_paths=PackedStringArray("player", "dialogue_manager", "bag") instance=ExtResource("5_0gk26")]
 player = NodePath("../Player")
 dialogue_manager = NodePath("../../DialogueCanvas/DialogueManager")
+bag = NodePath("../Player/Bag")
 
 [node name="NPC" parent="Map/NPCManager" instance=ExtResource("8_60xt8")]
 position = Vector2(1056, 672)

@@ -6,6 +6,9 @@ var player: Player
 @export
 var dialogue_manager: DialogueManager
 
+@export
+var bag: Bag
+
 @onready
 var trade_tracker: NPCTradeTracker = %TradeTracker
 
@@ -16,3 +19,6 @@ func _ready() -> void:
 	if dialogue_manager:
 		dialogue_manager.trade_item.connect(trade_tracker.handle_trade_item)
 		dialogue_manager.timeline_ended.connect(trade_tracker.handle_dialogue_ended)
+
+	if bag:
+		trade_tracker.traded_item.connect(bag.handle_traded_item)
