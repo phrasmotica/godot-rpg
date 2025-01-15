@@ -1,7 +1,7 @@
 Hey kid!! You wanna give me a Glass for this Rope? Hehehe >\:)
 - Yes!
 	Excellent. Let's trade.
-	set {resume_with_timeline} = "npc_trade_glass_for_rope_success"
+	set {resume_with_timeline} = "npc_trade_glass_for_rope_resume"
 	[signal arg="choose_item_from_bag"]
 - No...
 	Well... suit yourself, kid.

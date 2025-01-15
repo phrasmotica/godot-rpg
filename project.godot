@@ -38,7 +38,7 @@ directories/dtl_directory={
 "healed_amount": "res://resources/dialogue/healed_amount.dtl",
 "npc_default": "res://resources/dialogue/npc_default.dtl",
 "npc_trade_glass_for_rope": "res://resources/dialogue/npc_trade_glass_for_rope.dtl",
-"npc_trade_glass_for_rope_success": "res://resources/dialogue/npc_trade_glass_for_rope_success.dtl",
+"npc_trade_glass_for_rope_resume": "res://resources/dialogue/npc_trade_glass_for_rope_resume.dtl",
 "npc_want_to_die": "res://resources/dialogue/npc_want_to_die.dtl",
 "picked_up_item": "res://resources/dialogue/picked_up_item.dtl",
 "tile_water": "res://resources/dialogue/tile_water.dtl",
