@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://d2s13nanwkocg"]
+[gd_scene load_steps=23 format=3 uid="uid://d2s13nanwkocg"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_f36bm"]
+[ext_resource type="Material" uid="uid://b8ssv73m4jpoo" path="res://resources/materials/player-mat.tres" id="2_0ospp"]
 [ext_resource type="Texture2D" uid="uid://cryxhusaiopv8" path="res://assets/sprites/player_walk.png" id="2_777sl"]
 [ext_resource type="PackedScene" uid="uid://cxo8n08h3j7iq" path="res://scenes/movement/grid_movement.tscn" id="3_co72y"]
 [ext_resource type="PackedScene" uid="uid://c0tkt5r1ynknp" path="res://scenes/movement/movement_animation.tscn" id="4_lx4vg"]
@@ -113,6 +114,7 @@ raycast_mask = 13
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
+material = ExtResource("2_0ospp")
 sprite_frames = SubResource("SpriteFrames_0s6ni")
 animation = &"walk_right"
 
