@@ -111,6 +111,8 @@ size = Vector2(32, 40)
 collision_layer = 2
 script = ExtResource("1_f36bm")
 raycast_mask = 13
+torso_colour = Color(0.211765, 0.211765, 0.886275, 1)
+sleeve_colour = Color(0.8, 0.8, 0.34902, 1)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true

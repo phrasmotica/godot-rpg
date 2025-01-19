@@ -18,6 +18,13 @@ var torso_colour: Color:
 
 		_refresh()
 
+@export
+var sleeve_colour: Color:
+	set(value):
+		sleeve_colour = value
+
+		_refresh()
+
 @onready
 var sprite: AnimatedSprite2D = %Sprite
 
@@ -63,7 +70,8 @@ func _ready() -> void:
 func _refresh() -> void:
 	if sprite:
 		var shader := sprite.material as ShaderMaterial
-		shader.set_shader_parameter("new_colour", torso_colour)
+		shader.set_shader_parameter("torso_colour", torso_colour)
+		shader.set_shader_parameter("sleeve_colour", sleeve_colour)
 
 func _handle_move_triggered(direction: Vector2):
 	var party_colliders := party.get_colliders() if party else []

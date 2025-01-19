@@ -1,9 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b8ssv73m4jpoo"]
 
-[ext_resource type="Shader" path="res://resources/shaders/player-shader.gdshader" id="1_tca75"]
+[ext_resource type="Shader" path="res://resources/shaders/player-shader.gdshader" id="1_eltry"]
 
 [resource]
-shader = ExtResource("1_tca75")
-shader_parameter/base_colour = Color(0.211765, 0.211765, 0.886275, 1)
-shader_parameter/new_colour = Color(0, 0, 0, 1)
+resource_local_to_scene = true
+shader = ExtResource("1_eltry")
+shader_parameter/torso_colour = Color(0.211765, 0.211765, 0.886275, 1)
+shader_parameter/sleeve_colour = Color(0.8, 0.8, 0.34902, 1)
 shader_parameter/tolerance = 0.01
