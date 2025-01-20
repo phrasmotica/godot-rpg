@@ -34,11 +34,12 @@ state_handler = NodePath("../MenuStateHandler")
 unique_name_in_owner = true
 menu = NodePath("..")
 
-[node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("edit_menu_item", "edit_mode_controls")]
+[node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("edit_menu_item", "edit_mode_controls", "content")]
 unique_name_in_owner = true
 script = ExtResource("11_hr01d")
 edit_menu_item = NodePath("../MarginContainer/VBoxContainer/Content/EditMenuItem")
 edit_mode_controls = NodePath("../MarginContainer/VBoxContainer/Content/EditModeControls")
+content = NodePath("../MarginContainer/VBoxContainer/Content")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -58,7 +59,6 @@ theme_override_font_sizes/font_size = 24
 text = "Appearance"
 
 [node name="Content" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 
 [node name="EditMenuItem" parent="MarginContainer/VBoxContainer/Content" instance=ExtResource("4_803rm")]

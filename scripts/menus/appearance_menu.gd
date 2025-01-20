@@ -11,7 +11,7 @@ var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
 var dimmer: Dimmer = %Dimmer
 
 @onready
-var content: Control = %Content
+var ui_updater: AppearanceMenuUIUpdater = %UIUpdater
 
 signal show_appearance_editor
 
@@ -38,6 +38,8 @@ func _handle_select() -> void:
 	if item.disabled:
 		return
 
+	ui_updater.set_edit_mode()
+
 	show_appearance_editor.emit()
 
 ## Menu overrides
@@ -45,12 +47,12 @@ func _handle_select() -> void:
 func disable_menu() -> void:
 	_dim_menu()
 
-	content.hide()
+	ui_updater.hide_content()
 
 func enable_menu() -> void:
 	_undim_menu()
 
-	content.show()
+	ui_updater.show_content()
 
 func cover_menu() -> void:
 	super.cover_menu()
