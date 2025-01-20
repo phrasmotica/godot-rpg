@@ -55,8 +55,6 @@ talk_dialogue = "npc_want_to_die"
 [node name="Player" parent="Map" node_paths=PackedStringArray("party") instance=ExtResource("1_ia2wv")]
 position = Vector2(1184, 800)
 party = NodePath("Party")
-torso_colour = Color(0.406084, 0.130966, 0.441046, 1)
-sleeve_colour = Color(0.162426, 0.527287, 0.347826, 1)
 
 [node name="Camera" type="Camera2D" parent="Map/Player"]
 
