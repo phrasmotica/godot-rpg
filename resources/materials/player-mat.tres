@@ -3,7 +3,6 @@
 [ext_resource type="Shader" path="res://resources/shaders/player-shader.gdshader" id="1_eltry"]
 
 [resource]
-resource_local_to_scene = true
 shader = ExtResource("1_eltry")
 shader_parameter/torso_colour = Color(0.211765, 0.211765, 0.886275, 1)
 shader_parameter/sleeve_colour = Color(0.8, 0.8, 0.34902, 1)
