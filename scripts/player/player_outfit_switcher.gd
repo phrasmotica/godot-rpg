@@ -12,7 +12,7 @@ var torso_colour_index: int:
 var torso_colours: Array[Color] = []
 
 @export
-var menu_nav_action: GUIDEAction
+var outfit_nav_action: GUIDEAction
 
 @onready
 var player_preview: TextureRect = %PlayerPreview
@@ -26,10 +26,11 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
-	menu_nav_action.triggered.connect(_handle_menu_nav)
+	if outfit_nav_action:
+		outfit_nav_action.triggered.connect(_handle_outfit_nav)
 
-func _handle_menu_nav() -> void:
-	var dir := menu_nav_action.value_axis_2d
+func _handle_outfit_nav() -> void:
+	var dir := outfit_nav_action.value_axis_2d
 
 	if dir == Vector2.RIGHT:
 		torso_colour_index = (torso_colour_index + 1) % torso_colours.size()

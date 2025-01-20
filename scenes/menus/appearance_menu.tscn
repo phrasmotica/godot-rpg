@@ -71,4 +71,3 @@ layout_mode = 2
 
 [node name="PlayerOutfitSwitcher" parent="MarginContainer/VBoxContainer/Content/EditModeControls" instance=ExtResource("9_5q4oa")]
 layout_mode = 2
-torso_colour_index = 0

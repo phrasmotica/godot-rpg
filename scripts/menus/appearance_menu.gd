@@ -1,5 +1,5 @@
 @tool
-extends Menu
+class_name AppearanceMenu extends Menu
 
 @onready
 var list_menu_behaviour: ListMenu = %ListMenuBehaviour

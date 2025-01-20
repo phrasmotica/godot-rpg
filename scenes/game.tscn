@@ -23,7 +23,8 @@
 
 [node name="Game" type="Node2D"]
 
-[node name="InputManager" parent="." node_paths=PackedStringArray("dialogue_manager", "ui_manager") instance=ExtResource("2_vx32o")]
+[node name="InputManager" parent="." node_paths=PackedStringArray("appearance_menu", "dialogue_manager", "ui_manager") instance=ExtResource("2_vx32o")]
+appearance_menu = NodePath("../UICanvas/UIManager/MarginContainer/MenuSet/AppearanceMenu")
 dialogue_manager = NodePath("../DialogueCanvas/DialogueManager")
 ui_manager = NodePath("../UICanvas/UIManager")
 
