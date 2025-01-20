@@ -33,21 +33,11 @@ func _ready() -> void:
 
 	toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
 
-	list_menu_input_handler.next.connect(_handle_next)
-	list_menu_input_handler.previous.connect(_handle_previous)
 	list_menu_input_handler.select.connect(_handle_select)
 
 func _handle_toggle_menu() -> void:
 	if menu_state_handler.can_listen():
 		cancel_menu()
-
-func _handle_next() -> void:
-	list_menu_behaviour.next()
-	list_menu_behaviour.next_if_disabled()
-
-func _handle_previous() -> void:
-	list_menu_behaviour.previous()
-	list_menu_behaviour.previous_if_disabled()
 
 func _handle_select() -> void:
 	var item := list_menu_behaviour.item()
