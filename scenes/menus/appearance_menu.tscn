@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cy5cot7lqw00f" path="res://scenes/menus/menu_item.tscn" id="4_803rm"]
 [ext_resource type="PackedScene" uid="uid://coaf4en4unowj" path="res://scenes/menus/menu_state_handler.tscn" id="4_axjbt"]
 [ext_resource type="PackedScene" uid="uid://bajxb5vyt0vj8" path="res://scenes/menus/list_menu_input_handler.tscn" id="4_wt7od"]
-[ext_resource type="Texture2D" uid="uid://dfaopwqilebir" path="res://assets/sprites/player.png" id="8_s5tld"]
+[ext_resource type="PackedScene" uid="uid://es66vriierrk" path="res://scenes/player/player_outfit_switcher.tscn" id="9_5q4oa"]
 [ext_resource type="Script" path="res://scripts/menus/appearance_menu_ui_updater.gd" id="11_hr01d"]
 
 [node name="AppearanceMenu" type="PanelContainer"]
@@ -69,8 +69,6 @@ text = "Edit"
 visible = false
 layout_mode = 2
 
-[node name="PlayerPreview" type="TextureRect" parent="MarginContainer/VBoxContainer/Content/EditModeControls"]
-custom_minimum_size = Vector2(128, 128)
+[node name="PlayerOutfitSwitcher" parent="MarginContainer/VBoxContainer/Content/EditModeControls" instance=ExtResource("9_5q4oa")]
 layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("8_s5tld")
+torso_colour_index = 0
