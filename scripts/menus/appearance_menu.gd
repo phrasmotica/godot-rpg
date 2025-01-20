@@ -1,6 +1,9 @@
 @tool
 class_name AppearanceMenu extends Menu
 
+@export
+var toggle_menu_input_handler: ToggleMenuInputHandler
+
 @onready
 var list_menu_behaviour: ListMenu = %ListMenuBehaviour
 
@@ -11,19 +14,32 @@ var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
 var dimmer: Dimmer = %Dimmer
 
 @onready
+var next_frame_handler: NextFrameHandler = %NextFrameHandler
+
+@onready
 var ui_updater: AppearanceMenuUIUpdater = %UIUpdater
 
+var _is_edit_mode := false
+
 signal show_appearance_editor
+signal hide_appearance_editor
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
+	cancel.connect(_handle_cancel)
 	visibility_changed.connect(_handle_visibility_changed)
+
+	toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
 
 	list_menu_input_handler.next.connect(_handle_next)
 	list_menu_input_handler.previous.connect(_handle_previous)
 	list_menu_input_handler.select.connect(_handle_select)
+
+func _handle_toggle_menu() -> void:
+	if menu_state_handler.can_listen():
+		cancel_menu()
 
 func _handle_next() -> void:
 	list_menu_behaviour.next()
@@ -38,11 +54,28 @@ func _handle_select() -> void:
 	if item.disabled:
 		return
 
+	_is_edit_mode = true
+
 	ui_updater.set_edit_mode()
 
 	show_appearance_editor.emit()
 
+func _handle_cancel() -> void:
+	# doing this on the next frame ensures the menu set cannot listen for the
+	# cancel input until after this menu has returned to normal mode
+	next_frame_handler.on_next_frame(
+		func():
+			_is_edit_mode = false
+	)
+
+	ui_updater.set_normal_mode()
+
+	hide_appearance_editor.emit()
+
 ## Menu overrides
+
+func is_covered() -> bool:
+	return _is_edit_mode or super.is_covered()
 
 func disable_menu() -> void:
 	_dim_menu()

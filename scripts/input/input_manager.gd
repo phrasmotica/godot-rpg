@@ -40,6 +40,7 @@ func _ready() -> void:
 
 	if appearance_menu:
 		appearance_menu.show_appearance_editor.connect(_handle_show_appearance_editor)
+		appearance_menu.hide_appearance_editor.connect(_handle_hide_appearance_editor)
 
 	if dialogue_manager:
 		dialogue_manager.timeline_started.connect(handle_dialogue_started)
@@ -52,6 +53,10 @@ func _ready() -> void:
 func _handle_show_appearance_editor() -> void:
 	disable_menu_nav()
 	enable_outfit_nav()
+
+func _handle_hide_appearance_editor() -> void:
+	enable_menu_nav()
+	disable_outfit_nav()
 
 func handle_dialogue_started() -> void:
 	disable_walk_mode()
@@ -103,3 +108,6 @@ func disable_menu_nav() -> void:
 
 func enable_outfit_nav() -> void:
 	GUIDE.enable_mapping_context(ctx_outfit_nav)
+
+func disable_outfit_nav() -> void:
+	GUIDE.disable_mapping_context(ctx_outfit_nav)

@@ -101,9 +101,10 @@ current_menu_index = 0
 menus = [NodePath("BagMenu"), NodePath("PlayerStats"), NodePath("AppearanceMenu")]
 toggle_menu_input_handler = NodePath("../../../../InputManager/ToggleMenuInputHandler")
 
-[node name="AppearanceMenu" parent="UICanvas/UIManager/MarginContainer/MenuSet" instance=ExtResource("14_bbr6w")]
+[node name="AppearanceMenu" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("toggle_menu_input_handler") instance=ExtResource("14_bbr6w")]
 modulate = Color(0.662745, 0.662745, 0.662745, 1)
 layout_mode = 2
+toggle_menu_input_handler = NodePath("../../../../../InputManager/ToggleMenuInputHandler")
 
 [node name="PlayerStats" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("player_hit_points") instance=ExtResource("13_55kbe")]
 modulate = Color(0.662745, 0.662745, 0.662745, 1)
