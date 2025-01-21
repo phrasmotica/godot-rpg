@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cp2jh4pchw52y"]
+
+[ext_resource type="Shader" path="res://resources/shaders/player-outfit-icon-highlight.gdshader" id="1_heat8"]
+
+[resource]
+shader = ExtResource("1_heat8")
