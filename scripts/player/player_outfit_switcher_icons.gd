@@ -1,5 +1,5 @@
 @tool
-extends HBoxContainer
+class_name OutfitBodyPartIndicator extends HBoxContainer
 
 @export
 var current_index: int:

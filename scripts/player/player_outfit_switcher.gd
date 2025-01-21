@@ -18,6 +18,9 @@ var outfit_nav_action: GUIDEAction
 var option_label: Label = %OptionLabel
 
 @onready
+var body_part_indicator: OutfitBodyPartIndicator = %BodyPartIndicator
+
+@onready
 var player_preview: TextureRect = %PlayerPreview
 
 var _material: ShaderMaterial
@@ -52,6 +55,8 @@ func _handle_outfit_nav() -> void:
 
 func _refresh() -> void:
 	option_label.text = colour_options[option_index].option_name
+
+	body_part_indicator.current_index = option_index
 
 	if _material:
 		for o in colour_options:
