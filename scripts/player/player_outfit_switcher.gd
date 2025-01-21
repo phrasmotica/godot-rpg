@@ -48,6 +48,13 @@ func _handle_outfit_nav() -> void:
 	if dir == Vector2.LEFT:
 		torso_colour_index = (torso_colour_index + torso_colours.size() - 1) % torso_colours.size()
 
+	# HIGH: make up/down controls switch between customisation sections instead
+	if dir == Vector2.DOWN:
+		sleeve_colour_index = (sleeve_colour_index + 1) % sleeve_colours.size()
+
+	if dir == Vector2.UP:
+		sleeve_colour_index = (sleeve_colour_index + sleeve_colours.size() - 1) % sleeve_colours.size()
+
 func _refresh() -> void:
 	if _material:
 		if torso_colours.size() > torso_colour_index:
