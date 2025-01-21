@@ -19,6 +19,9 @@ var colours: Array[Color] = []:
 	set(value):
 		colours = value
 
+		if colours.size() > 0:
+			colour_index = 0
+
 		emit_changed()
 
 func get_colour() -> Color:
