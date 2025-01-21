@@ -15,9 +15,6 @@ var colour_options: Array[ColourOption]
 var outfit_nav_action: GUIDEAction
 
 @onready
-var option_label: Label = %OptionLabel
-
-@onready
 var body_part_indicator: OutfitBodyPartIndicator = %BodyPartIndicator
 
 @onready
@@ -54,9 +51,8 @@ func _handle_outfit_nav() -> void:
 		option_index = (option_index + colour_options.size() - 1) % colour_options.size()
 
 func _refresh() -> void:
-	option_label.text = colour_options[option_index].option_name
-
 	body_part_indicator.current_index = option_index
+	body_part_indicator.set_text(colour_options[option_index].option_name)
 
 	if _material:
 		for o in colour_options:

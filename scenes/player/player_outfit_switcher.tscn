@@ -16,12 +16,6 @@ script = ExtResource("1_mtdnd")
 colour_options = Array[ExtResource("3_rcn55")]([ExtResource("4_gveg8"), ExtResource("5_epf5y")])
 outfit_nav_action = ExtResource("3_gd02u")
 
-[node name="OptionLabel" type="Label" parent="."]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Torso"
-horizontal_alignment = 1
-
 [node name="BodyPartIndicator" parent="." instance=ExtResource("7_gy2al")]
 unique_name_in_owner = true
 layout_mode = 2

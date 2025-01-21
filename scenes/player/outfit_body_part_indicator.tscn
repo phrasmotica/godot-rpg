@@ -5,16 +5,29 @@
 [ext_resource type="Texture2D" uid="uid://cmsnfr72rd0p4" path="res://assets/sprites/torso.png" id="2_q4kxc"]
 [ext_resource type="Texture2D" uid="uid://cw5mujp1s3dw1" path="res://assets/sprites/sleeves.png" id="3_wv5xa"]
 
-[node name="OutfitBodyPartIndicator" type="HBoxContainer" node_paths=PackedStringArray("icons")]
+[node name="OutfitBodyPartIndicator" type="VBoxContainer" node_paths=PackedStringArray("icons")]
 custom_minimum_size = Vector2(150, 0)
+offset_right = 150.0
+offset_bottom = 23.0
 script = ExtResource("1_m3oyb")
-icons = [NodePath("TorsoIconContainer/TorsoIcon"), NodePath("SleeveIconContainer/SleeveIcon")]
+icons = [NodePath("IconsBox/TorsoIconContainer/TorsoIcon"), NodePath("IconsBox/SleeveIconContainer/SleeveIcon")]
 
-[node name="TorsoIconContainer" type="CenterContainer" parent="."]
+[node name="OptionLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Torso"
+horizontal_alignment = 1
+
+[node name="IconsBox" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TorsoIconContainer" type="CenterContainer" parent="IconsBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TorsoIcon" type="TextureRect" parent="TorsoIconContainer"]
+[node name="TorsoIcon" type="TextureRect" parent="IconsBox/TorsoIconContainer"]
 material = ExtResource("1_1snyu")
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -22,11 +35,11 @@ texture = ExtResource("2_q4kxc")
 expand_mode = 4
 stretch_mode = 5
 
-[node name="SleeveIconContainer" type="CenterContainer" parent="."]
+[node name="SleeveIconContainer" type="CenterContainer" parent="IconsBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SleeveIcon" type="TextureRect" parent="SleeveIconContainer"]
+[node name="SleeveIcon" type="TextureRect" parent="IconsBox/SleeveIconContainer"]
 modulate = Color(0.411765, 0.411765, 0.411765, 1)
 material = ExtResource("1_1snyu")
 custom_minimum_size = Vector2(32, 32)
