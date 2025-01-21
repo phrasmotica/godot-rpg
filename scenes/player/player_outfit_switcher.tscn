@@ -10,6 +10,7 @@
 theme = ExtResource("1_10n03")
 script = ExtResource("1_mtdnd")
 torso_colours = Array[Color]([Color(0.211765, 0.211765, 0.886275, 1), Color(0.406084, 0.130966, 0.441046, 1), Color(0.162426, 0.527287, 0.347826, 1), Color(0, 0, 0, 1), Color(1, 0.658032, 0.326783, 1), Color(0.588235, 0.333333, 0, 1)])
+sleeve_colours = Array[Color]([Color(0.8, 0.8, 0.34902, 1), Color(0.406084, 0.130966, 0.441046, 1), Color(0.162426, 0.527287, 0.347826, 1), Color(0, 0, 0, 1), Color(1, 0.658032, 0.326783, 1), Color(0.588235, 0.333333, 0, 1)])
 outfit_nav_action = ExtResource("3_gd02u")
 
 [node name="BodyPartLabel" type="Label" parent="."]

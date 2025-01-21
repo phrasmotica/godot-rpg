@@ -12,6 +12,16 @@ var torso_colour_index: int:
 var torso_colours: Array[Color] = []
 
 @export
+var sleeve_colour_index: int:
+	set(value):
+		sleeve_colour_index = clampi(value, 0, sleeve_colours.size() - 1)
+
+		_refresh()
+
+@export
+var sleeve_colours: Array[Color] = []
+
+@export
 var outfit_nav_action: GUIDEAction
 
 @onready
@@ -39,5 +49,9 @@ func _handle_outfit_nav() -> void:
 		torso_colour_index = (torso_colour_index + torso_colours.size() - 1) % torso_colours.size()
 
 func _refresh() -> void:
-	if _material and torso_colours.size() > torso_colour_index:
-		_material.set_shader_parameter("torso_colour", torso_colours[torso_colour_index])
+	if _material:
+		if torso_colours.size() > torso_colour_index:
+			_material.set_shader_parameter("torso_colour", torso_colours[torso_colour_index])
+
+		if sleeve_colours.size() > sleeve_colour_index:
+			_material.set_shader_parameter("sleeve_colour", sleeve_colours[sleeve_colour_index])
