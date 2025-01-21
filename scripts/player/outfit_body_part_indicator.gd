@@ -16,7 +16,7 @@ var current_index: int:
 		_refresh()
 
 @export
-var icons: Array[TextureRect] = []:
+var icons: Array[BodyPartIconContainer] = []:
 	set(value):
 		icons = value
 
@@ -40,4 +40,4 @@ func _refresh() -> void:
 		icons_box.visible = display_mode & 1
 
 	for i in icons.size():
-		icons[i].modulate = Color.WHITE if i == current_index else Color.DIM_GRAY
+		icons[i].is_selected = i == current_index

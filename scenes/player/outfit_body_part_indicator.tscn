@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfg05egj77h4h"]
+[gd_scene load_steps=4 format=3 uid="uid://dfg05egj77h4h"]
 
-[ext_resource type="Material" uid="uid://cp2jh4pchw52y" path="res://resources/materials/player-outfit-icon-highlight-mat.tres" id="1_1snyu"]
 [ext_resource type="Script" path="res://scripts/player/outfit_body_part_indicator.gd" id="1_m3oyb"]
-[ext_resource type="Texture2D" uid="uid://cmsnfr72rd0p4" path="res://assets/sprites/torso.png" id="2_q4kxc"]
+[ext_resource type="PackedScene" uid="uid://28c0fufwp730" path="res://scenes/player/body_part_icon_container.tscn" id="2_7akxx"]
 [ext_resource type="Texture2D" uid="uid://cw5mujp1s3dw1" path="res://assets/sprites/sleeves.png" id="3_wv5xa"]
 
 [node name="OutfitBodyPartIndicator" type="VBoxContainer" node_paths=PackedStringArray("icons")]
@@ -10,7 +9,7 @@ custom_minimum_size = Vector2(150, 0)
 offset_right = 150.0
 offset_bottom = 23.0
 script = ExtResource("1_m3oyb")
-icons = [NodePath("IconsBox/TorsoIconContainer/TorsoIcon"), NodePath("IconsBox/SleeveIconContainer/SleeveIcon")]
+icons = [NodePath("IconsBox/TorsoIconContainer"), NodePath("IconsBox/SleeveIconContainer")]
 
 [node name="OptionLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -23,27 +22,10 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="TorsoIconContainer" type="CenterContainer" parent="IconsBox"]
+[node name="TorsoIconContainer" parent="IconsBox" instance=ExtResource("2_7akxx")]
 layout_mode = 2
-size_flags_horizontal = 3
+is_selected = true
 
-[node name="TorsoIcon" type="TextureRect" parent="IconsBox/TorsoIconContainer"]
-material = ExtResource("1_1snyu")
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("2_q4kxc")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="SleeveIconContainer" type="CenterContainer" parent="IconsBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="SleeveIcon" type="TextureRect" parent="IconsBox/SleeveIconContainer"]
-modulate = Color(0.411765, 0.411765, 0.411765, 1)
-material = ExtResource("1_1snyu")
-custom_minimum_size = Vector2(32, 32)
+[node name="SleeveIconContainer" parent="IconsBox" instance=ExtResource("2_7akxx")]
 layout_mode = 2
 texture = ExtResource("3_wv5xa")
-expand_mode = 4
-stretch_mode = 5
