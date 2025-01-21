@@ -2,27 +2,20 @@
 extends VBoxContainer
 
 @export
-var torso_colour_index: int:
+var option_index: int:
 	set(value):
-		torso_colour_index = clampi(value, 0, torso_colours.size() - 1)
+		option_index = clampi(value, 0, colour_options.size() - 1)
 
 		_refresh()
 
 @export
-var torso_colours: Array[Color] = []
-
-@export
-var sleeve_colour_index: int:
-	set(value):
-		sleeve_colour_index = clampi(value, 0, sleeve_colours.size() - 1)
-
-		_refresh()
-
-@export
-var sleeve_colours: Array[Color] = []
+var colour_options: Array[ColourOption]
 
 @export
 var outfit_nav_action: GUIDEAction
+
+@onready
+var option_label: Label = %OptionLabel
 
 @onready
 var player_preview: TextureRect = %PlayerPreview
@@ -39,26 +32,27 @@ func _ready() -> void:
 	if outfit_nav_action:
 		outfit_nav_action.triggered.connect(_handle_outfit_nav)
 
+	for o in colour_options:
+		o.changed.connect(_refresh)
+
 func _handle_outfit_nav() -> void:
 	var dir := outfit_nav_action.value_axis_2d
 
 	if dir == Vector2.RIGHT:
-		torso_colour_index = (torso_colour_index + 1) % torso_colours.size()
+		colour_options[option_index].next()
 
 	if dir == Vector2.LEFT:
-		torso_colour_index = (torso_colour_index + torso_colours.size() - 1) % torso_colours.size()
+		colour_options[option_index].previous()
 
-	# HIGH: make up/down controls switch between customisation sections instead
 	if dir == Vector2.DOWN:
-		sleeve_colour_index = (sleeve_colour_index + 1) % sleeve_colours.size()
+		option_index = (option_index + 1) % colour_options.size()
 
 	if dir == Vector2.UP:
-		sleeve_colour_index = (sleeve_colour_index + sleeve_colours.size() - 1) % sleeve_colours.size()
+		option_index = (option_index + colour_options.size() - 1) % colour_options.size()
 
 func _refresh() -> void:
-	if _material:
-		if torso_colours.size() > torso_colour_index:
-			_material.set_shader_parameter("torso_colour", torso_colours[torso_colour_index])
+	option_label.text = colour_options[option_index].option_name
 
-		if sleeve_colours.size() > sleeve_colour_index:
-			_material.set_shader_parameter("sleeve_colour", sleeve_colours[sleeve_colour_index])
+	if _material:
+		for o in colour_options:
+			_material.set_shader_parameter(o.param_name, o.get_colour())

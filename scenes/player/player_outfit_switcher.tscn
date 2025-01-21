@@ -1,19 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://es66vriierrk"]
+[gd_scene load_steps=9 format=3 uid="uid://es66vriierrk"]
 
 [ext_resource type="Texture2D" uid="uid://dfaopwqilebir" path="res://assets/sprites/player.png" id="1_8jsn2"]
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_10n03"]
 [ext_resource type="Script" path="res://scripts/player/player_outfit_switcher.gd" id="1_mtdnd"]
 [ext_resource type="Material" uid="uid://b8ssv73m4jpoo" path="res://resources/materials/player-mat.tres" id="3_6wcx3"]
 [ext_resource type="Resource" uid="uid://bosemvy0m1xgy" path="res://resources/input/outfit_nav.tres" id="3_gd02u"]
+[ext_resource type="Script" path="res://scripts/player/colour_option.gd" id="3_rcn55"]
+[ext_resource type="Resource" uid="uid://cjd0fsbbao8ic" path="res://resources/materials/player_torso_colours.tres" id="4_gveg8"]
+[ext_resource type="Resource" uid="uid://c2co4vxald8je" path="res://resources/materials/player_sleeve_colours.tres" id="5_epf5y"]
 
 [node name="PlayerOutfitSwitcher" type="VBoxContainer"]
 theme = ExtResource("1_10n03")
 script = ExtResource("1_mtdnd")
-torso_colours = Array[Color]([Color(0.211765, 0.211765, 0.886275, 1), Color(0.406084, 0.130966, 0.441046, 1), Color(0.162426, 0.527287, 0.347826, 1), Color(0, 0, 0, 1), Color(1, 0.658032, 0.326783, 1), Color(0.588235, 0.333333, 0, 1)])
-sleeve_colours = Array[Color]([Color(0.8, 0.8, 0.34902, 1), Color(0.406084, 0.130966, 0.441046, 1), Color(0.162426, 0.527287, 0.347826, 1), Color(0, 0, 0, 1), Color(1, 0.658032, 0.326783, 1), Color(0.588235, 0.333333, 0, 1)])
+colour_options = Array[ExtResource("3_rcn55")]([ExtResource("4_gveg8"), ExtResource("5_epf5y")])
 outfit_nav_action = ExtResource("3_gd02u")
 
-[node name="BodyPartLabel" type="Label" parent="."]
+[node name="OptionLabel" type="Label" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Torso"
 horizontal_alignment = 1
