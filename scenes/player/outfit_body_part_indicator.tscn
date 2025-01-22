@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfg05egj77h4h"]
+[gd_scene load_steps=5 format=3 uid="uid://dfg05egj77h4h"]
 
 [ext_resource type="Script" path="res://scripts/player/outfit_body_part_indicator.gd" id="1_m3oyb"]
 [ext_resource type="PackedScene" uid="uid://28c0fufwp730" path="res://scenes/player/body_part_icon_container.tscn" id="2_7akxx"]
+[ext_resource type="Texture2D" uid="uid://b7goo6m5acnds" path="res://assets/sprites/hair-strands.png" id="3_jr7y8"]
 [ext_resource type="Texture2D" uid="uid://cw5mujp1s3dw1" path="res://assets/sprites/sleeves.png" id="3_wv5xa"]
 
 [node name="OutfitBodyPartIndicator" type="VBoxContainer" node_paths=PackedStringArray("icons")]
@@ -13,9 +14,8 @@ icons = [NodePath("IconsBox/HairIconContainer"), NodePath("IconsBox/TorsoIconCon
 
 [node name="OptionLabel" type="Label" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
-text = "Torso"
+text = "Hair"
 horizontal_alignment = 1
 
 [node name="IconsBox" type="HBoxContainer" parent="."]
@@ -24,7 +24,7 @@ layout_mode = 2
 
 [node name="HairIconContainer" parent="IconsBox" instance=ExtResource("2_7akxx")]
 layout_mode = 2
-texture = null
+texture = ExtResource("3_jr7y8")
 is_selected = true
 
 [node name="TorsoIconContainer" parent="IconsBox" instance=ExtResource("2_7akxx")]

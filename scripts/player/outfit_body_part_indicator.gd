@@ -2,7 +2,7 @@
 class_name OutfitBodyPartIndicator extends VBoxContainer
 
 @export_flags("Icons", "Label")
-var display_mode: int = 1:
+var display_mode: int = 3:
 	set(value):
 		display_mode = value
 
@@ -28,6 +28,8 @@ var label: Label = %OptionLabel
 @onready
 var icons_box: HBoxContainer = %IconsBox
 
+# HIGH: call this from _refresh(). We'll have to know the name of the
+# body part...
 func set_text(text: String) -> void:
 	if label:
 		label.text = text

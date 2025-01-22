@@ -20,6 +20,7 @@ outfit_nav_action = ExtResource("3_gd02u")
 [node name="BodyPartIndicator" parent="." instance=ExtResource("7_gy2al")]
 unique_name_in_owner = true
 layout_mode = 2
+display_mode = 1
 
 [node name="Outfit" type="HBoxContainer" parent="."]
 layout_mode = 2
