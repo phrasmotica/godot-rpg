@@ -4,6 +4,7 @@
 
 [resource]
 shader = ExtResource("1_eltry")
+shader_parameter/hair_colour = Color(0.12549, 0.00784314, 0.0117647, 1)
 shader_parameter/torso_colour = Color(0.211765, 0.211765, 0.886275, 1)
 shader_parameter/sleeve_colour = Color(0.8, 0.8, 0.34902, 1)
 shader_parameter/tolerance = 0.01

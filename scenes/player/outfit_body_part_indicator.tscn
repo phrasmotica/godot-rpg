@@ -9,7 +9,7 @@ custom_minimum_size = Vector2(150, 0)
 offset_right = 150.0
 offset_bottom = 23.0
 script = ExtResource("1_m3oyb")
-icons = [NodePath("IconsBox/TorsoIconContainer"), NodePath("IconsBox/SleeveIconContainer")]
+icons = [NodePath("IconsBox/HairIconContainer"), NodePath("IconsBox/TorsoIconContainer"), NodePath("IconsBox/SleeveIconContainer")]
 
 [node name="OptionLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -22,9 +22,13 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="HairIconContainer" parent="IconsBox" instance=ExtResource("2_7akxx")]
+layout_mode = 2
+texture = null
+is_selected = true
+
 [node name="TorsoIconContainer" parent="IconsBox" instance=ExtResource("2_7akxx")]
 layout_mode = 2
-is_selected = true
 
 [node name="SleeveIconContainer" parent="IconsBox" instance=ExtResource("2_7akxx")]
 layout_mode = 2
