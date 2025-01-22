@@ -26,14 +26,14 @@ func _ready() -> void:
 	if player_preview:
 		_material = player_preview.material as ShaderMaterial
 
+	for o in colour_options:
+		o.changed.connect(_refresh)
+
 	if Engine.is_editor_hint():
 		return
 
 	if outfit_nav_action:
 		outfit_nav_action.triggered.connect(_handle_outfit_nav)
-
-	for o in colour_options:
-		o.changed.connect(_refresh)
 
 func _handle_outfit_nav() -> void:
 	var dir := outfit_nav_action.value_axis_2d
