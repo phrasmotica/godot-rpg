@@ -16,6 +16,13 @@ var current_index: int:
 		_refresh()
 
 @export
+var body_parts: BodyPartPool:
+	set(value):
+		body_parts = value
+
+		_refresh()
+
+@export
 var icons: Array[BodyPartIconContainer] = []:
 	set(value):
 		icons = value
@@ -28,15 +35,10 @@ var label: Label = %OptionLabel
 @onready
 var icons_box: HBoxContainer = %IconsBox
 
-# HIGH: call this from _refresh(). We'll have to know the name of the
-# body part...
-func set_text(text: String) -> void:
-	if label:
-		label.text = text
-
 func _refresh() -> void:
 	if label:
 		label.visible = display_mode & 2
+		label.text = body_parts.get_part_name(current_index)
 
 	if icons_box:
 		icons_box.visible = display_mode & 1

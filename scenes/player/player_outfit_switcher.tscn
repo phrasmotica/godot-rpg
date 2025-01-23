@@ -1,20 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://es66vriierrk"]
+[gd_scene load_steps=8 format=3 uid="uid://es66vriierrk"]
 
 [ext_resource type="Texture2D" uid="uid://dfaopwqilebir" path="res://assets/sprites/player.png" id="1_8jsn2"]
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_10n03"]
 [ext_resource type="Script" path="res://scripts/player/player_outfit_switcher.gd" id="1_mtdnd"]
 [ext_resource type="Material" uid="uid://b8ssv73m4jpoo" path="res://resources/materials/player-mat.tres" id="3_6wcx3"]
 [ext_resource type="Resource" uid="uid://bosemvy0m1xgy" path="res://resources/input/outfit_nav.tres" id="3_gd02u"]
-[ext_resource type="Script" path="res://scripts/player/colour_option.gd" id="3_rcn55"]
-[ext_resource type="Resource" uid="uid://cjd0fsbbao8ic" path="res://resources/materials/player_torso_colours.tres" id="4_gveg8"]
-[ext_resource type="Resource" uid="uid://c42kofwpaeb5w" path="res://resources/materials/player_hair_colours.tres" id="4_osec5"]
-[ext_resource type="Resource" uid="uid://c2co4vxald8je" path="res://resources/materials/player_sleeve_colours.tres" id="5_epf5y"]
+[ext_resource type="Resource" uid="uid://cc4j5cojc8wm5" path="res://resources/materials/player_body_parts.tres" id="3_ma5g5"]
 [ext_resource type="PackedScene" uid="uid://dfg05egj77h4h" path="res://scenes/player/outfit_body_part_indicator.tscn" id="7_gy2al"]
 
 [node name="PlayerOutfitSwitcher" type="VBoxContainer"]
 theme = ExtResource("1_10n03")
 script = ExtResource("1_mtdnd")
-colour_options = Array[ExtResource("3_rcn55")]([ExtResource("4_osec5"), ExtResource("4_gveg8"), ExtResource("5_epf5y")])
+body_parts = ExtResource("3_ma5g5")
 outfit_nav_action = ExtResource("3_gd02u")
 
 [node name="BodyPartIndicator" parent="." instance=ExtResource("7_gy2al")]

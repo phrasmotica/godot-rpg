@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfg05egj77h4h"]
+[gd_scene load_steps=6 format=3 uid="uid://dfg05egj77h4h"]
 
 [ext_resource type="Script" path="res://scripts/player/outfit_body_part_indicator.gd" id="1_m3oyb"]
 [ext_resource type="PackedScene" uid="uid://28c0fufwp730" path="res://scenes/player/body_part_icon_container.tscn" id="2_7akxx"]
+[ext_resource type="Resource" uid="uid://cc4j5cojc8wm5" path="res://resources/materials/player_body_parts.tres" id="2_34y3i"]
 [ext_resource type="Texture2D" uid="uid://b7goo6m5acnds" path="res://assets/sprites/hair-strands.png" id="3_jr7y8"]
 [ext_resource type="Texture2D" uid="uid://cw5mujp1s3dw1" path="res://assets/sprites/sleeves.png" id="3_wv5xa"]
 
@@ -10,6 +11,7 @@ custom_minimum_size = Vector2(150, 0)
 offset_right = 150.0
 offset_bottom = 23.0
 script = ExtResource("1_m3oyb")
+body_parts = ExtResource("2_34y3i")
 icons = [NodePath("IconsBox/HairIconContainer"), NodePath("IconsBox/TorsoIconContainer"), NodePath("IconsBox/SleeveIconContainer")]
 
 [node name="OptionLabel" type="Label" parent="."]
