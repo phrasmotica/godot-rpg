@@ -18,6 +18,9 @@ func size() -> int:
 func get_part_name(index: int) -> String:
 	return body_parts[index].part_name
 
+func get_icon(index: int) -> Texture2D:
+	return body_parts[index].icon
+
 func next_at(index: int) -> void:
 	body_parts[index].next_colour()
 
