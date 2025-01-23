@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource("1_nv860")
-option_name = "Hair"
 param_name = "hair_colour"
 colour_index = 0
 colours = Array[Color]([Color(0.12549, 0.00784314, 0.0117647, 1), Color(0.406084, 0.130966, 0.441046, 1), Color(0.162426, 0.527287, 0.347826, 1), Color(0, 0, 0, 1), Color(1, 0.658032, 0.326783, 1), Color(0.588235, 0.333333, 0, 1)])

@@ -1,9 +1,6 @@
 @tool
 class_name ColourOption extends Resource
 
-@export
-var option_name := ""
-
 ## The name of the shader parameter that this colour option should affect.
 @export
 var param_name := ""

@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="BodyPartPool" load_steps=6 format=3 uid="uid://cc4j5cojc8wm5"]
 
-[ext_resource type="Script" path="res://scripts/player/colour_option.gd" id="1_ibiox"]
-[ext_resource type="Resource" uid="uid://c42kofwpaeb5w" path="res://resources/materials/player_hair_colours.tres" id="2_4yhol"]
+[ext_resource type="Script" path="res://scripts/player/body_part.gd" id="1_665rq"]
 [ext_resource type="Script" path="res://scripts/player/body_part_pool.gd" id="2_btspb"]
-[ext_resource type="Resource" uid="uid://cjd0fsbbao8ic" path="res://resources/materials/player_torso_colours.tres" id="3_65o3e"]
-[ext_resource type="Resource" uid="uid://c2co4vxald8je" path="res://resources/materials/player_sleeve_colours.tres" id="4_pp3xg"]
+[ext_resource type="Resource" uid="uid://v3hnfogqneq2" path="res://resources/materials/player_hair.tres" id="2_f6u82"]
+[ext_resource type="Resource" uid="uid://dlcjk3d1ndy1a" path="res://resources/materials/player_torso.tres" id="3_64vws"]
+[ext_resource type="Resource" uid="uid://cqxufbnavevga" path="res://resources/materials/player_sleeve.tres" id="4_8hokr"]
 
 [resource]
 script = ExtResource("2_btspb")
-body_parts = Array[ExtResource("1_ibiox")]([ExtResource("2_4yhol"), ExtResource("3_65o3e"), ExtResource("4_pp3xg")])
+body_parts = Array[ExtResource("1_665rq")]([ExtResource("2_f6u82"), ExtResource("3_64vws"), ExtResource("4_8hokr")])

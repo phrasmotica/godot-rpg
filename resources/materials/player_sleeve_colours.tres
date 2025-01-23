@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource("1_c50fc")
-option_name = "Sleeve"
 param_name = "sleeve_colour"
 colour_index = 0
 colours = Array[Color]([Color(0.8, 0.8, 0.34902, 1), Color(0.406084, 0.130966, 0.441046, 1), Color(0.162426, 0.527287, 0.347826, 1), Color(0, 0, 0, 1), Color(1, 0.658032, 0.326783, 1), Color(0.588235, 0.333333, 0, 1)])

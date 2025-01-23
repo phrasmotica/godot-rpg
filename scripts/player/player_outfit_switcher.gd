@@ -39,9 +39,11 @@ func _handle_outfit_nav() -> void:
 
 	if dir == Vector2.RIGHT:
 		body_parts.next_at(option_index)
+		_refresh()
 
 	if dir == Vector2.LEFT:
 		body_parts.previous_at(option_index)
+		_refresh()
 
 	if dir == Vector2.DOWN:
 		option_index = (option_index + 1) % body_parts.size()
@@ -53,5 +55,5 @@ func _refresh() -> void:
 	body_part_indicator.current_index = option_index
 
 	if _material:
-		for o in body_parts.body_parts:
-			_material.set_shader_parameter(o.param_name, o.get_colour())
+		for p in body_parts.body_parts:
+			_material.set_shader_parameter(p.get_param_name(), p.get_colour())

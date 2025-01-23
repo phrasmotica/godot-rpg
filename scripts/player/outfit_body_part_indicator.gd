@@ -35,6 +35,9 @@ var label: Label = %OptionLabel
 @onready
 var icons_box: HBoxContainer = %IconsBox
 
+func _ready() -> void:
+	_refresh()
+
 func _refresh() -> void:
 	if label:
 		label.visible = display_mode & 2
