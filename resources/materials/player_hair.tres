@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BodyPart" load_steps=4 format=3 uid="uid://v3hnfogqneq2"]
+
+[ext_resource type="Resource" uid="uid://c42kofwpaeb5w" path="res://resources/materials/player_hair_colours.tres" id="1_46nwc"]
+[ext_resource type="Texture2D" uid="uid://b7goo6m5acnds" path="res://assets/sprites/hair-strands.png" id="2_1b8fs"]
+[ext_resource type="Script" path="res://scripts/player/body_part.gd" id="3_yibry"]
+
+[resource]
+script = ExtResource("3_yibry")
+part_name = "Hair"
+icon = ExtResource("2_1b8fs")
+colours = ExtResource("1_46nwc")
