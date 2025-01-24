@@ -35,6 +35,9 @@ var icons_box: HBoxContainer = %IconsBox
 var _icons: Array[BodyPartIconContainer] = []
 
 func _ready() -> void:
+	if body_parts:
+		body_parts.changed.connect(_refresh)
+
 	_refresh()
 
 func _refresh() -> void:
@@ -51,36 +54,40 @@ func _refresh() -> void:
 		_icons[i].is_selected = i == current_index
 
 func _ensure_icons() -> void:
-	if not body_parts:
-		_trim_to(0)
-		return
-
 	var nodes := icons_box.get_children()
 
 	var node_count := len(nodes)
-	var data_count := body_parts.size()
+	var data_count := body_parts.size() if body_parts else 0
 	var count_changed := node_count != data_count
 
-	for i in body_parts.size():
-		var texture := body_parts.get_icon(i)
+	if body_parts:
+		for i in data_count:
+			var texture := body_parts.get_icon(i)
 
-		if nodes.size() > i:
+			if nodes.size() > i:
+				var icon: BodyPartIconContainer = nodes[i]
+				icon.texture = texture
+			else:
+				var icon: BodyPartIconContainer = icon_container_scene.instantiate()
+				icon.texture = texture
+
+				_icons.append(icon)
+
+				icons_box.add_child(icon, true)
+				icon.owner = self
+	else:
+		for i in node_count:
 			var icon: BodyPartIconContainer = nodes[i]
-			icon.texture = texture
-		else:
-			var icon: BodyPartIconContainer = icon_container_scene.instantiate()
-			icon.texture = texture
-
 			_icons.append(icon)
-
-			icons_box.add_child(icon, true)
-			icon.owner = self
 
 	if not count_changed:
 		return
 
 	# clean up any unused icons
-	_trim_to(body_parts.size())
+	_trim_to(data_count)
+
+	if not body_parts:
+		return
 
 	current_index = clampi(current_index, 0, _icons.size() - 1)
 
