@@ -12,7 +12,7 @@ void fragment() {
 		float time_normalised = mod(TIME, duration) / duration;
 		
 		float bar_height = 1.0 / float(bar_count);
-		float position_in_bar = mod(1.0 - UV.y, bar_height) * float(bar_count);
+		float position_in_bar = mod(1.0 - UV.y, bar_height) / bar_height;
 		
 		COLOR.a = position_in_bar < time_normalised ? 1.0 : 0.0;
 	}
