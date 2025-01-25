@@ -1,3 +1,4 @@
+@tool
 class_name Player extends CharacterBody2D
 
 @export
@@ -7,6 +8,22 @@ var party: Party
 ## movement.
 @export_flags_2d_physics
 var raycast_mask: int
+
+@export_group("Customisation")
+
+@export
+var torso_colour: Color:
+	set(value):
+		torso_colour = value
+
+		_refresh()
+
+@export
+var sleeve_colour: Color:
+	set(value):
+		sleeve_colour = value
+
+		_refresh()
 
 @onready
 var sprite: AnimatedSprite2D = %Sprite
@@ -27,7 +44,12 @@ signal interacted
 signal pickup_item(item: Item)
 signal dialogue_triggered(timeline: String)
 
-func _ready():
+func _ready() -> void:
+	_refresh()
+
+	if Engine.is_editor_hint():
+		return
+
 	position = grid_movement.get_snapped_position(position)
 
 	grid_movement.position_faced.connect(position_faced.emit)
@@ -44,6 +66,12 @@ func _ready():
 	player_move_input_handler.move_triggered.connect(_handle_move_triggered)
 
 	moving_to_position.emit(global_position)
+
+func _refresh() -> void:
+	if sprite:
+		var shader := sprite.material as ShaderMaterial
+		shader.set_shader_parameter("torso_colour", torso_colour)
+		shader.set_shader_parameter("sleeve_colour", sleeve_colour)
 
 func _handle_move_triggered(direction: Vector2):
 	var party_colliders := party.get_colliders() if party else []

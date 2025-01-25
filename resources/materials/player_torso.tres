@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BodyPart" load_steps=4 format=3 uid="uid://dlcjk3d1ndy1a"]
+
+[ext_resource type="Resource" uid="uid://cjd0fsbbao8ic" path="res://resources/materials/player_torso_colours.tres" id="1_aqwag"]
+[ext_resource type="Texture2D" uid="uid://cmsnfr72rd0p4" path="res://assets/sprites/torso.png" id="2_rwkvo"]
+[ext_resource type="Script" path="res://scripts/player/body_part.gd" id="3_ppxft"]
+
+[resource]
+script = ExtResource("3_ppxft")
+part_name = "Torso"
+icon = ExtResource("2_rwkvo")
+colours = ExtResource("1_aqwag")

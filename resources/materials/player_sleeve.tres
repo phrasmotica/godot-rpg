@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BodyPart" load_steps=4 format=3 uid="uid://cqxufbnavevga"]
+
+[ext_resource type="Resource" uid="uid://c2co4vxald8je" path="res://resources/materials/player_sleeve_colours.tres" id="1_x24ck"]
+[ext_resource type="Texture2D" uid="uid://cw5mujp1s3dw1" path="res://assets/sprites/sleeves.png" id="2_hd82h"]
+[ext_resource type="Script" path="res://scripts/player/body_part.gd" id="3_25v16"]
+
+[resource]
+script = ExtResource("3_25v16")
+part_name = "Sleeve"
+icon = ExtResource("2_hd82h")
+colours = ExtResource("1_x24ck")

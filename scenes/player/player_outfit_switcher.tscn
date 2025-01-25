@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://es66vriierrk"]
+
+[ext_resource type="Texture2D" uid="uid://dfaopwqilebir" path="res://assets/sprites/player.png" id="1_8jsn2"]
+[ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_10n03"]
+[ext_resource type="Script" path="res://scripts/player/player_outfit_switcher.gd" id="1_mtdnd"]
+[ext_resource type="Material" uid="uid://b8ssv73m4jpoo" path="res://resources/materials/player-mat.tres" id="3_6wcx3"]
+[ext_resource type="Resource" uid="uid://bosemvy0m1xgy" path="res://resources/input/outfit_nav.tres" id="3_gd02u"]
+[ext_resource type="Resource" uid="uid://cc4j5cojc8wm5" path="res://resources/materials/player_body_parts.tres" id="3_ma5g5"]
+[ext_resource type="PackedScene" uid="uid://dfg05egj77h4h" path="res://scenes/player/outfit_body_part_indicator.tscn" id="7_gy2al"]
+
+[node name="PlayerOutfitSwitcher" type="VBoxContainer"]
+theme = ExtResource("1_10n03")
+script = ExtResource("1_mtdnd")
+body_parts = ExtResource("3_ma5g5")
+outfit_nav_action = ExtResource("3_gd02u")
+
+[node name="BodyPartIndicator" parent="." instance=ExtResource("7_gy2al")]
+unique_name_in_owner = true
+layout_mode = 2
+display_mode = 1
+
+[node name="Outfit" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PrevLabel" type="Label" parent="Outfit"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "<"
+
+[node name="PlayerPreview" type="TextureRect" parent="Outfit"]
+unique_name_in_owner = true
+material = ExtResource("3_6wcx3")
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 6
+texture = ExtResource("1_8jsn2")
+
+[node name="NextLabel" type="Label" parent="Outfit"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = ">"

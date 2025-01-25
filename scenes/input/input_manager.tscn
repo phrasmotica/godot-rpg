@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bc8nalaam6hto"]
+[gd_scene load_steps=9 format=3 uid="uid://bc8nalaam6hto"]
 
 [ext_resource type="Script" path="res://scripts/input/input_manager.gd" id="1_nvyto"]
 [ext_resource type="Resource" uid="uid://bm3sgn3pyotus" path="res://resources/input/ctx_bag_menu.tres" id="2_6b8dd"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://dbdwcsay6ekb8" path="res://resources/input/ctx_interact.tres" id="4_y2kxr"]
 [ext_resource type="Resource" uid="uid://dt5dc26x64ebh" path="res://resources/input/ctx_menu_nav.tres" id="5_b3mce"]
 [ext_resource type="Resource" uid="uid://cp5gm7rfljpgs" path="res://resources/input/ctx_walk_mode.tres" id="6_46e7e"]
+[ext_resource type="Resource" uid="uid://c5gry1jkpp3pm" path="res://resources/input/ctx_outfit_nav.tres" id="6_ug3qr"]
 [ext_resource type="Script" path="res://scripts/next_frame_handler.gd" id="7_sl4l0"]
 
 [node name="InputManager" type="Node"]
@@ -14,6 +15,7 @@ ctx_bag_menu = ExtResource("2_6b8dd")
 ctx_debug_mode = ExtResource("3_ekgui")
 ctx_interact = ExtResource("4_y2kxr")
 ctx_menu_nav = ExtResource("5_b3mce")
+ctx_outfit_nav = ExtResource("6_ug3qr")
 ctx_walk_mode = ExtResource("6_46e7e")
 
 [node name="NextFrameHandler" type="Node" parent="."]

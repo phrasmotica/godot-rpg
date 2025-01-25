@@ -13,7 +13,13 @@ var ctx_interact: GUIDEMappingContext
 var ctx_menu_nav: GUIDEMappingContext
 
 @export
+var ctx_outfit_nav: GUIDEMappingContext
+
+@export
 var ctx_walk_mode: GUIDEMappingContext
+
+@export
+var appearance_menu: AppearanceMenu
 
 @export
 var dialogue_manager: DialogueManager
@@ -32,6 +38,10 @@ func _ready() -> void:
 	GUIDE.enable_mapping_context(ctx_interact)
 	GUIDE.enable_mapping_context(ctx_walk_mode)
 
+	if appearance_menu:
+		appearance_menu.show_appearance_editor.connect(_handle_show_appearance_editor)
+		appearance_menu.hide_appearance_editor.connect(_handle_hide_appearance_editor)
+
 	if dialogue_manager:
 		dialogue_manager.timeline_started.connect(handle_dialogue_started)
 		dialogue_manager.timeline_ended.connect(handle_dialogue_finished)
@@ -39,6 +49,14 @@ func _ready() -> void:
 	if ui_manager:
 		ui_manager.menu_opened.connect(handle_menu_opened)
 		ui_manager.menu_closed.connect(handle_menu_closed)
+
+func _handle_show_appearance_editor() -> void:
+	disable_menu_nav()
+	enable_outfit_nav()
+
+func _handle_hide_appearance_editor() -> void:
+	enable_menu_nav()
+	disable_outfit_nav()
 
 func handle_dialogue_started() -> void:
 	disable_walk_mode()
@@ -87,3 +105,9 @@ func enable_menu_nav() -> void:
 
 func disable_menu_nav() -> void:
 	GUIDE.disable_mapping_context(ctx_menu_nav)
+
+func enable_outfit_nav() -> void:
+	GUIDE.enable_mapping_context(ctx_outfit_nav)
+
+func disable_outfit_nav() -> void:
+	GUIDE.disable_mapping_context(ctx_outfit_nav)
