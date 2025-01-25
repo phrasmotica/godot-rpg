@@ -3,7 +3,7 @@ class_name UITransition extends ColorRect
 
 var _material := material as ShaderMaterial
 
-enum Type { FADE_IN, FADE_OUT, BARS_UP, BARS_DOWN, BARS_ACROSS }
+enum Type { FADE_IN, FADE_OUT, BARS_UP, BARS_DOWN, BARS_ACROSS, SNAKE_FILL }
 
 @export
 var type: Type:
@@ -41,6 +41,9 @@ var bars_down_shader: Shader = load("res://resources/shaders/transition_bars_dow
 @onready
 var bars_across_shader: Shader = load("res://resources/shaders/transition_bars_across.gdshader")
 
+@onready
+var snake_fill_shader: Shader = load("res://resources/shaders/transition_snake_fill.gdshader")
+
 func _ready() -> void:
 	_refresh()
 
@@ -66,5 +69,8 @@ func _get_shader() -> Shader:
 
 	if type == Type.BARS_ACROSS:
 		return bars_across_shader
+
+	if type == Type.SNAKE_FILL:
+		return snake_fill_shader
 
 	return null
