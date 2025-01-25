@@ -15,7 +15,6 @@ var current_index: int:
 
 		_refresh()
 
-# HIGH: call _refresh() when a body part is added/removed in this scene's inspector
 @export
 var body_parts: BodyPartPool:
 	set(value):
@@ -41,9 +40,14 @@ func _ready() -> void:
 	_refresh()
 
 func _refresh() -> void:
+	var label_text := ""
+
+	if body_parts and body_parts.size() > 0:
+		label_text = body_parts.get_part_name(current_index)
+
 	if label:
 		label.visible = display_mode & 2
-		label.text = body_parts.get_part_name(current_index) if body_parts else ""
+		label.text = label_text
 
 	if icons_box:
 		icons_box.visible = display_mode & 1
@@ -60,13 +64,16 @@ func _ensure_icons() -> void:
 	var data_count := body_parts.size() if body_parts else 0
 	var count_changed := node_count != data_count
 
-	if body_parts:
+	if body_parts and body_parts.size() > 0:
 		for i in data_count:
 			var texture := body_parts.get_icon(i)
 
 			if nodes.size() > i:
 				var icon: BodyPartIconContainer = nodes[i]
 				icon.texture = texture
+
+				if not _icons.has(icon):
+					_icons.append(icon)
 			else:
 				var icon: BodyPartIconContainer = icon_container_scene.instantiate()
 				icon.texture = texture
@@ -89,7 +96,10 @@ func _ensure_icons() -> void:
 	if not body_parts:
 		return
 
-	current_index = clampi(current_index, 0, _icons.size() - 1)
+	# maxi() call ensures we don't infinitely recurse when
+	# the body part pool has been reduced to 0 parts
+	if current_index > maxi(0, _icons.size() - 1):
+		current_index = _icons.size() - 1
 
 func _trim_to(trim_size: int) -> void:
 	for j in range(trim_size, _icons.size()):
