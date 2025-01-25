@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6kenky2478bk"]
+
+[ext_resource type="Material" uid="uid://cfw3n8gl1mu4s" path="res://resources/materials/ui_transition_mat.tres" id="1_dmqi7"]
+[ext_resource type="Script" path="res://scripts/ui/ui_transition.gd" id="2_b5cex"]
+
+[node name="UITransition" type="ColorRect"]
+material = ExtResource("1_dmqi7")
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("2_b5cex")
+to_colour = Color(0.525203, 0.216035, 0.276011, 1)
