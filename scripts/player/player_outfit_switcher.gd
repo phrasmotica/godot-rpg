@@ -27,6 +27,7 @@ func _ready() -> void:
 		_material = player_preview.material as ShaderMaterial
 
 	body_parts.changed.connect(_refresh)
+	body_parts.init()
 
 	if Engine.is_editor_hint():
 		return
