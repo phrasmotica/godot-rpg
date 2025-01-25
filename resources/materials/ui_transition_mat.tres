@@ -1,9 +1,9 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cfw3n8gl1mu4s"]
 
-[ext_resource type="Shader" path="res://resources/shaders/transition_fade_out.gdshader" id="1_wx24r"]
+[ext_resource type="Shader" path="res://resources/shaders/transition_fade_in.gdshader" id="1_uxa8e"]
 
 [resource]
-shader = ExtResource("1_wx24r")
+shader = ExtResource("1_uxa8e")
 shader_parameter/enabled = false
 shader_parameter/duration = 1.0
 shader_parameter/to_colour = Color(0.525203, 0.216035, 0.276011, 1)
