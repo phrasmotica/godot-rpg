@@ -1,9 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cfw3n8gl1mu4s"]
 
-[ext_resource type="Shader" path="res://resources/shaders/transition_fade_in.gdshader" id="1_uxa8e"]
+[ext_resource type="Shader" path="res://resources/shaders/transition_bars_up.gdshader" id="1_7uusu"]
 
 [resource]
-shader = ExtResource("1_uxa8e")
+shader = ExtResource("1_7uusu")
 shader_parameter/enabled = false
 shader_parameter/duration = 1.0
 shader_parameter/to_colour = Color(0.525203, 0.216035, 0.276011, 1)
+shader_parameter/bar_count = 10
