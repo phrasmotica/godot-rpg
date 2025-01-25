@@ -1,10 +1,11 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cfw3n8gl1mu4s"]
 
-[ext_resource type="Shader" path="res://resources/shaders/transition_bars_down.gdshader" id="1_pydv5"]
+[ext_resource type="Shader" path="res://resources/shaders/transition_bars_across.gdshader" id="1_vip48"]
 
 [resource]
-shader = ExtResource("1_pydv5")
+shader = ExtResource("1_vip48")
 shader_parameter/enabled = false
 shader_parameter/duration = 1.0
 shader_parameter/to_colour = Color(0.525203, 0.216035, 0.276011, 1)
 shader_parameter/bar_count = 10
+shader_parameter/starts_right_to_left = false
