@@ -22,7 +22,7 @@ var colours: ColourOption:
 
         emit_changed()
 
-func _ready() -> void:
+func _init() -> void:
     if colours:
         colours.changed.connect(emit_changed)
 

@@ -39,11 +39,9 @@ func _handle_outfit_nav() -> void:
 
 	if dir == Vector2.RIGHT:
 		body_parts.next_at(option_index)
-		_refresh()
 
 	if dir == Vector2.LEFT:
 		body_parts.previous_at(option_index)
-		_refresh()
 
 	if dir == Vector2.DOWN:
 		option_index = (option_index + 1) % body_parts.size()

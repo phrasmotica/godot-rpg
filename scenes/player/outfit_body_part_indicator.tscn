@@ -1,11 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfg05egj77h4h"]
+[gd_scene load_steps=6 format=3 uid="uid://dfg05egj77h4h"]
 
 [ext_resource type="Script" path="res://scripts/player/outfit_body_part_indicator.gd" id="1_m3oyb"]
 [ext_resource type="PackedScene" uid="uid://28c0fufwp730" path="res://scenes/player/body_part_icon_container.tscn" id="2_7akxx"]
 [ext_resource type="Resource" uid="uid://cc4j5cojc8wm5" path="res://resources/materials/player_body_parts.tres" id="2_tl46c"]
-[ext_resource type="Script" path="res://scripts/player/body_part_icon_container.gd" id="4_yveks"]
 [ext_resource type="Texture2D" uid="uid://b7goo6m5acnds" path="res://assets/sprites/hair-strands.png" id="5_kh1mk"]
-[ext_resource type="Texture2D" uid="uid://cmsnfr72rd0p4" path="res://assets/sprites/torso.png" id="6_obseq"]
 [ext_resource type="Texture2D" uid="uid://cw5mujp1s3dw1" path="res://assets/sprites/sleeves.png" id="7_oejwy"]
 
 [node name="OutfitBodyPartIndicator" type="VBoxContainer"]
@@ -26,21 +24,14 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="BodyPartIconContainer" type="CenterContainer" parent="IconsBox" instance=ExtResource("2_7akxx")]
+[node name="BodyPartIconContainer" parent="IconsBox" instance=ExtResource("2_7akxx")]
 layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("4_yveks")
 texture = ExtResource("5_kh1mk")
 is_selected = true
 
-[node name="BodyPartIconContainer2" type="CenterContainer" parent="IconsBox" instance=ExtResource("2_7akxx")]
+[node name="BodyPartIconContainer2" parent="IconsBox" instance=ExtResource("2_7akxx")]
 layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("4_yveks")
-texture = ExtResource("6_obseq")
 
-[node name="BodyPartIconContainer3" type="CenterContainer" parent="IconsBox" instance=ExtResource("2_7akxx")]
+[node name="BodyPartIconContainer3" parent="IconsBox" instance=ExtResource("2_7akxx")]
 layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("4_yveks")
 texture = ExtResource("7_oejwy")

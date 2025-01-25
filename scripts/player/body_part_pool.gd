@@ -8,7 +8,7 @@ var body_parts: Array[BodyPart] = []:
 
 		emit_changed()
 
-func _ready() -> void:
+func _init() -> void:
 	for p in body_parts:
 		p.changed.connect(emit_changed)
 
