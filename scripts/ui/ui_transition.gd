@@ -74,7 +74,8 @@ func _update_params(params: UITransitionParams) -> void:
 
 		_material.set_shader_parameter("enabled", true)
 
-	# HIGH: queue_free() once the shader has finished animating
+	var free_timer := get_tree().create_timer(params.get_lifetime())
+	free_timer.timeout.connect(queue_free)
 
 func _refresh() -> void:
 	if not Engine.is_editor_hint():

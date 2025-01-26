@@ -8,3 +8,6 @@ func get_shader_type() -> UITransition.Type:
 
 func get_shader_params() -> Dictionary:
     return {}
+
+func get_lifetime() -> float:
+    return 0

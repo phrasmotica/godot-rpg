@@ -11,3 +11,6 @@ func get_shader_params() -> Dictionary:
         "duration": duration,
         "to_colour": to_colour,
     }
+
+func get_lifetime() -> float:
+    return duration
