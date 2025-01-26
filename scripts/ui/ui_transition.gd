@@ -44,8 +44,18 @@ var bars_across_shader: Shader = load("res://resources/shaders/transition_bars_a
 @onready
 var snake_fill_shader: Shader = load("res://resources/shaders/transition_snake_fill.gdshader")
 
+## The time that this transition has existed for. Pass it as a shader param
+## to ensure the shader animates from the beginning.
+var _lifetime := 0.0
+
 func _ready() -> void:
 	_refresh()
+
+func _process(delta: float) -> void:
+	_lifetime += delta
+
+	if _material:
+		_material.set_shader_parameter("lifetime", _lifetime)
 
 func inject(params: UITransitionParams) -> void:
 	# shaders are only loaded after the node is ready
@@ -64,8 +74,7 @@ func _update_params(params: UITransitionParams) -> void:
 
 		_material.set_shader_parameter("enabled", true)
 
-		# HIGH: ensure the shader's time variable is 0.0 on ready.
-		# Pass a float value in as a uniform?
+	# HIGH: queue_free() once the shader has finished animating
 
 func _refresh() -> void:
 	if not Engine.is_editor_hint():
