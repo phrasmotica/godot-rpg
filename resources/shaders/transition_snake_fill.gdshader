@@ -2,9 +2,20 @@ shader_type canvas_item;
 
 uniform bool enabled = false;
 uniform float duration:hint_range(0.0, 10.0) = 1.0;
+uniform bool logarithmic_time = false;
 uniform vec3 to_colour:source_color;
 uniform int x_tile_count:hint_range(1, 10) = 4;
 uniform int y_tile_count:hint_range(1, 10) = 3;
+
+float time_curve(int order, int num_tiles) {
+	if (logarithmic_time) {
+		// this technically isn't logarithmic, but I can't
+		// think of a better name at the moment...
+		return sqrt(float(order) / float(num_tiles + 1));
+	}
+
+	return float(order) / float(num_tiles + 1);
+}
 
 float get_time_threshold(float x_pos, float y_pos) {
 	int x_index = int(x_pos * float(x_tile_count));
@@ -17,7 +28,7 @@ float get_time_threshold(float x_pos, float y_pos) {
 		order = y_index * x_tile_count + (x_tile_count - x_index);
 	}
 
-	return float(order) / float(num_tiles);
+	return time_curve(order, num_tiles);
 }
 
 float get_time_normalised() {
