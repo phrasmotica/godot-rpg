@@ -59,6 +59,8 @@ var snake_fill_shader: Shader = load("res://resources/shaders/transition_snake_f
 ## to ensure the shader animates from the beginning.
 var _lifetime := 0.0
 
+signal finished
+
 func _ready() -> void:
 	_refresh()
 
@@ -99,6 +101,8 @@ func _handle_free() -> void:
 	_material.set_shader_parameter("lifetime", 0.0)
 
 	queue_free()
+
+	finished.emit()
 
 func _refresh() -> void:
 	if not Engine.is_editor_hint():
