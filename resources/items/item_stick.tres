@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://nhyp5rxmoxc8"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://nhyp5rxmoxc8"]
 
 [ext_resource type="Script" path="res://scripts/items/item.gd" id="1_14kuy"]
 [ext_resource type="Script" path="res://scripts/items/item_effect.gd" id="1_ntb4k"]
+[ext_resource type="Script" path="res://scripts/ui/ui_transition_params.gd" id="1_y0ybh"]
 
 [resource]
 script = ExtResource("1_14kuy")
 id = 5
 name = "Stick"
 description = "It's just a stick..."
+consume_transitions = Array[ExtResource("1_y0ybh")]([])
 use_effects = Array[ExtResource("1_ntb4k")]([])
 external_effects = Array[ExtResource("1_ntb4k")]([])
 meta = {}

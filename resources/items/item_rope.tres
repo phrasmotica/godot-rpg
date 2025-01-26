@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://dc0jtjc1jkqbc"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dc0jtjc1jkqbc"]
 
 [ext_resource type="Script" path="res://scripts/items/item_effect.gd" id="1_dkpkk"]
+[ext_resource type="Script" path="res://scripts/ui/ui_transition_params.gd" id="1_nktq1"]
 [ext_resource type="Script" path="res://scripts/items/item.gd" id="1_x50mk"]
 
 [resource]
@@ -8,6 +9,7 @@ script = ExtResource("1_x50mk")
 id = 4
 name = "Rope"
 description = "Use to ensnare an enemy."
+consume_transitions = Array[ExtResource("1_nktq1")]([])
 use_effects = Array[ExtResource("1_dkpkk")]([])
 external_effects = Array[ExtResource("1_dkpkk")]([])
 meta = {}

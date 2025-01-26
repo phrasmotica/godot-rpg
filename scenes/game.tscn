@@ -70,10 +70,11 @@ members = [NodePath("../../NPCs/NPC2"), NodePath("../../NPCs/NPC3")]
 ui_manager = NodePath("../../../UICanvas/UIManager")
 current_hp = 40
 
-[node name="Bag" parent="Map/Player" node_paths=PackedStringArray("player", "item_consumer", "bag_menu") instance=ExtResource("3_pc812")]
+[node name="Bag" parent="Map/Player" node_paths=PackedStringArray("player", "item_consumer", "bag_menu", "ui_transition_manager") instance=ExtResource("3_pc812")]
 player = NodePath("..")
 item_consumer = NodePath("ItemConsumer")
 bag_menu = NodePath("../../../UICanvas/UIManager/MarginContainer/MenuSet/BagMenu")
+ui_transition_manager = NodePath("../../../UITransitionCanvas/UITransitionManager")
 
 [node name="ItemConsumer" parent="Map/Player/Bag" node_paths=PackedStringArray("hit_points") instance=ExtResource("8_7srcv")]
 hit_points = NodePath("../../HitPoints")
@@ -148,7 +149,8 @@ item_consumer = NodePath("../../Map/Player/Bag/ItemConsumer")
 [node name="UITransitionCanvas" type="CanvasLayer" parent="."]
 layer = 20
 
-[node name="UITransitionManager" parent="UITransitionCanvas" node_paths=PackedStringArray("map") instance=ExtResource("20_kg64q")]
+[node name="UITransitionManager" parent="UITransitionCanvas" node_paths=PackedStringArray("bag", "map") instance=ExtResource("20_kg64q")]
+bag = NodePath("../../Map/Player/Bag")
 map = NodePath("../../Map")
 
 [node name="DebugLayer" type="CanvasLayer" parent="."]

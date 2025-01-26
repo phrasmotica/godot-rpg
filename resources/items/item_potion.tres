@@ -1,9 +1,16 @@
-[gd_resource type="Resource" script_class="Item" load_steps=6 format=3 uid="uid://051773al2ksf"]
+[gd_resource type="Resource" script_class="Item" load_steps=9 format=3 uid="uid://051773al2ksf"]
 
 [ext_resource type="Texture2D" uid="uid://bw83fubq8rrqa" path="res://assets/sprites/potion.png" id="1_352k0"]
 [ext_resource type="Script" path="res://scripts/items/item_effect.gd" id="1_ko3o6"]
 [ext_resource type="Script" path="res://scripts/items/heal_item_effect.gd" id="1_vqj20"]
 [ext_resource type="Script" path="res://scripts/items/item.gd" id="1_xw1cv"]
+[ext_resource type="Script" path="res://scripts/ui/ui_transition_params.gd" id="5_0pk1t"]
+[ext_resource type="Script" path="res://scripts/ui/transition_fade_out_and_in_params.gd" id="6_ldgs5"]
+
+[sub_resource type="Resource" id="Resource_qv0sw"]
+script = ExtResource("6_ldgs5")
+to_colour = Color(0, 0.519, 0.169, 1)
+duration = 1.0
 
 [sub_resource type="Resource" id="Resource_27lvv"]
 script = ExtResource("1_vqj20")
@@ -16,6 +23,7 @@ id = 2
 name = "Potion"
 description = "Heals 10 HP."
 icon = ExtResource("1_352k0")
+consume_transitions = Array[ExtResource("5_0pk1t")]([SubResource("Resource_qv0sw")])
 use_effects = Array[ExtResource("1_ko3o6")]([])
 external_effects = Array[ExtResource("1_ko3o6")]([SubResource("Resource_27lvv")])
 meta = {}
