@@ -52,6 +52,9 @@ func _ready() -> void:
 	_refresh()
 
 func _process(delta: float) -> void:
+	if not enabled:
+		return
+
 	_lifetime += delta
 
 	if _material:
@@ -66,21 +69,22 @@ func _update_params(params: UITransitionParams) -> void:
 		type = params.get_shader_type()
 
 		_material.shader = _get_shader()
+		if not _material.shader:
+			print("_update_params - _material.shader is null")
 
 		var param_dict := params.get_shader_params()
 
 		for k in param_dict.keys():
 			_material.set_shader_parameter(k, param_dict[k])
 
+		enabled = true
 		_material.set_shader_parameter("enabled", true)
 
 	var free_timer := get_tree().create_timer(params.get_lifetime())
 	free_timer.timeout.connect(_handle_free)
 
 func _handle_free() -> void:
-	# MEDIUM: this is required for the next transition to not start with a
-	# lifetime > 0. Could this instead be achieved by making the material or
-	# shader local to the scene, after calling _get_shader() in _update_params()?
+	# this is required for the next transition to not start with a lifetime > 0
 	_material.set_shader_parameter("lifetime", 0.0)
 
 	queue_free()
@@ -91,9 +95,14 @@ func _refresh() -> void:
 
 	if _material:
 		_material.shader = _get_shader()
+		if not _material.shader:
+			print("_refresh - _material.shader is null")
 
 		_material.set_shader_parameter("enabled", enabled)
 		_material.set_shader_parameter("to_colour", to_colour)
+
+		_material.set_shader_parameter("lifetime", 0.0)
+		_lifetime = 0.0
 
 func _get_shader() -> Shader:
 	if type == Type.FADE_IN:
