@@ -75,7 +75,15 @@ func _update_params(params: UITransitionParams) -> void:
 		_material.set_shader_parameter("enabled", true)
 
 	var free_timer := get_tree().create_timer(params.get_lifetime())
-	free_timer.timeout.connect(queue_free)
+	free_timer.timeout.connect(_handle_free)
+
+func _handle_free() -> void:
+	# MEDIUM: this is required for the next transition to not start with a
+	# lifetime > 0. Could this instead be achieved by making the material or
+	# shader local to the scene, after calling _get_shader() in _update_params()?
+	_material.set_shader_parameter("lifetime", 0.0)
+
+	queue_free()
 
 func _refresh() -> void:
 	if not Engine.is_editor_hint():
