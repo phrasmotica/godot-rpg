@@ -10,3 +10,6 @@ var name := ""
 
 @export
 var dialogue_timeline := ""
+
+@export
+var transitions_on_interact: Array[UITransitionParams]

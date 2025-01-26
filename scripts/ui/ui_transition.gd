@@ -47,7 +47,30 @@ var snake_fill_shader: Shader = load("res://resources/shaders/transition_snake_f
 func _ready() -> void:
 	_refresh()
 
+func inject(params: UITransitionParams) -> void:
+	# shaders are only loaded after the node is ready
+	ready.connect(_update_params.bind(params), CONNECT_ONE_SHOT)
+
+func _update_params(params: UITransitionParams) -> void:
+	if _material:
+		type = params.get_shader_type()
+
+		_material.shader = _get_shader()
+
+		var param_dict := params.get_shader_params()
+
+		for k in param_dict.keys():
+			_material.set_shader_parameter(k, param_dict[k])
+
+		_material.set_shader_parameter("enabled", true)
+
+		# HIGH: ensure the shader's time variable is 0.0 on ready.
+		# Pass a float value in as a uniform?
+
 func _refresh() -> void:
+	if not Engine.is_editor_hint():
+		return
+
 	if _material:
 		_material.shader = _get_shader()
 
