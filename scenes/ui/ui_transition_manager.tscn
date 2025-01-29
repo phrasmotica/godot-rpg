@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://iycg8gyqg74k"]
+[gd_scene load_steps=3 format=3 uid="uid://iycg8gyqg74k"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui_transition_manager.gd" id="1_bv7gb"]
+[ext_resource type="PackedScene" uid="uid://bm4vtbdvoq4la" path="res://scenes/ui/ui_transitions_gate.tscn" id="2_ntmbs"]
 
 [node name="UITransitionManager" type="Node"]
 script = ExtResource("1_bv7gb")
+
+[node name="InteractionTransitionsGate" parent="." instance=ExtResource("2_ntmbs")]
+unique_name_in_owner = true
+
+[node name="ItemTransitionsGate" parent="." instance=ExtResource("2_ntmbs")]
+unique_name_in_owner = true
