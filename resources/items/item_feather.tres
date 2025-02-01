@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bq382ory2pvt0"]
+[gd_resource type="Resource" script_class="Item" load_steps=5 format=3 uid="uid://bq382ory2pvt0"]
 
+[ext_resource type="Script" path="res://scripts/ui/ui_transition_params.gd" id="1_7gmyw"]
 [ext_resource type="Texture2D" uid="uid://woaliyf0saen" path="res://assets/sprites/feather.png" id="1_8bhn0"]
 [ext_resource type="Script" path="res://scripts/items/item.gd" id="1_dkqws"]
 [ext_resource type="Script" path="res://scripts/items/item_effect.gd" id="1_dqhh6"]
@@ -10,6 +11,7 @@ id = 1
 name = "Feather"
 description = "Allows running away from a single enemy."
 icon = ExtResource("1_8bhn0")
+consume_transitions = Array[ExtResource("1_7gmyw")]([])
 use_effects = Array[ExtResource("1_dqhh6")]([])
 external_effects = Array[ExtResource("1_dqhh6")]([])
 meta = {}

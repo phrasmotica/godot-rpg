@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bffi65080d7jm"]
+[gd_scene load_steps=22 format=3 uid="uid://bffi65080d7jm"]
 
 [ext_resource type="PackedScene" uid="uid://im7teipfndb" path="res://scenes/dialogue/dialogue_manager.tscn" id="1_1vlts"]
 [ext_resource type="PackedScene" uid="uid://d2s13nanwkocg" path="res://scenes/player/player.tscn" id="1_ia2wv"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://b1dyw2k752kgp" path="res://scenes/menu_set.tscn" id="13_vxc7t"]
 [ext_resource type="PackedScene" uid="uid://dn23sdhbfp51v" path="res://scenes/menus/appearance_menu.tscn" id="14_bbr6w"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/menus/child_menu_handler.tscn" id="16_2runr"]
+[ext_resource type="PackedScene" uid="uid://iycg8gyqg74k" path="res://scenes/ui/ui_transition_manager.tscn" id="20_kg64q"]
 [ext_resource type="PackedScene" uid="uid://d1gaebohj82ts" path="res://scenes/ui_manager.tscn" id="21_52gs6"]
 [ext_resource type="PackedScene" uid="uid://byfqmfx243vdg" path="res://scenes/input/toggle_menu_input_handler.tscn" id="23_audap"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="27_5g51u"]
@@ -69,10 +70,11 @@ members = [NodePath("../../NPCs/NPC2"), NodePath("../../NPCs/NPC3")]
 ui_manager = NodePath("../../../UICanvas/UIManager")
 current_hp = 40
 
-[node name="Bag" parent="Map/Player" node_paths=PackedStringArray("player", "item_consumer", "bag_menu") instance=ExtResource("3_pc812")]
+[node name="Bag" parent="Map/Player" node_paths=PackedStringArray("player", "item_consumer", "bag_menu", "ui_transition_manager") instance=ExtResource("3_pc812")]
 player = NodePath("..")
 item_consumer = NodePath("ItemConsumer")
 bag_menu = NodePath("../../../UICanvas/UIManager/MarginContainer/MenuSet/BagMenu")
+ui_transition_manager = NodePath("../../../UITransitionCanvas/UITransitionManager")
 
 [node name="ItemConsumer" parent="Map/Player/Bag" node_paths=PackedStringArray("hit_points") instance=ExtResource("8_7srcv")]
 hit_points = NodePath("../../HitPoints")
@@ -138,11 +140,18 @@ map = NodePath("../../../Map")
 [node name="DialogueCanvas" type="CanvasLayer" parent="."]
 layer = 10
 
-[node name="DialogueManager" parent="DialogueCanvas" node_paths=PackedStringArray("map", "player", "bag", "item_consumer") instance=ExtResource("1_1vlts")]
-map = NodePath("../../Map")
+[node name="DialogueManager" parent="DialogueCanvas" node_paths=PackedStringArray("ui_transition_manager", "player", "bag", "item_consumer") instance=ExtResource("1_1vlts")]
+ui_transition_manager = NodePath("../../UITransitionCanvas/UITransitionManager")
 player = NodePath("../../Map/Player")
 bag = NodePath("../../Map/Player/Bag")
 item_consumer = NodePath("../../Map/Player/Bag/ItemConsumer")
+
+[node name="UITransitionCanvas" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="UITransitionManager" parent="UITransitionCanvas" node_paths=PackedStringArray("bag", "map") instance=ExtResource("20_kg64q")]
+bag = NodePath("../../Map/Player/Bag")
+map = NodePath("../../Map")
 
 [node name="DebugLayer" type="CanvasLayer" parent="."]
 

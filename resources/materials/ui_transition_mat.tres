@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cfw3n8gl1mu4s"]
+
+[ext_resource type="Shader" path="res://resources/shaders/transition_snake_fill.gdshader" id="1_6us7s"]
+
+[resource]
+shader = ExtResource("1_6us7s")
+shader_parameter/enabled = false
+shader_parameter/duration = 1.0
+shader_parameter/logarithmic_time = false
+shader_parameter/to_colour = Color(0.525203, 0.216035, 0.276011, 1)
+shader_parameter/x_tile_count = 8
+shader_parameter/y_tile_count = 6

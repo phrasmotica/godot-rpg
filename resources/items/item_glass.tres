@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="Glass" load_steps=9 format=3 uid="uid://b5hhypvakbuho"]
+[gd_resource type="Resource" script_class="Glass" load_steps=10 format=3 uid="uid://b5hhypvakbuho"]
 
 [ext_resource type="Resource" uid="uid://ciw4lsfrcukdk" path="res://resources/tilesets/tile_water.tres" id="1_5qrbu"]
 [ext_resource type="Script" path="res://scripts/items/item_effect.gd" id="1_7lvg1"]
 [ext_resource type="Script" path="res://scripts/items/fill_glass_item_effect.gd" id="1_ghd45"]
+[ext_resource type="Script" path="res://scripts/ui/ui_transition_params.gd" id="1_yh25b"]
 [ext_resource type="Script" path="res://scripts/items/item_glass.gd" id="2_ce7tb"]
 [ext_resource type="Texture2D" uid="uid://7nyladrne3g5" path="res://assets/sprites/jar.png" id="2_u3ei4"]
 [ext_resource type="Script" path="res://scripts/items/heal_item_effect.gd" id="5_cymky"]
@@ -23,6 +24,7 @@ name = "Glass"
 description = "Use while facing water to fill it."
 icon = ExtResource("2_u3ei4")
 facing_tile = ExtResource("1_5qrbu")
+consume_transitions = Array[ExtResource("1_yh25b")]([])
 use_effects = Array[ExtResource("1_7lvg1")]([SubResource("Resource_1yinw")])
 external_effects = Array[ExtResource("1_7lvg1")]([])
 meta = {

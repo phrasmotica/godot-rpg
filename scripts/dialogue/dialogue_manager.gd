@@ -1,7 +1,7 @@
 class_name DialogueManager extends Node
 
 @export
-var map: Map
+var ui_transition_manager: UITransitionManager
 
 @export
 var player: Player
@@ -16,8 +16,8 @@ signal timeline_started
 signal timeline_ended
 
 func _ready():
-    if map:
-        map.player_interacted.connect(_handle_map_player_interacted)
+    if ui_transition_manager:
+        ui_transition_manager.interaction_transitions_finished.connect(_handle_interaction_transitions_finished)
 
     if player:
         player.dialogue_triggered.connect(_handle_player_dialogue_triggered)
@@ -42,7 +42,7 @@ func handle_timeline_ended():
 
     timeline_ended.emit()
 
-func _handle_map_player_interacted(tile: Tile) -> void:
+func _handle_interaction_transitions_finished(tile: Tile) -> void:
     if tile.dialogue_timeline.length() > 0:
         Dialogic.start(tile.dialogue_timeline)
 

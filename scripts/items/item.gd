@@ -15,6 +15,10 @@ var icon: Texture2D
 @export
 var facing_tile: Tile
 
+## A list of UI transitions to dispatch when the item is used.
+@export
+var consume_transitions: Array[UITransitionParams] = []
+
 ## A list of effects that are applied when the item is used, but do NOT
 ## cause the item to be consumed. If this is non-empty, one of these effects
 ## MUST be applied for any of the item's external effects to be applied.
