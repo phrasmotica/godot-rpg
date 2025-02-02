@@ -61,7 +61,7 @@ func _ready() -> void:
 	use_item_menu_behaviour.drop.connect(drop.emit)
 	use_item_menu_behaviour.drop_all.connect(drop_all.emit)
 
-	list_menu_behaviour.select_index.connect(use_item_menu_behaviour.handle_select_index)
+	list_menu_behaviour.select_index.connect(use_item_menu_behaviour.handle_action)
 
 	bag_menu_handler.show_menu.connect(_handle_show_menu)
 	bag_menu_handler.selected_item_changed.connect(_handle_selected_item_changed)
@@ -85,6 +85,10 @@ func _handle_next() -> void:
 func _handle_previous() -> void:
 	list_menu_behaviour.previous()
 	list_menu_behaviour.previous_if_disabled()
+
+func _handle_select_index(index: int) -> void:
+	var item := list_menu_behaviour.items[index] as UseItemMenuItem
+	use_item_menu_behaviour.handle_action(item.action)
 
 func _handle_select() -> void:
 	var item := list_menu_behaviour.item()
