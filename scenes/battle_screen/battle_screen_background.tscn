@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://c0ogvlreoqqyl"]
+
+[ext_resource type="Shader" path="res://resources/shaders/battle_screen_background.gdshader" id="1_e7ry6"]
+
+[sub_resource type="Gradient" id="Gradient_nce1h"]
+colors = PackedColorArray(0.662745, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vggug"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lhphm"]
+color_ramp = SubResource("Gradient_nce1h")
+noise = SubResource("FastNoiseLite_vggug")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wck7j"]
+shader = ExtResource("1_e7ry6")
+shader_parameter/NOISE_PATTERN = SubResource("NoiseTexture2D_lhphm")
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_28vh0"]
+gradient = SubResource("Gradient_nce1h")
+width = 1152
+height = 648
+
+[node name="BattleScreenBackground" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_wck7j")
+texture = SubResource("GradientTexture2D_28vh0")
+centered = false

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://3h5gi81p4j71"]
+[gd_scene load_steps=6 format=3 uid="uid://3h5gi81p4j71"]
 
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="1_6woht"]
 [ext_resource type="PackedScene" uid="uid://b7sqi0nvcu8hd" path="res://scenes/battle_screen/battle_input_manager.tscn" id="1_vq0k0"]
 [ext_resource type="PackedScene" uid="uid://dht0cwk6y3xd4" path="res://scenes/input/toggle_debug_mode_input_handler.tscn" id="2_k5vw0"]
 [ext_resource type="PackedScene" uid="uid://byfqmfx243vdg" path="res://scenes/input/toggle_menu_input_handler.tscn" id="3_5lk7k"]
+[ext_resource type="PackedScene" uid="uid://c0ogvlreoqqyl" path="res://scenes/battle_screen/battle_screen_background.tscn" id="4_vulob"]
 
 [node name="BattleScreen" type="Node2D"]
 
@@ -13,6 +14,8 @@
 
 [node name="ToggleDebugModeInputHandler" parent="InputManager" node_paths=PackedStringArray("debug_layer") instance=ExtResource("2_k5vw0")]
 debug_layer = NodePath("../../DebugLayer")
+
+[node name="Background" parent="." instance=ExtResource("4_vulob")]
 
 [node name="DebugLayer" type="CanvasLayer" parent="."]
 layer = 128
