@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7sqi0nvcu8hd"]
+
+[ext_resource type="Script" path="res://scripts/battle_screen/battle_input_manager.gd" id="1_yg5rr"]
+[ext_resource type="PackedScene" uid="uid://dhvthnmuq7xb6" path="res://scenes/next_frame_handler.tscn" id="2_8y6dj"]
+[ext_resource type="Resource" uid="uid://ivwmaj7ar83q" path="res://resources/input/ctx_debug_mode.tres" id="2_qjwls"]
+[ext_resource type="Resource" uid="uid://dt5dc26x64ebh" path="res://resources/input/ctx_menu_nav.tres" id="3_ulwvv"]
+
+[node name="BattleInputManager" type="Node"]
+script = ExtResource("1_yg5rr")
+ctx_debug_mode = ExtResource("2_qjwls")
+ctx_menu_nav = ExtResource("3_ulwvv")
+
+[node name="NextFrameHandler" parent="." instance=ExtResource("2_8y6dj")]
+unique_name_in_owner = true
