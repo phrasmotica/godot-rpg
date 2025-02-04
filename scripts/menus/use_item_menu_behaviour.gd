@@ -1,7 +1,5 @@
 class_name UseItemMenuBehaviour extends Node
 
-# MEDIUM: assign values of this enum to the menu items, rather than mapping
-# menu item indexes to these enum values
 enum UseItemAction { USE, USE_ALL, DROP, DROP_ALL, NONE }
 
 var _player_facing_tile: Tile
@@ -20,9 +18,7 @@ func can_use_item(item: Item) -> bool:
 func handle_player_faced_tile(tile: Tile) -> void:
 	_player_facing_tile = tile
 
-func handle_select_index(index: int):
-	var action := _get_action(index)
-
+func handle_action(action: UseItemMenuBehaviour.UseItemAction) -> void:
 	match action:
 		UseItemAction.USE:
 			print("Using one item")
@@ -39,13 +35,3 @@ func handle_select_index(index: int):
 		UseItemAction.DROP_ALL:
 			print("Dropping all items")
 			drop_all.emit()
-
-func _get_action(index: int) -> UseItemAction:
-	match index:
-		0: return UseItemAction.USE
-		1: return UseItemAction.USE_ALL
-		2: return UseItemAction.DROP
-		3: return UseItemAction.DROP_ALL
-
-	print("Unknown use item action " + str(index))
-	return UseItemAction.NONE
