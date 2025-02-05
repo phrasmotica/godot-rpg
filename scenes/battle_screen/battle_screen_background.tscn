@@ -13,6 +13,8 @@ noise = SubResource("FastNoiseLite_vggug")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wck7j"]
 shader = ExtResource("1_e7ry6")
+shader_parameter/MAGNITUDE = 50.0
+shader_parameter/SPEED = 1.0
 shader_parameter/NOISE_PATTERN = SubResource("NoiseTexture2D_lhphm")
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_28vh0"]
