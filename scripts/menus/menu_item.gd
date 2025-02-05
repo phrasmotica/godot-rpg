@@ -9,6 +9,13 @@ var text: String:
 		_refresh()
 
 @export
+var large_size := false:
+	set(value):
+		large_size = value
+
+		_refresh()
+
+@export
 var selected := false:
 	set(value):
 		selected = value
@@ -57,7 +64,10 @@ func _refresh() -> void:
 		if is_cancel:
 			name_label.theme_type_variation = "CancelLabel"
 		else:
-			name_label.theme_type_variation = ""
+			name_label.theme_type_variation = "Label"
+
+		if large_size and name_label.theme_type_variation.length() > 0:
+			name_label.theme_type_variation = "Large" + name_label.theme_type_variation
 
 	if pointer:
 		pointer.visible = selected

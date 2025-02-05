@@ -13,6 +13,7 @@ theme = ExtResource("1_uswix")
 theme_override_constants/separation = 0
 script = ExtResource("1_d2522")
 text = "Menu Item"
+large_size = true
 selected = true
 
 [node name="SpaceTop" type="Control" parent="."]
@@ -23,15 +24,14 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Control" type="Control" parent="HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 
-[node name="SelectionPointer" type="TextureRect" parent="HBoxContainer/Control"]
+[node name="SelectionPointer" type="TextureRect" parent="HBoxContainer/CenterContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
-offset_right = 24.0
-offset_bottom = 24.0
 texture = ExtResource("2_pq84d")
 expand_mode = 2
 
@@ -40,6 +40,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 24)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_type_variation = &"LargeLabel"
 text = "Menu Item"
 vertical_alignment = 1
 

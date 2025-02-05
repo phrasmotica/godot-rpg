@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv6ep04wkaqw2"]
+
+[ext_resource type="PackedScene" uid="uid://cy5cot7lqw00f" path="res://scenes/menus/menu_item.tscn" id="1_6riqr"]
+
+[node name="BattleScreenCombatMenu" type="HBoxContainer"]
+
+[node name="FightMenuItem" parent="." instance=ExtResource("1_6riqr")]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Fight"
+
+[node name="BagMenuItem" parent="." instance=ExtResource("1_6riqr")]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Bag"
+selected = false
+
+[node name="FleeMenuItem" parent="." instance=ExtResource("1_6riqr")]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Flee"
+selected = false
