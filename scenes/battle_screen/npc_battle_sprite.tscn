@@ -1,0 +1,13 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbqq6fgqmgt5x"]
+
+[ext_resource type="Shader" path="res://resources/shaders/battle_sprite_take_damage.gdshader" id="1_hxwct"]
+[ext_resource type="Texture2D" uid="uid://6fdog1nvltbc" path="res://resources/textures/npc_battle.tres" id="1_x6gvx"]
+[ext_resource type="Script" path="res://scripts/battle_screen/npc_battle_sprite.gd" id="3_ufjij"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fa2at"]
+
+[node name="NPCBattleSprite" type="Sprite2D"]
+material = SubResource("ShaderMaterial_fa2at")
+texture = ExtResource("1_x6gvx")
+script = ExtResource("3_ufjij")
+take_damage_shader = ExtResource("1_hxwct")
