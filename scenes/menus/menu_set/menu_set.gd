@@ -33,6 +33,7 @@ signal closed
 
 func _ready() -> void:
 	if menus.size() > 0:
+		current_menu_index = 0
 		switch_state(State.ENABLED)
 	else:
 		switch_state(State.DISABLED)
@@ -70,9 +71,6 @@ func refresh() -> void:
 			menus[i].enable_menu()
 
 func handle_menu_nav() -> void:
-	if not _can_listen():
-		return
-
 	var dir := menu_nav_action.value_axis_2d
 
 	if dir == Vector2.RIGHT:
@@ -80,14 +78,3 @@ func handle_menu_nav() -> void:
 
 	if dir == Vector2.LEFT:
 		current_menu_index = ((current_menu_index + menus.size() - 1) % menus.size())
-
-func _can_listen() -> bool:
-	if not is_visible_in_tree():
-		return false
-
-	for menu in menus:
-		if menu.is_covered():
-			# another layer of menus is currently active
-			return false
-
-	return true
