@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="Glass" load_steps=10 format=3 uid="uid://b5hhypvakbuho"]
 
 [ext_resource type="Resource" uid="uid://ciw4lsfrcukdk" path="res://resources/tilesets/tile_water.tres" id="1_5qrbu"]
-[ext_resource type="Script" path="res://scripts/items/item_effect.gd" id="1_7lvg1"]
-[ext_resource type="Script" path="res://scripts/items/fill_glass_item_effect.gd" id="1_ghd45"]
-[ext_resource type="Script" path="res://scripts/ui/ui_transition_params.gd" id="1_yh25b"]
-[ext_resource type="Script" path="res://scripts/items/item_glass.gd" id="2_ce7tb"]
+[ext_resource type="Script" uid="uid://n4t25ntwff25" path="res://scripts/items/item_effect.gd" id="1_7lvg1"]
+[ext_resource type="Script" uid="uid://btv05s5kwbm8s" path="res://scripts/items/fill_glass_item_effect.gd" id="1_ghd45"]
+[ext_resource type="Script" uid="uid://cryw37bxl22lv" path="res://scripts/ui/ui_transition_params.gd" id="1_yh25b"]
+[ext_resource type="Script" uid="uid://boi8jfqs0s1r6" path="res://scripts/items/item_glass.gd" id="2_ce7tb"]
 [ext_resource type="Texture2D" uid="uid://7nyladrne3g5" path="res://assets/sprites/jar.png" id="2_u3ei4"]
-[ext_resource type="Script" path="res://scripts/items/heal_item_effect.gd" id="5_cymky"]
+[ext_resource type="Script" uid="uid://dmsuo7jwlknbc" path="res://scripts/items/heal_item_effect.gd" id="5_cymky"]
 
 [sub_resource type="Resource" id="Resource_leqmm"]
 script = ExtResource("5_cymky")

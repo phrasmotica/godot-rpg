@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://c42kofwpaeb5w" path="res://resources/materials/player_hair_colours.tres" id="1_46nwc"]
 [ext_resource type="Texture2D" uid="uid://b7goo6m5acnds" path="res://assets/sprites/hair-strands.png" id="2_1b8fs"]
-[ext_resource type="Script" path="res://scripts/player/body_part.gd" id="3_yibry"]
+[ext_resource type="Script" uid="uid://bl8m5fu7bv0bu" path="res://scripts/player/body_part.gd" id="3_yibry"]
 
 [resource]
 script = ExtResource("3_yibry")

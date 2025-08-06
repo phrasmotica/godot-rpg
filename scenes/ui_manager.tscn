@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d1gaebohj82ts"]
 
-[ext_resource type="Script" path="res://scripts/ui_manager.gd" id="1_3lwbb"]
-[ext_resource type="Script" path="res://scripts/next_frame_handler.gd" id="2_va7av"]
+[ext_resource type="Script" uid="uid://clyh6b0is3p3j" path="res://scripts/ui_manager.gd" id="1_3lwbb"]
+[ext_resource type="Script" uid="uid://bjc0h8483e3ig" path="res://scripts/next_frame_handler.gd" id="2_va7av"]
 
 [node name="UIManager" type="Node"]
 script = ExtResource("1_3lwbb")

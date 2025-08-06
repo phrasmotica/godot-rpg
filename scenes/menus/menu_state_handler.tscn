@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://coaf4en4unowj"]
 
-[ext_resource type="Script" path="res://scripts/menus/menu_state_handler.gd" id="1_edcy6"]
+[ext_resource type="Script" uid="uid://cj81eeukvdmiv" path="res://scripts/menus/menu_state_handler.gd" id="1_edcy6"]
 
 [node name="MenuStateHandler" type="Node"]
 script = ExtResource("1_edcy6")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://7nyhh4cif5fr"]
 
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_l8nhx"]
-[ext_resource type="Script" path="res://scripts/menus/bag_menu.gd" id="2_46jpv"]
+[ext_resource type="Script" uid="uid://bqfv5c82cfaw4" path="res://scripts/menus/bag_menu.gd" id="2_46jpv"]
 [ext_resource type="PackedScene" uid="uid://8gweefisuilw" path="res://scenes/menus/item_stack_menu_item.tscn" id="3_1sdhg"]
 [ext_resource type="PackedScene" uid="uid://d27chcpa08xfl" path="res://scenes/menus/bag_menu_behaviour.tscn" id="3_bsnvj"]
 [ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/menus/dimmer.tscn" id="4_bpnub"]
@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bajxb5vyt0vj8" path="res://scenes/menus/list_menu_input_handler.tscn" id="7_cni2r"]
 [ext_resource type="PackedScene" uid="uid://r8jqs8jl02qv" path="res://scenes/menus/list_index_handler.tscn" id="8_nh8e6"]
 [ext_resource type="PackedScene" uid="uid://coaf4en4unowj" path="res://scenes/menus/menu_state_handler.tscn" id="8_yrwam"]
-[ext_resource type="Script" path="res://scripts/menus/bag_menu_ui_updater.gd" id="10_x12t8"]
+[ext_resource type="Script" uid="uid://dis6ccgq5a3j6" path="res://scripts/menus/bag_menu_ui_updater.gd" id="10_x12t8"]
 
 [node name="BagMenu" type="PanelContainer"]
 custom_minimum_size = Vector2(360, 132)

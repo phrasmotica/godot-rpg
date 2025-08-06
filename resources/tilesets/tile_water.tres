@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Tile" load_steps=5 format=3 uid="uid://ciw4lsfrcukdk"]
 
-[ext_resource type="Script" path="res://scripts/tiles/tile.gd" id="1_vcm8u"]
-[ext_resource type="Script" path="res://scripts/ui/ui_transition_params.gd" id="2_j16ga"]
-[ext_resource type="Script" path="res://scripts/ui/transition_fade_out_and_in_params.gd" id="3_iqm0y"]
+[ext_resource type="Script" uid="uid://ooj0mbln758h" path="res://scripts/tiles/tile.gd" id="1_vcm8u"]
+[ext_resource type="Script" uid="uid://cryw37bxl22lv" path="res://scripts/ui/ui_transition_params.gd" id="2_j16ga"]
+[ext_resource type="Script" uid="uid://db308xndxu082" path="res://scripts/ui/transition_fade_out_and_in_params.gd" id="3_iqm0y"]
 
 [sub_resource type="Resource" id="Resource_77wou"]
 script = ExtResource("3_iqm0y")

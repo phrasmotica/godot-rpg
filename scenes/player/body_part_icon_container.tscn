@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://28c0fufwp730"]
 
 [ext_resource type="Material" uid="uid://cp2jh4pchw52y" path="res://resources/materials/player-outfit-icon-highlight-mat.tres" id="1_6hoi2"]
-[ext_resource type="Script" path="res://scripts/player/body_part_icon_container.gd" id="1_xuma2"]
+[ext_resource type="Script" uid="uid://bqoamhwddqhun" path="res://scripts/player/body_part_icon_container.gd" id="1_xuma2"]
 [ext_resource type="Texture2D" uid="uid://cmsnfr72rd0p4" path="res://assets/sprites/torso.png" id="2_7u6q3"]
 
 [node name="BodyPartIconContainer" type="CenterContainer"]

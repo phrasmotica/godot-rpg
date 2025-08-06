@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BodyPartPool" load_steps=6 format=3 uid="uid://cc4j5cojc8wm5"]
 
-[ext_resource type="Script" path="res://scripts/player/body_part.gd" id="1_665rq"]
-[ext_resource type="Script" path="res://scripts/player/body_part_pool.gd" id="2_btspb"]
+[ext_resource type="Script" uid="uid://bl8m5fu7bv0bu" path="res://scripts/player/body_part.gd" id="1_665rq"]
+[ext_resource type="Script" uid="uid://cmdm2ipet0ym0" path="res://scripts/player/body_part_pool.gd" id="2_btspb"]
 [ext_resource type="Resource" uid="uid://v3hnfogqneq2" path="res://resources/materials/player_hair.tres" id="2_f6u82"]
 [ext_resource type="Resource" uid="uid://dlcjk3d1ndy1a" path="res://resources/materials/player_torso.tres" id="3_64vws"]
 [ext_resource type="Resource" uid="uid://cqxufbnavevga" path="res://resources/materials/player_sleeve.tres" id="4_8hokr"]

@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://bsp3wru64i61u"]
 
-[ext_resource type="Script" path="res://scripts/ui/ui_transition_params.gd" id="1_gyl2g"]
-[ext_resource type="Script" path="res://scripts/items/item_effect.gd" id="1_jg1sd"]
+[ext_resource type="Script" uid="uid://cryw37bxl22lv" path="res://scripts/ui/ui_transition_params.gd" id="1_gyl2g"]
+[ext_resource type="Script" uid="uid://n4t25ntwff25" path="res://scripts/items/item_effect.gd" id="1_jg1sd"]
 [ext_resource type="Texture2D" uid="uid://cxbos6ll7n4gw" path="res://assets/sprites/apple.png" id="1_lfigl"]
-[ext_resource type="Script" path="res://scripts/items/heal_item_effect.gd" id="1_t2qlu"]
-[ext_resource type="Script" path="res://scripts/items/item.gd" id="1_yflj3"]
+[ext_resource type="Script" uid="uid://dmsuo7jwlknbc" path="res://scripts/items/heal_item_effect.gd" id="1_t2qlu"]
+[ext_resource type="Script" uid="uid://dt1ugc3hpsjtu" path="res://scripts/items/item.gd" id="1_yflj3"]
 
 [sub_resource type="Resource" id="Resource_jp1cl"]
 script = ExtResource("1_t2qlu")

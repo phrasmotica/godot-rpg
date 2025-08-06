@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://8gweefisuilw"]
 
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_cfte1"]
-[ext_resource type="Script" path="res://scripts/menus/item_stack_menu_item.gd" id="2_btrut"]
+[ext_resource type="Script" uid="uid://dolx26w3c7365" path="res://scripts/menus/item_stack_menu_item.gd" id="2_btrut"]
 [ext_resource type="Texture2D" uid="uid://06gn0bussjc3" path="res://assets/sprites/selection_pointer.png" id="3_ng27b"]
 
 [sub_resource type="Animation" id="Animation_3g7i8"]
@@ -39,8 +39,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t5mns"]
 _data = {
-"RESET": SubResource("Animation_3g7i8"),
-"hovering": SubResource("Animation_peahx")
+&"RESET": SubResource("Animation_3g7i8"),
+&"hovering": SubResource("Animation_peahx")
 }
 
 [node name="ItemStackMenuItem" type="VBoxContainer"]

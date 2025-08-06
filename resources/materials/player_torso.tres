@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://cjd0fsbbao8ic" path="res://resources/materials/player_torso_colours.tres" id="1_aqwag"]
 [ext_resource type="Texture2D" uid="uid://cmsnfr72rd0p4" path="res://assets/sprites/torso.png" id="2_rwkvo"]
-[ext_resource type="Script" path="res://scripts/player/body_part.gd" id="3_ppxft"]
+[ext_resource type="Script" uid="uid://bl8m5fu7bv0bu" path="res://scripts/player/body_part.gd" id="3_ppxft"]
 
 [resource]
 script = ExtResource("3_ppxft")

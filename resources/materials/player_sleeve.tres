@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://c2co4vxald8je" path="res://resources/materials/player_sleeve_colours.tres" id="1_x24ck"]
 [ext_resource type="Texture2D" uid="uid://cw5mujp1s3dw1" path="res://assets/sprites/sleeves.png" id="2_hd82h"]
-[ext_resource type="Script" path="res://scripts/player/body_part.gd" id="3_25v16"]
+[ext_resource type="Script" uid="uid://bl8m5fu7bv0bu" path="res://scripts/player/body_part.gd" id="3_25v16"]
 
 [resource]
 script = ExtResource("3_25v16")
