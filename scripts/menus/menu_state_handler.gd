@@ -1,6 +1,8 @@
 @tool
 class_name MenuStateHandler extends Node
 
+# HIGH: create a state machine for the Menu script, which should replace this...
+
 enum MenuState { CLOSED, INACTIVE, ACTIVE, COVERED }
 
 @export
