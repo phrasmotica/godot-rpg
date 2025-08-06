@@ -19,29 +19,9 @@ func _ready() -> void:
 		return
 
 	if menu_set:
-		menu_set.cancel.connect(_handle_menu_cancel)
+		menu_set.opened.connect(menu_opened.emit)
+		menu_set.closed.connect(menu_closed.emit)
 
-	toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
-
-	hide_menu()
+	menu_set.to_hidden()
 
 	ui_ready.emit()
-
-func hide_menu() -> void:
-	menu_set.hide()
-
-func _handle_toggle_menu() -> void:
-	if not menu_set.visible:
-		print("Showing menu set")
-
-		menu_set.show()
-
-		menu_opened.emit()
-
-func _handle_menu_cancel() -> void:
-	print("Hiding menu set")
-
-	# ensures the key press doesn't immediately show the menu
-	next_frame_handler.on_next_frame(hide_menu)
-
-	menu_closed.emit()

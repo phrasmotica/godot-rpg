@@ -1,7 +1,7 @@
 @tool
 class_name MenuSet extends Control
 
-enum State { ENABLED }
+enum State { DISABLED, HIDDEN, ENABLED }
 
 @export
 var current_menu_index := -1:
@@ -14,7 +14,7 @@ var current_menu_index := -1:
 		current_menu_index = new_index
 
 		if index_changed:
-			_refresh()
+			refresh()
 
 @export
 var menus: Array[Menu] = []
@@ -25,33 +25,51 @@ var toggle_menu_input_handler: ToggleMenuInputHandler
 @export
 var menu_nav_action: GUIDEAction
 
-signal cancel
+var _state_factory := MenuSetStateFactory.new()
+var _current_state: MenuSetState = null
+
+signal opened
+signal closed
 
 func _ready() -> void:
 	if menus.size() > 0:
-		current_menu_index = 0
+		switch_state(State.ENABLED)
+	else:
+		switch_state(State.DISABLED)
 
-	if Engine.is_editor_hint():
-		return
+func switch_state(state: State, state_data := MenuSetStateData.new()) -> void:
+	if _current_state != null:
+		_current_state.queue_free()
 
-	visibility_changed.connect(_refresh)
+	_current_state = _state_factory.get_fresh_state(state)
 
-	toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
+	_current_state.setup(
+		self,
+		state_data,
+		toggle_menu_input_handler)
 
-	menu_nav_action.triggered.connect(_handle_menu_nav)
+	_current_state.state_transition_requested.connect(switch_state)
+	_current_state.name = "MenuSetStateMachine: %s" % str(state)
 
-func _refresh() -> void:
+	call_deferred("add_child", _current_state)
+
+func to_hidden() -> void:
+	switch_state(State.HIDDEN)
+
+func emit_opened() -> void:
+	opened.emit()
+
+func emit_closed() -> void:
+	closed.emit()
+
+func refresh() -> void:
 	for i in range(menus.size()):
 		if i != current_menu_index:
 			menus[i].disable_menu()
 		else:
 			menus[i].enable_menu()
 
-func _handle_toggle_menu() -> void:
-	if _can_listen():
-		cancel.emit()
-
-func _handle_menu_nav() -> void:
+func handle_menu_nav() -> void:
 	if not _can_listen():
 		return
 

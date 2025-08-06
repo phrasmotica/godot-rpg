@@ -4,6 +4,8 @@ var states: Dictionary
 
 func _init() -> void:
 	states = {
+		MenuSet.State.DISABLED: MenuSetStateDisabled,
+		MenuSet.State.HIDDEN: MenuSetStateHidden,
 		MenuSet.State.ENABLED: MenuSetStateEnabled,
 	}
 
