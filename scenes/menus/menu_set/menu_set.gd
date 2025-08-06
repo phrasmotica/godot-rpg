@@ -1,6 +1,8 @@
 @tool
 class_name MenuSet extends Control
 
+enum State { ENABLED }
+
 @export
 var current_menu_index := -1:
 	set(value):
