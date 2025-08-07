@@ -1,7 +1,7 @@
 @tool
 class_name AppearanceMenu extends Menu
 
-enum State { DISABLED, ENABLED, COVERED }
+enum State { DISABLED, ENABLED, EDITING }
 
 @export
 var toggle_menu_input_handler: ToggleMenuInputHandler
@@ -24,11 +24,6 @@ var ui_updater: AppearanceMenuUIUpdater = %UIUpdater
 var _state_factory := AppearanceMenuStateFactory.new()
 var _current_state: AppearanceMenuState = null
 
-var _is_edit_mode := false
-
-signal show_appearance_editor
-signal hide_appearance_editor
-
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
@@ -49,35 +44,13 @@ func switch_state(state: State, state_data := AppearanceMenuStateData.new()) -> 
 		ui_updater,
 		dimmer,
 		toggle_menu_input_handler,
+		list_menu_behaviour,
 		list_menu_input_handler)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "AppearanceMenuStateMachine: %s" % str(state)
 
 	call_deferred("add_child", _current_state)
-
-func _handle_select() -> void:
-	var item := list_menu_behaviour.item()
-	if item.disabled:
-		return
-
-	_is_edit_mode = true
-
-	ui_updater.set_edit_mode()
-
-	show_appearance_editor.emit()
-
-func _handle_cancel() -> void:
-	# doing this on the next frame ensures the menu set cannot listen for the
-	# cancel input until after this menu has returned to normal mode
-	next_frame_handler.on_next_frame(
-		func():
-			_is_edit_mode = false
-	)
-
-	ui_updater.set_normal_mode()
-
-	hide_appearance_editor.emit()
 
 ## Menu overrides
 
@@ -99,6 +72,3 @@ func uncover_menu() -> void:
 
 func is_closed() -> bool:
 	return _current_state and _current_state.is_closed()
-
-func is_covered() -> bool:
-	return _is_edit_mode or _current_state and _current_state.is_covered()

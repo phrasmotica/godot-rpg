@@ -8,6 +8,7 @@ var _state_data: AppearanceMenuStateData = null
 var _ui_updater: AppearanceMenuUIUpdater = null
 var _dimmer: Dimmer = null
 var _toggle_menu_input_handler: ToggleMenuInputHandler = null
+var _list_menu_behaviour: ListMenu = null
 var _list_menu_input_handler: ListMenuInputHandler = null
 
 func setup(
@@ -16,6 +17,7 @@ func setup(
 	ui_updater: AppearanceMenuUIUpdater,
 	dimmer: Dimmer,
 	toggle_menu_input_handler: ToggleMenuInputHandler,
+	list_menu_behaviour: ListMenu,
 	list_menu_input_handler: ListMenuInputHandler,
 ) -> void:
 	_menu = menu
@@ -23,6 +25,7 @@ func setup(
 	_ui_updater = ui_updater
 	_dimmer = dimmer
 	_toggle_menu_input_handler = toggle_menu_input_handler
+	_list_menu_behaviour = list_menu_behaviour
 	_list_menu_input_handler = list_menu_input_handler
 
 func transition_state(
@@ -44,7 +47,4 @@ func uncover() -> void:
 	pass
 
 func is_closed() -> bool:
-	return false
-
-func is_covered() -> bool:
 	return false

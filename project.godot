@@ -29,6 +29,7 @@ config/icon="res://icon.svg"
 
 GUIDE="*res://addons/guide/guide.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+AppearanceMenuEvents="*res://scenes/autoloads/appearance_menu_events.gd"
 
 [dialogic]
 

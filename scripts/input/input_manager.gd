@@ -19,9 +19,6 @@ var ctx_outfit_nav: GUIDEMappingContext
 var ctx_walk_mode: GUIDEMappingContext
 
 @export
-var appearance_menu: AppearanceMenu
-
-@export
 var dialogue_manager: DialogueManager
 
 @export
@@ -38,9 +35,8 @@ func _ready() -> void:
 	GUIDE.enable_mapping_context(ctx_interact)
 	GUIDE.enable_mapping_context(ctx_walk_mode)
 
-	if appearance_menu:
-		appearance_menu.show_appearance_editor.connect(_handle_show_appearance_editor)
-		appearance_menu.hide_appearance_editor.connect(_handle_hide_appearance_editor)
+	AppearanceMenuEvents.editing_started.connect(_handle_show_appearance_editor)
+	AppearanceMenuEvents.editing_finished.connect(_handle_hide_appearance_editor)
 
 	if dialogue_manager:
 		dialogue_manager.timeline_started.connect(handle_dialogue_started)
