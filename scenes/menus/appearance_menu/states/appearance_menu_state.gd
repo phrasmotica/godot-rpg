@@ -46,11 +46,5 @@ func disable() -> void:
 func enable() -> void:
 	pass
 
-func cover() -> void:
-	pass
-
-func uncover() -> void:
-	pass
-
 func is_closed() -> bool:
 	return false

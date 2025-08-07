@@ -16,9 +16,6 @@ var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
 var dimmer: Dimmer = %Dimmer
 
 @onready
-var next_frame_handler: NextFrameHandler = %NextFrameHandler
-
-@onready
 var ui_updater: AppearanceMenuUIUpdater = %UIUpdater
 
 var _state_factory := AppearanceMenuStateFactory.new()
@@ -59,14 +56,6 @@ func disable_menu() -> void:
 func enable_menu() -> void:
 	if _current_state:
 		_current_state.enable()
-
-func cover_menu() -> void:
-	if _current_state:
-		_current_state.cover()
-
-func uncover_menu() -> void:
-	if _current_state:
-		_current_state.uncover()
 
 func is_closed() -> bool:
 	return _current_state and _current_state.is_closed()

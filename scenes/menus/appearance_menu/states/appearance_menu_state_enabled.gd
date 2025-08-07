@@ -20,15 +20,9 @@ func disable() -> void:
 
 	transition_state(AppearanceMenu.State.DISABLED, state_data)
 
-func cover() -> void:
-	_to_editing()
-
 func _handle_select() -> void:
 	var item := _list_menu_behaviour.item()
 	if item.disabled:
 		return
 
-	_to_editing()
-
-func _to_editing() -> void:
 	transition_state(AppearanceMenu.State.EDITING)

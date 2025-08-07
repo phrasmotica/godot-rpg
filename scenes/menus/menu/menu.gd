@@ -41,9 +41,6 @@ func emit_menu_shown() -> void:
 func is_closed() -> bool:
 	return false
 
-func is_covered() -> bool:
-	return false
-
 func _handle_visibility_changed() -> void:
 	if is_visible_in_tree():
 		menu_shown.emit(self)

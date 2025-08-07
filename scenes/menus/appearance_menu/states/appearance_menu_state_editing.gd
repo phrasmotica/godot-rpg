@@ -10,9 +10,6 @@ func _enter_tree() -> void:
 
 	AppearanceMenuEvents.emit_editing_started()
 
-func uncover() -> void:
-	_finish()
-
 func _handle_toggle_menu() -> void:
 	_finish()
 
