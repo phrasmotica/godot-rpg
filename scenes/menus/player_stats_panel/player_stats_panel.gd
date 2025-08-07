@@ -22,6 +22,8 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
+	# TODO: make sure current HP text is refreshed here
+
 	switch_state(State.DISABLED)
 
 func switch_state(state: State, state_data := PlayerStatsPanelStateData.new()) -> void:
