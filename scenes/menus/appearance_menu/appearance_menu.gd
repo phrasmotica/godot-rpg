@@ -1,6 +1,8 @@
 @tool
 class_name AppearanceMenu extends Menu
 
+enum State { DISABLED, ENABLED, COVERED }
+
 @export
 var toggle_menu_input_handler: ToggleMenuInputHandler
 
@@ -19,6 +21,9 @@ var next_frame_handler: NextFrameHandler = %NextFrameHandler
 @onready
 var ui_updater: AppearanceMenuUIUpdater = %UIUpdater
 
+var _state_factory := AppearanceMenuStateFactory.new()
+var _current_state: AppearanceMenuState = null
+
 var _is_edit_mode := false
 
 signal show_appearance_editor
@@ -28,16 +33,28 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
-	cancel.connect(_handle_cancel)
 	visibility_changed.connect(_handle_visibility_changed)
 
-	toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
+	switch_state(State.DISABLED)
 
-	list_menu_input_handler.select.connect(_handle_select)
+func switch_state(state: State, state_data := AppearanceMenuStateData.new()) -> void:
+	if _current_state != null:
+		_current_state.queue_free()
 
-func _handle_toggle_menu() -> void:
-	if menu_state_handler.can_listen():
-		cancel_menu()
+	_current_state = _state_factory.get_fresh_state(state)
+
+	_current_state.setup(
+		self,
+		state_data,
+		ui_updater,
+		dimmer,
+		toggle_menu_input_handler,
+		list_menu_input_handler)
+
+	_current_state.state_transition_requested.connect(switch_state)
+	_current_state.name = "AppearanceMenuStateMachine: %s" % str(state)
+
+	call_deferred("add_child", _current_state)
 
 func _handle_select() -> void:
 	var item := list_menu_behaviour.item()
@@ -64,33 +81,24 @@ func _handle_cancel() -> void:
 
 ## Menu overrides
 
-func is_covered() -> bool:
-	return _is_edit_mode or super.is_covered()
-
 func disable_menu() -> void:
-	_dim_menu()
-
-	ui_updater.hide_content()
+	if _current_state:
+		_current_state.disable()
 
 func enable_menu() -> void:
-	_undim_menu()
-
-	ui_updater.show_content()
+	if _current_state:
+		_current_state.enable()
 
 func cover_menu() -> void:
-	super.cover_menu()
-
-	_dim_menu()
+	if _current_state:
+		_current_state.cover()
 
 func uncover_menu() -> void:
-	super.uncover_menu()
+	if _current_state:
+		_current_state.uncover()
 
-	_undim_menu()
+func is_closed() -> bool:
+	return _current_state and _current_state.is_closed()
 
-func _dim_menu() -> void:
-	dimmer.is_dimmed = true
-	menu_state_handler.disable()
-
-func _undim_menu() -> void:
-	dimmer.is_dimmed = false
-	menu_state_handler.enable()
+func is_covered() -> bool:
+	return _is_edit_mode or _current_state and _current_state.is_covered()
