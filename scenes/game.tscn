@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://clducor041jpw" path="res://scenes/map.tscn" id="10_ns2nh"]
 [ext_resource type="PackedScene" uid="uid://cvtqbegbkh1at" path="res://scenes/movement/movement_history.tscn" id="11_80ub2"]
 [ext_resource type="PackedScene" uid="uid://berealf573bgo" path="res://scenes/player/party.tscn" id="11_d8y58"]
-[ext_resource type="PackedScene" uid="uid://pbl172qx88xu" path="res://scenes/menus/player_stats_panel.tscn" id="13_55kbe"]
+[ext_resource type="PackedScene" uid="uid://pbl172qx88xu" path="res://scenes/menus/player_stats_panel/player_stats_panel.tscn" id="13_55kbe"]
 [ext_resource type="PackedScene" uid="uid://b1dyw2k752kgp" path="res://scenes/menus/menu_set/menu_set.tscn" id="13_vxc7t"]
 [ext_resource type="PackedScene" uid="uid://dn23sdhbfp51v" path="res://scenes/menus/appearance_menu.tscn" id="14_bbr6w"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/menus/child_menu_handler.tscn" id="16_2runr"]
