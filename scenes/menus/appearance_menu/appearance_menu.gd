@@ -28,8 +28,6 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
-	visibility_changed.connect(_handle_visibility_changed)
-
 	switch_state(State.DISABLED)
 
 func switch_state(state: State, state_data := AppearanceMenuStateData.new()) -> void:

@@ -32,6 +32,12 @@ func steal() -> void:
 func _emit_steal_control() -> void:
 	steal_control.emit(self)
 
+func emit_menu_hidden() -> void:
+	menu_hidden.emit(self)
+
+func emit_menu_shown() -> void:
+	menu_shown.emit(self)
+
 func is_closed() -> bool:
 	return false
 
