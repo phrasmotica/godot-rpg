@@ -1,13 +1,8 @@
 @tool
 class_name Menu extends Control
 
-enum State { DISABLED, ENABLED, COVERED }
-
 @onready
 var menu_state_handler: MenuStateHandler = %MenuStateHandler
-
-var _state_factory := MenuStateFactory.new()
-var _current_state: MenuState = null
 
 signal cancel
 
@@ -16,54 +11,32 @@ signal menu_shown(menu: Menu)
 
 signal steal_control(menu: Menu)
 
-func _ready() -> void:
-	switch_state(State.DISABLED)
-
-func switch_state(state: State, state_data := MenuStateData.new()) -> void:
-	if _current_state != null:
-		_current_state.queue_free()
-
-	_current_state = _state_factory.get_fresh_state(state)
-
-	_current_state.setup(
-		self,
-		state_data)
-
-	_current_state.state_transition_requested.connect(switch_state)
-	_current_state.name = "MenuStateMachine: %s" % str(state)
-
-	call_deferred("add_child", _current_state)
-
 func cancel_menu() -> void:
 	cancel.emit()
 
 func disable_menu() -> void:
-	if _current_state:
-		_current_state.disable()
+	pass
 
 func enable_menu() -> void:
-	if _current_state:
-		_current_state.enable()
+	pass
 
 func cover_menu() -> void:
-	if _current_state:
-		_current_state.cover()
+	pass
 
 func uncover_menu() -> void:
-	if _current_state:
-		_current_state.uncover()
+	pass
 
 func steal() -> void:
-	if _current_state and _current_state.is_covered():
-		_current_state.uncover()
+	_emit_steal_control()
 
-		steal_control.emit(self)
+func _emit_steal_control() -> void:
+	steal_control.emit(self)
 
 func is_closed() -> bool:
-	return _current_state and _current_state.is_closed()
+	return false
 
 func is_covered() -> bool:
-	return _current_state and _current_state.is_covered()
+	return false
 
 func _handle_visibility_changed() -> void:
 	if is_visible_in_tree():
