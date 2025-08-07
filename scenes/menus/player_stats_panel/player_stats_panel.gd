@@ -1,6 +1,8 @@
 @tool
 class_name PlayerStatsPanel extends Menu
 
+enum State { DISABLED, ENABLED }
+
 @export
 var player_hit_points: HitPoints
 
@@ -13,22 +15,36 @@ var content: Control = %Content
 @onready
 var hp_label: Label = %HPLabel
 
-func _ready() -> void:
-	if player_hit_points:
-		player_hit_points.current_hp_changed.connect(_handle_current_hp_changed)
+var _state_factory := PlayerStatsPanelStateFactory.new()
+var _current_state: PlayerStatsPanelState = null
 
-func _handle_current_hp_changed(hp: int, max_hp: int) -> void:
-	if hp_label:
-		hp_label.text = str(hp) + "/" + str(max_hp) + " HP"
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+
+	switch_state(State.DISABLED)
+
+func switch_state(state: State, state_data := PlayerStatsPanelStateData.new()) -> void:
+	if _current_state != null:
+		_current_state.queue_free()
+
+	_current_state = _state_factory.get_fresh_state(state)
+
+	_current_state.setup(
+		self,
+		state_data,
+		dimmer,
+		content,
+		player_hit_points,
+		hp_label)
+
+	_current_state.state_transition_requested.connect(switch_state)
+	_current_state.name = "PlayerStatsPanelStateMachine: %s" % str(state)
+
+	call_deferred("add_child", _current_state)
 
 func disable_menu() -> void:
-	dimmer.is_dimmed = true
-	menu_state_handler.disable()
-
-	content.hide()
+	switch_state(State.DISABLED)
 
 func enable_menu() -> void:
-	dimmer.is_dimmed = false
-	menu_state_handler.enable()
-
-	content.show()
+	switch_state(State.ENABLED)
