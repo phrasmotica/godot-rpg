@@ -1,6 +1,8 @@
 @tool
 class_name Menu extends Control
 
+enum State { ENABLED }
+
 @onready
 var menu_state_handler: MenuStateHandler = %MenuStateHandler
 
