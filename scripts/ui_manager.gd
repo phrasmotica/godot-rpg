@@ -22,6 +22,6 @@ func _ready() -> void:
 		menu_set.opened.connect(menu_opened.emit)
 		menu_set.closed.connect(menu_closed.emit)
 
-	menu_set.to_hidden()
+		menu_set.to_hidden()
 
 	ui_ready.emit()
