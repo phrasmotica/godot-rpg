@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dn23sdhbfp51v"]
 
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_lpuns"]
-[ext_resource type="Script" uid="uid://dxe44grqrfye0" path="res://scripts/menus/appearance_menu.gd" id="2_1rfa5"]
+[ext_resource type="Script" uid="uid://dxe44grqrfye0" path="res://scenes/menus/appearance_menu/appearance_menu.gd" id="2_1rfa5"]
 [ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/menus/dimmer.tscn" id="3_3ykir"]
 [ext_resource type="PackedScene" uid="uid://ckuv8k527aaei" path="res://scenes/menus/list_menu_behaviour.tscn" id="3_rw5xu"]
 [ext_resource type="PackedScene" uid="uid://cy5cot7lqw00f" path="res://scenes/menus/menu_item.tscn" id="4_803rm"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bajxb5vyt0vj8" path="res://scenes/menus/list_menu_input_handler.tscn" id="4_wt7od"]
 [ext_resource type="Script" uid="uid://bjc0h8483e3ig" path="res://scripts/next_frame_handler.gd" id="7_eedu3"]
 [ext_resource type="PackedScene" uid="uid://es66vriierrk" path="res://scenes/player/player_outfit_switcher.tscn" id="9_5q4oa"]
-[ext_resource type="Script" uid="uid://cpj5velrsu0c0" path="res://scripts/menus/appearance_menu_ui_updater.gd" id="11_hr01d"]
+[ext_resource type="Script" uid="uid://cpj5velrsu0c0" path="res://scenes/menus/appearance_menu/appearance_menu_ui_updater.gd" id="11_hr01d"]
 
 [node name="AppearanceMenu" type="PanelContainer"]
 custom_minimum_size = Vector2(200, 2.08165e-12)
