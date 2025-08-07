@@ -18,3 +18,30 @@ func transition_state(
 	state_data := MenuStateData.new(),
 ) -> void:
 	state_transition_requested.emit(new_state, state_data)
+
+func enable() -> void:
+	pass
+
+func disable() -> void:
+	pass
+
+func cover() -> void:
+	pass
+
+func uncover() -> void:
+	pass
+
+func steal() -> void:
+	pass
+
+func is_closed() -> bool:
+	return false
+
+func is_covered() -> bool:
+	return false
+
+func _emit_menu_shown() -> void:
+	_menu.emit_menu_shown()
+
+func _emit_menu_hidden() -> void:
+	_menu.emit_menu_hidden()
