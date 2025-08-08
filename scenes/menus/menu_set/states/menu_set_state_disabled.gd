@@ -4,4 +4,8 @@ extends MenuSetState
 func _enter_tree() -> void:
 	print("MenuSet is now disabled")
 
-	# HIGH: transition to ENABLED when any child menu is uncovered
+	for m in _child_menus:
+		m.menu_uncovered.connect(_on_child_menu_uncovered)
+
+func _on_child_menu_uncovered() -> void:
+	transition_state(MenuSet.State.ENABLED)

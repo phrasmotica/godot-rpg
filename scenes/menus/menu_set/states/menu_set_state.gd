@@ -5,15 +5,18 @@ signal state_transition_requested(new_state: MenuSet.State, state_data: MenuSetS
 
 var _menu_set: MenuSet = null
 var _state_data: MenuSetStateData = null
+var _child_menus: Array[Menu] = []
 var _toggle_menu_input_handler: ToggleMenuInputHandler = null
 
 func setup(
 	menu_set: MenuSet,
 	state_data: MenuSetStateData,
+	child_menus: Array[Menu],
 	toggle_menu_input_handler: ToggleMenuInputHandler,
 ) -> void:
 	_menu_set = menu_set
 	_state_data = state_data
+	_child_menus = child_menus
 	_toggle_menu_input_handler = toggle_menu_input_handler
 
 func transition_state(

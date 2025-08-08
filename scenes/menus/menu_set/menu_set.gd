@@ -47,6 +47,7 @@ func switch_state(state: State, state_data := MenuSetStateData.new()) -> void:
 	_current_state.setup(
 		self,
 		state_data,
+		menus,
 		toggle_menu_input_handler)
 
 	_current_state.state_transition_requested.connect(switch_state)
