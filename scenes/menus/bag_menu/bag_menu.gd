@@ -37,7 +37,6 @@ var ui_updater: BagMenuUIUpdater = %UIUpdater
 signal select_stack(stack: ItemStack)
 
 signal use_item(stack_id: int)
-
 signal drop_item(stack_id: int)
 signal drop_stack(stack_id: int)
 
@@ -55,18 +54,11 @@ func _ready() -> void:
 
 	switch_state(State.DISABLED)
 
-	bag_handler.bag_changed.connect(_handle_bag_changed)
-
 	if bag:
 		bag.added_item.connect(bag_handler.handle_bag_added_item)
 		bag.dropped_item.connect(bag_handler.handle_bag_dropped_item)
 		bag.used_item.connect(bag_handler.handle_bag_used_item)
 		bag.consumed_item.connect(bag_handler.handle_bag_consumed_item)
-
-	if use_item_menu:
-		use_item_menu.use.connect(use_current_item)
-		use_item_menu.drop.connect(drop_current_item)
-		use_item_menu.drop_all.connect(drop_current_stack)
 
 func switch_state(state: State, state_data := BagMenuStateData.new()) -> void:
 	if _current_state != null:
@@ -80,9 +72,11 @@ func switch_state(state: State, state_data := BagMenuStateData.new()) -> void:
 		ui_updater,
 		dimmer,
 		index_handler,
+		bag_handler,
 		list_menu_input_handler,
 		menu_behaviour,
-		menu_items)
+		menu_items,
+		use_item_menu)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "BagMenuStateMachine: %s" % str(state)
@@ -112,32 +106,17 @@ func uncover_menu() -> void:
 func emit_select_stack(stack: ItemStack) -> void:
 	select_stack.emit(stack)
 
-# TODO: make this state-specific, so that we can remove the dependency on menu_state_handler
-func _handle_bag_changed(item_stacks: Array[ItemStack]) -> void:
-	var count_changed := ui_updater.update_buttons(item_stacks)
+func emit_selected_item_changed(item: Item) -> void:
+	selected_item_changed.emit(item)
 
-	var new_item: Item = null
-	if index_handler.current < menu_items.size():
-		new_item = menu_items.get_stack().item
+func emit_use_item(stack_id: int) -> void:
+	# HIGH: ensure this menu stays covered while triggered dialogue is in
+	# progress. This will probably be easier to fix once UseItemMenu has been
+	# refactored
+	use_item.emit(stack_id)
 
-	selected_item_changed.emit(new_item)
+func emit_drop_item(stack_id: int) -> void:
+	drop_item.emit(stack_id)
 
-	if count_changed and not menu_state_handler.can_listen():
-		print("BagMenu stack count changed, stealing control")
-
-		steal()
-
-func use_current_item() -> void:
-	var current_stack := menu_items.get_stack()
-	if current_stack:
-		use_item.emit(current_stack.id)
-
-func drop_current_item() -> void:
-	var current_stack := menu_items.get_stack()
-	if current_stack:
-		drop_item.emit(current_stack.id)
-
-func drop_current_stack() -> void:
-	var current_stack := menu_items.get_stack()
-	if current_stack:
-		drop_stack.emit(current_stack.id)
+func emit_drop_stack(stack_id: int) -> void:
+	drop_stack.emit(stack_id)

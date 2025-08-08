@@ -10,6 +10,8 @@ func _enter_tree() -> void:
 
 	_index_handler.current_index_changed.connect(_handle_current_index_changed)
 
+	_bag_handler.bag_changed.connect(_handle_bag_changed)
+
 	_list_menu_input_handler.select.connect(_handle_select)
 	_list_menu_input_handler.next.connect(_handle_next)
 	_list_menu_input_handler.previous.connect(_handle_previous)
@@ -35,7 +37,19 @@ func cover() -> void:
 	transition_state(BagMenu.State.COVERED)
 
 func _handle_current_index_changed(index: int) -> void:
-	print("BagMenu current index changed %d" % index)
+	print("%s current index changed %d" % [_menu.name, index])
+
+func _handle_bag_changed(item_stacks: Array[ItemStack]) -> void:
+	var count_changed := _ui_updater.update_buttons(item_stacks)
+
+	var new_item: Item = null
+	if _index_handler.current < _menu_items.size():
+		new_item = _menu_items.get_stack().item
+
+	_menu.emit_selected_item_changed(new_item)
+
+	if count_changed:
+		print("%s stack count changed" % _menu.name)
 
 func _handle_select() -> void:
 	var stack := _menu_items.get_stack()
