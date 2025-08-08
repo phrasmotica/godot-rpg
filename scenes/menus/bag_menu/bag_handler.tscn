@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cylsveulx11ey"]
 
-[ext_resource type="Script" uid="uid://cen586hpuh5h0" path="res://scripts/menus/bag_handler.gd" id="1_3hi3y"]
+[ext_resource type="Script" uid="uid://cen586hpuh5h0" path="res://scenes/menus/bag_menu/bag_handler.gd" id="1_3hi3y"]
 
 [node name="BagHandler" type="Node"]
 script = ExtResource("1_3hi3y")
