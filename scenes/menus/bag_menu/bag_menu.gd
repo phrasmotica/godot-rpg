@@ -1,6 +1,8 @@
 @tool
 class_name BagMenu extends Menu
 
+enum State { DISABLED, ENABLED, COVERED }
+
 # HIGH: cut down on inheritance as much as possible
 
 @export_group("Dependencies")
@@ -41,6 +43,9 @@ signal drop_stack(stack_id: int)
 
 signal selected_item_changed(item: Item)
 
+var _state_factory := BagMenuStateFactory.new()
+var _current_state: BagMenuState = null
+
 func _ready() -> void:
 	if menu_items.size() > 0:
 		index_handler.clamp(menu_items.get_max_index())
@@ -48,14 +53,9 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
-	index_handler.current_index_changed.connect(_handle_current_index_changed)
-	visibility_changed.connect(_handle_visibility_changed)
+	switch_state(State.DISABLED)
 
 	bag_handler.bag_changed.connect(_handle_bag_changed)
-
-	list_menu_input_handler.next.connect(menu_behaviour.next)
-	list_menu_input_handler.previous.connect(menu_behaviour.previous)
-	list_menu_input_handler.select.connect(_handle_select)
 
 	if bag:
 		bag.added_item.connect(bag_handler.handle_bag_added_item)
@@ -68,66 +68,51 @@ func _ready() -> void:
 		use_item_menu.drop.connect(drop_current_item)
 		use_item_menu.drop_all.connect(drop_current_stack)
 
-func _handle_current_index_changed(index: int) -> void:
-	print("BagMenu current index changed " + str(index))
+func switch_state(state: State, state_data := BagMenuStateData.new()) -> void:
+	if _current_state != null:
+		_current_state.queue_free()
 
-	if not menu_state_handler.can_listen():
-		print("BagMenu current index changed, stealing control")
-		steal()
+	_current_state = _state_factory.get_fresh_state(state)
 
-func _handle_select() -> void:
-	var stack := menu_items.get_stack()
-	if not stack:
-		return
+	_current_state.setup(
+		self,
+		state_data,
+		ui_updater,
+		dimmer,
+		index_handler,
+		list_menu_input_handler,
+		menu_behaviour,
+		menu_items)
 
-	print("Selecting the " + stack.item.name)
+	_current_state.state_transition_requested.connect(switch_state)
+	_current_state.name = "BagMenuStateMachine: %s" % str(state)
 
-	select_stack.emit(stack)
+	call_deferred("add_child", _current_state)
 
 ## Menu overrides
 
-func after_visibility_changed() -> void:
-	if menu_items.size() > 0:
-		index_handler.clamp(menu_items.get_max_index())
-
-	menu_items.highlight_current()
-
 func disable_menu() -> void:
-	_dim_menu()
+	if _current_state:
+		_current_state.disable()
 
 func enable_menu() -> void:
-	_undim_menu()
+	if _current_state:
+		_current_state.enable()
 
 func cover_menu() -> void:
-	super.cover_menu()
-
-	_dim_menu()
+	if _current_state:
+		_current_state.cover()
 
 func uncover_menu() -> void:
-	super.uncover_menu()
-
-	_undim_menu()
-
-func _dim_menu() -> void:
-	dimmer.is_dimmed = true
-	menu_state_handler.disable()
-
-	disable_animations()
-
-func _undim_menu() -> void:
-	dimmer.is_dimmed = false
-	menu_state_handler.enable()
-
-	enable_animations()
-
-func disable_animations() -> void:
-	menu_items.disable()
-
-func enable_animations() -> void:
-	menu_items.enable()
+	if _current_state:
+		_current_state.uncover()
 
 ## BagMenu-specific
 
+func emit_select_stack(stack: ItemStack) -> void:
+	select_stack.emit(stack)
+
+# TODO: make this state-specific, so that we can remove the dependency on menu_state_handler
 func _handle_bag_changed(item_stacks: Array[ItemStack]) -> void:
 	var count_changed := ui_updater.update_buttons(item_stacks)
 
