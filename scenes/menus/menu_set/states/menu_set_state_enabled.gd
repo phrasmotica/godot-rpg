@@ -16,6 +16,8 @@ func _enter_tree() -> void:
 	_toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
 	_menu_set.menu_nav_action.triggered.connect(_handle_menu_nav)
 
+	# HIGH: transition to DISABLED when any child menu is covered
+
 func _handle_toggle_menu() -> void:
 	transition_state(MenuSet.State.HIDDEN)
 
