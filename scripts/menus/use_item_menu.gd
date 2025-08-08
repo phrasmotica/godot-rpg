@@ -141,3 +141,6 @@ func _can_use_item(item: Item) -> bool:
 	var can_use := item_consumer.can_use(item) or item_consumer.can_consume(item)
 
 	return facing_correct_tile and can_use
+
+func is_closed() -> bool:
+	return not is_visible_in_tree()
