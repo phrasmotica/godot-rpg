@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dn23sdhbfp51v"]
+[gd_scene load_steps=9 format=3 uid="uid://dn23sdhbfp51v"]
 
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_lpuns"]
 [ext_resource type="Script" uid="uid://dxe44grqrfye0" path="res://scenes/menus/appearance_menu/appearance_menu.gd" id="2_1rfa5"]
 [ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/menus/dimmer.tscn" id="3_3ykir"]
 [ext_resource type="PackedScene" uid="uid://ckuv8k527aaei" path="res://scenes/menus/list_menu_behaviour.tscn" id="3_rw5xu"]
 [ext_resource type="PackedScene" uid="uid://cy5cot7lqw00f" path="res://scenes/menus/menu_item.tscn" id="4_803rm"]
-[ext_resource type="PackedScene" uid="uid://coaf4en4unowj" path="res://scenes/menus/menu_state_handler.tscn" id="4_axjbt"]
 [ext_resource type="PackedScene" uid="uid://bajxb5vyt0vj8" path="res://scenes/menus/list_menu_input_handler.tscn" id="4_wt7od"]
 [ext_resource type="PackedScene" uid="uid://es66vriierrk" path="res://scenes/player/player_outfit_switcher.tscn" id="9_5q4oa"]
 [ext_resource type="Script" uid="uid://cpj5velrsu0c0" path="res://scenes/menus/appearance_menu/appearance_menu_ui_updater.gd" id="11_hr01d"]
@@ -26,13 +25,8 @@ to_dim = NodePath("..")
 unique_name_in_owner = true
 items = [NodePath("../MarginContainer/VBoxContainer/Content/EditMenuItem"), null]
 
-[node name="ListMenuInputHandler" parent="." node_paths=PackedStringArray("state_handler") instance=ExtResource("4_wt7od")]
+[node name="ListMenuInputHandler" parent="." instance=ExtResource("4_wt7od")]
 unique_name_in_owner = true
-state_handler = NodePath("../MenuStateHandler")
-
-[node name="MenuStateHandler" parent="." node_paths=PackedStringArray("menu") instance=ExtResource("4_axjbt")]
-unique_name_in_owner = true
-menu = NodePath("..")
 
 [node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("edit_menu_item", "edit_mode_controls", "content")]
 unique_name_in_owner = true

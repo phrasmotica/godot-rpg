@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cbtoj82qvcrwg"]
+[gd_scene load_steps=9 format=3 uid="uid://cbtoj82qvcrwg"]
 
 [ext_resource type="Script" uid="uid://cl5j5oyihle7f" path="res://scenes/menus/use_item_menu/use_item_menu.gd" id="1_5yin2"]
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_eomyo"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://ckuv8k527aaei" path="res://scenes/menus/list_menu_behaviour.tscn" id="4_rtl2b"]
 [ext_resource type="Script" uid="uid://c5f6ukysb1gq1" path="res://scenes/menus/use_item_menu/use_item_menu_behaviour.gd" id="5_g8vw5"]
 [ext_resource type="PackedScene" uid="uid://bajxb5vyt0vj8" path="res://scenes/menus/list_menu_input_handler.tscn" id="5_w3f5e"]
-[ext_resource type="PackedScene" uid="uid://coaf4en4unowj" path="res://scenes/menus/menu_state_handler.tscn" id="7_ivic7"]
 [ext_resource type="Script" uid="uid://cb2xoqd5f81wg" path="res://scenes/menus/use_item_menu/use_item_menu_ui_updater.gd" id="10_py227"]
 [ext_resource type="Script" uid="uid://d0usa80o5i0bg" path="res://scenes/menus/use_item_menu/use_item_menu_item.gd" id="11_8t1wl"]
 
@@ -24,13 +23,8 @@ script = ExtResource("5_g8vw5")
 unique_name_in_owner = true
 items = [NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Use"), NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer/UseAll"), NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Drop"), NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer/DropAll"), NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Cancel")]
 
-[node name="ListMenuInputHandler" parent="." node_paths=PackedStringArray("state_handler") instance=ExtResource("5_w3f5e")]
+[node name="ListMenuInputHandler" parent="." instance=ExtResource("5_w3f5e")]
 unique_name_in_owner = true
-state_handler = NodePath("../MenuStateHandler")
-
-[node name="MenuStateHandler" parent="." node_paths=PackedStringArray("menu") instance=ExtResource("7_ivic7")]
-unique_name_in_owner = true
-menu = NodePath("..")
 
 [node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("description_label", "use_item", "use_all_item")]
 unique_name_in_owner = true

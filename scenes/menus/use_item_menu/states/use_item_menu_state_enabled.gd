@@ -50,10 +50,14 @@ func _handle_bag_consumed_item(_consumed_item: Item, _item_stacks: Array[ItemSta
 	transition_state(UseItemMenu.State.DISABLED)
 
 func _handle_next() -> void:
+	print("%s moving to next item" % _menu.name)
+
 	_list_menu_behaviour.next()
 	_list_menu_behaviour.next_if_disabled()
 
 func _handle_previous() -> void:
+	print("%s moving to next item" % _menu.name)
+
 	_list_menu_behaviour.previous()
 	_list_menu_behaviour.previous_if_disabled()
 

@@ -53,7 +53,11 @@ func _handle_select() -> void:
 	_menu.emit_select_stack(stack)
 
 func _handle_next() -> void:
+	print("%s moving to next item" % _menu.name)
+
 	_menu_behaviour.next()
 
 func _handle_previous() -> void:
+	print("%s moving to previous item" % _menu.name)
+
 	_menu_behaviour.previous()

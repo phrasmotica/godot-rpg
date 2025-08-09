@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://7nyhh4cif5fr"]
+[gd_scene load_steps=10 format=3 uid="uid://7nyhh4cif5fr"]
 
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_l8nhx"]
 [ext_resource type="Script" uid="uid://bqfv5c82cfaw4" path="res://scenes/menus/bag_menu/bag_menu.gd" id="2_46jpv"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://di0g442ddi3vp" path="res://scenes/menus/bag_menu/bag_menu_items.tscn" id="4_i0bqq"]
 [ext_resource type="PackedScene" uid="uid://bajxb5vyt0vj8" path="res://scenes/menus/list_menu_input_handler.tscn" id="7_cni2r"]
 [ext_resource type="PackedScene" uid="uid://r8jqs8jl02qv" path="res://scenes/menus/list_index_handler.tscn" id="8_nh8e6"]
-[ext_resource type="PackedScene" uid="uid://coaf4en4unowj" path="res://scenes/menus/menu_state_handler.tscn" id="8_yrwam"]
 [ext_resource type="Script" uid="uid://dis6ccgq5a3j6" path="res://scenes/menus/bag_menu/bag_menu_ui_updater.gd" id="10_x12t8"]
 
 [node name="BagMenu" type="PanelContainer"]
@@ -31,13 +30,8 @@ item_list = NodePath("../../MarginContainer/VBoxContainer/Content/ScrollContaine
 
 [node name="ListIndexHandler" parent="BagMenuBehaviour" instance=ExtResource("8_nh8e6")]
 
-[node name="ListMenuInputHandler" parent="." node_paths=PackedStringArray("state_handler") instance=ExtResource("7_cni2r")]
+[node name="ListMenuInputHandler" parent="." instance=ExtResource("7_cni2r")]
 unique_name_in_owner = true
-state_handler = NodePath("../MenuStateHandler")
-
-[node name="MenuStateHandler" parent="." node_paths=PackedStringArray("menu") instance=ExtResource("8_yrwam")]
-unique_name_in_owner = true
-menu = NodePath("..")
 
 [node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("menu_items", "index_handler", "dimmer", "empty_label", "scroll_container")]
 unique_name_in_owner = true

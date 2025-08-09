@@ -1,10 +1,6 @@
 @tool
 class_name Menu extends Control
 
-# TODO: remove this
-@onready
-var menu_state_handler: MenuStateHandler = %MenuStateHandler
-
 signal cancel
 
 signal menu_hidden(menu: Menu)
