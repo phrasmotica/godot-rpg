@@ -58,18 +58,7 @@ func _ready() -> void:
 	if map:
 		map.player_faced_tile.connect(use_item_menu_behaviour.handle_player_faced_tile)
 
-	use_item_menu_behaviour.use.connect(use.emit)
-	use_item_menu_behaviour.use_all.connect(use_all.emit)
-	use_item_menu_behaviour.drop.connect(drop.emit)
-	use_item_menu_behaviour.drop_all.connect(drop_all.emit)
-
-	list_menu_behaviour.select_index.connect(use_item_menu_behaviour.handle_action)
-
 	bag_menu_handler.selected_item_changed.connect(_handle_selected_item_changed)
-
-	list_menu_input_handler.next.connect(_handle_next)
-	list_menu_input_handler.previous.connect(_handle_previous)
-	list_menu_input_handler.select.connect(_handle_select)
 
 	switch_state(State.DISABLED)
 
@@ -82,36 +71,27 @@ func switch_state(state: State, state_data := UseItemMenuStateData.new()) -> voi
 	_current_state.setup(
 		self,
 		state_data,
-		toggle_menu_input_handler)
+		list_menu_behaviour,
+		use_item_menu_behaviour,
+		toggle_menu_input_handler,
+		list_menu_input_handler)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "UseItemMenuStateMachine: %s" % str(state)
 
 	call_deferred("add_child", _current_state)
 
-func _handle_next() -> void:
-	list_menu_behaviour.next()
-	list_menu_behaviour.next_if_disabled()
+func emit_use() -> void:
+	use.emit()
 
-func _handle_previous() -> void:
-	list_menu_behaviour.previous()
-	list_menu_behaviour.previous_if_disabled()
+func emit_use_all() -> void:
+	use_all.emit()
 
-func _handle_select_index(index: int) -> void:
-	var item := list_menu_behaviour.items[index] as UseItemMenuItem
-	use_item_menu_behaviour.handle_action(item.action)
+func emit_drop() -> void:
+	drop.emit()
 
-func _handle_select() -> void:
-	var item := list_menu_behaviour.item()
-	if item.disabled:
-		return
-
-	if item.is_cancel:
-		print("Cancelling %s" % name)
-
-		switch_state(State.DISABLED)
-	else:
-		list_menu_behaviour.select_current()
+func emit_drop_all() -> void:
+	drop_all.emit()
 
 func _handle_bag_menu_selected_item_changed(item: Item) -> void:
 	bag_menu_handler.select_item(item)
