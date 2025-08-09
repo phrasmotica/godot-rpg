@@ -9,9 +9,6 @@ var item_consumer: ItemConsumer
 @export
 var bag_menu: BagMenu
 
-@export
-var ui_transition_manager: UITransitionManager
-
 @onready
 var stack_manager: StackManager = %StackManager
 
@@ -19,7 +16,6 @@ signal added_item(new_item: Item, altered: bool, item_stacks: Array[ItemStack])
 signal dropped_item(dropped_item: Item, item_stacks: Array[ItemStack])
 signal used_item(used_item: Item, item_stacks: Array[ItemStack])
 
-signal before_consume_item(item: Item)
 signal consumed_item(consumed_item: Item, item_stacks: Array[ItemStack])
 
 func _ready():
@@ -31,8 +27,7 @@ func _ready():
 		bag_menu.drop_item.connect(_drop_item)
 		bag_menu.drop_stack.connect(_drop_stack)
 
-	if ui_transition_manager:
-		ui_transition_manager.item_transitions_finished.connect(_do_consume_item)
+	ItemTransitionsHandler.finished.connect(_do_consume_item)
 
 func _handle_player_pickup_item(item: Item) -> void:
 	print("Player picked up " + item.name)
@@ -43,6 +38,9 @@ func _add_item(item: Item) -> void:
 	var new_item = stack_manager.add_item(item)
 
 	added_item.emit(new_item, false, stack_manager.get_stacks())
+
+	Dialogic.VAR.item_name = new_item.name
+	DialogueManager.start_timeline("picked_up_item")
 
 func _try_use_item(stack_id: int) -> void:
 	var item := stack_manager.peek(stack_id)
@@ -73,7 +71,7 @@ func _try_use_item(stack_id: int) -> void:
 		print(item.name + " could not be consumed before its use")
 		return
 
-	before_consume_item.emit(item)
+	ItemTransitionsHandler.add(item)
 
 func _do_consume_item(item: Item) -> void:
 	var did_consume := item_consumer.consume(item)

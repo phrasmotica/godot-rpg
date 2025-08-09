@@ -3,9 +3,6 @@ class_name AppearanceMenu extends Menu
 
 enum State { DISABLED, ENABLED, EDITING }
 
-@export
-var toggle_menu_input_handler: ToggleMenuInputHandler
-
 @onready
 var list_menu_behaviour: ListMenu = %ListMenuBehaviour
 
@@ -38,7 +35,6 @@ func switch_state(state: State, state_data := AppearanceMenuStateData.new()) -> 
 		state_data,
 		ui_updater,
 		dimmer,
-		toggle_menu_input_handler,
 		list_menu_behaviour,
 		list_menu_input_handler)
 

@@ -30,6 +30,12 @@ config/icon="res://icon.svg"
 GUIDE="*res://addons/guide/guide.gd"
 AppearanceMenuEvents="*res://scenes/autoloads/appearance_menu_events.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+DialogueManager="*res://scripts/dialogue/dialogue_manager.gd"
+InteractionTransitionsHandler="*res://scripts/ui/interaction_transitions_handler.gd"
+ItemTransitionsHandler="*res://scripts/ui/item_transitions_handler.gd"
+ToggleDebugModeInputHandler="*res://scripts/input/toggle_debug_mode_input_handler.gd"
+ToggleMenuInputHandler="*res://scripts/input/toggle_menu_input_handler.gd"
+SignalHelper="*res://scenes/autoloads/signal_helper.gd"
 
 [dialogic]
 

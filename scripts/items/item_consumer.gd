@@ -3,9 +3,6 @@ class_name ItemConsumer extends Node
 @export
 var hit_points: HitPoints
 
-signal item_consume_result_created(result: ItemConsumeResult)
-signal item_effect_result_created(result: ItemEffectResult)
-
 func can_use(item: Item) -> bool:
 	if item.use_effects.size() <= 0 and item.external_effects.size() > 0:
 		return true
@@ -29,7 +26,10 @@ func use(item: Item) -> bool:
 				item.after_apply(x)
 
 				some_effect_applied = true
-				item_effect_result_created.emit(result)
+
+				if result.dialogue_timeline:
+					result.process_for_dialogue()
+					DialogueManager.start_timeline(result.dialogue_timeline)
 		else:
 			print("Cannot apply " + x.get_description() + " to self")
 
@@ -50,7 +50,10 @@ func consume(item: Item) -> bool:
 			var result: ItemConsumeResult = x.apply_to_hit_points(hit_points)
 			if result:
 				some_effect_applied = true
-				item_consume_result_created.emit(result)
+
+				if result.dialogue_timeline:
+					result.process_for_dialogue()
+					DialogueManager.start_timeline(result.dialogue_timeline)
 		else:
 			print("Cannot apply " + x.get_description() + " to hit points")
 

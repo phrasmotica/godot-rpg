@@ -1,9 +1,8 @@
-class_name ToggleMenuInputHandler extends Node
+extends Node
 
-@export
-var toggle_menu: GUIDEAction
+var _toggle_menu: GUIDEAction = preload("res://resources/input/toggle_menu.tres")
 
 signal toggled
 
 func _ready() -> void:
-	toggle_menu.triggered.connect(toggled.emit)
+	_toggle_menu.triggered.connect(toggled.emit)

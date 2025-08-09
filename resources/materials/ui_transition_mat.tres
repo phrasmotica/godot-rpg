@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cfw3n8gl1mu4s"]
 
-[ext_resource type="Shader" path="res://resources/shaders/transition_snake_fill.gdshader" id="1_6us7s"]
+[ext_resource type="Shader" uid="uid://cmkor1y14x4ee" path="res://resources/shaders/transition_snake_fill.gdshader" id="1_6us7s"]
 
 [resource]
 shader = ExtResource("1_6us7s")

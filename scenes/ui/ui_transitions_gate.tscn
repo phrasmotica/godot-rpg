@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bm4vtbdvoq4la"]
-
-[ext_resource type="Script" uid="uid://csvxct6ivschn" path="res://scripts/ui/ui_transitions_gate.gd" id="1_xn0ta"]
-
-[node name="UITransitionsGate" type="Node"]
-script = ExtResource("1_xn0ta")

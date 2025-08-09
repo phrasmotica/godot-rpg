@@ -3,8 +3,6 @@ class_name BagMenu extends Menu
 
 enum State { DISABLED, ENABLED, COVERED }
 
-# HIGH: cut down on inheritance as much as possible
-
 @export_group("Dependencies")
 
 @export
@@ -92,9 +90,6 @@ func emit_selected_item_changed(item: Item) -> void:
 	selected_item_changed.emit(item)
 
 func emit_use_item(stack_id: int) -> void:
-	# HIGH: ensure this menu stays covered while triggered dialogue is in
-	# progress. This will probably be easier to fix once UseItemMenu has been
-	# refactored
 	use_item.emit(stack_id)
 
 func emit_drop_item(stack_id: int) -> void:

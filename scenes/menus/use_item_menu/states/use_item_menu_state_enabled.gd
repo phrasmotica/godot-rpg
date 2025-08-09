@@ -14,7 +14,7 @@ func _enter_tree() -> void:
 	_use_item_menu_behaviour.drop.connect(_emit_drop)
 	_use_item_menu_behaviour.drop_all.connect(_emit_drop_all)
 
-	_toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
+	ToggleMenuInputHandler.toggled.connect(_handle_toggle_menu)
 
 	_list_menu_input_handler.next.connect(_handle_next)
 	_list_menu_input_handler.previous.connect(_handle_previous)

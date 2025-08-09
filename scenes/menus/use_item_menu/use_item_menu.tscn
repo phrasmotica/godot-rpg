@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cbtoj82qvcrwg"]
+[gd_scene load_steps=9 format=3 uid="uid://cbtoj82qvcrwg"]
 
 [ext_resource type="Script" uid="uid://cl5j5oyihle7f" path="res://scenes/menus/use_item_menu/use_item_menu.gd" id="1_5yin2"]
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_eomyo"]
 [ext_resource type="PackedScene" uid="uid://cy5cot7lqw00f" path="res://scenes/menus/menu_item.tscn" id="1_iqlnl"]
 [ext_resource type="PackedScene" uid="uid://ckuv8k527aaei" path="res://scenes/menus/list_menu_behaviour.tscn" id="4_rtl2b"]
-[ext_resource type="Script" uid="uid://c5f6ukysb1gq1" path="res://scenes/menus/use_item_menu/use_item_menu_behaviour.gd" id="5_g8vw5"]
 [ext_resource type="PackedScene" uid="uid://bajxb5vyt0vj8" path="res://scenes/menus/list_menu_input_handler.tscn" id="5_w3f5e"]
 [ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/menus/dimmer.tscn" id="7_6nmke"]
 [ext_resource type="Script" uid="uid://cb2xoqd5f81wg" path="res://scenes/menus/use_item_menu/use_item_menu_ui_updater.gd" id="10_py227"]
@@ -15,10 +14,6 @@ layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("1_eomyo")
 script = ExtResource("1_5yin2")
-
-[node name="UseItemMenuBehaviour" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("5_g8vw5")
 
 [node name="ListMenuBehaviour" parent="." node_paths=PackedStringArray("items") instance=ExtResource("4_rtl2b")]
 unique_name_in_owner = true

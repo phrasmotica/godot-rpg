@@ -7,7 +7,6 @@ var _menu: AppearanceMenu = null
 var _state_data: AppearanceMenuStateData = null
 var _ui_updater: AppearanceMenuUIUpdater = null
 var _dimmer: Dimmer = null
-var _toggle_menu_input_handler: ToggleMenuInputHandler = null
 var _list_menu_behaviour: ListMenu = null
 var _list_menu_input_handler: ListMenuInputHandler = null
 
@@ -16,7 +15,6 @@ func setup(
 	state_data: AppearanceMenuStateData,
 	ui_updater: AppearanceMenuUIUpdater,
 	dimmer: Dimmer,
-	toggle_menu_input_handler: ToggleMenuInputHandler,
 	list_menu_behaviour: ListMenu,
 	list_menu_input_handler: ListMenuInputHandler,
 ) -> void:
@@ -24,7 +22,6 @@ func setup(
 	_state_data = state_data
 	_ui_updater = ui_updater
 	_dimmer = dimmer
-	_toggle_menu_input_handler = toggle_menu_input_handler
 	_list_menu_behaviour = list_menu_behaviour
 	_list_menu_input_handler = list_menu_input_handler
 

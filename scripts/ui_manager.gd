@@ -1,27 +1,20 @@
-@tool
 class_name UIManager extends Node
 
-@export
-var menu_set: MenuSet
+# TODO: try to get rid of this script. It'll be easier once InputManager has
+# been simplified
 
 @export
-var toggle_menu_input_handler: ToggleMenuInputHandler
-
-@onready
-var next_frame_handler: NextFrameHandler = %NextFrameHandler
+var root_menu_set: MenuSet
 
 signal ui_ready
 signal menu_opened
 signal menu_closed
 
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
+	if root_menu_set:
+		root_menu_set.opened.connect(menu_opened.emit)
+		root_menu_set.closed.connect(menu_closed.emit)
 
-	if menu_set:
-		menu_set.opened.connect(menu_opened.emit)
-		menu_set.closed.connect(menu_closed.emit)
-
-		menu_set.to_hidden()
+		root_menu_set.to_hidden()
 
 	ui_ready.emit()

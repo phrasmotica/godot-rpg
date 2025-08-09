@@ -1,4 +1,4 @@
-class_name UseItemMenuBehaviour extends Node
+class_name UseItemMenuBehaviour
 
 enum UseItemAction { USE, USE_ALL, DROP, DROP_ALL, NONE }
 

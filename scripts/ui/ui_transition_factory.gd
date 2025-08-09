@@ -1,13 +1,9 @@
-class_name UITransitionFactory extends Node
+class_name UITransitionFactory
 
-@onready
-var ui_transition_scene: PackedScene = load("res://scenes/ui/ui_transition.tscn")
+var _ui_transition_scene := preload("res://scenes/ui/ui_transition.tscn")
 
 func create(params: UITransitionParams) -> UITransition:
-    var transition: UITransition = ui_transition_scene.instantiate()
+    var transition: UITransition = _ui_transition_scene.instantiate()
     transition.inject(params)
-
-    add_child(transition)
-    transition.owner = self
 
     return transition

@@ -1,35 +1,26 @@
-class_name ItemTransitionsHandler extends Node
+extends Node
 
-@export
-var transitions_gate: UITransitionsGate
+var _transitions_gate := UITransitionsGate.new()
+var _transition_factory := UITransitionFactory.new()
 
-@export
-var transition_factory: UITransitionFactory
-
+signal started(transition: UITransition)
 signal finished(item: Item)
 
-func handle_item(item: Item) -> void:
-    if not transitions_gate:
-        finished.emit(item)
-        return
-
-    transitions_gate.reset()
-
-    if not transition_factory:
-        finished.emit(item)
-        return
+func add(item: Item) -> void:
+    _transitions_gate.reset()
 
     if item.consume_transitions.size() <= 0:
         finished.emit(item)
         return
 
     for t in item.consume_transitions:
-        transitions_gate.hold()
+        _transitions_gate.hold()
 
-        var transition := transition_factory.create(t)
+        var transition := _transition_factory.create(t)
+        started.emit(transition)
 
-        transition.finished.connect(
-            func():
-                if transitions_gate.release():
-                    finished.emit(item)
-        , CONNECT_ONE_SHOT)
+        transition.finished.connect(finish.bind(item), CONNECT_ONE_SHOT)
+
+func finish(item: Item) -> void:
+    if _transitions_gate.release():
+        finished.emit(item)

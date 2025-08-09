@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhvthnmuq7xb6"]
-
-[ext_resource type="Script" uid="uid://bjc0h8483e3ig" path="res://scripts/next_frame_handler.gd" id="1_svgsv"]
-
-[node name="NextFrameHandler" type="Node"]
-script = ExtResource("1_svgsv")

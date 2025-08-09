@@ -16,7 +16,8 @@ func _enter_tree() -> void:
 	for m in _child_menus:
 		m.menu_covered.connect(_on_child_menu_covered)
 
-	_toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
+	ToggleMenuInputHandler.toggled.connect(_handle_toggle_menu)
+
 	_menu_set.menu_nav_action.triggered.connect(_handle_menu_nav)
 
 func _on_child_menu_covered() -> void:

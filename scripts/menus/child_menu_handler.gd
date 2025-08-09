@@ -3,9 +3,6 @@ class_name ChildMenuHandler extends Node
 @export_group("Dependencies")
 
 @export
-var dialogue_manager: DialogueManager
-
-@export
 var parent_menu: Menu
 
 @export
@@ -14,9 +11,8 @@ var child_menus: Array[Menu] = []
 var _dialogue_in_progress := false
 
 func _ready() -> void:
-    if dialogue_manager:
-        dialogue_manager.timeline_started.connect(_set_dialogue_in_progress.bind(true))
-        dialogue_manager.timeline_ended.connect(_set_dialogue_in_progress.bind(false))
+    DialogueManager.timeline_started.connect(_set_dialogue_in_progress.bind(true))
+    DialogueManager.timeline_ended.connect(_set_dialogue_in_progress.bind(false))
 
     parent_menu.steal_control.connect(_handle_parent_menu_steal_control)
 
@@ -24,9 +20,8 @@ func _ready() -> void:
         m.menu_hidden.connect(_handle_child_menu_hidden)
         m.menu_shown.connect(_handle_child_menu_shown)
 
-        if dialogue_manager:
-            dialogue_manager.timeline_started.connect(m.cover)
-            dialogue_manager.timeline_ended.connect(m.uncover)
+        DialogueManager.timeline_started.connect(m.cover)
+        DialogueManager.timeline_ended.connect(m.uncover)
 
 func _set_dialogue_in_progress(in_progress: bool) -> void:
     _dialogue_in_progress = in_progress

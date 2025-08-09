@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://dht0cwk6y3xd4"]
-
-[ext_resource type="Script" uid="uid://ca87ssaoqmexs" path="res://scripts/input/toggle_debug_mode_input_handler.gd" id="1_74fic"]
-[ext_resource type="Resource" uid="uid://c5efefio5ku3n" path="res://resources/input/toggle_debug_mode.tres" id="2_cwv4x"]
-
-[node name="ToggleDebugModeInputHandler" type="Node"]
-script = ExtResource("1_74fic")
-toggle = ExtResource("2_cwv4x")
