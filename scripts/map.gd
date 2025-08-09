@@ -12,7 +12,6 @@ var tile_map_layer: TileMapLayer = %TileMapLayer
 var player_facing_tile_data: Tile
 
 signal player_faced_tile(tile: Tile)
-signal player_interacted(tile: Tile)
 
 func _ready() -> void:
 	if player:
@@ -29,4 +28,5 @@ func _handle_player_position_faced(pos: Vector2) -> void:
 func _handle_player_interacted() -> void:
 	if player_facing_tile_data:
 		print("Player interacted with tile ID=" + str(player_facing_tile_data.id))
-		player_interacted.emit(player_facing_tile_data)
+
+		InteractionTransitionsHandler.add(player_facing_tile_data)

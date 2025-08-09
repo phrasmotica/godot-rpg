@@ -1,27 +1,25 @@
-class_name InteractionTransitionsHandler extends Node
+extends Node
 
 var _transitions_gate := UITransitionsGate.new()
 var _transition_factory := UITransitionFactory.new()
 
-signal finished(tile: Tile)
+signal started(transition: UITransition)
 
-func handle_interaction(tile: Tile) -> void:
+func add(tile: Tile) -> void:
     _transitions_gate.reset()
 
     if tile.transitions_on_interact.size() <= 0:
-        finished.emit(tile)
+        finish(tile)
         return
 
     for t in tile.transitions_on_interact:
         _transitions_gate.hold()
 
         var transition := _transition_factory.create(t)
+        started.emit(transition)
 
-        add_child(transition)
-        transition.owner = self
+        transition.finished.connect(finish.bind(tile), CONNECT_ONE_SHOT)
 
-        transition.finished.connect(
-            func():
-                if _transitions_gate.release():
-                    finished.emit(tile)
-        , CONNECT_ONE_SHOT)
+func finish(tile: Tile) -> void:
+    if _transitions_gate.release():
+        DialogueManager.start_timeline(tile.dialogue_timeline)

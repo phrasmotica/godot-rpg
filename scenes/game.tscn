@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://b1dyw2k752kgp" path="res://scenes/menus/menu_set/menu_set.tscn" id="13_vxc7t"]
 [ext_resource type="PackedScene" uid="uid://dn23sdhbfp51v" path="res://scenes/menus/appearance_menu/appearance_menu.tscn" id="14_bbr6w"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/menus/child_menu_handler.tscn" id="16_2runr"]
-[ext_resource type="PackedScene" uid="uid://iycg8gyqg74k" path="res://scenes/ui/ui_transition_manager.tscn" id="20_kg64q"]
+[ext_resource type="Script" uid="uid://1ymjyise7f4x" path="res://scripts/ui/ui_transition_parent.gd" id="19_1kice"]
 [ext_resource type="PackedScene" uid="uid://d1gaebohj82ts" path="res://scenes/ui_manager.tscn" id="21_52gs6"]
 [ext_resource type="PackedScene" uid="uid://byfqmfx243vdg" path="res://scenes/input/toggle_menu_input_handler.tscn" id="23_audap"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="27_5g51u"]
@@ -67,11 +67,10 @@ members = [NodePath("../../NPCs/NPC2"), NodePath("../../NPCs/NPC3")]
 ui_manager = NodePath("../../../UICanvas/UIManager")
 current_hp = 40
 
-[node name="Bag" parent="Map/Player" node_paths=PackedStringArray("player", "item_consumer", "bag_menu", "ui_transition_manager") instance=ExtResource("3_pc812")]
+[node name="Bag" parent="Map/Player" node_paths=PackedStringArray("player", "item_consumer", "bag_menu") instance=ExtResource("3_pc812")]
 player = NodePath("..")
 item_consumer = NodePath("ItemConsumer")
 bag_menu = NodePath("../../../UICanvas/UIManager/MarginContainer/RootMenuSet/BagMenu")
-ui_transition_manager = NodePath("../../../UITransitionCanvas/UITransitionManager")
 
 [node name="ItemConsumer" parent="Map/Player/Bag" node_paths=PackedStringArray("hit_points") instance=ExtResource("8_7srcv")]
 hit_points = NodePath("../../HitPoints")
@@ -139,9 +138,8 @@ layer = 10
 [node name="UITransitionCanvas" type="CanvasLayer" parent="."]
 layer = 20
 
-[node name="UITransitionManager" parent="UITransitionCanvas" node_paths=PackedStringArray("bag", "map") instance=ExtResource("20_kg64q")]
-bag = NodePath("../../Map/Player/Bag")
-map = NodePath("../../Map")
+[node name="UITransitionParent" type="Node" parent="UITransitionCanvas"]
+script = ExtResource("19_1kice")
 
 [node name="DebugLayer" type="CanvasLayer" parent="."]
 
