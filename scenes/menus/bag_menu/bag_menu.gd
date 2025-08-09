@@ -26,9 +26,6 @@ var index_handler: ListIndexHandler = %ListIndexHandler
 var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
 
 @onready
-var dimmer: Dimmer = %Dimmer
-
-@onready
 var ui_updater: BagMenuUIUpdater = %UIUpdater
 
 signal select_stack(stack: ItemStack)
@@ -61,7 +58,6 @@ func switch_state(state: State, state_data := BagMenuStateData.new()) -> void:
 		self,
 		state_data,
 		ui_updater,
-		dimmer,
 		index_handler,
 		list_menu_input_handler,
 		menu_behaviour,

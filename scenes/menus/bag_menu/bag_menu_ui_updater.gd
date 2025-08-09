@@ -12,6 +12,9 @@ var index_handler: ListIndexHandler
 @export_group("Controls")
 
 @export
+var dimmer: Dimmer
+
+@export
 var empty_label: Label
 
 @export
@@ -19,6 +22,21 @@ var scroll_container: ScrollContainer
 
 func _ready() -> void:
 	index_handler.current_index_changed.connect(_scroll_to)
+
+func for_disabled() -> void:
+	dimmer.is_dimmed = true
+
+	menu_items.disable()
+
+func for_enabled() -> void:
+	dimmer.is_dimmed = false
+
+	menu_items.enable()
+
+func for_covered() -> void:
+	dimmer.is_dimmed = true
+
+	menu_items.disable()
 
 func update_buttons(item_stacks: Array[ItemStack]) -> bool:
 	var count := item_stacks.size()

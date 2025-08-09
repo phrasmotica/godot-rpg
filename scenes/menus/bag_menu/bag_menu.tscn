@@ -33,10 +33,6 @@ item_list = NodePath("../../MarginContainer/VBoxContainer/Content/ScrollContaine
 [node name="ListIndexHandler" parent="BagMenuBehaviour" instance=ExtResource("8_nh8e6")]
 unique_name_in_owner = true
 
-[node name="Dimmer" parent="." node_paths=PackedStringArray("to_dim") instance=ExtResource("4_bpnub")]
-unique_name_in_owner = true
-to_dim = NodePath("..")
-
 [node name="ListMenuInputHandler" parent="." node_paths=PackedStringArray("state_handler") instance=ExtResource("7_cni2r")]
 unique_name_in_owner = true
 state_handler = NodePath("../MenuStateHandler")
@@ -45,13 +41,17 @@ state_handler = NodePath("../MenuStateHandler")
 unique_name_in_owner = true
 menu = NodePath("..")
 
-[node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("menu_items", "index_handler", "empty_label", "scroll_container")]
+[node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("menu_items", "index_handler", "dimmer", "empty_label", "scroll_container")]
 unique_name_in_owner = true
 script = ExtResource("10_x12t8")
 menu_items = NodePath("../BagMenuBehaviour/BagMenuItems")
 index_handler = NodePath("../BagMenuBehaviour/ListIndexHandler")
+dimmer = NodePath("Dimmer")
 empty_label = NodePath("../MarginContainer/VBoxContainer/Content/EmptyLabel")
 scroll_container = NodePath("../MarginContainer/VBoxContainer/Content/ScrollContainer")
+
+[node name="Dimmer" parent="UIUpdater" node_paths=PackedStringArray("to_dim") instance=ExtResource("4_bpnub")]
+to_dim = NodePath("../..")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

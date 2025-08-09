@@ -4,9 +4,8 @@ extends BagMenuState
 func _enter_tree() -> void:
 	print("%s is now enabled" % _menu.name)
 
-	_dimmer.is_dimmed = false
+	_ui_updater.for_enabled()
 
-	_enable_animations()
 	_connect_bag_signals()
 
 	_index_handler.current_index_changed.connect(_handle_current_index_changed)
