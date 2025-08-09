@@ -27,9 +27,6 @@ var list_menu_behaviour: ListMenu = %ListMenuBehaviour
 var use_item_menu_behaviour: UseItemMenuBehaviour = %UseItemMenuBehaviour
 
 @onready
-var bag_menu_handler: BagMenuHandler = %BagMenuHandler
-
-@onready
 var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
 
 @onready
@@ -47,17 +44,6 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
-	if bag:
-		bag.used_item.connect(_handle_bag_used_item)
-		bag.consumed_item.connect(_handle_bag_consumed_item)
-
-	if bag_menu:
-		bag_menu.select_stack.connect(bag_menu_handler.handle_select_stack)
-		bag_menu.selected_item_changed.connect(_handle_bag_menu_selected_item_changed)
-
-	if map:
-		map.player_faced_tile.connect(use_item_menu_behaviour.handle_player_faced_tile)
-
 	switch_state(State.DISABLED)
 
 func switch_state(state: State, state_data := UseItemMenuStateData.new()) -> void:
@@ -73,9 +59,11 @@ func switch_state(state: State, state_data := UseItemMenuStateData.new()) -> voi
 		use_item_menu_behaviour,
 		toggle_menu_input_handler,
 		list_menu_input_handler,
-		bag_menu_handler,
+		bag,
+		bag_menu,
 		ui_updater,
-		item_consumer)
+		item_consumer,
+		map)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "UseItemMenuStateMachine: %s" % str(state)
@@ -93,15 +81,6 @@ func emit_drop() -> void:
 
 func emit_drop_all() -> void:
 	drop_all.emit()
-
-func _handle_bag_menu_selected_item_changed(item: Item) -> void:
-	bag_menu_handler.select_item(item)
-
-func _handle_bag_used_item(used_item: Item, _item_stacks: Array[ItemStack]) -> void:
-	bag_menu_handler.select_item(used_item)
-
-func _handle_bag_consumed_item(consumed_item: Item, _item_stacks:Array[ItemStack]) -> void:
-	bag_menu_handler.select_item(consumed_item)
 
 func is_closed() -> bool:
 	return _current_state and _current_state.is_closed()

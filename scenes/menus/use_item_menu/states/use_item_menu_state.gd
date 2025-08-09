@@ -9,9 +9,11 @@ var _list_menu_behaviour: ListMenu = null
 var _use_item_menu_behaviour: UseItemMenuBehaviour = null
 var _toggle_menu_input_handler: ToggleMenuInputHandler = null
 var _list_menu_input_handler: ListMenuInputHandler = null
-var _bag_menu_handler: BagMenuHandler = null
+var _bag: Bag = null
+var _bag_menu: BagMenu = null
 var _ui_updater: UseItemMenuUIUpdater = null
 var _item_consumer: ItemConsumer = null
+var _map: Map = null
 
 func setup(
 	menu: UseItemMenu,
@@ -20,9 +22,11 @@ func setup(
 	use_item_menu_behaviour: UseItemMenuBehaviour,
 	toggle_menu_input_handler: ToggleMenuInputHandler,
 	list_menu_input_handler: ListMenuInputHandler,
-	bag_menu_handler: BagMenuHandler,
+	bag: Bag,
+	bag_menu: BagMenu,
 	ui_updater: UseItemMenuUIUpdater,
 	item_consumer: ItemConsumer,
+	map: Map,
 ) -> void:
 	_menu = menu
 	_state_data = state_data
@@ -30,21 +34,17 @@ func setup(
 	_use_item_menu_behaviour = use_item_menu_behaviour
 	_toggle_menu_input_handler = toggle_menu_input_handler
 	_list_menu_input_handler = list_menu_input_handler
-	_bag_menu_handler = bag_menu_handler
+	_bag = bag
+	_bag_menu = bag_menu
 	_ui_updater = ui_updater
 	_item_consumer = item_consumer
+	_map = map
 
 func transition_state(
 	new_state: UseItemMenu.State,
 	state_data := UseItemMenuStateData.new(),
 ) -> void:
 	state_transition_requested.emit(new_state, state_data)
-
-func _emit_menu_hidden() -> void:
-	_menu.emit_menu_hidden()
-
-func _emit_menu_shown() -> void:
-	_menu.emit_menu_shown()
 
 func is_closed() -> bool:
 	return false

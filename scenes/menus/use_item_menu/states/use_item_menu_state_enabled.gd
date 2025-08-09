@@ -5,6 +5,7 @@ func _enter_tree() -> void:
 	print("%s is now enabled" % _menu.name)
 
 	_menu.show()
+	_menu.emit_menu_shown()
 
 	_use_item_menu_behaviour.use.connect(_emit_use)
 	_use_item_menu_behaviour.use_all.connect(_emit_use_all)
@@ -17,10 +18,11 @@ func _enter_tree() -> void:
 	_list_menu_input_handler.previous.connect(_handle_previous)
 	_list_menu_input_handler.select.connect(_handle_select)
 
-	var stack := _state_data.get_stack()
-	_handle_selected_item_changed(stack.item)
+	_bag.used_item.connect(_handle_bag_used_item)
+	_bag.consumed_item.connect(_handle_bag_consumed_item)
 
-	_emit_menu_shown()
+	var stack := _state_data.get_stack()
+	_update_for(stack.item)
 
 func _emit_use() -> void:
 	_menu.emit_use()
@@ -37,6 +39,12 @@ func _emit_drop_all() -> void:
 func _handle_toggle_menu() -> void:
 	print("Hiding %s" % _menu.name)
 
+	transition_state(UseItemMenu.State.DISABLED)
+
+func _handle_bag_used_item(_used_item: Item, _item_stacks: Array[ItemStack]) -> void:
+	transition_state(UseItemMenu.State.DISABLED)
+
+func _handle_bag_consumed_item(_consumed_item: Item, _item_stacks: Array[ItemStack]) -> void:
 	transition_state(UseItemMenu.State.DISABLED)
 
 func _handle_next() -> void:
@@ -60,7 +68,7 @@ func _handle_select() -> void:
 		var action := _list_menu_behaviour.get_current_index()
 		_use_item_menu_behaviour.handle_action(action)
 
-func _handle_selected_item_changed(item: Item) -> void:
+func _update_for(item: Item) -> void:
 	var can_use := _can_use_item(item)
 
 	_ui_updater.update_for(item, can_use)
