@@ -20,9 +20,6 @@ func _enter_tree() -> void:
 	_list_menu_input_handler.previous.connect(_handle_previous)
 	_list_menu_input_handler.select.connect(_handle_select)
 
-	_bag.used_item.connect(_handle_bag_used_item)
-	_bag.consumed_item.connect(_handle_bag_consumed_item)
-
 	# TODO: the stack in the current index might have changed if this was
 	# uncovered. If it has changed, which we could use the bag signals to check
 	# for, transition to the DISABLED state...
@@ -45,14 +42,6 @@ func _emit_drop_all() -> void:
 func _handle_toggle_menu() -> void:
 	print("Hiding %s" % _menu.name)
 
-	transition_state(UseItemMenu.State.DISABLED)
-
-func _handle_bag_used_item(_used_item: Item, _item_stacks: Array[ItemStack]) -> void:
-	# TODO: move into a "paused" state, so that BagMenu does not re-enable
-	transition_state(UseItemMenu.State.DISABLED)
-
-func _handle_bag_consumed_item(_consumed_item: Item, _item_stacks: Array[ItemStack]) -> void:
-	# TODO: move into a "paused" state, so that BagMenu does not re-enable
 	transition_state(UseItemMenu.State.DISABLED)
 
 func _handle_next() -> void:

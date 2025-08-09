@@ -121,7 +121,7 @@ dialogue_manager = NodePath("../../../../../../DialogueCanvas/DialogueManager")
 parent_menu = NodePath("..")
 child_menus = [NodePath("../../../../UseItemMenu")]
 
-[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("toggle_menu_input_handler", "bag", "bag_menu", "item_consumer", "map") instance=ExtResource("9_6coe6")]
+[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("toggle_menu_input_handler", "bag_menu", "item_consumer", "map") instance=ExtResource("9_6coe6")]
 visible = false
 anchors_preset = 1
 anchor_left = 1.0
@@ -132,7 +132,6 @@ offset_right = -416.0
 offset_bottom = 128.0
 grow_horizontal = 0
 toggle_menu_input_handler = NodePath("../../../InputManager/ToggleMenuInputHandler")
-bag = NodePath("../../../Map/Player/Bag")
 bag_menu = NodePath("../MarginContainer/MenuSet/BagMenu")
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
 map = NodePath("../../../Map")
