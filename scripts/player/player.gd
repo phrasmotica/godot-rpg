@@ -42,7 +42,6 @@ signal moving_to_position(pos: Vector2i)
 signal moved_to_position(pos: Vector2i)
 signal interacted
 signal pickup_item(item: Item)
-signal dialogue_triggered(timeline: String)
 
 func _ready() -> void:
 	_refresh()
@@ -79,7 +78,7 @@ func _handle_move_triggered(direction: Vector2):
 
 func _handle_dialogue_triggered(npc: NPC) -> void:
 	npc.face(global_position)
-	dialogue_triggered.emit(npc.talk_dialogue)
+	DialogueManager.start_timeline(npc.talk_dialogue)
 
 	interacted.emit()
 

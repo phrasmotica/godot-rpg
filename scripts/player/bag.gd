@@ -44,6 +44,9 @@ func _add_item(item: Item) -> void:
 
 	added_item.emit(new_item, false, stack_manager.get_stacks())
 
+	Dialogic.VAR.item_name = new_item.name
+	DialogueManager.start_timeline("picked_up_item")
+
 func _try_use_item(stack_id: int) -> void:
 	var item := stack_manager.peek(stack_id)
 
