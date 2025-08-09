@@ -42,9 +42,11 @@ func _handle_toggle_menu() -> void:
 	transition_state(UseItemMenu.State.DISABLED)
 
 func _handle_bag_used_item(_used_item: Item, _item_stacks: Array[ItemStack]) -> void:
+	# TODO: move into a "paused" state, so that BagMenu does not re-enable
 	transition_state(UseItemMenu.State.DISABLED)
 
 func _handle_bag_consumed_item(_consumed_item: Item, _item_stacks: Array[ItemStack]) -> void:
+	# TODO: move into a "paused" state, so that BagMenu does not re-enable
 	transition_state(UseItemMenu.State.DISABLED)
 
 func _handle_next() -> void:
