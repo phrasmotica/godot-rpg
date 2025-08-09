@@ -1,6 +1,8 @@
 @tool
 class_name UseItemMenu extends Menu
 
+enum State { DISABLED, ENABLED }
+
 @export_group("Dependencies")
 
 @export
@@ -33,12 +35,13 @@ var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
 @onready
 var ui_updater: UseItemMenuUIUpdater = %UIUpdater
 
+var _state_factory := UseItemMenuStateFactory.new()
+var _current_state: UseItemMenuState = null
+
 signal use
 signal use_all
 signal drop
 signal drop_all
-
-# HIGH: create state machine
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -75,6 +78,23 @@ func _ready() -> void:
 	list_menu_input_handler.select.connect(_handle_select)
 
 	disable_menu()
+
+	switch_state(State.DISABLED)
+
+func switch_state(state: State, state_data := UseItemMenuStateData.new()) -> void:
+	if _current_state != null:
+		_current_state.queue_free()
+
+	_current_state = _state_factory.get_fresh_state(state)
+
+	_current_state.setup(
+		self,
+		state_data)
+
+	_current_state.state_transition_requested.connect(switch_state)
+	_current_state.name = "UseItemMenuStateMachine: %s" % str(state)
+
+	call_deferred("add_child", _current_state)
 
 func _handle_toggle_menu() -> void:
 	if menu_state_handler.can_listen():
