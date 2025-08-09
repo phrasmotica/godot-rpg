@@ -1,6 +1,4 @@
-class_name UseItemMenuBehaviour extends Node
-
-# TODO: turn this into a non-Node script
+class_name UseItemMenuBehaviour
 
 enum UseItemAction { USE, USE_ALL, DROP, DROP_ALL, NONE }
 

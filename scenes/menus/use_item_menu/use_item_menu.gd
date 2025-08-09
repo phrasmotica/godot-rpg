@@ -18,13 +18,12 @@ var map: Map
 var list_menu_behaviour: ListMenu = %ListMenuBehaviour
 
 @onready
-var use_item_menu_behaviour: UseItemMenuBehaviour = %UseItemMenuBehaviour
-
-@onready
 var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
 
 @onready
 var ui_updater: UseItemMenuUIUpdater = %UIUpdater
+
+var _use_item_menu_behaviour := UseItemMenuBehaviour.new()
 
 var _state_factory := UseItemMenuStateFactory.new()
 var _current_state: UseItemMenuState = null
@@ -50,7 +49,7 @@ func switch_state(state: State, state_data := UseItemMenuStateData.new()) -> voi
 		self,
 		state_data,
 		list_menu_behaviour,
-		use_item_menu_behaviour,
+		_use_item_menu_behaviour,
 		list_menu_input_handler,
 		bag_menu,
 		ui_updater,
