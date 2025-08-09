@@ -25,13 +25,11 @@ menu_items = NodePath("BagMenuItems")
 index_handler = NodePath("ListIndexHandler")
 
 [node name="BagMenuItems" parent="BagMenuBehaviour" node_paths=PackedStringArray("index_handler", "item_list") instance=ExtResource("4_i0bqq")]
-unique_name_in_owner = true
 index_handler = NodePath("../ListIndexHandler")
 item_stack_menu_item_scene = ExtResource("3_1sdhg")
 item_list = NodePath("../../MarginContainer/VBoxContainer/Content/ScrollContainer/ItemList")
 
 [node name="ListIndexHandler" parent="BagMenuBehaviour" instance=ExtResource("8_nh8e6")]
-unique_name_in_owner = true
 
 [node name="ListMenuInputHandler" parent="." node_paths=PackedStringArray("state_handler") instance=ExtResource("7_cni2r")]
 unique_name_in_owner = true

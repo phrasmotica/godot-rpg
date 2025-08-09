@@ -8,7 +8,7 @@ func _enter_tree() -> void:
 
 	_connect_bag_signals()
 
-	_index_handler.current_index_changed.connect(_handle_current_index_changed)
+	_menu_behaviour.current_index_changed.connect(_handle_current_index_changed)
 
 	_list_menu_input_handler.select.connect(_handle_select)
 	_list_menu_input_handler.next.connect(_handle_next)
@@ -17,10 +17,7 @@ func _enter_tree() -> void:
 	if _state_data.get_visibility_changed():
 		_emit_menu_shown()
 
-		if _menu_items.size() > 0:
-			_index_handler.clamp(_menu_items.get_max_index())
-
-		_menu_items.highlight_current()
+		_menu_behaviour.clamp()
 
 	if _state_data.get_was_uncovered():
 		_emit_menu_uncovered()
@@ -40,17 +37,14 @@ func _handle_current_index_changed(index: int) -> void:
 func update_item_stacks(item_stacks: Array[ItemStack]) -> void:
 	var count_changed := _ui_updater.update_buttons(item_stacks)
 
-	var new_item: Item = null
-	if _index_handler.current < _menu_items.size():
-		new_item = _menu_items.get_stack().item
-
+	var new_item := _menu_behaviour.get_item()
 	_menu.emit_selected_item_changed(new_item)
 
 	if count_changed:
 		print("%s stack count changed" % _menu.name)
 
 func _handle_select() -> void:
-	var stack := _menu_items.get_stack()
+	var stack := _menu_behaviour.get_item_stack()
 	if not stack:
 		return
 

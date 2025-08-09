@@ -17,12 +17,6 @@ var use_item_menu: UseItemMenu
 var menu_behaviour: BagMenuBehaviour = %BagMenuBehaviour
 
 @onready
-var menu_items: BagMenuItems = %BagMenuItems
-
-@onready
-var index_handler: ListIndexHandler = %ListIndexHandler
-
-@onready
 var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
 
 @onready
@@ -40,8 +34,7 @@ var _state_factory := BagMenuStateFactory.new()
 var _current_state: BagMenuState = null
 
 func _ready() -> void:
-	if menu_items.size() > 0:
-		index_handler.clamp(menu_items.get_max_index())
+	menu_behaviour.clamp()
 
 	if Engine.is_editor_hint():
 		return
@@ -58,10 +51,8 @@ func switch_state(state: State, state_data := BagMenuStateData.new()) -> void:
 		self,
 		state_data,
 		ui_updater,
-		index_handler,
 		list_menu_input_handler,
 		menu_behaviour,
-		menu_items,
 		use_item_menu,
 		bag)
 

@@ -6,10 +6,8 @@ signal state_transition_requested(new_state: BagMenu.State, state_data: BagMenuS
 var _menu: BagMenu = null
 var _state_data: BagMenuStateData = null
 var _ui_updater: BagMenuUIUpdater = null
-var _index_handler: ListIndexHandler = null
 var _list_menu_input_handler: ListMenuInputHandler = null
 var _menu_behaviour: BagMenuBehaviour = null
-var _menu_items: BagMenuItems = null
 var _use_item_menu: UseItemMenu = null
 var _bag: Bag = null
 
@@ -17,20 +15,16 @@ func setup(
 	menu: BagMenu,
 	state_data: BagMenuStateData,
 	ui_updater: BagMenuUIUpdater,
-	index_handler: ListIndexHandler,
 	list_menu_input_handler: ListMenuInputHandler,
 	menu_behaviour: BagMenuBehaviour,
-	menu_items: BagMenuItems,
 	use_item_menu: UseItemMenu,
 	bag: Bag,
 ) -> void:
 	_menu = menu
 	_state_data = state_data
 	_ui_updater = ui_updater
-	_index_handler = index_handler
 	_list_menu_input_handler = list_menu_input_handler
 	_menu_behaviour = menu_behaviour
-	_menu_items = menu_items
 	_use_item_menu = use_item_menu
 	_bag = bag
 
