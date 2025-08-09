@@ -23,9 +23,6 @@ var menu_items: BagMenuItems = %BagMenuItems
 var index_handler: ListIndexHandler = %ListIndexHandler
 
 @onready
-var bag_handler: BagHandler = %BagHandler
-
-@onready
 var list_menu_input_handler: ListMenuInputHandler = %ListMenuInputHandler
 
 @onready
@@ -54,12 +51,6 @@ func _ready() -> void:
 
 	switch_state(State.DISABLED)
 
-	if bag:
-		bag.added_item.connect(bag_handler.handle_bag_added_item)
-		bag.dropped_item.connect(bag_handler.handle_bag_dropped_item)
-		bag.used_item.connect(bag_handler.handle_bag_used_item)
-		bag.consumed_item.connect(bag_handler.handle_bag_consumed_item)
-
 func switch_state(state: State, state_data := BagMenuStateData.new()) -> void:
 	if _current_state != null:
 		_current_state.queue_free()
@@ -72,11 +63,11 @@ func switch_state(state: State, state_data := BagMenuStateData.new()) -> void:
 		ui_updater,
 		dimmer,
 		index_handler,
-		bag_handler,
 		list_menu_input_handler,
 		menu_behaviour,
 		menu_items,
-		use_item_menu)
+		use_item_menu,
+		bag)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "BagMenuStateMachine: %s" % str(state)

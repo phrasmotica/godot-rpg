@@ -7,10 +7,9 @@ func _enter_tree() -> void:
 	_dimmer.is_dimmed = false
 
 	_enable_animations()
+	_connect_bag_signals()
 
 	_index_handler.current_index_changed.connect(_handle_current_index_changed)
-
-	_bag_handler.bag_changed.connect(_handle_bag_changed)
 
 	_list_menu_input_handler.select.connect(_handle_select)
 	_list_menu_input_handler.next.connect(_handle_next)
@@ -39,7 +38,7 @@ func cover() -> void:
 func _handle_current_index_changed(index: int) -> void:
 	print("%s current index changed %d" % [_menu.name, index])
 
-func _handle_bag_changed(item_stacks: Array[ItemStack]) -> void:
+func update_item_stacks(item_stacks: Array[ItemStack]) -> void:
 	var count_changed := _ui_updater.update_buttons(item_stacks)
 
 	var new_item: Item = null
