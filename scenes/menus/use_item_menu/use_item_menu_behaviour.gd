@@ -1,5 +1,7 @@
 class_name UseItemMenuBehaviour extends Node
 
+# TODO: turn this into a non-Node script
+
 enum UseItemAction { USE, USE_ALL, DROP, DROP_ALL, NONE }
 
 var _player_facing_tile: Tile

@@ -1,5 +1,8 @@
 class_name UIManager extends Node
 
+# TODO: try to get rid of this script. It'll be easier once InputManager has
+# been simplified
+
 @export
 var root_menu_set: MenuSet
 

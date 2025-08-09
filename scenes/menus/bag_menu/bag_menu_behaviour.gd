@@ -1,6 +1,8 @@
 @tool
 class_name BagMenuBehaviour extends Node
 
+# TODO: turn this into a non-Node script
+
 @export_group("Dependencies")
 
 @export

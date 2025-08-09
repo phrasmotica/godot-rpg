@@ -1,5 +1,7 @@
 extends Node
 
+# TODO: turn this into an autoload
+
 @export
 var toggle: GUIDEAction
 

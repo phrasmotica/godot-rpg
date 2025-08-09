@@ -26,6 +26,9 @@ var next_frame_handler: NextFrameHandler = %NextFrameHandler
 
 var _menu_is_open := false
 
+# TODO: create a state machine for the Player. It'll reduce the need to toggle
+# the mapping contexts
+
 func _ready() -> void:
 	GUIDE.enable_mapping_context(ctx_bag_menu)
 	GUIDE.enable_mapping_context(ctx_debug_mode)
