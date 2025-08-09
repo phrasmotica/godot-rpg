@@ -21,9 +21,6 @@ var ctx_walk_mode: GUIDEMappingContext
 @export
 var ui_manager: UIManager
 
-@onready
-var next_frame_handler: NextFrameHandler = %NextFrameHandler
-
 var _menu_is_open := false
 
 # TODO: create a state machine for the Player. It'll reduce the need to toggle
@@ -59,15 +56,15 @@ func handle_dialogue_started() -> void:
 	disable_menu_nav()
 
 func handle_dialogue_finished() -> void:
-	next_frame_handler.on_next_frame(enable_bag_menu)
+	SignalHelper.once_next_frame(enable_bag_menu)
 
 	# TODO: implement a stack of mapping contexts so that we disable/enable the
 	# correct ones once the dialogue finishes? Or can we use GUIDE's priority
 	# system for this?
 	if _menu_is_open:
-		next_frame_handler.on_next_frame(enable_menu_nav)
+		SignalHelper.once_next_frame(enable_menu_nav)
 	else:
-		next_frame_handler.on_next_frame(enable_walk_mode)
+		SignalHelper.once_next_frame(enable_walk_mode)
 
 func handle_menu_opened() -> void:
 	_menu_is_open = true
@@ -78,8 +75,8 @@ func handle_menu_opened() -> void:
 func handle_menu_closed() -> void:
 	_menu_is_open = false
 
-	next_frame_handler.on_next_frame(enable_walk_mode)
-	next_frame_handler.on_next_frame(disable_menu_nav)
+	SignalHelper.once_next_frame(enable_walk_mode)
+	SignalHelper.once_next_frame(disable_menu_nav)
 
 func enable_walk_mode() -> void:
 	GUIDE.enable_mapping_context(ctx_interact)

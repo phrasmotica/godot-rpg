@@ -35,6 +35,7 @@ InteractionTransitionsHandler="*res://scripts/ui/interaction_transitions_handler
 ItemTransitionsHandler="*res://scripts/ui/item_transitions_handler.gd"
 ToggleDebugModeInputHandler="*res://scripts/input/toggle_debug_mode_input_handler.gd"
 ToggleMenuInputHandler="*res://scripts/input/toggle_menu_input_handler.gd"
+SignalHelper="*res://scenes/autoloads/signal_helper.gd"
 
 [dialogic]
 
