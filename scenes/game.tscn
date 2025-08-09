@@ -116,7 +116,8 @@ layout_mode = 2
 bag = NodePath("../../../../../Map/Player/Bag")
 use_item_menu = NodePath("../../../UseItemMenu")
 
-[node name="ChildMenuHandler" parent="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" node_paths=PackedStringArray("parent_menu", "child_menus") instance=ExtResource("16_2runr")]
+[node name="ChildMenuHandler" parent="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" node_paths=PackedStringArray("dialogue_manager", "parent_menu", "child_menus") instance=ExtResource("16_2runr")]
+dialogue_manager = NodePath("../../../../../../DialogueCanvas/DialogueManager")
 parent_menu = NodePath("..")
 child_menus = [NodePath("../../../../UseItemMenu")]
 

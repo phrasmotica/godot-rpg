@@ -7,6 +7,8 @@ func _enter_tree() -> void:
 	_menu.show()
 	_menu.emit_menu_shown()
 
+	_ui_updater.for_enabled()
+
 	_use_item_menu_behaviour.use.connect(_emit_use)
 	_use_item_menu_behaviour.use_all.connect(_emit_use_all)
 	_use_item_menu_behaviour.drop.connect(_emit_drop)
@@ -21,8 +23,12 @@ func _enter_tree() -> void:
 	_bag.used_item.connect(_handle_bag_used_item)
 	_bag.consumed_item.connect(_handle_bag_consumed_item)
 
+	# TODO: the stack in the current index might have changed if this was
+	# uncovered. If it has changed, which we could use the bag signals to check
+	# for, transition to the DISABLED state...
 	var stack := _state_data.get_stack()
-	_update_for(stack.item)
+	if stack:
+		_update_for(stack.item)
 
 func _emit_use() -> void:
 	_menu.emit_use()
@@ -89,3 +95,6 @@ func _can_use_item(item: Item) -> bool:
 	var can_use := _item_consumer.can_use(item) or _item_consumer.can_consume(item)
 
 	return facing_correct_tile and can_use
+
+func cover() -> void:
+	transition_state(UseItemMenu.State.COVERED)

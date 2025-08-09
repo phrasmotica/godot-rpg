@@ -4,6 +4,9 @@ extends Node
 @export_group("Dependencies")
 
 @export
+var dialogue_manager: DialogueManager
+
+@export
 var parent_menu: Menu
 
 @export
@@ -15,6 +18,10 @@ func _ready() -> void:
     for m in child_menus:
         m.menu_hidden.connect(_handle_child_menu_hidden)
         m.menu_shown.connect(_handle_child_menu_shown)
+
+        if dialogue_manager:
+            dialogue_manager.timeline_started.connect(m.cover)
+            dialogue_manager.timeline_ended.connect(m.uncover)
 
 func _handle_parent_menu_steal_control(menu: Menu) -> void:
     print(menu.name + " stole control from " + str(child_menus.size()) + " child menu(s)")

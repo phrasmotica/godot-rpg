@@ -6,6 +6,7 @@ func _init() -> void:
 	states = {
 		UseItemMenu.State.DISABLED: UseItemMenuStateDisabled,
 		UseItemMenu.State.ENABLED: UseItemMenuStateEnabled,
+		UseItemMenu.State.COVERED: UseItemMenuStateCovered,
 	}
 
 func get_fresh_state(state: UseItemMenu.State) -> UseItemMenuState:

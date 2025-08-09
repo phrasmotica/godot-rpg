@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbtoj82qvcrwg"]
+[gd_scene load_steps=10 format=3 uid="uid://cbtoj82qvcrwg"]
 
 [ext_resource type="Script" uid="uid://cl5j5oyihle7f" path="res://scenes/menus/use_item_menu/use_item_menu.gd" id="1_5yin2"]
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_eomyo"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ckuv8k527aaei" path="res://scenes/menus/list_menu_behaviour.tscn" id="4_rtl2b"]
 [ext_resource type="Script" uid="uid://c5f6ukysb1gq1" path="res://scenes/menus/use_item_menu/use_item_menu_behaviour.gd" id="5_g8vw5"]
 [ext_resource type="PackedScene" uid="uid://bajxb5vyt0vj8" path="res://scenes/menus/list_menu_input_handler.tscn" id="5_w3f5e"]
+[ext_resource type="PackedScene" uid="uid://bm0tlg8mixv85" path="res://scenes/menus/dimmer.tscn" id="7_6nmke"]
 [ext_resource type="Script" uid="uid://cb2xoqd5f81wg" path="res://scenes/menus/use_item_menu/use_item_menu_ui_updater.gd" id="10_py227"]
 [ext_resource type="Script" uid="uid://d0usa80o5i0bg" path="res://scenes/menus/use_item_menu/use_item_menu_item.gd" id="11_8t1wl"]
 
@@ -26,12 +27,16 @@ items = [NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContain
 [node name="ListMenuInputHandler" parent="." instance=ExtResource("5_w3f5e")]
 unique_name_in_owner = true
 
-[node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("description_label", "use_item", "use_all_item")]
+[node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("dimmer", "description_label", "use_item", "use_all_item")]
 unique_name_in_owner = true
 script = ExtResource("10_py227")
+dimmer = NodePath("Dimmer")
 description_label = NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Description")
 use_item = NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Use")
 use_all_item = NodePath("../MarginContainer/PanelContainer/MarginContainer/VBoxContainer/UseAll")
+
+[node name="Dimmer" parent="UIUpdater" node_paths=PackedStringArray("to_dim") instance=ExtResource("7_6nmke")]
+to_dim = NodePath("../..")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0

@@ -1,7 +1,7 @@
 @tool
 class_name UseItemMenu extends Menu
 
-enum State { DISABLED, ENABLED }
+enum State { DISABLED, ENABLED, COVERED }
 
 @export_group("Dependencies")
 
@@ -70,6 +70,21 @@ func switch_state(state: State, state_data := UseItemMenuStateData.new()) -> voi
 
 	call_deferred("add_child", _current_state)
 
+## Menu overrides
+
+func cover() -> void:
+	if _current_state:
+		_current_state.cover()
+
+func uncover() -> void:
+	if _current_state:
+		_current_state.uncover()
+
+func is_closed() -> bool:
+	return _current_state and _current_state.is_closed()
+
+## UseItemMenu-specific
+
 func emit_use() -> void:
 	use.emit()
 
@@ -81,6 +96,3 @@ func emit_drop() -> void:
 
 func emit_drop_all() -> void:
 	drop_all.emit()
-
-func is_closed() -> bool:
-	return _current_state and _current_state.is_closed()
