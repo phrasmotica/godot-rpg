@@ -20,9 +20,6 @@ var current_menu_index := -1:
 var menus: Array[Menu] = []
 
 @export
-var toggle_menu_input_handler: ToggleMenuInputHandler
-
-@export
 var menu_nav_action: GUIDEAction
 
 var _state_factory := MenuSetStateFactory.new()
@@ -47,8 +44,7 @@ func switch_state(state: State, state_data := MenuSetStateData.new()) -> void:
 	_current_state.setup(
 		self,
 		state_data,
-		menus,
-		toggle_menu_input_handler)
+		menus)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "MenuSetStateMachine: %s" % str(state)

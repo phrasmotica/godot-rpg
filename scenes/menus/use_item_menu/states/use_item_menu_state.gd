@@ -7,7 +7,6 @@ var _menu: UseItemMenu = null
 var _state_data: UseItemMenuStateData = null
 var _list_menu_behaviour: ListMenu = null
 var _use_item_menu_behaviour: UseItemMenuBehaviour = null
-var _toggle_menu_input_handler: ToggleMenuInputHandler = null
 var _list_menu_input_handler: ListMenuInputHandler = null
 var _bag_menu: BagMenu = null
 var _ui_updater: UseItemMenuUIUpdater = null
@@ -19,7 +18,6 @@ func setup(
 	state_data: UseItemMenuStateData,
 	list_menu_behaviour: ListMenu,
 	use_item_menu_behaviour: UseItemMenuBehaviour,
-	toggle_menu_input_handler: ToggleMenuInputHandler,
 	list_menu_input_handler: ListMenuInputHandler,
 	bag_menu: BagMenu,
 	ui_updater: UseItemMenuUIUpdater,
@@ -30,7 +28,6 @@ func setup(
 	_state_data = state_data
 	_list_menu_behaviour = list_menu_behaviour
 	_use_item_menu_behaviour = use_item_menu_behaviour
-	_toggle_menu_input_handler = toggle_menu_input_handler
 	_list_menu_input_handler = list_menu_input_handler
 	_bag_menu = bag_menu
 	_ui_updater = ui_updater

@@ -8,7 +8,7 @@ func _enter_tree() -> void:
 
 	_emit_closed()
 
-	_toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
+	ToggleMenuInputHandler.toggled.connect(_handle_toggle_menu)
 
 func _handle_toggle_menu() -> void:
 	transition_state(MenuSet.State.ENABLED)

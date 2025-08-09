@@ -6,9 +6,6 @@ enum State { DISABLED, ENABLED, COVERED }
 @export_group("Dependencies")
 
 @export
-var toggle_menu_input_handler: ToggleMenuInputHandler
-
-@export
 var bag_menu: BagMenu
 
 @export
@@ -54,7 +51,6 @@ func switch_state(state: State, state_data := UseItemMenuStateData.new()) -> voi
 		state_data,
 		list_menu_behaviour,
 		use_item_menu_behaviour,
-		toggle_menu_input_handler,
 		list_menu_input_handler,
 		bag_menu,
 		ui_updater,

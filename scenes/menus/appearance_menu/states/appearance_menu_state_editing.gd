@@ -6,7 +6,7 @@ func _enter_tree() -> void:
 
 	_ui_updater.set_edit_mode()
 
-	_toggle_menu_input_handler.toggled.connect(_handle_toggle_menu)
+	ToggleMenuInputHandler.toggled.connect(_handle_toggle_menu)
 
 	AppearanceMenuEvents.emit_editing_started()
 
