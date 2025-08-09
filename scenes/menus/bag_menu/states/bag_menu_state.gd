@@ -56,18 +56,6 @@ func _on_consumed_item(consumed_item: Item, item_stacks: Array[ItemStack]) -> vo
 	print("Consumed " + consumed_item.name + " from bag")
 	update_item_stacks(item_stacks)
 
-func _emit_menu_hidden() -> void:
-	_menu.emit_menu_hidden()
-
-func _emit_menu_shown() -> void:
-	_menu.emit_menu_shown()
-
-func _emit_menu_covered() -> void:
-	_menu.emit_menu_covered()
-
-func _emit_menu_uncovered() -> void:
-	_menu.emit_menu_uncovered()
-
 func disable() -> void:
 	pass
 

@@ -20,19 +20,19 @@ func _handle_parent_menu_steal_control(menu: Menu) -> void:
     print(menu.name + " stole control from " + str(child_menus.size()) + " child menu(s)")
 
     for m in child_menus:
-        m.disable_menu()
+        m.disable()
         m.hide()
 
 func _handle_child_menu_hidden(menu: Menu) -> void:
     print(menu.name + " hidden")
 
     if child_menus.all(_menu_is_closed):
-        parent_menu.uncover_menu()
+        parent_menu.uncover()
 
 func _handle_child_menu_shown(menu: Menu) -> void:
     print(menu.name + " shown")
 
-    parent_menu.cover_menu()
+    parent_menu.cover()
 
 func _menu_is_closed(menu: Menu) -> bool:
     return menu.is_closed()

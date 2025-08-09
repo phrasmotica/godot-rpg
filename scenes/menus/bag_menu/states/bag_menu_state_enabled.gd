@@ -15,12 +15,12 @@ func _enter_tree() -> void:
 	_list_menu_input_handler.previous.connect(_handle_previous)
 
 	if _state_data.get_visibility_changed():
-		_emit_menu_shown()
+		_menu.emit_menu_shown()
 
 		_menu_behaviour.clamp()
 
 	if _state_data.get_was_uncovered():
-		_emit_menu_uncovered()
+		_menu.emit_menu_uncovered()
 
 func disable() -> void:
 	var state_data := BagMenuStateData.build() \

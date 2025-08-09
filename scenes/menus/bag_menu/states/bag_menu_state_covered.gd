@@ -14,12 +14,12 @@ func _enter_tree() -> void:
 	_use_item_menu.drop.connect(_on_drop)
 	_use_item_menu.drop_all.connect(_on_drop_all)
 
-	_emit_menu_covered()
+	_menu.emit_menu_covered()
 
 func _handle_current_index_changed(index: int) -> void:
 	print("%s current index changed %d, stealing control" % [_menu.name, index])
 
-	_menu.steal()
+	_menu.emit_steal_control()
 
 func update_item_stacks(item_stacks: Array[ItemStack]) -> void:
 	var count_changed := _ui_updater.update_buttons(item_stacks)
@@ -30,7 +30,7 @@ func update_item_stacks(item_stacks: Array[ItemStack]) -> void:
 	if count_changed:
 		print("%s stack count changed, stealing control" % _menu.name)
 
-		_menu.steal()
+		_menu.emit_steal_control()
 
 func _on_use() -> void:
 	var current_stack := _menu_behaviour.get_item_stack()

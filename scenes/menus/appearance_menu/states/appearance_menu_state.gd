@@ -34,12 +34,6 @@ func transition_state(
 ) -> void:
 	state_transition_requested.emit(new_state, state_data)
 
-func _emit_menu_hidden() -> void:
-	_menu.emit_menu_hidden()
-
-func _emit_menu_shown() -> void:
-	_menu.emit_menu_shown()
-
 func disable() -> void:
 	pass
 

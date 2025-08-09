@@ -63,19 +63,19 @@ func switch_state(state: State, state_data := BagMenuStateData.new()) -> void:
 
 ## Menu overrides
 
-func disable_menu() -> void:
+func disable() -> void:
 	if _current_state:
 		_current_state.disable()
 
-func enable_menu() -> void:
+func enable() -> void:
 	if _current_state:
 		_current_state.enable()
 
-func cover_menu() -> void:
+func cover() -> void:
 	if _current_state:
 		_current_state.cover()
 
-func uncover_menu() -> void:
+func uncover() -> void:
 	if _current_state:
 		_current_state.uncover()
 

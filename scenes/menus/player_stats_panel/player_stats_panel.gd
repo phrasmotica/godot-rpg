@@ -45,8 +45,8 @@ func switch_state(state: State, state_data := PlayerStatsPanelStateData.new()) -
 
 	call_deferred("add_child", _current_state)
 
-func disable_menu() -> void:
+func disable() -> void:
 	switch_state(State.DISABLED)
 
-func enable_menu() -> void:
+func enable() -> void:
 	switch_state(State.ENABLED)

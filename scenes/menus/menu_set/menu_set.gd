@@ -67,9 +67,9 @@ func emit_closed() -> void:
 func refresh() -> void:
 	for i in range(menus.size()):
 		if i != current_menu_index:
-			menus[i].disable_menu()
+			menus[i].disable()
 		else:
-			menus[i].enable_menu()
+			menus[i].enable()
 
 func handle_menu_nav() -> void:
 	var dir := menu_nav_action.value_axis_2d

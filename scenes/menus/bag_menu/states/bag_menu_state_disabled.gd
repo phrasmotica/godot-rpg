@@ -11,14 +11,14 @@ func _enter_tree() -> void:
 	_menu_behaviour.current_index_changed.connect(_handle_current_index_changed)
 
 	if _state_data.get_visibility_changed():
-		_emit_menu_hidden()
+		_menu.emit_menu_hidden()
 
 		_menu_behaviour.clamp()
 
 func _handle_current_index_changed(index: int) -> void:
 	print("%s current index changed %d, stealing control" % [_menu.name, index])
 
-	_menu.steal()
+	_menu.emit_steal_control()
 
 func update_item_stacks(item_stacks: Array[ItemStack]) -> void:
 	var count_changed := _ui_updater.update_buttons(item_stacks)

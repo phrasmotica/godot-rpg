@@ -12,7 +12,7 @@ func _enter_tree() -> void:
 	_list_menu_input_handler.select.connect(_handle_select)
 
 	if _state_data.get_visibility_changed():
-		_emit_menu_shown()
+		_menu.emit_menu_shown()
 
 func disable() -> void:
 	var state_data := AppearanceMenuStateData.build() \

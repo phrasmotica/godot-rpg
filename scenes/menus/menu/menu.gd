@@ -1,7 +1,4 @@
-@tool
 class_name Menu extends Control
-
-signal cancel
 
 signal menu_hidden(menu: Menu)
 signal menu_shown(menu: Menu)
@@ -10,25 +7,19 @@ signal menu_uncovered
 
 signal steal_control(menu: Menu)
 
-func cancel_menu() -> void:
-	cancel.emit()
-
-func disable_menu() -> void:
+func disable() -> void:
 	pass
 
-func enable_menu() -> void:
+func enable() -> void:
 	pass
 
-func cover_menu() -> void:
+func cover() -> void:
 	pass
 
-func uncover_menu() -> void:
+func uncover() -> void:
 	pass
 
-func steal() -> void:
-	_emit_steal_control()
-
-func _emit_steal_control() -> void:
+func emit_steal_control() -> void:
 	steal_control.emit(self)
 
 func emit_menu_hidden() -> void:

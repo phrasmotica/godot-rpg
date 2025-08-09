@@ -47,13 +47,11 @@ func switch_state(state: State, state_data := AppearanceMenuStateData.new()) -> 
 
 	call_deferred("add_child", _current_state)
 
-## Menu overrides
-
-func disable_menu() -> void:
+func disable() -> void:
 	if _current_state:
 		_current_state.disable()
 
-func enable_menu() -> void:
+func enable() -> void:
 	if _current_state:
 		_current_state.enable()
 
