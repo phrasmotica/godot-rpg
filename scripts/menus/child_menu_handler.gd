@@ -28,7 +28,6 @@ func _handle_parent_menu_steal_control(menu: Menu) -> void:
 
     for m in child_menus:
         m.disable()
-        m.hide()
 
 func _handle_child_menu_hidden(menu: Menu) -> void:
     print(menu.name + " hidden")

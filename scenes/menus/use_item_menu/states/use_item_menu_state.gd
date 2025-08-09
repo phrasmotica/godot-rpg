@@ -43,6 +43,9 @@ func transition_state(
 ) -> void:
 	state_transition_requested.emit(new_state, state_data)
 
+func disable() -> void:
+	pass
+
 func cover() -> void:
 	pass
 

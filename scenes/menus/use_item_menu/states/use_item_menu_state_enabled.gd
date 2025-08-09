@@ -85,5 +85,8 @@ func _can_use_item(item: Item) -> bool:
 
 	return facing_correct_tile and can_use
 
+func disable() -> void:
+	transition_state(UseItemMenu.State.DISABLED)
+
 func cover() -> void:
 	transition_state(UseItemMenu.State.COVERED)

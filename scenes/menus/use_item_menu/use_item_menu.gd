@@ -68,6 +68,10 @@ func switch_state(state: State, state_data := UseItemMenuStateData.new()) -> voi
 
 ## Menu overrides
 
+func disable() -> void:
+	if _current_state:
+		_current_state.disable()
+
 func cover() -> void:
 	if _current_state:
 		_current_state.cover()
