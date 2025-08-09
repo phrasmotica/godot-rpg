@@ -38,6 +38,8 @@ signal use_all
 signal drop
 signal drop_all
 
+# HIGH: create state machine
+
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
