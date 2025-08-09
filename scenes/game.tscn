@@ -110,10 +110,11 @@ modulate = Color(0.662745, 0.662745, 0.662745, 1)
 layout_mode = 2
 player_hit_points = NodePath("../../../../../Map/Player/HitPoints")
 
-[node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("bag", "use_item_menu") instance=ExtResource("5_votnq")]
+[node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("bag", "child_menu_handler", "use_item_menu") instance=ExtResource("5_votnq")]
 custom_minimum_size = Vector2(360, 2.08165e-12)
 layout_mode = 2
 bag = NodePath("../../../../../Map/Player/Bag")
+child_menu_handler = NodePath("ChildMenuHandler")
 use_item_menu = NodePath("../../../UseItemMenu")
 
 [node name="ChildMenuHandler" parent="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" node_paths=PackedStringArray("dialogue_manager", "parent_menu", "child_menus") instance=ExtResource("16_2runr")]

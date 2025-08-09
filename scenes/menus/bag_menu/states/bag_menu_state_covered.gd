@@ -50,6 +50,9 @@ func _on_drop_all() -> void:
 		_menu.emit_drop_stack(current_stack.id)
 
 func uncover() -> void:
+	if _child_menu_handler.any_menu_is_open():
+		return
+
 	var state_data := BagMenuStateData.build() \
 		.with_was_uncovered(true)
 

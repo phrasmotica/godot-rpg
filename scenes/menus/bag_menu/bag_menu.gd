@@ -11,6 +11,9 @@ enum State { DISABLED, ENABLED, COVERED }
 var bag: Bag
 
 @export
+var child_menu_handler: ChildMenuHandler
+
+@export
 var use_item_menu: UseItemMenu
 
 @onready
@@ -54,7 +57,8 @@ func switch_state(state: State, state_data := BagMenuStateData.new()) -> void:
 		list_menu_input_handler,
 		menu_behaviour,
 		use_item_menu,
-		bag)
+		bag,
+		child_menu_handler)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "BagMenuStateMachine: %s" % str(state)

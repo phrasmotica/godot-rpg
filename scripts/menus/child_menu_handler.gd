@@ -1,5 +1,5 @@
 @tool
-extends Node
+class_name ChildMenuHandler extends Node
 
 @export_group("Dependencies")
 
@@ -43,3 +43,6 @@ func _handle_child_menu_shown(menu: Menu) -> void:
 
 func _menu_is_closed(menu: Menu) -> bool:
     return menu.is_closed()
+
+func any_menu_is_open() -> bool:
+    return not child_menus.all(_menu_is_closed)

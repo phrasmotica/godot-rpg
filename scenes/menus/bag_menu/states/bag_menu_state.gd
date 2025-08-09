@@ -10,6 +10,7 @@ var _list_menu_input_handler: ListMenuInputHandler = null
 var _menu_behaviour: BagMenuBehaviour = null
 var _use_item_menu: UseItemMenu = null
 var _bag: Bag = null
+var _child_menu_handler: ChildMenuHandler = null
 
 func setup(
 	menu: BagMenu,
@@ -19,6 +20,7 @@ func setup(
 	menu_behaviour: BagMenuBehaviour,
 	use_item_menu: UseItemMenu,
 	bag: Bag,
+	child_menu_handler: ChildMenuHandler,
 ) -> void:
 	_menu = menu
 	_state_data = state_data
@@ -27,6 +29,7 @@ func setup(
 	_menu_behaviour = menu_behaviour
 	_use_item_menu = use_item_menu
 	_bag = bag
+	_child_menu_handler = child_menu_handler
 
 func transition_state(
 	new_state: BagMenu.State,
