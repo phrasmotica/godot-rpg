@@ -1,17 +1,8 @@
 extends Node
 
-# TODO: turn this into an autoload
+var _toggle: GUIDEAction = preload("res://resources/input/toggle_debug_mode.tres")
 
-@export
-var toggle: GUIDEAction
-
-@export
-var debug_layer: CanvasLayer
+signal toggled
 
 func _ready() -> void:
-    toggle.triggered.connect(_handle_toggle_triggered)
-
-    debug_layer.visible = false
-
-func _handle_toggle_triggered() -> void:
-    debug_layer.visible = not debug_layer.visible
+    _toggle.triggered.connect(toggled.emit)

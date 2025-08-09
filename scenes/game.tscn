@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://7nyhh4cif5fr" path="res://scenes/menus/bag_menu/bag_menu.tscn" id="5_votnq"]
 [ext_resource type="PackedScene" uid="uid://ghhfb6xsyy7h" path="res://scenes/items/item_consumer.tscn" id="8_7srcv"]
 [ext_resource type="PackedScene" uid="uid://vawc2gply777" path="res://scenes/npc.tscn" id="8_60xt8"]
-[ext_resource type="PackedScene" uid="uid://dht0cwk6y3xd4" path="res://scenes/input/toggle_debug_mode_input_handler.tscn" id="8_544nx"]
 [ext_resource type="PackedScene" uid="uid://cbtoj82qvcrwg" path="res://scenes/menus/use_item_menu/use_item_menu.tscn" id="9_6coe6"]
 [ext_resource type="PackedScene" uid="uid://clducor041jpw" path="res://scenes/map.tscn" id="10_ns2nh"]
 [ext_resource type="PackedScene" uid="uid://cvtqbegbkh1at" path="res://scenes/movement/movement_history.tscn" id="11_80ub2"]
@@ -17,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dn23sdhbfp51v" path="res://scenes/menus/appearance_menu/appearance_menu.tscn" id="14_bbr6w"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/menus/child_menu_handler.tscn" id="16_2runr"]
 [ext_resource type="Script" uid="uid://1ymjyise7f4x" path="res://scripts/ui/ui_transition_parent.gd" id="19_1kice"]
+[ext_resource type="Script" uid="uid://dfx7hxaxxlt6k" path="res://scripts/debug/debug_layer_toggler.gd" id="19_5newe"]
 [ext_resource type="PackedScene" uid="uid://d1gaebohj82ts" path="res://scenes/ui_manager.tscn" id="21_52gs6"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="27_5g51u"]
 
@@ -24,9 +24,6 @@
 
 [node name="InputManager" parent="." node_paths=PackedStringArray("ui_manager") instance=ExtResource("2_vx32o")]
 ui_manager = NodePath("../UICanvas/UIManager")
-
-[node name="ToggleDebugModeInputHandler" parent="InputManager" node_paths=PackedStringArray("debug_layer") instance=ExtResource("8_544nx")]
-debug_layer = NodePath("../../DebugLayer")
 
 [node name="Map" parent="." node_paths=PackedStringArray("player") instance=ExtResource("10_ns2nh")]
 player = NodePath("Player")
@@ -136,5 +133,9 @@ layer = 20
 script = ExtResource("19_1kice")
 
 [node name="DebugLayer" type="CanvasLayer" parent="."]
+
+[node name="DebugLayerToggler" type="Node" parent="DebugLayer" node_paths=PackedStringArray("debug_canvas_layer")]
+script = ExtResource("19_5newe")
+debug_canvas_layer = NodePath("..")
 
 [node name="GuideDebugger" parent="DebugLayer" instance=ExtResource("27_5g51u")]
