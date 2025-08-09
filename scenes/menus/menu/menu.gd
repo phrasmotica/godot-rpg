@@ -48,14 +48,3 @@ func emit_menu_uncovered() -> void:
 
 func is_closed() -> bool:
 	return false
-
-func _handle_visibility_changed() -> void:
-	if is_visible_in_tree():
-		menu_shown.emit(self)
-	else:
-		menu_hidden.emit(self)
-
-	after_visibility_changed()
-
-func after_visibility_changed() -> void:
-	pass
