@@ -32,6 +32,8 @@ func update_item_stacks(item_stacks: Array[ItemStack]) -> void:
 
 		_menu.emit_steal_control()
 
+		uncover()
+
 func _on_use() -> void:
 	var current_stack := _menu_behaviour.get_item_stack()
 	if current_stack:
