@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://di0g442ddi3vp"]
+
+[ext_resource type="Script" uid="uid://xt1t01sc1xh8" path="res://scenes/menus/bag_menu/bag_menu_items.gd" id="1_nomk1"]
+
+[node name="BagMenuItems" type="Node"]
+script = ExtResource("1_nomk1")

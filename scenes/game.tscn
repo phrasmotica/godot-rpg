@@ -5,17 +5,17 @@
 [ext_resource type="PackedScene" uid="uid://bc8nalaam6hto" path="res://scenes/input/input_manager.tscn" id="2_vx32o"]
 [ext_resource type="PackedScene" uid="uid://cbptipoqr4j66" path="res://scenes/player/hit_points.tscn" id="3_21716"]
 [ext_resource type="PackedScene" uid="uid://wf1bgkchcqs5" path="res://scenes/player/bag.tscn" id="3_pc812"]
-[ext_resource type="PackedScene" uid="uid://7nyhh4cif5fr" path="res://scenes/menus/bag_menu.tscn" id="5_votnq"]
+[ext_resource type="PackedScene" uid="uid://7nyhh4cif5fr" path="res://scenes/menus/bag_menu/bag_menu.tscn" id="5_votnq"]
 [ext_resource type="PackedScene" uid="uid://ghhfb6xsyy7h" path="res://scenes/items/item_consumer.tscn" id="8_7srcv"]
 [ext_resource type="PackedScene" uid="uid://vawc2gply777" path="res://scenes/npc.tscn" id="8_60xt8"]
 [ext_resource type="PackedScene" uid="uid://dht0cwk6y3xd4" path="res://scenes/input/toggle_debug_mode_input_handler.tscn" id="8_544nx"]
-[ext_resource type="PackedScene" uid="uid://cbtoj82qvcrwg" path="res://scenes/menus/use_item_menu.tscn" id="9_6coe6"]
+[ext_resource type="PackedScene" uid="uid://cbtoj82qvcrwg" path="res://scenes/menus/use_item_menu/use_item_menu.tscn" id="9_6coe6"]
 [ext_resource type="PackedScene" uid="uid://clducor041jpw" path="res://scenes/map.tscn" id="10_ns2nh"]
 [ext_resource type="PackedScene" uid="uid://cvtqbegbkh1at" path="res://scenes/movement/movement_history.tscn" id="11_80ub2"]
 [ext_resource type="PackedScene" uid="uid://berealf573bgo" path="res://scenes/player/party.tscn" id="11_d8y58"]
-[ext_resource type="PackedScene" uid="uid://pbl172qx88xu" path="res://scenes/menus/player_stats_panel.tscn" id="13_55kbe"]
-[ext_resource type="PackedScene" uid="uid://b1dyw2k752kgp" path="res://scenes/menu_set.tscn" id="13_vxc7t"]
-[ext_resource type="PackedScene" uid="uid://dn23sdhbfp51v" path="res://scenes/menus/appearance_menu.tscn" id="14_bbr6w"]
+[ext_resource type="PackedScene" uid="uid://pbl172qx88xu" path="res://scenes/menus/player_stats_panel/player_stats_panel.tscn" id="13_55kbe"]
+[ext_resource type="PackedScene" uid="uid://b1dyw2k752kgp" path="res://scenes/menus/menu_set/menu_set.tscn" id="13_vxc7t"]
+[ext_resource type="PackedScene" uid="uid://dn23sdhbfp51v" path="res://scenes/menus/appearance_menu/appearance_menu.tscn" id="14_bbr6w"]
 [ext_resource type="PackedScene" uid="uid://c7hj5t3hmye3" path="res://scenes/menus/child_menu_handler.tscn" id="16_2runr"]
 [ext_resource type="PackedScene" uid="uid://iycg8gyqg74k" path="res://scenes/ui/ui_transition_manager.tscn" id="20_kg64q"]
 [ext_resource type="PackedScene" uid="uid://d1gaebohj82ts" path="res://scenes/ui_manager.tscn" id="21_52gs6"]
@@ -24,8 +24,7 @@
 
 [node name="Game" type="Node2D"]
 
-[node name="InputManager" parent="." node_paths=PackedStringArray("appearance_menu", "dialogue_manager", "ui_manager") instance=ExtResource("2_vx32o")]
-appearance_menu = NodePath("../UICanvas/UIManager/MarginContainer/MenuSet/AppearanceMenu")
+[node name="InputManager" parent="." node_paths=PackedStringArray("dialogue_manager", "ui_manager") instance=ExtResource("2_vx32o")]
 dialogue_manager = NodePath("../DialogueCanvas/DialogueManager")
 ui_manager = NodePath("../UICanvas/UIManager")
 
@@ -111,17 +110,19 @@ modulate = Color(0.662745, 0.662745, 0.662745, 1)
 layout_mode = 2
 player_hit_points = NodePath("../../../../../Map/Player/HitPoints")
 
-[node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("bag", "use_item_menu") instance=ExtResource("5_votnq")]
+[node name="BagMenu" parent="UICanvas/UIManager/MarginContainer/MenuSet" node_paths=PackedStringArray("bag", "child_menu_handler", "use_item_menu") instance=ExtResource("5_votnq")]
 custom_minimum_size = Vector2(360, 2.08165e-12)
 layout_mode = 2
 bag = NodePath("../../../../../Map/Player/Bag")
+child_menu_handler = NodePath("ChildMenuHandler")
 use_item_menu = NodePath("../../../UseItemMenu")
 
-[node name="ChildMenuHandler" parent="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" node_paths=PackedStringArray("parent_menu", "child_menus") instance=ExtResource("16_2runr")]
+[node name="ChildMenuHandler" parent="UICanvas/UIManager/MarginContainer/MenuSet/BagMenu" node_paths=PackedStringArray("dialogue_manager", "parent_menu", "child_menus") instance=ExtResource("16_2runr")]
+dialogue_manager = NodePath("../../../../../../DialogueCanvas/DialogueManager")
 parent_menu = NodePath("..")
 child_menus = [NodePath("../../../../UseItemMenu")]
 
-[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("toggle_menu_input_handler", "bag", "bag_menu", "item_consumer", "map") instance=ExtResource("9_6coe6")]
+[node name="UseItemMenu" parent="UICanvas/UIManager" node_paths=PackedStringArray("toggle_menu_input_handler", "bag_menu", "item_consumer", "map") instance=ExtResource("9_6coe6")]
 visible = false
 anchors_preset = 1
 anchor_left = 1.0
@@ -132,7 +133,6 @@ offset_right = -416.0
 offset_bottom = 128.0
 grow_horizontal = 0
 toggle_menu_input_handler = NodePath("../../../InputManager/ToggleMenuInputHandler")
-bag = NodePath("../../../Map/Player/Bag")
 bag_menu = NodePath("../MarginContainer/MenuSet/BagMenu")
 item_consumer = NodePath("../../../Map/Player/Bag/ItemConsumer")
 map = NodePath("../../../Map")

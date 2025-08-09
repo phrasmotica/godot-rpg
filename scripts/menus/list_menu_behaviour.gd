@@ -7,8 +7,6 @@ var items: Array[MenuItem] = []
 @onready
 var index_handler: ListIndexHandler = %ListIndexHandler
 
-signal select_index(index: int)
-
 func _ready() -> void:
 	index_handler.current_index_changed.connect(_handle_current_index_changed)
 
@@ -45,5 +43,5 @@ func previous_if_disabled() -> void:
 	while items[index_handler.current].disabled:
 		previous()
 
-func select_current() -> void:
-	select_index.emit(index_handler.current)
+func get_current_index() -> int:
+	return index_handler.current

@@ -1,7 +1,10 @@
 @tool
-extends Node
+class_name ChildMenuHandler extends Node
 
 @export_group("Dependencies")
+
+@export
+var dialogue_manager: DialogueManager
 
 @export
 var parent_menu: Menu
@@ -9,30 +12,44 @@ var parent_menu: Menu
 @export
 var child_menus: Array[Menu] = []
 
+var _dialogue_in_progress := false
+
 func _ready() -> void:
+    dialogue_manager.timeline_started.connect(_set_dialogue_in_progress.bind(true))
+    dialogue_manager.timeline_ended.connect(_set_dialogue_in_progress.bind(false))
+
     parent_menu.steal_control.connect(_handle_parent_menu_steal_control)
 
     for m in child_menus:
         m.menu_hidden.connect(_handle_child_menu_hidden)
         m.menu_shown.connect(_handle_child_menu_shown)
 
+        if dialogue_manager:
+            dialogue_manager.timeline_started.connect(m.cover)
+            dialogue_manager.timeline_ended.connect(m.uncover)
+
+func _set_dialogue_in_progress(in_progress: bool) -> void:
+    _dialogue_in_progress = in_progress
+
 func _handle_parent_menu_steal_control(menu: Menu) -> void:
     print(menu.name + " stole control from " + str(child_menus.size()) + " child menu(s)")
 
     for m in child_menus:
-        m.disable_menu()
-        m.hide()
+        m.disable()
 
 func _handle_child_menu_hidden(menu: Menu) -> void:
     print(menu.name + " hidden")
 
-    if child_menus.all(_menu_is_closed):
-        parent_menu.uncover_menu()
+    if not _dialogue_in_progress and child_menus.all(_menu_is_closed):
+        parent_menu.uncover()
 
 func _handle_child_menu_shown(menu: Menu) -> void:
     print(menu.name + " shown")
 
-    parent_menu.cover_menu()
+    parent_menu.cover()
 
 func _menu_is_closed(menu: Menu) -> bool:
     return menu.is_closed()
+
+func any_menu_is_open() -> bool:
+    return not child_menus.all(_menu_is_closed)
