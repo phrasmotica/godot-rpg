@@ -12,9 +12,10 @@ func _enter_tree() -> void:
 func _handle_show_menu(stack: ItemStack) -> void:
 	print("Showing UseItemMenu for stack ID=" + str(stack.id))
 
-	_menu.bag_menu_handler.select_item(stack.item)
+	var state_data := UseItemMenuStateData.build() \
+		.with_stack(stack)
 
-	transition_state(UseItemMenu.State.ENABLED)
+	transition_state(UseItemMenu.State.ENABLED, state_data)
 
 func is_closed() -> bool:
 	return true

@@ -58,8 +58,6 @@ func _ready() -> void:
 	if map:
 		map.player_faced_tile.connect(use_item_menu_behaviour.handle_player_faced_tile)
 
-	bag_menu_handler.selected_item_changed.connect(_handle_selected_item_changed)
-
 	switch_state(State.DISABLED)
 
 func switch_state(state: State, state_data := UseItemMenuStateData.new()) -> void:
@@ -74,7 +72,10 @@ func switch_state(state: State, state_data := UseItemMenuStateData.new()) -> voi
 		list_menu_behaviour,
 		use_item_menu_behaviour,
 		toggle_menu_input_handler,
-		list_menu_input_handler)
+		list_menu_input_handler,
+		bag_menu_handler,
+		ui_updater,
+		item_consumer)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "UseItemMenuStateMachine: %s" % str(state)
@@ -101,25 +102,6 @@ func _handle_bag_used_item(used_item: Item, _item_stacks: Array[ItemStack]) -> v
 
 func _handle_bag_consumed_item(consumed_item: Item, _item_stacks:Array[ItemStack]) -> void:
 	bag_menu_handler.select_item(consumed_item)
-
-func _handle_selected_item_changed(item: Item) -> void:
-	_update_for(item)
-
-func _update_for(item: Item) -> void:
-	var can_use := _can_use_item(item)
-
-	ui_updater.update_for(item, can_use)
-
-	list_menu_behaviour.next_if_disabled()
-
-func _can_use_item(item: Item) -> bool:
-	if not item:
-		return false
-
-	var facing_correct_tile := use_item_menu_behaviour.can_use_item(item)
-	var can_use := item_consumer.can_use(item) or item_consumer.can_consume(item)
-
-	return facing_correct_tile and can_use
 
 func is_closed() -> bool:
 	return _current_state and _current_state.is_closed()

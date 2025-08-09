@@ -17,6 +17,9 @@ func _enter_tree() -> void:
 	_list_menu_input_handler.previous.connect(_handle_previous)
 	_list_menu_input_handler.select.connect(_handle_select)
 
+	var stack := _state_data.get_stack()
+	_handle_selected_item_changed(stack.item)
+
 	_emit_menu_shown()
 
 func _emit_use() -> void:
@@ -56,3 +59,19 @@ func _handle_select() -> void:
 	else:
 		var action := _list_menu_behaviour.get_current_index()
 		_use_item_menu_behaviour.handle_action(action)
+
+func _handle_selected_item_changed(item: Item) -> void:
+	var can_use := _can_use_item(item)
+
+	_ui_updater.update_for(item, can_use)
+
+	_list_menu_behaviour.next_if_disabled()
+
+func _can_use_item(item: Item) -> bool:
+	if not item:
+		return false
+
+	var facing_correct_tile := _use_item_menu_behaviour.can_use_item(item)
+	var can_use := _item_consumer.can_use(item) or _item_consumer.can_consume(item)
+
+	return facing_correct_tile and can_use
