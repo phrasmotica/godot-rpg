@@ -1,4 +1,4 @@
-class_name UITransitionsGate extends Node
+class_name UITransitionsGate
 
 var _count := 0
 
