@@ -31,9 +31,8 @@ signal closed
 func _ready() -> void:
 	if menus.size() > 0:
 		current_menu_index = 0
-		switch_state(State.ENABLED)
-	else:
-		switch_state(State.DISABLED)
+
+	switch_state(State.DISABLED)
 
 func switch_state(state: State, state_data := MenuSetStateData.new()) -> void:
 	if _current_state != null:
