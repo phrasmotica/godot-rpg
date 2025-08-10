@@ -1,5 +1,8 @@
 @tool
-class_name Player extends CharacterBody2D
+class_name Player
+extends CharacterBody2D
+
+enum State { DISABLED, ENABLED }
 
 @export
 var party: Party
@@ -37,6 +40,9 @@ var player_interact_input_handler: PlayerInteractInputHandler = %PlayerInteractI
 @onready
 var player_move_input_handler: PlayerMoveInputHandler = %PlayerMoveInputHandler
 
+var _state_factory := PlayerStateFactory.new()
+var _current_state: PlayerState = null
+
 signal position_faced(pos: Vector2)
 signal moving_to_position(pos: Vector2i)
 signal moved_to_position(pos: Vector2i)
@@ -48,6 +54,8 @@ func _ready() -> void:
 
 	if Engine.is_editor_hint():
 		return
+
+	switch_state(State.DISABLED)
 
 	position = grid_movement.get_snapped_position(position)
 
@@ -65,6 +73,21 @@ func _ready() -> void:
 	player_move_input_handler.move_triggered.connect(_handle_move_triggered)
 
 	moving_to_position.emit(global_position)
+
+func switch_state(state: State, state_data := PlayerStateData.new()) -> void:
+	if _current_state != null:
+		_current_state.queue_free()
+
+	_current_state = _state_factory.get_fresh_state(state)
+
+	_current_state.setup(
+		self,
+		state_data)
+
+	_current_state.state_transition_requested.connect(switch_state)
+	_current_state.name = "PlayerStateMachine: %s" % str(state)
+
+	call_deferred("add_child", _current_state)
 
 func _refresh() -> void:
 	if sprite:
