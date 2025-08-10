@@ -5,6 +5,9 @@ extends CharacterBody2D
 enum State { DISABLED, ENABLED }
 
 @export
+var ui_manager: UIManager
+
+@export
 var party: Party
 
 ## The physics layers that the raycast should collide with when processing
@@ -66,6 +69,7 @@ func switch_state(state: State, state_data := PlayerStateData.new()) -> void:
 	_current_state.setup(
 		self,
 		state_data,
+		ui_manager,
 		party,
 		grid_movement,
 		sprite,

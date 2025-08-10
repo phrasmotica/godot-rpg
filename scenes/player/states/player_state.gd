@@ -7,6 +7,7 @@ signal state_transition_requested(new_state: Player.State, state_data: PlayerSta
 
 var _player: Player = null
 var _state_data: PlayerStateData = null
+var _ui_manager: UIManager = null
 var _party: Party = null
 var _grid_movement: GridMovement = null
 var _sprite: AnimatedSprite2D = null
@@ -16,6 +17,7 @@ var _player_move_input_handler: PlayerMoveInputHandler = null
 func setup(
 	player: Player,
 	state_data: PlayerStateData,
+	ui_manager: UIManager,
 	party: Party,
 	grid_movement: GridMovement,
 	sprite: AnimatedSprite2D,
@@ -24,6 +26,7 @@ func setup(
 ) -> void:
 	_player = player
 	_state_data = state_data
+	_ui_manager = ui_manager
 	_party = party
 	_grid_movement = grid_movement
 	_sprite = sprite

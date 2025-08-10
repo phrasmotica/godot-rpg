@@ -15,18 +15,20 @@ var face: GUIDEAction
 @export
 var move: GUIDEAction
 
+# TODO: create a MOVING state for the Player, so that this flag isn't required
 var _facing_computed := false
 
+signal face_triggered(direction: Vector2)
 signal move_triggered(direction: Vector2)
 
-func _ready():
+func _ready() -> void:
 	move.triggered.connect(_handle_move)
 	move.completed.connect(_handle_move_completed)
 
-func _handle_move():
+func _handle_move() -> void:
 	var direction := move.value_axis_2d
 
-	if not _validate_movement(direction):
+	if not grid_movement.can_face(direction):
 		return
 
 	var already_facing := grid_movement.is_facing(direction)
@@ -34,7 +36,7 @@ func _handle_move():
 	# if we're not already facing in the direction we want to move in, we should
 	# be. Regardless of how long the input has been triggered for
 	if not already_facing and not _facing_computed:
-		grid_movement.face(direction)
+		face_triggered.emit(direction)
 		_facing_computed = true
 
 	var do_move := (
@@ -53,9 +55,6 @@ func _handle_move():
 
 	move_triggered.emit(direction)
 
-func _validate_movement(direction: Vector2) -> bool:
-	return grid_movement.can_face(direction)
-
-func _handle_move_completed():
+func _handle_move_completed() -> void:
 	# facing direction should be recomputed for the next move trigger
 	_facing_computed = false
