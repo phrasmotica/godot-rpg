@@ -1,20 +1,16 @@
 class_name FillGlassItemEffect extends ItemEffect
 
-func get_description():
-    return "fills an item, such as a Glass"
+func get_description() -> String:
+	return "fills an item, such as a Glass"
 
-func can_apply_to_self(item: Item):
-    return item.meta.has("is_filled") and not item.meta["is_filled"]
+func can_apply_to_self(item: Item) -> bool:
+	return item.meta.has("is_filled") and not item.meta["is_filled"]
 
-func apply_to_self(item: Item):
-    if item.meta.has("is_filled"):
-        print("Filling " + item.name)
-        item.meta["is_filled"] = true
+func apply_to_self(item: Item) -> ItemEffectResult:
+	if item.meta.has("is_filled"):
+		print("Filling " + item.name)
+		item.meta["is_filled"] = true
 
-        var result := ItemEffectResult.new()
-        result.item = item
-        result.dialogue_timeline = "filled_item"
+		return ItemEffectResult.new(item, "filled_item")
 
-        return result
-
-    return null
+	return null

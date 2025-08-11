@@ -24,12 +24,9 @@ func use(item: Item) -> bool:
 			var result: ItemEffectResult = x.apply_to_self(item)
 			if result:
 				item.after_apply(x)
+				result.process_for_dialogue()
 
 				some_effect_applied = true
-
-				if result.dialogue_timeline:
-					result.process_for_dialogue()
-					DialogueManager.start_timeline(result.dialogue_timeline)
 		else:
 			print("Cannot apply " + x.get_description() + " to self")
 
