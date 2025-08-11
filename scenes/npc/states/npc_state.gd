@@ -30,3 +30,6 @@ func is_interactable() -> bool:
 
 func face_to(_pos: Vector2) -> void:
 	pass
+
+func move_to(_pos: Vector2, _ignore_collision: bool) -> void:
+	pass

@@ -6,6 +6,7 @@ func _init() -> void:
 	states = {
 		NPC.State.DISABLED: NPCStateDisabled,
 		NPC.State.STATIC: NPCStateStatic,
+		NPC.State.IN_PARTY: NPCStateInParty,
 		NPC.State.ENABLED: NPCStateEnabled,
 	}
 

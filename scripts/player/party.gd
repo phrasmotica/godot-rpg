@@ -3,6 +3,10 @@ class_name Party extends Node2D
 @export
 var members: Array[NPC] = []
 
+func _ready() -> void:
+	for m in members:
+		m.add_to_party()
+
 func follow_player(positions: Array[Vector2i]):
 	for i in range(min(members.size(), positions.size())):
 		# TODO: make member n follow member n-1. This is the more general form

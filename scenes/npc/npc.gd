@@ -1,6 +1,6 @@
 class_name NPC extends CharacterBody2D
 
-enum State { DISABLED, STATIC, ENABLED }
+enum State { DISABLED, STATIC, IN_PARTY, ENABLED }
 
 @export
 var talk_dialogue := "":
@@ -36,7 +36,7 @@ var collision_shape: CollisionShape2D = %CollisionShape2D
 var _state_factory := NPCStateFactory.new()
 var _current_state: NPCState = null
 
-func _ready():
+func _ready() -> void:
 	collision_shape.shape = dialogue_area.get_area_shape()
 
 	grid_movement.set_raycast_mask(raycast_mask)
@@ -63,6 +63,9 @@ func switch_state(state: State, state_data := NPCStateData.new()) -> void:
 
 	call_deferred("add_child", _current_state)
 
+func add_to_party() -> void:
+	switch_state(State.IN_PARTY)
+
 func is_interactable() -> bool:
 	return _current_state and _current_state.is_interactable()
 
@@ -70,14 +73,6 @@ func face_to(pos: Vector2) -> void:
 	if _current_state:
 		_current_state.face_to(pos)
 
-func move_to(pos: Vector2, ignore_collision := false) -> void:
-	print("%s is being moved to position %s" % [name, pos])
-
-	var dir := (pos - global_position).normalized()
-
-	grid_movement.face(dir)
-
-	if ignore_collision:
-		grid_movement.move_ignore_collisions(dir)
-	else:
-		grid_movement.move_obey_collisions(dir)
+func move_to(pos: Vector2, ignore_collision: bool) -> void:
+	if _current_state:
+		_current_state.move_to(pos, ignore_collision)
