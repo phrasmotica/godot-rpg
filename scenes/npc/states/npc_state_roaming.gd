@@ -1,4 +1,4 @@
-class_name NPCStateEnabled
+class_name NPCStateRoaming
 extends NPCState
 
 const POSSIBLE_DIRECTIONS: Array[Vector2i] = [
@@ -9,7 +9,7 @@ const POSSIBLE_DIRECTIONS: Array[Vector2i] = [
 ]
 
 func _enter_tree() -> void:
-	print("%s is now enabled" % _npc.name)
+	print("%s is now roaming" % _npc.name)
 
 	_move_timer.timeout.connect(_move)
 	_move_timer.start(_npc.move_interval_seconds)

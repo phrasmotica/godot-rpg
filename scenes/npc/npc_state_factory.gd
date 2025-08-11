@@ -7,7 +7,7 @@ func _init() -> void:
 		NPC.State.DISABLED: NPCStateDisabled,
 		NPC.State.STATIC: NPCStateStatic,
 		NPC.State.IN_PARTY: NPCStateInParty,
-		NPC.State.ENABLED: NPCStateEnabled,
+		NPC.State.ROAMING: NPCStateRoaming,
 	}
 
 func get_fresh_state(state: NPC.State) -> NPCState:

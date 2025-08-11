@@ -1,6 +1,6 @@
 class_name NPC extends CharacterBody2D
 
-enum State { DISABLED, STATIC, IN_PARTY, ENABLED }
+enum State { DISABLED, STATIC, IN_PARTY, ROAMING }
 
 @export
 var talk_dialogue := "":
@@ -11,7 +11,7 @@ var talk_dialogue := "":
 			dialogue_area.timeline = talk_dialogue
 
 @export
-var enable_move := false
+var is_roaming := false
 
 @export_range(0.0, 10.0)
 var move_interval_seconds := 5.0
@@ -41,8 +41,8 @@ func _ready() -> void:
 
 	grid_movement.set_raycast_mask(raycast_mask)
 
-	if enable_move:
-		switch_state(State.ENABLED)
+	if is_roaming:
+		switch_state(State.ROAMING)
 	else:
 		switch_state(State.STATIC)
 

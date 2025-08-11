@@ -32,7 +32,7 @@ player = NodePath("Player")
 
 [node name="NPC" parent="Map/NPCs" instance=ExtResource("8_60xt8")]
 position = Vector2(1056, 672)
-enable_move = true
+is_roaming = true
 
 [node name="NPC2" parent="Map/NPCs" instance=ExtResource("8_60xt8")]
 position = Vector2(1120, 800)
