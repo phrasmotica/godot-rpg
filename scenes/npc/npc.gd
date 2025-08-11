@@ -1,5 +1,7 @@
 class_name NPC extends CharacterBody2D
 
+enum State { ENABLED }
+
 @export
 var talk_dialogue := "":
     set(value):
@@ -38,6 +40,9 @@ var possible_directions: Array[Vector2i] = [
     Vector2i.LEFT,
 ]
 
+var _state_factory := NPCStateFactory.new()
+var _current_state: NPCState = null
+
 func _ready():
     collision_shape.shape = dialogue_area.get_area_shape()
 
@@ -46,6 +51,23 @@ func _ready():
         move_timer.start(move_interval_seconds)
 
     grid_movement.set_raycast_mask(raycast_mask)
+
+    switch_state(State.ENABLED)
+
+func switch_state(state: State, state_data := NPCStateData.new()) -> void:
+    if _current_state != null:
+        _current_state.queue_free()
+
+    _current_state = _state_factory.get_fresh_state(state)
+
+    _current_state.setup(
+        self,
+        state_data)
+
+    _current_state.state_transition_requested.connect(switch_state)
+    _current_state.name = "NPCStateMachine: %s" % str(state)
+
+    call_deferred("add_child", _current_state)
 
 func move():
     var dir: Vector2i = possible_directions.pick_random()
