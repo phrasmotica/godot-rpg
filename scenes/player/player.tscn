@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://d2s13nanwkocg"]
+[gd_scene load_steps=22 format=3 uid="uid://d2s13nanwkocg"]
 
 [ext_resource type="Script" uid="uid://ctc1blf17pepf" path="res://scenes/player/player.gd" id="1_f36bm"]
 [ext_resource type="Material" uid="uid://b8ssv73m4jpoo" path="res://resources/materials/player-mat.tres" id="2_0ospp"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://cxo8n08h3j7iq" path="res://scenes/movement/grid_movement.tscn" id="3_co72y"]
 [ext_resource type="PackedScene" uid="uid://c0tkt5r1ynknp" path="res://scenes/movement/movement_animation.tscn" id="4_lx4vg"]
 [ext_resource type="Script" uid="uid://ctl0kk4ro0u01" path="res://scenes/player/player_move_input_handler.gd" id="5_ar6j6"]
-[ext_resource type="Resource" uid="uid://skcw58ycl5lp" path="res://resources/input/face.tres" id="6_mh6ol"]
 [ext_resource type="Resource" uid="uid://b1qcurn4np0wt" path="res://resources/input/move.tres" id="7_vwfou"]
 [ext_resource type="Resource" uid="uid://v5qquk3hch77" path="res://resources/input/interact.tres" id="8_adrrr"]
 [ext_resource type="Script" uid="uid://d2sfsub6tupds" path="res://scenes/player/player_interact_input_handler.gd" id="9_ut7ry"]
@@ -144,5 +143,4 @@ interact = ExtResource("8_adrrr")
 unique_name_in_owner = true
 script = ExtResource("5_ar6j6")
 grid_movement = NodePath("../GridMovement")
-face = ExtResource("6_mh6ol")
 move = ExtResource("7_vwfou")

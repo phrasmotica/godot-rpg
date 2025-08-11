@@ -10,9 +10,6 @@ var grid_movement: GridMovement
 var tap_threshold_seconds := 0.1
 
 @export
-var face: GUIDEAction
-
-@export
 var move: GUIDEAction
 
 signal face_triggered(direction: Vector2)
