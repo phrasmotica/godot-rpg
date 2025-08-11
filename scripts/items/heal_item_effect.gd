@@ -14,8 +14,4 @@ func apply_to_hit_points(hit_points: HitPoints):
 
     hit_points.current_hp += heal_amount
 
-    var result := HealEffectResult.new()
-    result.amount = heal_amount
-    result.dialogue_timeline = "healed_amount"
-
-    return result
+    return HealEffectResult.new(heal_amount)

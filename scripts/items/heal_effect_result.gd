@@ -1,8 +1,10 @@
 class_name HealEffectResult extends ItemConsumeResult
 
-@export
-var amount: int
+var _amount: int
 
-func process_for_dialogue():
-    if dialogue_timeline:
-        Dialogic.VAR.heal_amount = amount
+func _init(amount: int) -> void:
+	_amount = amount
+
+func process_for_dialogue() -> void:
+	Dialogic.VAR.heal_amount = _amount
+	DialogueManager.start_timeline("healed_amount")

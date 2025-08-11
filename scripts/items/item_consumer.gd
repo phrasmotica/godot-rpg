@@ -49,11 +49,8 @@ func consume(item: Item) -> bool:
 		if x.can_apply_to_hit_points(hit_points):
 			var result: ItemConsumeResult = x.apply_to_hit_points(hit_points)
 			if result:
+				result.process_for_dialogue()
 				some_effect_applied = true
-
-				if result.dialogue_timeline:
-					result.process_for_dialogue()
-					DialogueManager.start_timeline(result.dialogue_timeline)
 		else:
 			print("Cannot apply " + x.get_description() + " to hit points")
 

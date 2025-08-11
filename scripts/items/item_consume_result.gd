@@ -1,7 +1,4 @@
-class_name ItemConsumeResult extends Resource
+class_name ItemConsumeResult
 
-@export
-var dialogue_timeline := ""
-
-func process_for_dialogue():
-    pass
+func process_for_dialogue() -> void:
+	pass
