@@ -9,8 +9,7 @@ var item_consumer: ItemConsumer
 @export
 var bag_menu: BagMenu
 
-@onready
-var stack_manager: StackManager = %StackManager
+var _stack_manager := StackManager.new()
 
 signal added_item(new_item: Item, altered: bool, item_stacks: Array[ItemStack])
 signal dropped_item(dropped_item: Item, item_stacks: Array[ItemStack])
@@ -35,15 +34,15 @@ func _handle_player_pickup_item(item: Item) -> void:
 	_add_item(item)
 
 func _add_item(item: Item) -> void:
-	var new_item = stack_manager.add_item(item)
+	var new_item = _stack_manager.add_item(item)
 
-	added_item.emit(new_item, false, stack_manager.get_stacks())
+	added_item.emit(new_item, false, _stack_manager.get_stacks())
 
 	Dialogic.VAR.item_name = new_item.name
 	DialogueManager.start_timeline("picked_up_item")
 
 func _try_use_item(stack_id: int) -> void:
-	var item := stack_manager.peek(stack_id)
+	var item := _stack_manager.peek(stack_id)
 
 	if not item:
 		print("Tried to use from stack ID=" + str(stack_id) + " but no item was found!")
@@ -57,10 +56,10 @@ func _try_use_item(stack_id: int) -> void:
 		return
 
 	# take the item off the stack, we might put it back in the bag later
-	stack_manager.drop_item(stack_id)
+	_stack_manager.drop_item(stack_id)
 	print("Used " + item.name + " from stack ID=" + str(stack_id))
 
-	used_item.emit(item, stack_manager.get_stacks())
+	used_item.emit(item, _stack_manager.get_stacks())
 
 	if not can_consume:
 		# we might be able to consume the item now, as its list of external
@@ -84,22 +83,22 @@ func _do_consume_item(item: Item) -> void:
 
 	print("Consumed " + item.name)
 
-	stack_manager.remove_empty_stacks()
+	_stack_manager.remove_empty_stacks()
 
-	consumed_item.emit(item, stack_manager.get_stacks())
+	consumed_item.emit(item, _stack_manager.get_stacks())
 
 func _put_back(item: Item) -> void:
-	var altered_item := stack_manager.add_item(item)
-	stack_manager.remove_empty_stacks()
+	var altered_item := _stack_manager.add_item(item)
+	_stack_manager.remove_empty_stacks()
 
-	added_item.emit(altered_item, true, stack_manager.get_stacks())
+	added_item.emit(altered_item, true, _stack_manager.get_stacks())
 
 func _drop_item(stack_id: int) -> void:
-	var just_dropped_item := stack_manager.drop_item(stack_id, true)
+	var just_dropped_item := _stack_manager.drop_item(stack_id, true)
 
-	dropped_item.emit(just_dropped_item, stack_manager.get_stacks())
+	dropped_item.emit(just_dropped_item, _stack_manager.get_stacks())
 
 func _drop_stack(stack_id: int) -> void:
-	var just_dropped_item := stack_manager.drop_stack(stack_id)
+	var just_dropped_item := _stack_manager.drop_stack(stack_id)
 
-	dropped_item.emit(just_dropped_item, stack_manager.get_stacks())
+	dropped_item.emit(just_dropped_item, _stack_manager.get_stacks())

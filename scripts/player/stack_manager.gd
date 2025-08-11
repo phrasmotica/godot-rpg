@@ -1,8 +1,8 @@
-class_name StackManager extends Node
+class_name StackManager
 
 var _item_stacks: Array[ItemStack] = []
 
-func get_stacks():
+func get_stacks() -> Array[ItemStack]:
 	return _item_stacks
 
 func add_item(item: Item) -> Item:
@@ -96,13 +96,13 @@ func get_stack_with_id(id: int) -> ItemStack:
 
 	return valid_stacks[0] if valid_stacks.size() > 0 else null
 
-func remove_stack(stack: ItemStack):
+func remove_stack(stack: ItemStack) -> void:
 	_item_stacks = _item_stacks.filter(
 		func(s: ItemStack):
 			return s.id != stack.id
 	)
 
-func remove_empty_stacks():
+func remove_empty_stacks() -> void:
 	_item_stacks = _item_stacks.filter(
 		func(stack: ItemStack):
 			return stack.amount > 0
