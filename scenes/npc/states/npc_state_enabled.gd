@@ -1,5 +1,23 @@
 class_name NPCStateEnabled
 extends NPCState
 
+const POSSIBLE_DIRECTIONS: Array[Vector2i] = [
+	Vector2i.UP,
+	Vector2i.RIGHT,
+	Vector2i.DOWN,
+	Vector2i.LEFT,
+]
+
 func _enter_tree() -> void:
 	print("%s is now enabled" % _npc.name)
+
+	_move_timer.timeout.connect(_move)
+	_move_timer.start(_npc.move_interval_seconds)
+
+func _move() -> void:
+	var dir: Vector2i = POSSIBLE_DIRECTIONS.pick_random()
+
+	print("%s is moving in direction %s" % [_npc.name, dir])
+
+	_grid_movement.face(dir)
+	_grid_movement.move_obey_collisions(dir)

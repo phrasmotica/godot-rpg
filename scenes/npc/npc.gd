@@ -1,6 +1,6 @@
 class_name NPC extends CharacterBody2D
 
-enum State { ENABLED }
+enum State { DISABLED, ENABLED }
 
 @export
 var talk_dialogue := "":
@@ -33,26 +33,18 @@ var move_timer: Timer = %MoveTimer
 @onready
 var collision_shape: CollisionShape2D = %CollisionShape2D
 
-var possible_directions: Array[Vector2i] = [
-    Vector2i.UP,
-    Vector2i.RIGHT,
-    Vector2i.DOWN,
-    Vector2i.LEFT,
-]
-
 var _state_factory := NPCStateFactory.new()
 var _current_state: NPCState = null
 
 func _ready():
     collision_shape.shape = dialogue_area.get_area_shape()
 
-    if enable_move:
-        move_timer.timeout.connect(move)
-        move_timer.start(move_interval_seconds)
-
     grid_movement.set_raycast_mask(raycast_mask)
 
-    switch_state(State.ENABLED)
+    if enable_move:
+        switch_state(State.ENABLED)
+    else:
+        switch_state(State.DISABLED)
 
 func switch_state(state: State, state_data := NPCStateData.new()) -> void:
     if _current_state != null:
@@ -62,30 +54,24 @@ func switch_state(state: State, state_data := NPCStateData.new()) -> void:
 
     _current_state.setup(
         self,
-        state_data)
+        state_data,
+        grid_movement,
+        move_timer)
 
     _current_state.state_transition_requested.connect(switch_state)
     _current_state.name = "NPCStateMachine: %s" % str(state)
 
     call_deferred("add_child", _current_state)
 
-func move():
-    var dir: Vector2i = possible_directions.pick_random()
-
-    print("NPC " + name + " moving in direction " + str(dir))
-
-    grid_movement.face(dir)
-    grid_movement.move_obey_collisions(dir)
-
-func face(pos: Vector2):
-    print("NPC " + name + " facing position " + str(pos))
+func face(pos: Vector2) -> void:
+    print("%s is being made to face position %s" % [name, pos])
 
     var dir: Vector2i = (pos - global_position).normalized()
 
     grid_movement.face(dir)
 
-func move_to(pos: Vector2, ignore_collision := false):
-    print("NPC " + name + " is being moved to " + str(pos))
+func move_to(pos: Vector2, ignore_collision := false) -> void:
+    print("%s is being moved to position %s" % [name, pos])
 
     var dir := (pos - global_position).normalized()
 
