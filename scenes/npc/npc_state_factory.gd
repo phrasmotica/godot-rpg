@@ -5,6 +5,7 @@ var states: Dictionary
 func _init() -> void:
 	states = {
 		NPC.State.DISABLED: NPCStateDisabled,
+		NPC.State.STATIC: NPCStateStatic,
 		NPC.State.ENABLED: NPCStateEnabled,
 	}
 

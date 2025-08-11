@@ -24,3 +24,9 @@ func transition_state(
 	state_data := NPCStateData.new(),
 ) -> void:
 	state_transition_requested.emit(new_state, state_data)
+
+func is_interactable() -> bool:
+	return false
+
+func face_to(_pos: Vector2) -> void:
+	pass

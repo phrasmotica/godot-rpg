@@ -1,6 +1,6 @@
 class_name NPC extends CharacterBody2D
 
-enum State { DISABLED, ENABLED }
+enum State { DISABLED, STATIC, ENABLED }
 
 @export
 var talk_dialogue := "":
@@ -44,7 +44,7 @@ func _ready():
     if enable_move:
         switch_state(State.ENABLED)
     else:
-        switch_state(State.DISABLED)
+        switch_state(State.STATIC)
 
 func switch_state(state: State, state_data := NPCStateData.new()) -> void:
     if _current_state != null:
@@ -63,12 +63,12 @@ func switch_state(state: State, state_data := NPCStateData.new()) -> void:
 
     call_deferred("add_child", _current_state)
 
-func face(pos: Vector2) -> void:
-    print("%s is being made to face position %s" % [name, pos])
+func is_interactable() -> bool:
+    return _current_state and _current_state.is_interactable()
 
-    var dir: Vector2i = (pos - global_position).normalized()
-
-    grid_movement.face(dir)
+func face_to(pos: Vector2) -> void:
+    if _current_state:
+        _current_state.face_to(pos)
 
 func move_to(pos: Vector2, ignore_collision := false) -> void:
     print("%s is being moved to position %s" % [name, pos])

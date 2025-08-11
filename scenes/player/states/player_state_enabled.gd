@@ -32,10 +32,11 @@ func _handle_interacted() -> void:
 	_player.emit_interacted()
 
 func _handle_dialogue_triggered(npc: NPC) -> void:
-	npc.face(_player.global_position)
-	DialogueManager.start_timeline(npc.talk_dialogue)
+	if npc.can_be_interacted():
+		npc.face_to(_player.global_position)
+		DialogueManager.start_timeline(npc.talk_dialogue)
 
-	_player.emit_interacted()
+		_player.emit_interacted()
 
 func _handle_pickup_item_triggered(item: Item) -> void:
 	_player.emit_pickup_item(item)
