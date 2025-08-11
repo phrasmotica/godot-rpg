@@ -39,8 +39,6 @@ var _current_state: NPCState = null
 func _ready() -> void:
 	collision_shape.shape = dialogue_area.get_area_shape()
 
-	grid_movement.set_raycast_mask(raycast_mask)
-
 	if is_roaming:
 		switch_state(State.ROAMING)
 	else:

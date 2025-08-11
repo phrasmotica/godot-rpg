@@ -11,6 +11,9 @@ const POSSIBLE_DIRECTIONS: Array[Vector2i] = [
 func _enter_tree() -> void:
 	print("%s is now roaming" % _npc.name)
 
+	# required, because collisions matter in this state
+	_grid_movement.set_raycast_mask(_npc.raycast_mask)
+
 	_move_timer.timeout.connect(_move)
 	_move_timer.start(_npc.move_interval_seconds)
 
