@@ -6,6 +6,7 @@ func _init() -> void:
 	states = {
 		Player.State.DISABLED: PlayerStateDisabled,
 		Player.State.ENABLED: PlayerStateEnabled,
+		Player.State.MOVING: PlayerStateMoving,
 	}
 
 func get_fresh_state(state: Player.State) -> PlayerState:

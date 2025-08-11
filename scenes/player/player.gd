@@ -2,7 +2,7 @@
 class_name Player
 extends CharacterBody2D
 
-enum State { DISABLED, ENABLED }
+enum State { DISABLED, ENABLED, MOVING }
 
 @export
 var ui_manager: UIManager
