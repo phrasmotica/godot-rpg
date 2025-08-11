@@ -41,7 +41,7 @@ func peek(stack_id: int) -> Item:
 		print("Tried to peek from stack ID=" + str(stack_id) + " but the stack was empty!")
 		return null
 
-	return item
+	return stack.peek()
 
 func drop_item(stack_id: int, cleanup := false) -> Item:
 	var stack := get_stack_with_id(stack_id)

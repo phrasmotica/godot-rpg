@@ -16,6 +16,9 @@ func get_item() -> Item:
 func get_amount() -> int:
 	return _amount
 
+func peek() -> Item:
+	return _item.duplicate() as Item
+
 func will_accept(new_item: Item):
 	if _amount <= 0:
 		return true
