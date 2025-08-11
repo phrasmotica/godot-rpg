@@ -73,6 +73,6 @@ func face_to(pos: Vector2) -> void:
 	if _current_state:
 		_current_state.face_to(pos)
 
-func move_to(pos: Vector2, ignore_collision: bool) -> void:
+func move_to(pos: Vector2) -> void:
 	if _current_state:
-		_current_state.move_to(pos, ignore_collision)
+		_current_state.move_to(pos)
