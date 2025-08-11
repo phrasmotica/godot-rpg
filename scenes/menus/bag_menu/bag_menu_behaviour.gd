@@ -25,7 +25,7 @@ func get_item_stack() -> ItemStack:
 
 func get_item() -> Item:
 	var stack := get_item_stack()
-	return stack.item if stack else null
+	return stack.get_item() if stack else null
 
 func next() -> void:
 	if menu_items.size() <= 0:

@@ -19,11 +19,13 @@ var stack: ItemStack:
 		var name_text := "<empty stack>"
 		var amount_text := ""
 
-		if stack and stack.amount > 0:
-			if stack.item:
-				name_text = stack.item.get_display_name()
+		if stack and stack.get_amount() > 0:
+			var item := stack.get_item()
 
-			amount_text = "x" + str(stack.amount)
+			if item:
+				name_text = item.get_display_name()
+
+			amount_text = "x%d" % stack.get_amount()
 
 		if name_label:
 			name_label.text = name_text

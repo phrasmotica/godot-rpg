@@ -48,7 +48,7 @@ func _handle_select() -> void:
 	if not stack:
 		return
 
-	print("Selecting the " + stack.item.name)
+	print("Selecting the " + stack.get_item().name)
 
 	_menu.emit_select_stack(stack)
 

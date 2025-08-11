@@ -13,21 +13,17 @@ func add_item(item: Item) -> Item:
 	var existing_stack := find_stack(new_item)
 
 	if existing_stack:
-		print("Pushing " + new_item.name + " to stack ID " + str(existing_stack.id))
+		print("Pushing %s to stack ID %d" % [new_item.name, existing_stack.get_id()])
 
 		existing_stack.push(new_item)
 	else:
-		print("Creating new stack for " + new_item.get_display_name())
+		print("Creating new stack for %s" % new_item.get_display_name())
 
-		var new_stack = ItemStack.new()
+		var max_id: int = _item_stacks.map(func(s): return s.get_id()).max() or 1
 
-		var max_id = _item_stacks.map(func(s): return s.id).max()
-		if max_id:
-			new_stack.id = int(max_id) + 1
-		else:
-			new_stack.id = 1
-
+		var new_stack := ItemStack.new(max_id)
 		new_stack.push(new_item)
+
 		_item_stacks.append(new_stack)
 
 	return new_item
@@ -39,11 +35,13 @@ func peek(stack_id: int) -> Item:
 		print("Tried to peek from stack ID=" + str(stack_id) + " but no such stack exists!")
 		return null
 
-	if not stack.item or stack.amount < 1:
+	var item := stack.get_item()
+
+	if not item or stack.get_amount() < 1:
 		print("Tried to peek from stack ID=" + str(stack_id) + " but the stack was empty!")
 		return null
 
-	return stack.peek()
+	return item
 
 func drop_item(stack_id: int, cleanup := false) -> Item:
 	var stack := get_stack_with_id(stack_id)
@@ -71,7 +69,7 @@ func drop_stack(stack_id: int) -> Item:
 		print("Tried to drop all of stack ID=" + str(stack_id) + " but no such stack exists!")
 		return null
 
-	var just_dropped_item := stack.item
+	var just_dropped_item := stack.get_item()
 	if not just_dropped_item:
 		print("Tried to drop all of stack ID=" + str(stack_id) + " but the stack was empty!")
 		return null
@@ -91,7 +89,7 @@ func find_stack(new_item: Item) -> ItemStack:
 func get_stack_with_id(id: int) -> ItemStack:
 	var valid_stacks := _item_stacks.filter(
 		func(stack: ItemStack):
-			return stack.id == id
+			return stack.get_id() == id
 	)
 
 	return valid_stacks[0] if valid_stacks.size() > 0 else null
@@ -99,11 +97,11 @@ func get_stack_with_id(id: int) -> ItemStack:
 func remove_stack(stack: ItemStack) -> void:
 	_item_stacks = _item_stacks.filter(
 		func(s: ItemStack):
-			return s.id != stack.id
+			return s.get_id() != stack.get_id()
 	)
 
 func remove_empty_stacks() -> void:
 	_item_stacks = _item_stacks.filter(
 		func(stack: ItemStack):
-			return stack.amount > 0
+			return stack.get_amount() > 0
 	)

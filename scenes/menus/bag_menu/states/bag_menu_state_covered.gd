@@ -37,17 +37,17 @@ func update_item_stacks(item_stacks: Array[ItemStack]) -> void:
 func _on_use() -> void:
 	var current_stack := _menu_behaviour.get_item_stack()
 	if current_stack:
-		_menu.emit_use_item(current_stack.id)
+		_menu.emit_use_item(current_stack.get_id())
 
 func _on_drop() -> void:
 	var current_stack := _menu_behaviour.get_item_stack()
 	if current_stack:
-		_menu.emit_drop_item(current_stack.id)
+		_menu.emit_drop_item(current_stack.get_id())
 
 func _on_drop_all() -> void:
 	var current_stack := _menu_behaviour.get_item_stack()
 	if current_stack:
-		_menu.emit_drop_stack(current_stack.id)
+		_menu.emit_drop_stack(current_stack.get_id())
 
 func uncover() -> void:
 	if _child_menu_handler.any_menu_is_open():

@@ -25,7 +25,7 @@ func _enter_tree() -> void:
 	# for, transition to the DISABLED state...
 	var stack := _state_data.get_stack()
 	if stack:
-		_update_for(stack.item)
+		_update_for(stack.get_item())
 
 func _emit_use() -> void:
 	_menu.emit_use()

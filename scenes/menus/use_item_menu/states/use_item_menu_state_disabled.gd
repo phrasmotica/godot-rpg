@@ -12,7 +12,7 @@ func _enter_tree() -> void:
 	_map.player_faced_tile.connect(_handle_player_faced_tile)
 
 func _handle_select_stack(stack: ItemStack) -> void:
-	print("Showing UseItemMenu for stack ID=" + str(stack.id))
+	print("Showing UseItemMenu for stack ID=%d" % stack.get_id())
 
 	var state_data := UseItemMenuStateData.build() \
 		.with_stack(stack)
