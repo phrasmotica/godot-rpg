@@ -51,6 +51,7 @@ func _handle_hide_appearance_editor() -> void:
 	disable_outfit_nav()
 
 func handle_dialogue_started() -> void:
+	disable_interact()
 	disable_walk_mode()
 	disable_bag_menu()
 	disable_menu_nav()
@@ -64,26 +65,31 @@ func handle_dialogue_finished() -> void:
 	if _menu_is_open:
 		SignalHelper.once_next_frame(enable_menu_nav)
 	else:
+		SignalHelper.once_next_frame(enable_interact)
 		SignalHelper.once_next_frame(enable_walk_mode)
 
 func handle_menu_opened() -> void:
 	_menu_is_open = true
 
-	disable_walk_mode()
+	disable_interact()
 	enable_menu_nav()
 
 func handle_menu_closed() -> void:
 	_menu_is_open = false
 
-	SignalHelper.once_next_frame(enable_walk_mode)
+	SignalHelper.once_next_frame(enable_interact)
 	SignalHelper.once_next_frame(disable_menu_nav)
 
-func enable_walk_mode() -> void:
+func enable_interact() -> void:
 	GUIDE.enable_mapping_context(ctx_interact)
+
+func disable_interact() -> void:
+	GUIDE.disable_mapping_context(ctx_interact)
+
+func enable_walk_mode() -> void:
 	GUIDE.enable_mapping_context(ctx_walk_mode)
 
 func disable_walk_mode() -> void:
-	GUIDE.disable_mapping_context(ctx_interact)
 	GUIDE.disable_mapping_context(ctx_walk_mode)
 
 func disable_bag_menu() -> void:

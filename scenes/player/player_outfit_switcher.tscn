@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dfaopwqilebir" path="res://assets/sprites/player.png" id="1_8jsn2"]
 [ext_resource type="Theme" uid="uid://bswmnpr30nbs4" path="res://assets/themes/theme_rpg.tres" id="1_10n03"]
-[ext_resource type="Script" uid="uid://djmgl2qdffik1" path="res://scripts/player/player_outfit_switcher.gd" id="1_mtdnd"]
+[ext_resource type="Script" uid="uid://djmgl2qdffik1" path="res://scenes/player/player_outfit_switcher.gd" id="1_mtdnd"]
 [ext_resource type="Material" uid="uid://b8ssv73m4jpoo" path="res://resources/materials/player-mat.tres" id="3_6wcx3"]
 [ext_resource type="Resource" uid="uid://bosemvy0m1xgy" path="res://resources/input/outfit_nav.tres" id="3_gd02u"]
 [ext_resource type="Resource" uid="uid://cc4j5cojc8wm5" path="res://resources/materials/player_body_parts.tres" id="3_ma5g5"]
