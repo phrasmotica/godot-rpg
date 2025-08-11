@@ -52,6 +52,8 @@ signal moved_to_position(pos: Vector2i)
 signal interacted
 signal pickup_item(item: Item)
 
+# BUG: the player can't move after filling a glass from a water tile...
+
 func _ready() -> void:
 	_refresh()
 
