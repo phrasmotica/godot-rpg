@@ -71,12 +71,14 @@ func handle_menu_opened() -> void:
 	_menu_is_open = true
 
 	disable_interact()
+	disable_walk_mode()
 	enable_menu_nav()
 
 func handle_menu_closed() -> void:
 	_menu_is_open = false
 
 	SignalHelper.once_next_frame(enable_interact)
+	SignalHelper.once_next_frame(enable_walk_mode)
 	SignalHelper.once_next_frame(disable_menu_nav)
 
 func enable_interact() -> void:
