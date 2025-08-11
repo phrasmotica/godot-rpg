@@ -8,6 +8,7 @@ func _ready() -> void:
 		m.add_to_party()
 
 func follow_player(positions: Array[Vector2i]):
+	# BUG: this isn't quite working. NPCs are overlapping, or moving too far?
 	for i in range(min(members.size(), positions.size())):
 		# TODO: make member n follow member n-1. This is the more general form
 		# of making each member move to the (i-n)th position of the player's
