@@ -32,7 +32,7 @@ var sleeve_colour: Color:
 		_refresh()
 
 @onready
-var sprite: AnimatedSprite2D = %Sprite
+var appearance: PlayerAppearance = %Appearance
 
 @onready
 var grid_movement: GridMovement = %GridMovement
@@ -72,7 +72,7 @@ func switch_state(state: State, state_data := PlayerStateData.new()) -> void:
 		ui_manager,
 		party,
 		grid_movement,
-		sprite,
+		appearance,
 		player_interact_input_handler,
 		player_move_input_handler)
 
@@ -97,7 +97,5 @@ func emit_pickup_item(item: Item) -> void:
 	pickup_item.emit(item)
 
 func _refresh() -> void:
-	if sprite:
-		var shader := sprite.material as ShaderMaterial
-		shader.set_shader_parameter("torso_colour", torso_colour)
-		shader.set_shader_parameter("sleeve_colour", sleeve_colour)
+	if _current_state:
+		_current_state.refresh()

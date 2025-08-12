@@ -3,14 +3,12 @@ extends Node
 
 signal state_transition_requested(new_state: Player.State, state_data: PlayerStateData)
 
-# TODO: create PlayerAppearance and PlayerInteraction abstractions
-
 var _player: Player = null
 var _state_data: PlayerStateData = null
 var _ui_manager: UIManager = null
 var _party: Party = null
 var _grid_movement: GridMovement = null
-var _sprite: AnimatedSprite2D = null
+var _appearance: PlayerAppearance = null
 var _player_interact_input_handler: PlayerInteractInputHandler = null
 var _player_move_input_handler: PlayerMoveInputHandler = null
 
@@ -20,7 +18,7 @@ func setup(
 	ui_manager: UIManager,
 	party: Party,
 	grid_movement: GridMovement,
-	sprite: AnimatedSprite2D,
+	appearance: PlayerAppearance,
 	player_interact_input_handler: PlayerInteractInputHandler,
 	player_move_input_handler: PlayerMoveInputHandler,
 ) -> void:
@@ -29,7 +27,7 @@ func setup(
 	_ui_manager = ui_manager
 	_party = party
 	_grid_movement = grid_movement
-	_sprite = sprite
+	_appearance = appearance
 	_player_interact_input_handler = player_interact_input_handler
 	_player_move_input_handler = player_move_input_handler
 
@@ -38,3 +36,6 @@ func transition_state(
 	state_data := PlayerStateData.new(),
 ) -> void:
 	state_transition_requested.emit(new_state, state_data)
+
+func refresh() -> void:
+	_appearance.update_colours(_player.torso_colour, _player.sleeve_colour)
