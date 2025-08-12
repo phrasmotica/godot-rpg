@@ -17,6 +17,10 @@ signal used_item(used_item: Item, item_stacks: Array[ItemStack])
 
 signal consumed_item(consumed_item: Item, item_stacks: Array[ItemStack])
 
+# TODO: add a signal so that the UseItemMenu can transition to DISABLED
+# whenever the list of stacks in the bag changes such that the highlighted item
+# is now different to before...
+
 func _ready():
 	if player:
 		player.pickup_item.connect(_handle_player_pickup_item)

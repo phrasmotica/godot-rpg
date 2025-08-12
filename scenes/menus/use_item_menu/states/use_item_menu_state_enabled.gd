@@ -20,9 +20,6 @@ func _enter_tree() -> void:
 	_list_menu_input_handler.previous.connect(_handle_previous)
 	_list_menu_input_handler.select.connect(_handle_select)
 
-	# TODO: the stack in the current index might have changed if this was
-	# uncovered. If it has changed, which we could use the bag signals to check
-	# for, transition to the DISABLED state...
 	var stack := _state_data.get_stack()
 	if stack:
 		_update_for(stack.get_item())
