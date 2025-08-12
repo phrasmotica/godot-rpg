@@ -6,8 +6,6 @@ func _enter_tree() -> void:
 
 	_ui_manager.menu_opened.connect(_disable)
 
-	_player.position = _grid_movement.get_snapped_position(_player.position)
-
 	_grid_movement.position_faced.connect(_handle_position_faced)
 
 	_grid_movement.set_raycast_mask(_player.raycast_mask)
@@ -20,7 +18,11 @@ func _enter_tree() -> void:
 	_player_move_input_handler.face_triggered.connect(_handle_face_triggered)
 	_player_move_input_handler.move_triggered.connect(_handle_move_triggered)
 
-	_player.moving_to_position.emit(_player.global_position)
+	var was_moving := _state_data.get_move_direction().length_squared() > 0
+
+	if not was_moving:
+		_player.position = _grid_movement.get_snapped_position(_player.position)
+		_player.emit_moving_to_position(_player.global_position)
 
 func _disable() -> void:
 	transition_state(Player.State.DISABLED)

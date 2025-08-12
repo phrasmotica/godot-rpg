@@ -38,7 +38,7 @@ is_roaming = true
 position = Vector2(1120, 800)
 
 [node name="NPC3" parent="Map/NPCs" instance=ExtResource("8_60xt8")]
-position = Vector2(1120, 800)
+position = Vector2(1120, 864)
 
 [node name="NPC4" parent="Map/NPCs" instance=ExtResource("8_60xt8")]
 position = Vector2(1120, 1056)

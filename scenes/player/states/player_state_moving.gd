@@ -19,4 +19,4 @@ func _handle_moving_finished(pos: Vector2) -> void:
 	_sprite.stop()
 	_player.emit_moved_to_position(pos)
 
-	transition_state(Player.State.ENABLED)
+	transition_state(Player.State.ENABLED, _state_data)
